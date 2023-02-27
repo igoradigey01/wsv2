@@ -12,5 +12,5 @@ new repository for all fornt prodjects x...01
 ✔ Default stylesheet format             · cass
 ✔ Enable distributed caching to make your CI faster · Yes
 ```
-
+## документация в папке 'doc'
 
