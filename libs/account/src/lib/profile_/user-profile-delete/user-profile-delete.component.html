@@ -1,0 +1,50 @@
+
+<div class="container mat-typography">
+  <mat-card class="cart">
+    <mat-card-header class="title">
+      <div class="card-header mat-h3">Удалить Профиль</div>
+      <div>
+        <button mat-button (click)="onBack()">
+          <mat-icon>keyboard_backspace</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="error" *ngIf="_errorMgs?.length">
+        <ul>
+          <li *ngFor="let error of _errorMgs">
+            {{ error }}
+          </li>
+        </ul>
+      </div>
+
+      <!--Error messages Server output end-->
+      <form
+        class="form-signin"
+        #registerForm="ngForm"
+        novalidate
+        (ngSubmit)="submitForm()"
+      >
+        <div class="delete-profil-text">
+          вы действительно хотите удалить свой профиль без возможности
+          восстановления
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            color="warn"
+            type="submit"
+            [disabled]="!registerForm.valid"
+            
+            class="btn" 
+          >
+            Удалить
+          </button>
+        </div>
+      
+       
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

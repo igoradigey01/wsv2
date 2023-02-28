@@ -12,10 +12,31 @@
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
+              
+                {
+                  "sourceTag": "scope:x01",
+                  "onlyDependOnLibsWithTags": ["scope:x01","type:01-lib"]
+                },
+                {
+                  "sourceTag": "scope:xf01",
+                  "onlyDependOnLibsWithTags": ["scope:xf01","type:01-lib"]
+                }
+                ,
+                {
+                  "sourceTag": "scope:xl01",
+                  "onlyDependOnLibsWithTags": ["scope:xl01","type:01-lib"]
+                }
+                ,
+                {
+                  "sourceTag": "scope:shagen01",
+                  "onlyDependOnLibsWithTags": ["scope:shagen01","type:01-lib"]
+                }
+                ,           
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "scope:01account-lib",
+                "onlyDependOnLibsWithTags": ["scope:01account-lib", "type:01-lib"]
               }
+              
             ]
           }
         ]

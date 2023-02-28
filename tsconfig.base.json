@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@wsv2/account": ["libs/account/src/index.ts"]
+      "@wsv2/account": ["libs/account/src/index.ts"],
+      "@wsv2/auth-service": ["libs/auth-service/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

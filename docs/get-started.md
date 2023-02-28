@@ -8,6 +8,21 @@
  ## Add License to repo
  [gitHub](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository)
 
+ ### Version  package
+
+  ng version </br>
+  node -v </br>
+  npx  -v </br>
+  [обновить node.js download](https://nodejs.org/en/download/)
+ 
+
+ ## добавить angular-material and animations and cdk
+ yarn add @angular/material @angular/cdk @angular/animations
+
+ ## External Provider для lib account
+   yarn add  i @abacritt/angularx-social-login   
+   [help and sample](https://code-maze.com/how-to-sign-in-with-google-angular-aspnet-webapi/)
+
  ## Git шпоргалка
   ```
   git init [project-name] — создать новый локальный репозиторий с заданным именем.

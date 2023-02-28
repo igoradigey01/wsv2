@@ -1,0 +1,15 @@
+<p>user-orders-main works!</p>
+<div [ngSwitch]="_flagViewState">
+    <ng-template name="DataTable" ngSwitchDefault>
+     <x01-v1-user-orders-table></x01-v1-user-orders-table>
+    </ng-template>
+    <!--  Create template -->
+   
+  
+    <!--  Edit -Delete template -->
+    <ng-template name="ItemTable" ngSwitchCase="9">
+      <x01-v1-user-orders-item></x01-v1-user-orders-item>
+    </ng-template>
+  
+    
+  </div>

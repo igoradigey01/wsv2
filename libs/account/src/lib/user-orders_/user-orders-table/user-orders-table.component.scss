@@ -1,0 +1,8 @@
+@use "../../../style.scss" as st;
+
+.error {
+    color: st.$warn-color;
+  
+   // background-color: st.$warn-color;
+  }
+  

@@ -1,0 +1,37 @@
+{
+  "name": "auth-service",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/auth-service/src",
+  "prefix": "wsv2",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/auth-service/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/auth-service/**/*.ts",
+          "libs/auth-service/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": [
+    "scope:01as-lib",
+    "type:01-lib"
+  ]
+}

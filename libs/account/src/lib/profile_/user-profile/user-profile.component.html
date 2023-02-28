@@ -1,0 +1,116 @@
+<div class="container mat-typography">
+  <mat-card class="cart">
+    <!------------------------------------------------------->
+
+    <mat-card-header class="title">
+      <div>
+        <button mat-button color="primary" routerLink="/account/sing-off">
+          Выйти
+        </button>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="error" *ngIf="_errorMgs?.length">
+        <ul>
+          <li *ngFor="let error of _errorMgs">
+            {{ error }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="profileUserInfo">
+        <div class="profileUserInfo_avatar">
+          <img class="avatar_img" src="/assets/account/no_profil_photo.webp" />
+        </div>
+        <div class="profileUserInfo_personDetail">
+          <div class="profileUserInfo_personData">
+            <span style="margin-right: 0.5rem">{{ User.firstName }}</span>
+            <span>{{ User.lastName }}</span>
+          </div>
+          <div class="profileUserInfo_messages">
+            <svg
+              width="22"
+              height="18"
+              viewBox="0 0 44 36"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="ProfileUserInfo_UnreadMessagesCounter__icon__zmhe5"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M26 20.8284L23.4142 23.4142C22.6332 24.1953 21.3668 24.1953 20.5858 23.4142L18 20.8284L6.822 32.0064L37.1718 32.0002L26 20.8284ZM40.0001 6.82834L28.8284 18L39.9995 29.171L40.0001 6.82834ZM15.1716 18L4.00053 6.82895L3.99991 29.1717L15.1716 18ZM22 19.2376L37.187 3.99357L6.81917 3.99978L22 19.2376ZM4.00181 0H39.9982C42.2083 0 44 1.78525 44 3.99018V32.0098C44 34.2135 42.2069 36 39.9982 36H4.00181C1.79167 36 0 34.2148 0 32.0098V3.99018C0 1.78646 1.79309 0 4.00181 0Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+            <span> Непрочитанные сообщения </span> :
+            <span class="profileUserInfo_messages_count">{{ Massages }}</span>
+          </div>
+        </div>
+      </div>
+
+      <mat-list>
+        <div class="mat-subheader" mat-subheader>Телефон:</div>
+        <mat-list-item>
+          <mat-icon  mat-list-icon>
+            phone
+            </mat-icon>
+          <div mat-line>{{ User.phone }}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div class="mat-subheader" mat-subheader>Еmail</div>
+        <mat-list-item>
+          <mat-icon mat-list-icon>email</mat-icon>
+          <div mat-line>{{ User.email }}</div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <div class="mat-subheader" mat-subheader>
+          Адрес доставки
+          <mat-icon
+            class="icon_aderss_svg"
+            svgIcon="thumbs-up"
+            aria-hidden="false"
+            aria-label="adress SVG icon"
+            mat-list-icon
+          ></mat-icon>
+        </div>
+      </mat-list>
+      <div class="user_adresss">
+        {{ User.address }}
+      </div>
+      <mat-divider></mat-divider>
+
+      <div>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="onEditButton()"
+          class="btn"
+        >
+          Редактировать Профиль
+        </button>
+      </div>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onChangePassword()"
+          class="btn"
+        >
+          сменить пароль
+        </button>
+      </div>
+      <div>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="onDeleteButton()"
+          class="btn"
+        >
+          Удалить Профиль
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

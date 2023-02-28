@@ -1,0 +1,47 @@
+<div [ngSwitch]="_flagViewState">
+  <ng-template ngSwitchDefault>
+    <div class="container mat-typography">
+      <mat-card class="cart"> 
+        <mat-card-content>
+          <mat-tab-group mat-align-tabs="center">
+            <mat-tab label="Профиль">
+              <app-user-profile
+              [User]="user"
+              (onToggleViewState)="onChangeViewState($event)"
+              
+              ></app-user-profile>
+             </mat-tab>
+            <mat-tab label="Заказы">
+             <x01-v1-user-orders-main></x01-v1-user-orders-main>
+            </mat-tab> 
+          </mat-tab-group>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-template>
+  <!--  Create template -->
+ 
+
+  <!--  Edit -Delete template -->
+  <ng-template name="Edit" ngSwitchCase="4">
+    <app-user-profile-edit
+    [User]="user"
+    (onToggleViewState)="onChangeViewState($event)"
+    ></app-user-profile-edit>
+  </ng-template>
+  <ng-template name="ResetPassword" ngSwitchCase="10">
+  <x01-v1-reset-password-profile
+   [Email]="user.email"
+   (onToggleViewState)="onChangeViewState($event)"
+  >
+
+  </x01-v1-reset-password-profile>
+  </ng-template>
+  <ng-template name="delete" ngSwitchCase="7">
+    <app-user-profile-delete
+    [User]="user"
+    (onToggleViewState)="onChangeViewState($event)"
+    ></app-user-profile-delete>
+  </ng-template>
+</div>
+

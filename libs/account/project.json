@@ -43,5 +43,8 @@
       }
     }
   },
-  "tags": []
+  "tags": [
+    "scope:01account-lib",
+    "type:01-lib"
+  ]
 }

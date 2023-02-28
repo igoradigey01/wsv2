@@ -1,0 +1,128 @@
+@use "../../style.scss" as st;
+
+.container {
+  min-height: 400px;
+  width: 100%;
+  margin: 1rem 0 1rem 0;
+}
+.form-signin{
+  margin-bottom: 1rem;
+}
+.cart {
+  width: 100%;
+  text-align: center;
+ // margin: 1rem auto 1rem auto;
+}
+.title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  text-align: center;
+  padding: 0;
+
+  font-size: 16px;
+  background-color: st.$accent-color;
+
+  color: st.$text-accent-color;
+}
+.note-login {
+  //background-color: #f1c40f;
+  background-color: st.$warn-lighter-color;
+}
+
+.input-field {
+  width: 90%;
+  // background-color: st.$accent-lighter-color ;
+
+  color: st.$text-accent-lighter-color;
+}
+
+.check-field {
+  display: flex;
+  justify-content: flex-end;
+}
+.route-field {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1.5rem;
+}
+
+.cansel {
+  background-color: st.$warn-lighter-color;
+  color: st.$text-warn-color;
+}
+.form-social {
+  background-color: #fff;
+}
+.social-blok{
+  display: flex;
+  justify-content: center;
+  margin-left: 2rem;
+}
+
+.btn-social {
+  background-color: #fff;
+  border: none;
+}
+.telegram_widget{
+  display: block;
+  text-align: center;
+}
+
+ .goole_widget{
+  display: block;
+  text-align: center;
+ }
+.dot {
+  height: 3rem;
+  width: 3rem;
+  //background-color: #ad63b9;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+}
+
+.social-icons {
+  list-style: none;
+  display: inline-flex;
+  right: 16px;
+  position: relative;
+}
+
+.social-icons li {
+  padding: 10px;
+}
+
+
+
+.vk {
+  background-color: #1a70d3;
+  color: #fff;
+}
+.error {
+  color: st.$warn-color;
+
+ // background-color: st.$warn-color;
+}
+
+
+
+@media (min-width: 768px) {
+  .cart {
+    width: 70%;
+    margin: auto;
+  }
+}
+@media (min-width: 960px) {
+  .cart {
+    width: 50%;
+    margin: auto;
+  }
+}
