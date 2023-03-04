@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 
 import { ManagerServiceModule } from './maneger-service.module';
 
-import { RouteApiService } from '../services/route-api.service';
+import { RouteApiService } from '../../../../../app-config/src/lib/_shared/services/route-api.service';
 import { RegistrationResponseDto } from '../_interfaces/registration-responseDto.model';
 import { UserRegistrationDto } from '../_interfaces/user-registrationDto.model';
 import { ForgotPasswordDto } from '../_interfaces/forgot-passwordDto.model';

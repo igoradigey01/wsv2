@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ManagerServiceModule } from './maneger-service.module';
-import { RouteApiService } from './route-api.service';
+import { RouteApiService } from '../../../../../app-config/src/lib/_shared/services/route-api.service';
 import {UserProfileDto} from '../_interfaces/user-profileDto.model'
 import {UserManagerService} from '@wsv2/account-service'
 import {ResetPasswordProfileDto} from '../_interfaces/reset-password-profileDto.model'

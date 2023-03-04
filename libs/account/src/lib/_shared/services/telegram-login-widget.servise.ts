@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {UserTelegramDto} from '../_interfaces/user-telegramDto.model'
-import { RouteApiService } from './route-api.service';
+import { RouteApiService } from '../../../../../app-config/src/lib/_shared/services/route-api.service';
 import { ManagerServiceModule } from './maneger-service.module';
 
 export interface ScriptModel {

@@ -1,12 +1,10 @@
-import { Injectable,Inject } from '@angular/core';
-import { APP_CONFIG ,IEnvironment } from '@wsv2/app-config';
 
-//import { environment } from 'libs/';
-import {ManagerServiceModule} from './maneger-service.module'
+import { IEnvironment } from '../interfaces/environment.model';
 
-@Injectable({
-  providedIn:  ManagerServiceModule ,
-})
+
+
+
+
 export class RouteApiService {
   private _serverAuthority: string | undefined;
   private _controller: string = '';
@@ -16,7 +14,7 @@ export class RouteApiService {
   private _clientRootUrl:string='';
 
   constructor(
-    @Inject(APP_CONFIG) private appConfig: IEnvironment
+     private appConfig: IEnvironment
   ) {
     this._postavchikId = +appConfig.postavchikId;
     this._serverAuthority = appConfig.serverAuthority;
