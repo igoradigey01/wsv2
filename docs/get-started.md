@@ -16,10 +16,10 @@
   [обновить node.js download](https://nodejs.org/en/download/)
  
 
- ## добавить angular-material and animations and cdk
+ ## добавить 
+ ### angular-material ,  angular-animations and  angular-cdk
  yarn add @angular/material @angular/cdk @angular/animations
-
- ## External Provider для lib account
+ ### External Provider для lib account
    yarn add  i @abacritt/angularx-social-login   
    [help and sample](https://code-maze.com/how-to-sign-in-with-google-angular-aspnet-webapi/)
 

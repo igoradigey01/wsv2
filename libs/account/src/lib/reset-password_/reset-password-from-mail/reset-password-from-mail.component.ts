@@ -5,7 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import {AccountService} from '../../_shared/services/account.service';
 import {ResetPasswordMailDto} from '../../_shared/_interfaces/reset-passwordDto.model';
-import { UserManagerService } from '@x01-v1/xl01/auth-service';
+import { UserManagerService } from '@wsv2/account-service';
 
 
 

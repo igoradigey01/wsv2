@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserManagerService } from '@x01-v1/xl01/auth-service';
+import { UserManagerService } from '@wsv2/account-service';
 import {SocialAuthService} from '@abacritt/angularx-social-login'
 
 @Component({

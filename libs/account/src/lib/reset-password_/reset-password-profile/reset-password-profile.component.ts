@@ -6,7 +6,7 @@ import {StateView} from '../../_shared/_interfaces/state-view'
 
 import { ProfileService} from '../../_shared/services/profile.service';
 import { ResetPasswordProfileDto } from '../../_shared/_interfaces/reset-password-profileDto.model';
-import { UserManagerService } from '@x01-v1/xl01/auth-service';
+import { UserManagerService } from '@wsv2/account-service';
 
 @Component({
   selector: 'x01-v1-reset-password-profile',

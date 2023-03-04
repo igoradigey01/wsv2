@@ -36,7 +36,16 @@
                 "sourceTag": "scope:01account-lib",
                 "onlyDependOnLibsWithTags": ["scope:01account-lib", "type:01-lib"]
               }
-              
+              ,           
+              {
+                "sourceTag": "scope:01mystylelib-lib",
+                "onlyDependOnLibsWithTags": [ "scope:01mystylelib-lib", "type:01-lib"]
+              }
+              ,           
+              {
+                "sourceTag": "scope:01environment-url-lib",
+                "onlyDependOnLibsWithTags": [ "scope:01environment-url-lib", "type:01-lib"]
+              }
             ]
           }
         ]

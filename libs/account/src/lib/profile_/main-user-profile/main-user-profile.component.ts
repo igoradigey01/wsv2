@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StateView } from '../../_shared/_interfaces/state-view';
 import { UserProfileDto } from '../../_shared/_interfaces/user-profileDto.model';
-import { UserManagerService } from '@x01-v1/xl01/auth-service';
+import { UserManagerService } from '@wsv2/account-service';
 import { ProfileService } from '../../_shared/services/profile.service';
 
 @Component({

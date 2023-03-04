@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
-import { environment } from 'apps/xl01/src/environments/environment';
+import { Injectable,Inject } from '@angular/core';
+import { APP_CONFIG ,IEnvironment } from '@wsv2/environment-url';
+
+//import { environment } from 'libs/';
 import {ManagerServiceModule} from './maneger-service.module'
 
 @Injectable({
@@ -13,10 +15,12 @@ export class RouteApiService {
   private _postavchikId: number | undefined;
   private _clientRootUrl:string='';
 
-  constructor() {
-    this._postavchikId = +environment.postavchikId;
-    this._serverAuthority = environment.serverAuthority;
-    this._clientRootUrl=environment.clientRoot;
+  constructor(
+    @Inject(APP_CONFIG) private appConfig: IEnvironment
+  ) {
+    this._postavchikId = +appConfig.postavchikId;
+    this._serverAuthority = appConfig.serverAuthority;
+    this._clientRootUrl= appConfig.clientRoot;
   }
 
   public set Controller(name: string) {

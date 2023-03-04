@@ -86,8 +86,5 @@
       }
     }
   },
-  "tags": [
-    "scope:shagen01",
-    "type:app"
-  ]
+  "tags": ["scope:shagen01", "type:app"]
 }

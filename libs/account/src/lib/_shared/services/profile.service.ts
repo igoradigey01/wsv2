@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ManagerServiceModule } from './maneger-service.module';
 import { RouteApiService } from './route-api.service';
 import {UserProfileDto} from '../_interfaces/user-profileDto.model'
-import {UserManagerService} from '@x01-v1/xl01/auth-service'
+import {UserManagerService} from '@wsv2/account-service'
 import {ResetPasswordProfileDto} from '../_interfaces/reset-password-profileDto.model'
 
 

@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { UserProfileDto } from '../../_shared/_interfaces/user-profileDto.model';
-import { UserManagerService } from '@x01-v1/xl01/auth-service';
+import { UserManagerService } from '@wsv2/account-service';
 import { ProfileService } from '../../_shared/services/profile.service';
 import { StateView } from '../../_shared/_interfaces/state-view';
 

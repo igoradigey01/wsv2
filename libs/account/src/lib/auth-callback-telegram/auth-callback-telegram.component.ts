@@ -2,7 +2,7 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Router ,ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { UserManagerService } from '@x01-v1/xl01/auth-service';
+import { UserManagerService } from '@wsv2/account-service';
 import {TelegramLoginWidgetService} from '../_shared/services/telegram-login-widget.servise'
 import {UserTelegramDto} from '../_shared/_interfaces/user-telegramDto.model'
 //https://core.telegram.org/widgets/login

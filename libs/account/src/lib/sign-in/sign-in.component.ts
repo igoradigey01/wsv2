@@ -12,10 +12,11 @@ import {
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, NgForm } from '@angular/forms';
-import { UserManagerService } from '@x01-v1/xl01/auth-service';
+import { UserManagerService } from '@wsv2/account-service';
 import { AccountService } from '../_shared/services/account.service';
 import { Subscription } from 'rxjs';
 import { ExternalAuthSocialDto } from '../_shared/_interfaces/ExternalAuthSocialDto.model';
+
 
 //https://code-maze.com/angular-security-with-asp-net-core-identity/
 //https://account.mail.ru/user/2-step-auth/passwords/

@@ -86,8 +86,5 @@
       }
     }
   },
-  "tags": [
-    "scope:xf01",
-    "type:app"
-  ]
+  "tags": ["scope:xf01", "type:app"]
 }
