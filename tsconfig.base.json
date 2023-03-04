@@ -16,8 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@wsv2/account": ["libs/account/src/index.ts"],
-      "@wsv2/account-service": ["libs/account-service/src/index.ts"],     
-      "@wsv2/environment-url": ["libs/environment-url/src/index.ts"],
+      "@wsv2/account-service": ["libs/account-service/src/index.ts"],
+      "@wsv2/app-config": ["libs/app-config/src/index.ts"],
+      
       "@wsv2/my-styles-library": ["libs/my-styles-library/src/index.ts"]
     }
   },

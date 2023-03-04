@@ -43,8 +43,8 @@
               }
               ,           
               {
-                "sourceTag": "scope:01environment-url-lib",
-                "onlyDependOnLibsWithTags": [ "scope:01environment-url-lib", "type:01-lib"]
+                "sourceTag": "scope:01app-config-lib",
+                "onlyDependOnLibsWithTags": [ "scope:01app-config-lib", "type:01-lib"]
               }
             ]
           }

@@ -1,5 +1,5 @@
 import { Injectable,Inject } from '@angular/core';
-import { APP_CONFIG ,IEnvironment } from '@wsv2/environment-url';
+import { APP_CONFIG ,IEnvironment } from '@wsv2/app-config';
 
 //import { environment } from 'libs/';
 import {ManagerServiceModule} from './maneger-service.module'
