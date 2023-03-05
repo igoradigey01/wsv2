@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {UserTelegramDto} from '../_interfaces/user-telegramDto.model'
-import { RouteApiService } from '../../../../../app-config/src/lib/_shared/services/route-api.service';
+import { ApiService } from './route-api.service';
 import { ManagerServiceModule } from './maneger-service.module';
 
 export interface ScriptModel {
@@ -26,7 +26,7 @@ export class TelegramLoginWidgetService {
 
   constructor(
     private http: HttpClient,   
-    private url: RouteApiService
+    private url: ApiService
   ) { }
 
   public loadWidgetScript(): void {
@@ -71,7 +71,7 @@ export class TelegramLoginWidgetService {
       'Authorization': 'Bearer ' + '',
     });
     var credentials=JSON.stringify(user);
-    return this.http.post(this.url.Url, credentials, { headers });
+    return this.http.post(this.url.UrlAuth, credentials, { headers });
 
    }
 }

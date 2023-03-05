@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ForgotPasswordDto } from '../_shared/_interfaces/forgot-passwordDto.model';
 
 import { AccountService } from '../_shared/services/account.service';
-import { environment } from 'apps/xf01/src/environments/environment';
+import { ApiService} from '../_shared/services/route-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -15,13 +15,17 @@ export class ForgotPasswordComponent implements OnInit {
 
   public _forgotPass:ForgotPasswordDto=<ForgotPasswordDto>{
     email:'',
-    clientURI: environment.clientRoot + 'account/reset-password',
+    clientURI: this.apiService.ClientRoot + 'account/reset-password',
 
   }
   public _errorMgs: string[] = [];
   public showSuccess: boolean = false;
   public _flagButoon: boolean = false;
-  constructor(private repozitory: AccountService) {}
+  constructor(
+    private repozitory: AccountService,
+    private apiService:ApiService
+    
+    ) {}
 
   ngOnInit(): void {
     // this.forgotPasswordForm =

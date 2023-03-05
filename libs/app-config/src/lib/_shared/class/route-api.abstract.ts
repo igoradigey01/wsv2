@@ -1,12 +1,15 @@
 
+
 import { IEnvironment } from '../interfaces/environment.model';
 
 
 
 
 
-export class RouteApiService {
+
+export abstract class RouteApiAbstract {
   private _serverAuthority: string | undefined;
+  private _serverRoot:string|undefined;
   private _controller: string = '';
   private _action: string | null = null;
   private _id: number | null = null;
@@ -14,7 +17,7 @@ export class RouteApiService {
   private _clientRootUrl:string='';
 
   constructor(
-     private appConfig: IEnvironment
+    private appConfig: IEnvironment
   ) {
     this._postavchikId = +appConfig.postavchikId;
     this._serverAuthority = appConfig.serverAuthority;
@@ -37,11 +40,30 @@ export class RouteApiService {
     if (this._postavchikId) return this._postavchikId;
     else return -1;
   }
+
+  public get ServerRoot():string{
+    if(this._serverRoot)
+    return this._serverRoot;
+    else throw new Error(' Environment : serverRoot -undefined'); //return 'undefined';
+
+  }
   
-  public get ClientRootUrl():string{
+  public get ClientRoot():string{
     return this._clientRootUrl;
   }
   public get Url(): string {
+    //debugger
+    if (this._serverRoot)
+      return this.createCompleteRoute(
+        this._serverRoot,
+        this._controller,
+        this._action,
+        this._id
+      );
+    else throw new Error(' Environment : serverRoot -undefined'); //return 'undefined';
+  }
+  public get UrlAuth(): string {
+    debugger
     if (this._serverAuthority)
       return this.createCompleteRoute(
         this._serverAuthority,
@@ -49,7 +71,7 @@ export class RouteApiService {
         this._action,
         this._id
       );
-    else throw new Error(' environment serverRoot -undefined'); //return 'undefined';
+    else throw new Error(' Environment : serverAuthority -undefined'); //return 'undefined';
   }
 
   

@@ -1,8 +1,7 @@
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
-import { APP_CONFIG } from "@wsv2/app-config";
-import { environment } from './environments/environment';
+
 import {AccountModule} from '@wsv2/account'
 
 @Component({
@@ -12,7 +11,7 @@ import {AccountModule} from '@wsv2/account'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   providers: [
-    { provide: APP_CONFIG, useValue: environment}
+    
   ]
 })
 export class AppComponent {

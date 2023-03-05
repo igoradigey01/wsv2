@@ -2,7 +2,7 @@ import { Component, OnInit , OnDestroy} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { environment } from 'apps/xl01/src/environments/environment';
+
 import { UserRegistrationDto } from '../_shared/_interfaces/user-registrationDto.model';
 import { AccountService } from '../_shared/services/account.service';
 
@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit , OnDestroy  {
   public showSuccess: boolean = false;
 
   public _user: UserRegistrationDto = {
-    clientURI:  environment.clientRoot + 'account/email-confirmation',
+    clientURI: this._authService.RootClient + 'account/email-confirmation',
     firstName: '',
     lastName: '',
     address: '',

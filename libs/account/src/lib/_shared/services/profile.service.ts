@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ManagerServiceModule } from './maneger-service.module';
-import { RouteApiService } from '../../../../../app-config/src/lib/_shared/services/route-api.service';
+import { ApiService } from './route-api.service';
 import {UserProfileDto} from '../_interfaces/user-profileDto.model'
 import {UserManagerService} from '@wsv2/account-service'
 import {ResetPasswordProfileDto} from '../_interfaces/reset-password-profileDto.model'
@@ -23,7 +23,7 @@ export class ProfileService {
   constructor(
     private http: HttpClient,
     private userManager:UserManagerService,
-    private url: RouteApiService
+    private url: ApiService
   ) {
     
     
@@ -41,7 +41,7 @@ export class ProfileService {
       Authorization: 'Bearer ' + this.userManager.AccessToken,
     });
 
-    return this.http.get<UserProfileDto>(this.url.Url, {
+    return this.http.get<UserProfileDto>(this.url.UrlAuth, {
       headers
     }); 
   }
@@ -55,7 +55,7 @@ export class ProfileService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.userManager.AccessToken,
     });
-    return this.http.post(this.url.Url, credentials, { headers });
+    return this.http.post(this.url.UrlAuth, credentials, { headers });
   }
 
   public ResetPassword = (body: ResetPasswordProfileDto) => {
@@ -67,7 +67,7 @@ export class ProfileService {
       'Authorization': 'Bearer ' + this.userManager.AccessToken,
     });
 
-    return this.http.post(this.url.Url, body,{ headers });
+    return this.http.post(this.url.UrlAuth, body,{ headers });
   };
 
   public Delete=(id: string): Observable<any> =>{
@@ -78,7 +78,7 @@ export class ProfileService {
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken,
     });
-    let url = this.url.Url + '/' + id;
+    let url = this.url.UrlAuth + '/' + id;
     console.log("url delete profile-"+url);
     return this.http.delete(url, { headers });
   }

@@ -46,7 +46,7 @@ export class SignInComponent implements OnInit, OnDestroy {
   public returnUrl: string = '/';
 
   public get ClintGoogleUrl(){
-    return this.repozitory.RootClientUrl+'account/auth-callback-vk'
+    return this.repozitory.RootClient+'account/auth-callback-vk'
   }
 
   constructor(

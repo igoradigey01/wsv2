@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 
 import { ManagerServiceModule } from './maneger-service.module';
 
-import { RouteApiService } from '../../../../../app-config/src/lib/_shared/services/route-api.service';
+import { ApiService } from './route-api.service';
 import { RegistrationResponseDto } from '../_interfaces/registration-responseDto.model';
 import { UserRegistrationDto } from '../_interfaces/user-registrationDto.model';
 import { ForgotPasswordDto } from '../_interfaces/forgot-passwordDto.model';
@@ -18,11 +18,11 @@ import { AuthResponseDto } from '../_interfaces/AuthResponseDto.model';
   providedIn: ManagerServiceModule,
 })
 export class AccountService {
-  public get RootClientUrl() {
-    return this.url.ClientRootUrl;
+  public get RootClient() {
+    return this.url.ClientRoot;
   }
 
-  constructor(private http: HttpClient, private url: RouteApiService) {}
+  constructor(private http: HttpClient, private url: ApiService) {}
 
   /** Get token login pass */
   public login = (credentials: string): Observable<any> => {
@@ -32,7 +32,7 @@ export class AccountService {
     this.url.ID = null;
 
     //  console.log('login-credentials = '+credentials);
-    return this.http.post(this.url.Url, credentials, {
+    return this.http.post(this.url.UrlAuth, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
@@ -53,7 +53,7 @@ export class AccountService {
     this.url.ID = null;
 
     //  console.log('login-credentials = '+credentials);
-    return this.http.post<AuthResponseDto>(this.url.Url, credentials, {
+    return this.http.post<AuthResponseDto>(this.url.UrlAuth, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
@@ -66,7 +66,7 @@ export class AccountService {
     this.url.ID = null;
 
     //  console.log('login-credentials = '+credentials);
-    return this.http.post<AuthResponseDto>(this.url.Url, credentials, {
+    return this.http.post<AuthResponseDto>(this.url.UrlAuth, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
@@ -78,7 +78,7 @@ export class AccountService {
     this.url.Action = 'Registration'; //this._action;
     this.url.ID = null;
 
-    return this.http.post<RegistrationResponseDto>(this.url.Url, body);
+    return this.http.post<RegistrationResponseDto>(this.url.UrlAuth, body);
   };
 
   public confirmEmail = (token: string, email: string) => {
@@ -90,7 +90,7 @@ export class AccountService {
     params = params.append('token', token);
     params = params.append('email', email);
 
-    return this.http.get(this.url.Url, { params: params });
+    return this.http.get(this.url.UrlAuth, { params: params });
   };
 
   public forgotPassword = (body: ForgotPasswordDto) => {
@@ -99,7 +99,7 @@ export class AccountService {
     this.url.Action = 'ForgotPassword';
     this.url.ID = null;
 
-    return this.http.post(this.url.Url, body);
+    return this.http.post(this.url.UrlAuth, body);
   };
 
   public resetPassword = (body: ResetPasswordMailDto) => {
@@ -107,6 +107,6 @@ export class AccountService {
     this.url.Action = 'ResetPasswordMail';
     this.url.ID = null;
 
-    return this.http.post(this.url.Url, body);
+    return this.http.post(this.url.UrlAuth, body);
   };
 }
