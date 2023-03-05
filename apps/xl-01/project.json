@@ -1,22 +1,22 @@
 {
-  "name": "xl01",
+  "name": "xl-01",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/xl01/src",
+  "sourceRoot": "apps/xl-01/src",
   "prefix": "wsv2",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/xl01",
-        "index": "apps/xl01/src/index.html",
-        "main": "apps/xl01/src/main.ts",
+        "outputPath": "dist/apps/xl-01",
+        "index": "apps/xl-01/src/index.html",
+        "main": "apps/xl-01/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/xl01/tsconfig.app.json",
+        "tsConfig": "apps/xl-01/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/xl01/src/favicon.ico", "apps/xl01/src/assets"],
-        "styles": ["apps/xl01/src/styles.scss"],
+        "assets": ["apps/xl-01/src/favicon.ico", "apps/xl-01/src/assets"],
+        "styles": ["apps/xl-01/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -31,12 +31,6 @@
               "type": "anyComponentStyle",
               "maximumWarning": "2kb",
               "maximumError": "4kb"
-            }
-          ],
-          "fileReplacements": [
-            {
-              "replace": "apps/xl01/src/environments/environment.ts",
-              "with": "apps/xl01/src/environments/environment.prod.ts"
             }
           ],
           "outputHashing": "all"
@@ -56,10 +50,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "xl01:build:production"
+          "browserTarget": "xl-01:build:production"
         },
         "development": {
-          "browserTarget": "xl01:build:development"
+          "browserTarget": "xl-01:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -67,21 +61,21 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "xl01:build"
+        "browserTarget": "xl-01:build"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/xl01/**/*.ts", "apps/xl01/**/*.html"]
+        "lintFilePatterns": ["apps/xl-01/**/*.ts", "apps/xl-01/**/*.html"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/xl01/jest.config.ts",
+        "jestConfig": "apps/xl-01/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -92,5 +86,5 @@
       }
     }
   },
-  "tags": ["scope:xl01", "type:app"]
+  "tags": []
 }

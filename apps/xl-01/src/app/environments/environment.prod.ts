@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
 
-  clientRoot:'https://xl-01.ru/', //  Host client
+  clientRoot:'https://xf-01.ru/', //  Host client
   serverRoot:'https://s.x-01.ru/',
   serverAuthority:'https://s.x-01.ru/',
   clientId:'angular-client',

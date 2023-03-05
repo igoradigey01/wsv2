@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
 /* eslint-disable */
 
 @Component({
@@ -437,7 +436,7 @@ import { CommonModule } from '@angular/common';
         <div id="welcome">
           <h1>
             <span> Hello there, </span>
-            Welcome xl01 👋
+            Welcome xl-01 👋
           </h1>
         </div>
 
