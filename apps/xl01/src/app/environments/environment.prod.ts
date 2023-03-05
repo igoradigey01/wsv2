@@ -7,7 +7,7 @@ export const environment = {
   clientId:'angular-client',
   postavchikId:'3',//xl-01.ru laminat
   version:'b3.09.22',
-  description:"Client shop- третья редакция (angular:14.1.0)(06.09.22)"
+  description:"Client shop- третья редакция (angular:14.1.0)(05.02.23)"
 
 
 
