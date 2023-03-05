@@ -13,7 +13,10 @@
   ng version </br>
   node -v </br>
   npx  -v </br>
-  [обновить node.js download](https://nodejs.org/en/download/)
+  [обновить node.js download](https://nodejs.org/en/download/) </br>
+
+  ### Nx очистить кеш
+  nx clear-cache  
  
 
  ## добавить 
