@@ -89,6 +89,8 @@ import {
     EmailConfirmationComponent,
     ForgotPasswordComponent,
     ResetPasswordFromMailComponent,
+    ResetPasswordProfileComponent
+    
   ],
   providers:[
     {

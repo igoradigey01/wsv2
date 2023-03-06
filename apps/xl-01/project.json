@@ -9,7 +9,7 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/xl-01",
+        "outputPath": "dist/apps/xl_01",
         "index": "apps/xl-01/src/index.html",
         "main": "apps/xl-01/src/main.ts",
         "polyfills": ["zone.js"],

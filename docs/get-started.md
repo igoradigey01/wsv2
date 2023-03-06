@@ -17,6 +17,7 @@
 
   ### Nx очистить кеш
   nx clear-cache  
+  npm cache clean --force
  
 
  ## добавить 
