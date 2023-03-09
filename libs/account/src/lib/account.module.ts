@@ -28,6 +28,7 @@ import {UserOrdersItemComponent} from './user-orders_/user-orders-item/user-orde
 import {TelegramLoginWidgetComponent} from './telegram-login-widget/telegram-login-widget.component'
 import {AuthCallbackTelegramComponent} from './auth-callback-telegram/auth-callback-telegram.component'
 import {AuthCallbackVkComponent} from './auth-callback-vk/auth-callback-vk.component'
+
 import {accountRoutes} from './lib.routes'
 
 
@@ -37,6 +38,7 @@ import {
   VKLoginProvider
 
 } from '@abacritt/angularx-social-login';
+
 
 
 
@@ -75,6 +77,7 @@ import {
     TelegramLoginWidgetComponent,
     AuthCallbackTelegramComponent,
     AuthCallbackVkComponent,
+   
    
     
     

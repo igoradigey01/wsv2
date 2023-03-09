@@ -7,6 +7,7 @@ import {
 import {
   SocialAuthService,
   VKLoginProvider,
+  GoogleLoginProvider,
   SocialUser,
 } from '@abacritt/angularx-social-login';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -23,6 +24,9 @@ import { ExternalAuthSocialDto } from '../_shared/_interfaces/ExternalAuthSocial
 //https://help.mail.ru/mail/security/protection/external
 //https://docs.microsoft.com/ru-ru/aspnet/core/security/authentication/accconfirm?view=aspnetcore-6.0&tabs=netcore-cli
 // external login goole https://www.positronx.io/angular-google-social-login-tutorial-with-example/
+// external login goole https://ruseller.com/lessons.php?rub=37&id=1668
+//https://github.com/abacritt/angularx-social-login
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -155,6 +159,8 @@ export class SignInComponent implements OnInit, OnDestroy {
   signInWithVK(): void {
     this.socialAuthService.signIn(VKLoginProvider.PROVIDER_ID);
   }
+
+
 
 
   submitForm(loginForm: NgForm) {

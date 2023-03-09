@@ -13,6 +13,7 @@ import { AuthCallbackVkComponent } from './auth-callback-vk/auth-callback-vk.com
 
 
 
+
 export const accountRoutes: Route[] = [
     { path: '', component: SignInComponent },
     { path: 'sing-up', component: SignUpComponent },
@@ -22,5 +23,6 @@ export const accountRoutes: Route[] = [
     { path: 'reset-password', component: ResetPasswordFromMailComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'auth-callback-vk', component: AuthCallbackVkComponent },
+  
     { path: 'auth-callback-telegram', component: AuthCallbackTelegramComponent }
 ];
