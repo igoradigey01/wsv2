@@ -107,7 +107,8 @@ import {
           },
           {
             id: VKLoginProvider.PROVIDER_ID,
-            provider: new VKLoginProvider('51431968'),
+         provider: new VKLoginProvider('51431968'),
+         //provider: new VKLoginProvider('51577761'),
           },
         ],
       } as SocialAuthServiceConfig,

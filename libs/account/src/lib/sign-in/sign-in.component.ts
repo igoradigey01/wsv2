@@ -101,7 +101,10 @@ export class SignInComponent implements OnInit, OnDestroy {
       });
      this._subscriptions.push(subApiGoogle);
     }
-        if(user.provider=="VK"){
+    if(user.provider=="VK"){
+      credentials.idToken=user.idToken;
+      credentials.provider="VK";
+      credentials.idUser=user.id;
 
           let subApiVK=    this.repozitory.vkLogin(credentials).subscribe({
             next: (d) => {
@@ -157,6 +160,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
  
   signInWithVK(): void {
+    debugger
     this.socialAuthService.signIn(VKLoginProvider.PROVIDER_ID);
   }
 
