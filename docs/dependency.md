@@ -6,15 +6,23 @@ https://github.com/Mawi137/ngx-image-cropper <br/>
  https://www.npmjs.com/package/ng-qrcode<br/>
  https://material.angular.io/components/categories <br/>
 
- ### image-cropper
- ui/img-render/img-render.component.ts <br/>
- image-cropper is Martijn <br/>
- https://github.com/Mawi137/ngx-image-cropper <br/>
-
  ### Angular Yarn
  http://prgssr.ru/development/yarn-ili-npm-vse-chto-vam-nuzhno-znat.html#heading-yarn--npm----- <br/>
  https://habr.com/ru/post/554944/<br/>
   npm install -g yarn<br/>
+
+ ### angular-material ,  angular-animations and  angular-cdk
+ yarn add @angular/material @angular/cdk @angular/animations <br/>
+
+ ### External Provider для lib account
+   yarn add  i @abacritt/angularx-social-login  <br/> 
+   [help and sample](https://code-maze.com/how-to-sign-in-with-google-angular-aspnet-webapi/) <br/>
+
+ ### image-cropper
+ ui/img-render/img-render.component.ts <br/>
+ image-cropper is Martijn <br/>
+ https://github.com/Mawi137/ngx-image-cropper <br/> 
+
  ### Angular PDF
   help : https://mrrio.github.io/jsPDF/examples/basic.html <br>
   npm install -g yarn<br/>
