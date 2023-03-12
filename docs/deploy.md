@@ -5,10 +5,12 @@ ssh root@46.173.223.214
 scp -r C:\Users\Ks34\Documents\AngularProject\xf01\dist\xf01 root@46.173.223.214:~/myapp/nginx/data
 // backup
 scp -r root@46.173.223.214:~/myapp/images  E:\Backup_Host\Backup_images\12-05-22
-//---- docker-отчет об использовании дискового пространства
-docker system df
-docker volume ls
-docker volume prune
+
+//---- docker-отчет об использовании дискового пространства 
+docker system df 
+docker volume ls 
+docker volume prune // delete volume 
+ docker ps 
 ```
 ## Serts
 ```
