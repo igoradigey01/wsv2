@@ -1,22 +1,44 @@
 # certbot
 
- ## Init cerbot
+[certbot - help](https://eff-certbot.readthedocs.io/en/stable/using.html)
 
-  ```
-  [ cerbot help](https://certbot.eff.org)
-  sudo apt install snapd
-  sudo snap install core; sudo snap refresh core
-  sudo apt-get remove certbot
-  sudo snap install --classic certbot
-  ```
-  ## Add or reload cert
- 
-  ```
-   certbot certonly  --webroot    -m admin@x-01.ru -d s.x-01.ru
-   certbot certonly  --webroot    -m admin@x-01.ru -d xf-01.ru
-   //--------------------------------------
-   Input the webroot for s.x-01.ru: (Enter 'c' to cancel): nginx/data
+## Init cerbot
 
-   cp  /etc/letsencrypt/live/xf-01.ru/privkey.pem fx-01.ru.key  // copy files
-   cp  /etc/letsencrypt/live/xf-01.ru/fullchain.pem fx-01.ru.crt
-  ```
+[ cerbot help](https://certbot.eff.org)
+
+```
+ssh root@46.173.223.214
+sudo apt install snapd
+sudo snap install core; sudo snap refresh core
+sudo apt-get remove certbot
+sudo snap install --classic certbot
+```
+
+## Add or reload cert
+
+```
+ ssh root@46.173.223.214
+ certbot certonly  --webroot    -m admin@x-01.ru -d s.x-01.ru
+ certbot certonly  --webroot    -m admin@x-01.ru -d xf-01.ru
+ //--------------------------------------
+ Input the webroot for s.x-01.ru: (Enter 'c' to cancel): nginx/data
+
+ cp  /etc/letsencrypt/live/xf-01.ru/privkey.pem fx-01.ru.key  // copy files
+ cp  /etc/letsencrypt/live/xf-01.ru/fullchain.pem fx-01.ru.crt
+```
+
+### help
+
+```
+Вы можете использовать certonly или запустить подкоманды, чтобы запросить создание одного нового сертификата, даже если у вас уже есть существующий сертификат с некоторыми из тех же доменных имен.
+
+Если сертификат запрашивается с запуском или только с указанием имени уже существующего сертификата, Certbot обновляет существующий сертификат. В противном случае создается новый сертификат, которому присваивается указанное имя.
+
+Параметры --force-renewal, --duplicate и --expand управляют поведением Certbot при повторном создании сертификата с тем же именем, что и у существующего сертификата. Если вы не укажете запрошенное поведение, Certbot может спросить вас, что вы хотели.
+
+--force-renewal указывает Certbot запросить новый сертификат с теми же доменами, что и существующий сертификат. Каждый домен должен быть явно указан через -d. В случае успеха этот сертификат сохраняется вместе с более ранним, а символические ссылки («живая» ссылка) будут обновлены, чтобы указывать на новый сертификат. Это допустимый метод обновления конкретного индивидуального сертификата.
+
+--duplicate указывает Certbot создать отдельный несвязанный сертификат с теми же доменами, что и существующий сертификат. Этот сертификат сохраняется полностью отдельно от предыдущего. В обычных условиях большинству пользователей не потребуется вводить эту команду.
+
+--expand указывает Certbot обновить существующий сертификат новым сертификатом, который содержит все старые домены и один или несколько дополнительных новых доменов. С параметром --expand используйте параметр -d, чтобы указать все существующие домены и один или несколько новых доменов.
+```

@@ -1,3 +1,6 @@
+## VS code git
+[vscode&github](https://vscode.github.com)
+
 ## Git шпоргалка
   ```
   git init [project-name] — создать новый локальный репозиторий с заданным именем.
