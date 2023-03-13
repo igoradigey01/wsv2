@@ -17,14 +17,20 @@
 
   ### Nx очистить кеш
   nx clear-cache  
-  npm cache clean --force
- 
+  npm cache clean --force 
 
  ## добавить 
- ### angular-material ,  angular-animations and  angular-cdk
- yarn add @angular/material @angular/cdk @angular/animations
- ### External Provider для lib account
-   yarn add  i @abacritt/angularx-social-login   
-   [help and sample](https://code-maze.com/how-to-sign-in-with-google-angular-aspnet-webapi/)
+   ### angular-material ,  angular-animations and  angular-cdk
+   yarn add @angular/material @angular/cdk @angular/animations
+
+   ### External Provider для lib account
+   yarn add  i @abacritt/angularx-social-login   <br/>
+   [help and sample](https://code-maze.com/how-to-sign-in-with-google-angular-aspnet-webapi/)<br/>
+
+   ### Over  External Provider
+   https://github.com/Mawi137/ngx-image-cropper <br/>
+   https://github.com/parallax/jsPDF<br/>
+   https://www.npmjs.com/package/ng-qrcode<br/>
+   https://material.angular.io/components/categories <br/>
 
  

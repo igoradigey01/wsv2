@@ -1,24 +1,47 @@
-## Deploy
+## Deploy Angular
 ```
-ssh root@46.173.223.214
-//deploy
-scp -r C:\Users\Ks34\Documents\AngularProject\xf01\dist\xf01 root@46.173.223.214:~/myapp/nginx/data
-// backup
-scp -r root@46.173.223.214:~/myapp/images  E:\Backup_Host\Backup_images\12-05-22
+  ssh root@46.173.223.214
+  //deploy
+  scp -r C:\Users\Ks34\Documents\AngularProject\xf01\dist\xf01 root@46.173.223.214:~/myapp/nginx/data
+  // backup
+  scp -r root@46.173.223.214:~/myapp/images  E:\Backup_Host\Backup_images\12-05-22
+  ```
 
-//---- docker-отчет об использовании дискового пространства 
-docker system df 
-docker volume ls 
-docker volume prune // delete volume 
- docker ps 
-```
-## Serts
-```
-certbot certonly  --webroot    -m admin@x-01.ru -d s.x-01.ru
-certbot certonly  --webroot    -m admin@x-01.ru -d xf-01.ru
-//--------------------------------------
-Input the webroot for s.x-01.ru: (Enter 'c' to cancel): nginx/data
-```
+## Deploy - Asp core net- on vps
+  ### create image_app
+  ```
+  dotnet restore
+  dotnet build
+  //delete publish folder
+  dotnet publish -c release -o published
+  docker-compose down
+  // delete old _image    shopapi_web
+  docker-compose up
+  ```
+  
+  ### deploy on dockerHub
+  docker image push igoradigey01/shopapi_web:latest 
+  
+  ### deploy on host
+  ```
+   docker ps 
+   docker pull _image_
+   docker stop _container_
+   docker rm _container_
+   //docker run _container 
+   docker-compose up web
+  ```
+  
+  ### delete old volume
+   ```
+   //---- docker-отчет об использовании дискового пространства 
+   docker system df 
+   docker volume ls 
+   docker volume prune // delete volume 
+   docker ps 
+   ```
+
+
 ## nginx.conf
 ```
 worker_processes auto;
