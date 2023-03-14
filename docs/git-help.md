@@ -1,5 +1,8 @@
 ## VS code git
 [vscode&github](https://vscode.github.com)
+## Git help about-remote-repositories
+[doc git](https://docs.github.com/ru/get-started/getting-started-with-git/about-remote-repositories)
+
 
 ## Git шпоргалка
   ```
