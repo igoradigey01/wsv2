@@ -39,5 +39,14 @@ https://github.com/Mawi137/ngx-image-cropper <br/>
   restart ( ng s )<br/>
   or see js-pdf.service.ts<br/>
 
+  ### Asp net core(server api)
+  ```
+  включает 3 project
+  ShopAPI //основной
+  EmailService // отправка mail
+  ShopDb  // взаимодействие с субд mysql
+
+  ```
+
 
 

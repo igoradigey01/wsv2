@@ -9,7 +9,7 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/xl_01",
+        "outputPath": "dist/apps/xl01",
         "index": "apps/xl-01/src/index.html",
         "main": "apps/xl-01/src/main.ts",
         "polyfills": ["zone.js"],
@@ -29,8 +29,14 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/xl-01/src/environments/environment.ts",
+              "with": "apps/xl-01/src/environments/environment.prod.ts"
             }
           ],
           "outputHashing": "all"

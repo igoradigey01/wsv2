@@ -65,10 +65,11 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     let subGoogle =   this.socialAuthService.authState.subscribe((user) => {
       // this.socialUser = user;
-      let credentials=<ExternalAuthSocialDto>{provider:user.provider,idToken:user.idToken,idUser:user.id};
+      let credentialsGoogle=<ExternalAuthSocialDto>{provider:user.provider,idToken:user.idToken,idUser:user.id};
     
     if(user.provider=="GOOGLE"){
-      let subApiGoogle=    this.repozitory.googleLogin(credentials).subscribe({
+      
+      let subApiGoogle=    this.repozitory.googleLogin(credentialsGoogle).subscribe({
         next: (d) => {
           this.userManager.setInvalidLogin$(false, d.access_token);
           //  console.log("login_in-"+d.access_token)
@@ -78,7 +79,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         error: (err: HttpErrorResponse) => {
           let body: string;
           this.userManager.setInvalidLogin$(true, null);
-          console.error(err);
+         
           if (err.status === 401) {
             this._errorMgs.push('пользователь не авторизован,войдите на сайт');
             this._errorMgs.push(err.error);
@@ -102,11 +103,14 @@ export class SignInComponent implements OnInit, OnDestroy {
      this._subscriptions.push(subApiGoogle);
     }
     if(user.provider=="VK"){
-      credentials.idToken=user.idToken;
-      credentials.provider="VK";
-      credentials.idUser=user.id;
+      debugger
+    let  credentialsVK=<ExternalAuthSocialDto>{provider:user.provider,idToken:user.authToken,idUser:user.id}
+     // credentials.idToken=user.idToken ;
+      // credentials.idToken=user.authToken
+      // credentials.provider="VK";
+      // credentials.idUser=user.id;
 
-          let subApiVK=    this.repozitory.vkLogin(credentials).subscribe({
+          let subApiVK=    this.repozitory.vkLogin(credentialsVK).subscribe({
             next: (d) => {
               this.userManager.setInvalidLogin$(false, d.access_token);
               //  console.log("login_in-"+d.access_token)
@@ -116,7 +120,7 @@ export class SignInComponent implements OnInit, OnDestroy {
             error: (err: HttpErrorResponse) => {
               let body: string;
               this.userManager.setInvalidLogin$(true, null);
-              console.error(err);
+             
               if (err.status === 401) {
                 this._errorMgs.push('пользователь не авторизован,войдите на сайт');
                 this._errorMgs.push(err.error);

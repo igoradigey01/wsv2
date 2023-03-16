@@ -52,7 +52,7 @@ export class AccountService {
     this.url.Action = 'GoogleExternalLogin';
     this.url.ID = null;
 
-    //  console.log('login-credentials = '+credentials);
+     console.log('login-credentials = '+credentials);
     return this.http.post<AuthResponseDto>(this.url.UrlAuth, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -64,8 +64,11 @@ export class AccountService {
     this.url.Controller = 'Account';
     this.url.Action = 'VKExternalLogin';
     this.url.ID = null;
-
-    //  console.log('login-credentials = '+credentials);
+     debugger
+    //new Response(fd).text().then(console.log);
+        
+   //console.log('vkLogin-credentials = '+JSON.stringify( credentials) );
+   console.log('login-credentials = '+credentials);
     return this.http.post<AuthResponseDto>(this.url.UrlAuth, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
