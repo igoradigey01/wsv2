@@ -48,6 +48,8 @@ export class SignInComponent implements OnInit, OnDestroy {
   public email: string = '';
   public rememberme: boolean = true;
   public returnUrl: string = '/';
+  //http://jsonip.com/
+  public ipAddress = '';
 
   public get ClintGoogleUrl(){
     return this.repozitory.RootClient+'account/auth-callback-vk'
@@ -112,6 +114,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
           let subApiVK=    this.repozitory.vkLogin(credentialsVK).subscribe({
             next: (d) => {
+              
               this.userManager.setInvalidLogin$(false, d.access_token);
               //  console.log("login_in-"+d.access_token)
               this.router.navigate([this.returnUrl]);

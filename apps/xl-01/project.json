@@ -21,6 +21,7 @@
       },
       "configurations": {
         "production": {
+          
           "budgets": [
             {
               "type": "initial",
@@ -33,12 +34,7 @@
               "maximumError": "1mb"
             }
           ],
-          "fileReplacements": [
-            {
-              "replace": "apps/xl-01/src/environments/environment.ts",
-              "with": "apps/xl-01/src/environments/environment.prod.ts"
-            }
-          ],
+          
           "outputHashing": "all"
         },
         "development": {
