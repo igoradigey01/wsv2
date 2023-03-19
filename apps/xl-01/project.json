@@ -15,19 +15,26 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/xl-01/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/xl-01/src/favicon.ico", "apps/xl-01/src/assets"],
+        "assets": [
+          "apps/xl-01/src/favicon.ico",
+          "apps/xl-01/src/assets",
+          {
+            "input": "D:/NXWs_v2/wsv2/libs/app-common/src/assets",
+            "glob": "**/*",
+            "output": "assets/account"
+          }
+        ],
         "styles": ["apps/xl-01/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
         "production": {
-
           "fileReplacements": [
             {
               "replace": "D:/NXWs_v2/wsv2/apps/xl-01/src/environments/environment.ts",
               "with": "D:/NXWs_v2/wsv2/apps/xl-01/src/environments/environment.prod.ts"
-            }],
-          
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
@@ -40,7 +47,6 @@
               "maximumError": "1mb"
             }
           ],
-          
           "outputHashing": "all"
         },
         "development": {

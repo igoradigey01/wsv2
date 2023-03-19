@@ -45,6 +45,20 @@
               {
                 "sourceTag": "scope:01app-config-lib",
                 "onlyDependOnLibsWithTags": [ "scope:01app-config-lib", "type:01-lib"]
+              },           
+              {
+                "sourceTag": "scope:01common-lib",
+                "onlyDependOnLibsWithTags": [ "scope:01common-lib", "type:01-lib"]
+              }
+              ,           
+              {
+                "sourceTag": "scope:01index-layout-lib",
+                "onlyDependOnLibsWithTags": [ "scope:01index-layout-lib", "type:01-lib"]
+              }
+              ,           
+              {
+                "sourceTag": "scope:01manager-layout-lib",
+                "onlyDependOnLibsWithTags": [ "scope:01manager-layout-lib", "type:01-lib"]
               }
             ]
           }

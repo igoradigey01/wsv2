@@ -17,7 +17,10 @@
     "paths": {
       "@wsv2/account": ["libs/account/src/index.ts"],
       "@wsv2/account-service": ["libs/account-service/src/index.ts"],
-      "@wsv2/app-config": ["libs/app-config/src/index.ts"],
+      "@wsv2/app-common": ["libs/app-common/src/index.ts"],
+      "@wsv2/app-config": ["libs/app-config/src/index.ts"],      
+      "@wsv2/index-layout": ["libs/index-layout/src/index.ts"],
+      "@wsv2/manager-layout": ["libs/manager-layout/src/index.ts"],
       "@wsv2/my-styles-library": ["libs/my-styles-library/src/index.ts"]
     }
   },
