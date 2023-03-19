@@ -6,6 +6,7 @@ import { HttpClientModule , HttpClientJsonpModule} from '@angular/common/http';
 import {MaterialModule} from './material.module'
 import {AccountServiceModule } from '@wsv2/account-service';
 
+
 import { SignInComponent } from './sign-in/sign-in.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -41,7 +42,10 @@ import {
 
 
 
-
+const vkLoginOptions = {
+ // scope: 'offline', // Profile fields to return, see: https://vk.com/dev/objects/user
+  version: '5.131', // https://vk.com/dev/versions
+}; // https://vk.com/dev/users.get
 
 
 @NgModule({
@@ -108,7 +112,8 @@ import {
           {
             id: VKLoginProvider.PROVIDER_ID,
          // provider: new VKLoginProvider('51431968'),
-         provider: new VKLoginProvider('51577761'),
+         // global var create in appComponets
+         provider: new VKLoginProvider((<any>window).vkId,vkLoginOptions),
           },
         ],
       } as SocialAuthServiceConfig,
@@ -116,4 +121,8 @@ import {
    
   ]
 })
-export class AccountModule {}
+export class AccountModule {
+
+  
+
+}

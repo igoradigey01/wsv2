@@ -21,6 +21,12 @@
       },
       "configurations": {
         "production": {
+
+          "fileReplacements": [
+            {
+              "replace": "D:/NXWs_v2/wsv2/apps/xl-01/src/environments/environment.ts",
+              "with": "D:/NXWs_v2/wsv2/apps/xl-01/src/environments/environment.prod.ts"
+            }],
           
           "budgets": [
             {
