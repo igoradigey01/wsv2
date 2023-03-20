@@ -20,6 +20,12 @@
         "scripts": []
       },
       "configurations": {
+        "fileReplacements": [
+          {
+            "replace": "apps/hadjoh01/src/environments/environment.ts",
+            "with": "apps/hadjoh01/src/environments/environment.prod.ts"
+          }
+        ],
         "production": {
           "budgets": [
             {

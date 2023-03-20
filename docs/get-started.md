@@ -59,3 +59,14 @@ https://material.angular.io/components/categories <br/>
 
 restart nx server !!!
 ```
+## Enviropment date on developer or deploy
+```
+ // creat dir apps/xl-01/src/environments  on project !!!
+
+  // в project.json указываем 
+   "fileReplacements": [
+            {
+              "replace": "apps/xl-01/src/environments/environment.ts",
+              "with": "apps/xl-01/src/environments/environment.prod.ts"
+            }],
+```

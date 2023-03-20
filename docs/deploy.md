@@ -6,11 +6,13 @@
   // backup
   scp -r root@46.173.223.214:~/myapp/images  E:\Backup_Host\Backup_images\12-05-22
 
-  // в project.json указываем полный путь к environments !!!!
+  // creat dir apps/xl-01/src/environments  on project !!!
+
+  // в project.json указываем 
    "fileReplacements": [
             {
-              "replace": "D:/NXWs_v2/wsv2/apps/xl-01/src/environments/environment.ts",
-              "with": "D:/NXWs_v2/wsv2/apps/xl-01/src/environments/environment.prod.ts"
+              "replace": "apps/xl-01/src/environments/environment.ts",
+              "with": "apps/xl-01/src/environments/environment.prod.ts"
             }],
   ```
 

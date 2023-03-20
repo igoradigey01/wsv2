@@ -17,11 +17,11 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/xl-01/src/favicon.ico",
-          "apps/xl-01/src/assets",
+          "apps/xl-01/src/assets" ,
           {
-            "input": "D:/NXWs_v2/wsv2/libs/app-common/src/assets",
+            "input": "libs/app-common/src/assets",
             "glob": "**/*",
-            "output": "assets/account"
+            "output": "assets/app-common"
           }
         ],
         "styles": ["apps/xl-01/src/styles.scss"],
@@ -31,8 +31,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "D:/NXWs_v2/wsv2/apps/xl-01/src/environments/environment.ts",
-              "with": "D:/NXWs_v2/wsv2/apps/xl-01/src/environments/environment.prod.ts"
+              "replace": "apps/xl-01/src/environments/environment.ts",
+              "with": "apps/xl-01/src/environments/environment.prod.ts"
             }
           ],
           "budgets": [
