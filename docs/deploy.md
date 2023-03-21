@@ -15,6 +15,36 @@
               "with": "apps/xl-01/src/environments/environment.prod.ts"
             }],
   ```
+   ### dploy error budger
+    ```
+     // исправить
+      "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+
+       // на    (задать свои!!!)
+        "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            }
+          ],
+    ```
 
 ## Deploy - Asp core net- on vps
   ### create image_app
