@@ -13,4 +13,6 @@ new repository for all fornt prodjects x...01
 ✔ Enable distributed caching to make your CI faster · Yes
 ```
 ## документация в папке 'doc'
+## deploy 
+ - first All project -
 
