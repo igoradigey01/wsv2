@@ -1,14 +1,22 @@
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
+import {environment} from '../environments/environment'
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [RouterModule],
   selector: 'wsv2-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+
   title = 'shagen01';
+  constructor() {
+    // global var create for account lib
+    (<any>window).vkId = environment.vkId;
+    
+  }
+  
 }
+

@@ -70,3 +70,19 @@ restart nx server !!!
               "with": "apps/xl-01/src/environments/environment.prod.ts"
             }],
 ```
+## Lazy load component or module
+```
+// Standalone Componet
+{
+        path: 'manager',              
+  //!!!-->      loadComponent: () =>
+          import('./manager/manager.component').then((m) => m.ManagerComponent)
+ },
+
+ //Module
+ {
+        path: 'account',              
+   //!!!-->      loadChildren: () =>
+          import('@wsv2/account').then((m) => m.AccountModule)
+}
+```
