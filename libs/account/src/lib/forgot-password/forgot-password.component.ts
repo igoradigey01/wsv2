@@ -15,7 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   public _forgotPass:ForgotPasswordDto=<ForgotPasswordDto>{
     email:'',
-    clientURI: this.apiService.ClientRoot + 'account/reset-password',
+    clientURI: this.apiService.ClientUri + 'account/reset-password',
 
   }
   public _errorMgs: string[] = [];

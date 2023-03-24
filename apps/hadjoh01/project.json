@@ -22,8 +22,8 @@
       "configurations": {
         "fileReplacements": [
           {
-            "replace": "apps/hadjoh01/src/environments/environment.ts",
-            "with": "apps/hadjoh01/src/environments/environment.prod.ts"
+            "replace": "D:/NXWs_v2/wsv2/apps/hadjoh01/src/environments/environment.ts",
+            "with": "D:/NXWs_v2/wsv2/apps/hadjoh01/src/environments/environment.prod.ts"
           }
         ],
         "production": {

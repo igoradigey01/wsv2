@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit , OnDestroy  {
   public showSuccess: boolean = false;
 
   public _user: UserRegistrationDto = {
-    clientURI: this._authService.RootClient + 'account/email-confirmation',
+    clientURI: this._authService.ClientUri + 'account/email-confirmation',
     firstName: '',
     lastName: '',
     address: '',

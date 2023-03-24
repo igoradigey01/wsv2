@@ -18,8 +18,18 @@ import { AuthResponseDto } from '../_interfaces/AuthResponseDto.model';
   providedIn: ManagerServiceModule,
 })
 export class AccountService {
-  public get RootClient() {
-    return this.url.ClientRoot;
+
+
+  public get ClientUri() {
+    return this.url.ClientUri;
+  }
+
+  public get ClientId(){
+    return this.url.ClientId;
+  }
+
+  public get VkId(){
+    return this.url.VkId;
   }
 
   constructor(private http: HttpClient, private url: ApiService) {}
@@ -32,20 +42,14 @@ export class AccountService {
     this.url.ID = null;
 
     //  console.log('login-credentials = '+credentials);
-    return this.http.post(this.url.UrlAuth, credentials, {
+    return this.http.post(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     });
   };
 
-  /*   public signInWithGoogle = ()=> {
-    this.externalAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  }
-  public signOutExternal = () => {
-    this.externalAuthService.signOut();
-  }
- */
+ 
 
   public googleLogin = (credentials: ExternalAuthSocialDto) => {
     this.url.Controller = 'Account';
@@ -53,7 +57,7 @@ export class AccountService {
     this.url.ID = null;
 
      console.log('login-credentials = '+credentials);
-    return this.http.post<AuthResponseDto>(this.url.UrlAuth, credentials, {
+    return this.http.post<AuthResponseDto>(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
@@ -69,7 +73,7 @@ export class AccountService {
         
    //console.log('vkLogin-credentials = '+JSON.stringify( credentials) );
    console.log('login-credentials = '+credentials);
-    return this.http.post<AuthResponseDto>(this.url.UrlAuth, credentials, {
+    return this.http.post<AuthResponseDto>(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
@@ -81,7 +85,7 @@ export class AccountService {
     this.url.Action = 'Registration'; //this._action;
     this.url.ID = null;
 
-    return this.http.post<RegistrationResponseDto>(this.url.UrlAuth, body);
+    return this.http.post<RegistrationResponseDto>(this.url.AuthUrl, body);
   };
 
   public confirmEmail = (token: string, email: string) => {
@@ -93,7 +97,7 @@ export class AccountService {
     params = params.append('token', token);
     params = params.append('email', email);
 
-    return this.http.get(this.url.UrlAuth, { params: params });
+    return this.http.get(this.url.AuthUrl, { params: params });
   };
 
   public forgotPassword = (body: ForgotPasswordDto) => {
@@ -102,7 +106,7 @@ export class AccountService {
     this.url.Action = 'ForgotPassword';
     this.url.ID = null;
 
-    return this.http.post(this.url.UrlAuth, body);
+    return this.http.post(this.url.AuthUrl, body);
   };
 
   public resetPassword = (body: ResetPasswordMailDto) => {
@@ -110,6 +114,6 @@ export class AccountService {
     this.url.Action = 'ResetPasswordMail';
     this.url.ID = null;
 
-    return this.http.post(this.url.UrlAuth, body);
+    return this.http.post(this.url.AuthUrl, body);
   };
 }

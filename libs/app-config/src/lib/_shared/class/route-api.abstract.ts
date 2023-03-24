@@ -1,27 +1,22 @@
-
-
 import { IEnvironment } from '../interfaces/environment.model';
-
-
-
-
 
 
 export abstract class RouteApiAbstract {
   private _serverAuthority: string | undefined;
-  private _serverRoot:string|undefined;
+  private _serverUri:string|undefined;
   private _controller: string = '';
   private _action: string | null = null;
   private _id: number | null = null;
-  private _postavchikId: number | undefined;
-  private _clientRootUrl:string='';
+  private _clientId: string | undefined;
+  private _clientUrl:string  | undefined;
+  private _postavchikIds:string[] |undefined;
 
   constructor(
     private appConfig: IEnvironment
   ) {
-    this._postavchikId = +appConfig.postavchikId;
-    this._serverAuthority = appConfig.serverAuthority;
-    this._clientRootUrl= appConfig.clientRoot;
+    this._clientId = appConfig.clientId;
+    this._serverAuthority = appConfig.serverAuthUri;
+    this._clientUrl= appConfig.clientUri;
   }
 
   public set Controller(name: string) {
@@ -36,33 +31,48 @@ export abstract class RouteApiAbstract {
     this._id = id;
   }
 
-  public get PostavchikId(): number {
-    if (this._postavchikId) return this._postavchikId;
-    else return -1;
+  public get ClientId(): string {
+    if (this._clientId) return this._clientId;
+    else throw new Error(' Environment :clientId -undefined'); //return 'undefined';
   }
 
-  public get ServerRoot():string{
-    if(this._serverRoot)
-    return this._serverRoot;
-    else throw new Error(' Environment : serverRoot -undefined'); //return 'undefined';
+  public get VkId():string{
+    if(this.appConfig.vkId) return this.appConfig.vkId;
+    else throw new Error(' Environment :VkId -undefined'); //return 'undefined';
+  }
+
+  public get PostavchikIds():string[] {
+    if(this._postavchikIds) return this._postavchikIds
+    else throw new Error(' Environment : postavchikIds - undefined')
 
   }
-  
-  public get ClientRoot():string{
-    return this._clientRootUrl;
+     /** sample: https://s.x-01.ru */
+  public get ServerUri():string{
+    if(this._serverUri)
+    return this._serverUri;
+    else throw new Error(' Environment : serverUri -undefined'); //return 'undefined';
+
+  }
+  /** sample: http://x-01.ru */
+  public get ClientUri():string{
+
+    if(this._clientUrl)
+    return this._clientUrl;
+    else throw new Error(' Environment : clientUri -undefined'); //return 'undefined';
+    
   }
   public get Url(): string {
     //debugger
-    if (this._serverRoot)
+    if (this._serverUri)
       return this.createCompleteRoute(
-        this._serverRoot,
+        this._serverUri,
         this._controller,
         this._action,
         this._id
       );
-    else throw new Error(' Environment : serverRoot -undefined'); //return 'undefined';
+    else throw new Error(' Environment : serverUri -undefined'); //return 'undefined';
   }
-  public get UrlAuth(): string {
+  public get AuthUrl(): string {
     debugger
     if (this._serverAuthority)
       return this.createCompleteRoute(

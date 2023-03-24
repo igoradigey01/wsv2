@@ -6,12 +6,12 @@
 export interface IEnvironment {
 
   production: boolean;
-  clientRoot: string; //  Host client
-  serverRoot: string; // Host api               //
-  serverAuthority: string; // Host identity server          //
-  clientId: string; // sample for identity server   'angular-client',
-  postavchikId: string; //xf-01.ru='1'
-
+  clientUri: string; //  Host client
+  serverUri: string; // Host api               //
+  serverAuthUri: string; // Host identity server          //
+  clientId: string; //xf-01.ru='1'
+  postavchikIds: string[]; //xf-01,xl-01,shagen01
+  vkId:string;
   version: string; // 'b2.05.22',
   description: string; //"Client shop- вторая редакция (angular:13.1.2)(11.05.22)"
 

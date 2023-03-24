@@ -50,9 +50,10 @@ export class SignInComponent implements OnInit, OnDestroy {
   public returnUrl: string = '/';
   //http://jsonip.com/
   public ipAddress = '';
+  public nameClient:string;
 
   public get ClintGoogleUrl(){
-    return this.repozitory.RootClient+'account/auth-callback-vk'
+    return this.repozitory.ClientUri+'account/auth-callback-vk'
   }
 
   constructor(
@@ -61,7 +62,11 @@ export class SignInComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private socialAuthService: SocialAuthService,
     private router: Router
-  ) {}
+  ) {
+    this.nameClient=repozitory.ClientId + "" +repozitory.VkId;
+    console.log("VkId"+repozitory.VkId)
+    
+  }
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -105,7 +110,8 @@ export class SignInComponent implements OnInit, OnDestroy {
      this._subscriptions.push(subApiGoogle);
     }
     if(user.provider=="VK"){
-      debugger
+      // https://vk.com/dev/widget_auth (!!!)
+      //https://dev.vk.com/api/open-api/getting-started
     let  credentialsVK=<ExternalAuthSocialDto>{provider:user.provider,idToken:user.authToken,idUser:user.id}
      // credentials.idToken=user.idToken ;
       // credentials.idToken=user.authToken
@@ -167,6 +173,11 @@ export class SignInComponent implements OnInit, OnDestroy {
 
  
   signInWithVK(): void {
+
+    // три способа афторизации 
+    //socialAuthServic.signIn(VKLoginProvider.PROVIDER_ID) https://api.vk.com/method/users.get
+    //https://dev.vk.com/widgets/auth
+    //https://dev.vk.com/vk-sdk/vkid/auth/main#По%20кнопке%20One%20Tap%20Sign%20In
     debugger
     this.socialAuthService.signIn(VKLoginProvider.PROVIDER_ID);
   }

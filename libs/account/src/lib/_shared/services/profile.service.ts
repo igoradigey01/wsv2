@@ -41,7 +41,7 @@ export class ProfileService {
       Authorization: 'Bearer ' + this.userManager.AccessToken,
     });
 
-    return this.http.get<UserProfileDto>(this.url.UrlAuth, {
+    return this.http.get<UserProfileDto>(this.url.AuthUrl, {
       headers
     }); 
   }
@@ -55,7 +55,7 @@ export class ProfileService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.userManager.AccessToken,
     });
-    return this.http.post(this.url.UrlAuth, credentials, { headers });
+    return this.http.post(this.url.AuthUrl, credentials, { headers });
   }
 
   public ResetPassword = (body: ResetPasswordProfileDto) => {
@@ -67,7 +67,7 @@ export class ProfileService {
       'Authorization': 'Bearer ' + this.userManager.AccessToken,
     });
 
-    return this.http.post(this.url.UrlAuth, body,{ headers });
+    return this.http.post(this.url.AuthUrl, body,{ headers });
   };
 
   public Delete=(id: string): Observable<any> =>{
@@ -78,7 +78,7 @@ export class ProfileService {
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken,
     });
-    let url = this.url.UrlAuth + '/' + id;
+    let url = this.url.AuthUrl + '/' + id;
     console.log("url delete profile-"+url);
     return this.http.delete(url, { headers });
   }

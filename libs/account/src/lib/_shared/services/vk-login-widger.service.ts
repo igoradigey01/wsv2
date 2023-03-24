@@ -14,12 +14,12 @@ export interface ScriptModel {
 @Injectable({
   providedIn: ManagerServiceModule
 })
-export class TelegramLoginWidgetService {
+export class VkLoginWidgetService {
 
  private TELEGRAM_WIDGET_VERSION = 19;
 
   script: ScriptModel = <ScriptModel>{
-    name: 'telegram_widget',
+    name: 'vk_widget',
     src: 'https://telegram.org/js/telegram-widget.js?${TELEGRAM_WIDGET_VERSION}',
     loaded: false,
   };

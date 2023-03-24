@@ -1,13 +1,13 @@
 export const environment = {
   production: false,
 
-  clientRoot:  'http://localhost:4200/', //'https://x-01.ru/',       //  Host client
-  serverRoot: 'http://localhost:8080/',  //'https://s.x-01.ru/',               //
-  serverAuthority: 'http://localhost:8080/',//'http://localhost:8080/',//'https://s.x-01.ru/',             //
-  clientId:'angular-client',
+  clientUri:  'http://localhost:4200/', //'https://x-01.ru/',       //  Host client
+  serverUri: 'http://localhost:8080/',  //'https://s.x-01.ru/',               //
+  serverAuthUri: 'http://localhost:8080/',//'http://localhost:8080/',//'https://s.x-01.ru/',             //
+  clientId:'xl-01',
   vkId:'51577761',
-  postavchikId:'3',//xl-01.ru laminat
-  version:'b3.03.23',
-  description:"Client shop- третья редакция (angular:15.1.0)(14.03.23)"
+  postavchikIds:'xl-01',//xl-01,x-01
+  version:'b3.22.23',
+  description:"Client shop- третья редакция (angular:15.1.0)(22.03.23)"
 
 };
