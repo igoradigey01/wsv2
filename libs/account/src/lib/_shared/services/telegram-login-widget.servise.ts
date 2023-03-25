@@ -20,7 +20,7 @@ export class TelegramLoginWidgetService {
 
   script: ScriptModel = <ScriptModel>{
     name: 'telegram_widget',
-    src: 'https://telegram.org/js/telegram-widget.js?${TELEGRAM_WIDGET_VERSION}',
+    src: `https://telegram.org/js/telegram-widget.js?${this.TELEGRAM_WIDGET_VERSION}`,
     loaded: false,
   };
 
@@ -45,7 +45,7 @@ export class TelegramLoginWidgetService {
       scriptElement.setAttribute('data-size', 'large');
       scriptElement.setAttribute(
         'data-auth-url',
-        'https://xl-01.ru/account/auth-callback-telegram'
+        `https://${this.url.ClientUri}/account/auth-callback-telegram`
       );
       scriptElement.setAttribute('data-request-access', 'write');
 

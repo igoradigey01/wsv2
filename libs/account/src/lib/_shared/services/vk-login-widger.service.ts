@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {UserTelegramDto} from '../_interfaces/user-telegramDto.model'
+import {UserVkDto} from '../_interfaces/user-vkDto.model'
 import { ApiService } from './route-api.service';
 import { ManagerServiceModule } from './maneger-service.module';
 
@@ -16,11 +16,12 @@ export interface ScriptModel {
 })
 export class VkLoginWidgetService {
 
- private TELEGRAM_WIDGET_VERSION = 19;
+ private VK_WIDGET_VERSION = 168;
+
 
   script: ScriptModel = <ScriptModel>{
     name: 'vk_widget',
-    src: 'https://telegram.org/js/telegram-widget.js?${TELEGRAM_WIDGET_VERSION}',
+    src: `https://vk.com/js/api/openapi.js?${this.VK_WIDGET_VERSION}`,
     loaded: false,
   };
 
@@ -31,40 +32,87 @@ export class VkLoginWidgetService {
 
   public loadWidgetScript(): void {
     // Complete if already loaded
-    if (this.script.loaded) {
+     if (this.script.loaded) {
     } else {
       // Add the script
 
       // Load the script
-      let scriptElement = document.createElement('script');
-      scriptElement.type = 'text/javascript';
-      scriptElement.src = this.script.src;
+      debugger
+      let elemetParent =  document.getElementById('x01-v2-VK-login-widget')
+  if( elemetParent){
+      let div = document.createElement("div");
+       div.id="vk_auth";
+       elemetParent.parentNode?.appendChild(div)
+;
 
-      scriptElement.async;
-      scriptElement.setAttribute('data-telegram-login', 'x_01_bot');
-      scriptElement.setAttribute('data-size', 'large');
-      scriptElement.setAttribute(
-        'data-auth-url',
-        'https://xl-01.ru/account/auth-callback-telegram'
-      );
-      scriptElement.setAttribute('data-request-access', 'write');
+       //.appendChild(scriptElement1);
+       //elemet.a
+     //  if(elemet) elemet.parentNode?.childNodes(div)
 
-      scriptElement.onload = () => {
+      // document.getElementsByTagName('x01-v1-VK-login-widget')[0].appendChild(div);
+
+      let scriptElement1 = document.createElement('script');
+      debugger
+      scriptElement1.type = 'text/javascript';
+      scriptElement1.src = this.script.src;
+      scriptElement1.charset='windows-1251';      
+     // scriptElement1.async;
+
+     
+
+      scriptElement1.onload = () => {
+       // this.script.loaded = true;
+      };
+
+      scriptElement1.onerror = (error: any) => {
+        this.script.loaded =false;
+        console.error("Couldn't load script openapi.js" + error);
+      };
+       
+      elemetParent.parentNode?.appendChild(scriptElement1)
+    
+      let scriptElement2=document.createElement('script');
+      scriptElement2.type = 'text/javascript';
+      scriptElement2.text=`VK.init({ apiId: ${this.url.VkId} });`
+
+      scriptElement2.onload = () => {
+       // this.script.loaded = true;
+      };
+
+      scriptElement2.onerror = (error: any) => {
+        this.script.loaded =false;
+        console.error("Couldn't load script VK.init" + error);
+      };
+      
+      elemetParent.parentNode?.appendChild(scriptElement2)
+      //document.getElementsByTagName('x01-v1-VK-login-widget')[0].appendChild(scriptElement2);
+       
+
+      let scriptElement3=document.createElement('script');
+      scriptElement3.type = 'text/javascript';
+      scriptElement3.text=`VK.Widgets.Auth("vk_auth", {width: 200, authUrl: "${this.url.ClientUri}account/auth-callback-vk"});`
+
+      scriptElement3.onload = () => {
         this.script.loaded = true;
       };
 
-      scriptElement.onerror = (error: any) => {
-        console.error("Couldn't load script telegram_widget" + error);
+      scriptElement3.onerror = (error: any) => {
+        this.script.loaded =false;
+        console.error("Couldn't load script VK.init" + error);
       };
 
-      document.getElementsByTagName('x01-v1-telegram-login-widget')[0].appendChild(scriptElement);
-    }
+      
+      
+      elemetParent.parentNode?.appendChild(scriptElement3)
+     
+     // document.getElementsByTagName('x01-v1-VK-login-widget')[0].appendChild(scriptElement3);
+    }}
   }
 
-   public CheckUser(user:UserTelegramDto){
+   public CheckUser(user:UserVkDto){
 
     this.url.Controller='Account';
-    this.url.Action = 'TelegramExternalLogin';
+    this.url.Action = 'VKExternalLogin';
     this.url.ID=null;
     let headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',

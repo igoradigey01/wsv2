@@ -29,6 +29,7 @@ import {UserOrdersItemComponent} from './user-orders_/user-orders-item/user-orde
 import {TelegramLoginWidgetComponent} from './telegram-login-widget/telegram-login-widget.component'
 import {AuthCallbackTelegramComponent} from './auth-callback-telegram/auth-callback-telegram.component'
 import {AuthCallbackVkComponent} from './auth-callback-vk/auth-callback-vk.component'
+import {VkLoginWidgetComponent} from './vk-login-widget/vk-login-widget.component'
 
 import {accountRoutes} from './lib.routes'
 
@@ -81,6 +82,7 @@ const vkLoginOptions = {
     TelegramLoginWidgetComponent,
     AuthCallbackTelegramComponent,
     AuthCallbackVkComponent,
+    VkLoginWidgetComponent,
    
    
     
@@ -109,12 +111,12 @@ const vkLoginOptions = {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider('344759916833-h3r1fju9hj53jd86d142tn44vta9vnsa.apps.googleusercontent.com'),
           },
-          {
-            id: VKLoginProvider.PROVIDER_ID,
-         // provider: new VKLoginProvider('51431968'),
-         // global var create in appComponets
-         provider: new VKLoginProvider((<any>window).vkId,vkLoginOptions),
-          },
+        //   {
+        //     id: VKLoginProvider.PROVIDER_ID,
+        //  // provider: new VKLoginProvider('51431968'),
+        //  // global var create in appComponets
+        //  provider: new VKLoginProvider((<any>window).vkId,vkLoginOptions),
+        //   },
         ],
       } as SocialAuthServiceConfig,
     },

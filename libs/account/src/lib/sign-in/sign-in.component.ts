@@ -18,6 +18,8 @@ import { AccountService } from '../_shared/services/account.service';
 import { Subscription } from 'rxjs';
 import { ExternalAuthSocialDto } from '../_shared/_interfaces/ExternalAuthSocialDto.model';
 
+import {VkLoginWidgetService} from '../_shared/services/vk-login-widger.service'
+
 
 //https://code-maze.com/angular-security-with-asp-net-core-identity/
 //https://account.mail.ru/user/2-step-auth/passwords/
@@ -61,6 +63,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     private userManager: UserManagerService,
     private route: ActivatedRoute,
     private socialAuthService: SocialAuthService,
+    private repozitoryVK:VkLoginWidgetService,
     private router: Router
   ) {
     this.nameClient=repozitory.ClientId + "" +repozitory.VkId;
@@ -69,6 +72,9 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    
+   
+
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     let subGoogle =   this.socialAuthService.authState.subscribe((user) => {
       // this.socialUser = user;
@@ -179,7 +185,8 @@ export class SignInComponent implements OnInit, OnDestroy {
     //https://dev.vk.com/widgets/auth
     //https://dev.vk.com/vk-sdk/vkid/auth/main#По%20кнопке%20One%20Tap%20Sign%20In
     debugger
-    this.socialAuthService.signIn(VKLoginProvider.PROVIDER_ID);
+   // this.socialAuthService.signIn(VKLoginProvider.PROVIDER_ID);
+   this.repozitoryVK.loadWidgetScript();
   }
 
 
