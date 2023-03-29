@@ -184,7 +184,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     //socialAuthServic.signIn(VKLoginProvider.PROVIDER_ID) https://api.vk.com/method/users.get
     //https://dev.vk.com/widgets/auth
     //https://dev.vk.com/vk-sdk/vkid/auth/main#По%20кнопке%20One%20Tap%20Sign%20In
-    debugger
+    //debugger
    // this.socialAuthService.signIn(VKLoginProvider.PROVIDER_ID);
    this.repozitoryVK.loadWidgetScript();
   }

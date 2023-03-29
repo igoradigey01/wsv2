@@ -1,7 +1,9 @@
 export interface UserVkDto {
-    id: number;
-    firstName?: string;    
-    userName?: string;   
-    authDate: number;
+    provider:string;
+    idUser: string;
+    idApp:string;
+    first_name: string; 
+    photo_rec_url?:string;
+    last_name: string;      
     hash: string;
   }

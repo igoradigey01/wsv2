@@ -1,0 +1,1 @@
+https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-3.1&tabs=windows <br>

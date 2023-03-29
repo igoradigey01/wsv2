@@ -15,7 +15,7 @@
               "with": "apps/xl-01/src/environments/environment.prod.ts"
             }],
   ```
-   ### dploy error budger
+   ### deploy : error budger
     ```
      // исправить
       "budgets": [
@@ -47,7 +47,7 @@
     ```
 
 ## Deploy - Asp core net- on vps
-  ### create image_app
+  ### create image_app (docker)
   ```
   dotnet restore
   dotnet build

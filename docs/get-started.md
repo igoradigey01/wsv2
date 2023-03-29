@@ -1,6 +1,17 @@
 ## добавить app or lib
 
 ```
+--create emty wokspase
+npx create-nx-workspace@latest
+
+--add angular
+
+
+--create angular app
+-init workspase in nx console and create app; 
+   or
+nx generate @nrwl/angular:application x01
+ nx init  // если замена ssd (жесткого диска)
  --monorepo уже создано--
  установить расшиерие 'Nx Console'
  выбрать рабрать dir
@@ -16,6 +27,7 @@
 ng version </br>
 node -v </br>
 npx -v </br>
+nx init <br>
 [обновить node.js download](https://nodejs.org/en/download/) </br>
 
 ### Nx очистить кеш

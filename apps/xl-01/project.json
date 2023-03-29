@@ -17,7 +17,7 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/xl-01/src/favicon.ico",
-          "apps/xl-01/src/assets" ,
+          "apps/xl-01/src/assets",
           {
             "input": "libs/app-common/src/assets",
             "glob": "**/*",

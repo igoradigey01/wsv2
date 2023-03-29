@@ -52,13 +52,13 @@
               }
               ,           
               {
-                "sourceTag": "scope:01index-layout-lib",
-                "onlyDependOnLibsWithTags": [ "scope:01index-layout-lib", "type:01-lib"]
+                "sourceTag": "scope:01app-layout-lib",
+                "onlyDependOnLibsWithTags": [ "scope:01app-layout-lib", "type:01-lib"]
               }
               ,           
               {
-                "sourceTag": "scope:01manager-layout-lib",
-                "onlyDependOnLibsWithTags": [ "scope:01manager-layout-lib", "type:01-lib"]
+                "sourceTag": "scope:01app-styles-lib",
+                "onlyDependOnLibsWithTags": [ "scope:01app-styles-lib", "type:01-lib"]
               }
             ]
           }

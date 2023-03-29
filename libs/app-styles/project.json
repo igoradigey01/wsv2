@@ -1,0 +1,50 @@
+{
+  "name": "app-styles",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/app-styles/src",
+  "prefix": "wsv2",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/app-styles/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/app-styles/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/app-styles/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/app-styles/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/app-styles/**/*.ts",
+          "libs/app-styles/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": ["01app-styles-lib", "type:01-lib"]
+}

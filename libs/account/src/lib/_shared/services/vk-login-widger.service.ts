@@ -118,8 +118,12 @@ export class VkLoginWidgetService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + '',
     });
-    var credentials=JSON.stringify(user);
-    return this.http.post(this.url.AuthUrl, credentials, { headers });
+    //var credentials=JSON.stringify(user);
+    return this.http.post(this.url.AuthUrl, user, { headers });
 
+   }
+
+   public get IdAPP(){
+    return this.url.VkId;
    }
 }
