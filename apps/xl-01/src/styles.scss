@@ -1,1 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+
+@forward "../../../libs/app-styles/src/styles/variables.scss" with (
+    $primary-color: #768dd4,
+    $primary-lighter-color: #568832
+    );
+//@use "../../../libs/app-styles/src/styles/variables.scss"   ;
+
+
+//
+
+@use "../../../libs/app-styles/src/styles/index" as s;
+@use "@angular/material" as mat;
+
+@include mat.core();
+@debug "background-color: #{s.$primary-color}";
+///'../../app-styles/src/styles/index.scss';
+
+/*-- пример : output debug см в терминале vs code -- !!
+//$primary-font-color:#f90;
+//#header::before{ content: "#{s.$accent-color}"};
+//@debug s.$accent-color;
+//@debug "font-size before media rules: #{s.$accent-color}";
+*/
+
+/* --Основной миксин должен быть включен ровно один раз для вашего приложения,--!! 
+@use '@angular/material' as mat;
+@include mat.core();
+
+Angular Material определяет mixin named core , 
+который включает необходимые стили для общих функций,
+ используемых несколькими компонентами. 
+ Основной миксин должен быть включен ровно один раз для вашего приложения, 
+ даже если вы определяете несколько тем. 
+ Включение основного миксина несколько раз приведет к дублированию CSS в вашем приложении.
+*/
+
+$my-warn: mat.define-palette(s.$mat-warn, main, lighter, darker);
+$my-accent: mat.define-palette(s.$mat-accent, main, lighter, darker);
+$my-primary: mat.define-palette(s.$mat-primary, main, lighter, darker);
+
+$my-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $my-primary,
+            accent: $my-accent,
+            warn: $my-warn,
+        ),
+        typography: mat.define-typography-config(),
+        density: 0,
+    )
+);
+
+@include mat.all-component-themes($my-theme);

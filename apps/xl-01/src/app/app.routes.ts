@@ -6,11 +6,13 @@ import  {IndexComponent} from './index/index.component';
 
 export const appRoutes: Route[] = [
 
-    {
-        path: '',              
+   
+      {
+        path: 'index',              
        component:IndexComponent,
-       pathMatch: 'full'
+       
       },
+      { path: '',   redirectTo: 'index', pathMatch: 'full' },
      
       {
         path: 'manager',              

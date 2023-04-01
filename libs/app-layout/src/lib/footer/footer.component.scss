@@ -1,0 +1,26 @@
+@use     '../../style.scss'  ;
+//@use '@angular/material' as mat;
+
+
+
+.footer {
+    display: flex;
+    padding: 20px;
+    background : style.$accent-darker-color;
+    min-height: 60px;
+    color: style.$text-accent-darker-color;
+   // align-items: center;
+  }
+  .copirate{
+    display: flex;
+    //align-self: center;
+  
+  }
+  .nav_link{
+    color: style.$text-accent-darker-color;
+    &:hover {
+        border-radius: 10%;
+        color: style.$accent-lighter-color;
+      }
+
+  }

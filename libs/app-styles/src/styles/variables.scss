@@ -1,25 +1,25 @@
 
 
-$waite:#f8faf7;
-$green:#bff09e;;
+//$waite:#f8faf7; 1.04.23
+//$green:#bff09e;; 1.04.23
+
+ @import 'var';
 
 
 
+    $accent-color: #797979 !default;
+    $accent-lighter-color: #d7d7d7 !default;
+    $accent-darker-color: #5c5c5c !default;
+    $text-accent-color: #ffffff !default;
+    $text-accent-lighter-color: rgba(0, 0, 0, 0.87)!default;
+    $text-accent-darker-color: #ffffff !default;
 
-
-    $accent-color: #797979;
-    $accent-lighter-color: #d7d7d7;
-    $accent-darker-color: #5c5c5c;
-    $text-accent-color: #ffffff;
-    $text-accent-lighter-color: rgba(0, 0, 0, 0.87);
-    $text-accent-darker-color: #ffffff;
-
-    $primary-color: #cc33ca;
-    $primary-lighter-color: #f0c2ef;
-    $primary-darker-color: #b920b7;
-    $text-primary-color: #ffffff;
-    $text-primary-lighter-color: rgba(0, 0, 0, 0.87);
-    $text-primary-darker-color: #ffffff;
+    $primary-color: #cc33ca !default;
+    $primary-lighter-color: #f0c2ef !default;
+    $primary-darker-color: #b920b7!default;
+    $text-primary-color: #ffffff !default;
+    $text-primary-lighter-color: rgba(0, 0, 0, 0.87)!default;
+    $text-primary-darker-color: #ffffff !default;
 
     $warn-color: #ff0000;
     $warn-lighter-color: #ffb3b3;
@@ -27,3 +27,15 @@ $green:#bff09e;;
     $text-warn-color: #ffffff;
     $text-warn-lighter-color: rgba(0, 0, 0, 0.87);
     $text-warn-darker-color: #ffffff;
+
+
+    :root {
+        --primary-color:  #{$primary-color} ; 
+        --primary-lighter-color: #{$primary-lighter-color} ;
+        }
+
+    
+
+   // $test : var(--primary-color)  ;
+ //  @debug $test;
+    
