@@ -36,8 +36,7 @@ import {accountRoutes} from './lib.routes'
 
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { 
-  GoogleLoginProvider ,
-  VKLoginProvider
+  GoogleLoginProvider 
 
 } from '@abacritt/angularx-social-login';
 
@@ -111,7 +110,7 @@ const vkLoginOptions = {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider('344759916833-h3r1fju9hj53jd86d142tn44vta9vnsa.apps.googleusercontent.com'),
           },
-        //   {
+        //   {  not work in hosh !!! (server validete not !!!)02.04.23
         //     id: VKLoginProvider.PROVIDER_ID,
         //  // provider: new VKLoginProvider('51431968'),
         //  // global var create in appComponets

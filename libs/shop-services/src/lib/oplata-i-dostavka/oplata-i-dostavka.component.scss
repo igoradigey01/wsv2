@@ -1,0 +1,10 @@
+
+@use  '../../style.scss';
+
+@for $i from 2 through 4 {
+  h#{$i} {
+    //color:  style.$primary-color;             //#8c989b;
+    font-size: 1.1em;
+    margin-left: 40px;
+  }
+}

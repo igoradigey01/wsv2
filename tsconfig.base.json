@@ -21,7 +21,9 @@
       "@wsv2/app-config": ["libs/app-config/src/index.ts"],
       "@wsv2/app-layout": ["libs/app-layout/src/index.ts"],
       "@wsv2/app-styles": ["libs/app-styles/src/index.ts"],
-      "@wsv2/my-styles-library": ["libs/my-styles-library/src/index.ts"]
+      "@wsv2/my-styles-library": ["libs/my-styles-library/src/index.ts"],
+      "@wsv2/shop-content": ["libs/shop-content/src/index.ts"],
+      "@wsv2/shop-services": ["libs/shop-services/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

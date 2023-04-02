@@ -1,0 +1,50 @@
+{
+  "name": "shop-content",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/shop-content/src",
+  "prefix": "wsv2",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/shop-content/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/shop-content/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/shop-content/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/shop-content/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/shop-content/**/*.ts",
+          "libs/shop-content/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

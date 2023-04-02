@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 @forward "../../../libs/app-styles/src/styles/variables.scss" with (
-    $primary-color: #768dd4,
-    $primary-lighter-color: #568832
+    $primary-color: #768dd4 !default,
+    $primary-lighter-color: #9EAFE0 !default
     );
 //@use "../../../libs/app-styles/src/styles/variables.scss"   ;
 

@@ -8,10 +8,10 @@
   margin: 8px 8px 8px 0;
 }
 
- @debug  $primary-color ;
+// @debug  $primary-color ;
 //---------------------------------------------------
 .log-in{
-  background-color:  $primary-color ;
+  background-color: var( --primary-color) ;
   margin-top: 4px;
   &:hover {
     border-radius: 10%;
@@ -20,7 +20,7 @@
   
 }
 
-@debug  $primary-color;
+//@debug  $primary-color;
 
 
 

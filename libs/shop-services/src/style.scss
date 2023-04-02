@@ -1,0 +1,39 @@
+//@forward  'libs/xl01/shared/styles/src/styles/_style.scss';
+
+@forward  '../../app-styles/src/styles/index';
+
+
+ul{
+    list-style: none;
+  }
+  .c-1 {
+    min-height: 400px;
+  }
+  .c-2 {
+    width: 90%;
+    padding: 10px;
+    margin: 1rem auto;
+   
+  
+    border-radius: 30px;
+  }
+  @media (min-width: 768px){
+    .c-2 {
+      width: 75%;
+      padding: 40px;
+    }
+  
+  }
+  
+  h1 {
+   
+    margin-left: 0px;
+    text-align: center;
+  }
+  
+  
+  p {
+   
+    margin-top: 20px;
+    margin-left: 20px;
+  }
