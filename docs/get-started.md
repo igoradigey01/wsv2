@@ -46,12 +46,14 @@ yarn add @angular/material @angular/cdk @angular/animations
 yarn add i @abacritt/angularx-social-login <br/>
 [help and sample](https://code-maze.com/how-to-sign-in-with-google-angular-aspnet-webapi/)<br/>
 
-### Over External Provider
-
+### Over External Provide
+```
 https://github.com/Mawi137/ngx-image-cropper <br/>
 https://github.com/parallax/jsPDF<br/>
 https://www.npmjs.com/package/ng-qrcode<br/>
 https://material.angular.io/components/categories <br/>
+https://github.com/ddubrava/angular8-yandex-maps#readme
+```
 
 ## assets in libs/ui img-render is ok
 

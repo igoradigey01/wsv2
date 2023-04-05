@@ -18,6 +18,10 @@ https://github.com/Mawi137/ngx-image-cropper <br/>
    yarn add  i @abacritt/angularx-social-login  <br/> 
    [help and sample](https://code-maze.com/how-to-sign-in-with-google-angular-aspnet-webapi/) <br/>
 
+ ### Yandex maps
+  yarn add angular8-yandex-maps
+  [help ](https://github.com/ddubrava/angular8-yandex-maps#readme)
+
  ### image-cropper
  ui/img-render/img-render.component.ts <br/>
  image-cropper is Martijn <br/>

@@ -5,6 +5,11 @@
 
   <div class="yandex-map">
    
-      
+      <ya-map [center]="[44.687199, 39.977717]" [zoom]="12">
+        <ya-geoobject
+        [feature]="geoObject.feature"
+        [options]="geoObject.options"
+      ></ya-geoobject>
+      </ya-map>
     
 </div>

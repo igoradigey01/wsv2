@@ -20,3 +20,7 @@ diogram_account.drawio
 ```
 Нужно отправить боту @BotFather команду /setdomain , он сначала попросит выбрать бота, а потом нужно будет ввести адрес сайта.
 ```
+### enviroment config libs
+```
+смотри app-config.md
+```

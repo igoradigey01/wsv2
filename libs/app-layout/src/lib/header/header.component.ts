@@ -1,6 +1,7 @@
 import { Component, OnInit,Output, EventEmitter,Input, OnDestroy  } from '@angular/core';
 import { Subscription } from 'rxjs';
-import {MenuService} from './../shared/services/menu.service'
+//import {MenuService} from './../shared/services/menu.service'
+import {MenyItemsService} from '@wsv2/app-config'
 import { MenuItem } from '../shared/_interfaces/menu-item.model';
 import {UserManagerService} from '@wsv2/account-service'
 
@@ -45,17 +46,17 @@ export class HeaderComponent implements OnInit {
    
 
 public MenuItems=():MenuItem[]=>{
-  return this.menuService.getMenuItems();
+  return this.repozitory.shopMenyItems;
 }
 
   constructor(
-    private menuService:MenuService,
+    private repozitory:MenyItemsService,
     private userManager:UserManagerService
 
   ) {}
 
   ngOnInit(): void {
-   this.menuService.setMenuFromJSON(this.jsonMenuURL);
+   //this.repozitory.setMenuFromJSON(this.jsonMenuURL);
    let sub1=  this.userManager.InvalidLogin$.subscribe(
     d => {
       this._invalidLogin = d;

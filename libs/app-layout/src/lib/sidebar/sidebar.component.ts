@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { MenuService } from './../shared/services/menu.service';
+//import { MenuService } from './../shared/services/menu.service';
+import {MenyItemsService} from '@wsv2/app-config'
 import { MenuItem } from '../shared/_interfaces/menu-item.model';
 import { Subscription } from 'rxjs';
 import { UserManagerService } from '@wsv2/account-service';
@@ -23,19 +24,19 @@ export class SidebarComponent implements OnInit {
   private _subscriptions: Subscription[] = [];
 
   public MenuItems = (): MenuItem[] => {
-    let m = this.menuService.getMenuItems();
+    let m = this.repozitory.shopMenyItems;
   //  console.log(m);
 
     return m;
   };
 
   constructor(
-    private menuService: MenuService,
+    private repozitory: MenyItemsService,
     private userManager: UserManagerService
   ) {}
 
   ngOnInit(): void {
-    this.menuService.setMenuFromJSON(this.jsonMenuURL);
+    //this.repozitory.setMenuFromJSON(this.jsonMenuURL);
     let sub1 = this.userManager.InvalidLogin$.subscribe((d) => {
       this._invalidLogin = d;
       this._userRole = this.userManager.RoleUser;

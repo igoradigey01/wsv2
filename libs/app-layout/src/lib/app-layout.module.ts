@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from './material.module';
-import { ManagerServiceModule } from './shared/services/maneger-service.module';
+//import { ManagerServiceModule } from './shared/services/maneger-service.module';
 
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -17,7 +17,8 @@ import { MainComponent } from './main/main.component';
     CommonModule,
     MaterialModule,   
     HttpClientModule,
-    ManagerServiceModule,
+    
+   // ManagerServiceModule,  //old relize menyItems repozitory
     RouterModule, // елси не задать неработает routerLink=''
   ],
   declarations: [

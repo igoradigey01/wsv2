@@ -1,7 +1,9 @@
 
 import { Injectable,Inject } from '@angular/core';
-import { APP_CONFIG ,IEnvironment ,RouteApiAbstract} from '@wsv2/app-config';
+  //APP_CONFIG ,IEnvironment ,
+import { RouteApiAbstract,EnvironmentService} from '@wsv2/app-config';
 import {ManagerServiceModule} from './maneger-service.module'
+
 
 
 
@@ -13,7 +15,9 @@ export class ApiService extends RouteApiAbstract {
  
 
   constructor(
-    @Inject(APP_CONFIG) appConfig: IEnvironment
+     appConfig:EnvironmentService
+     
+    //@Inject(APP_CONFIG) appConfig: IEnvironment //05.04.23 init() inject in APP_INITIALIZER
   ) {
     super(appConfig)
   }
