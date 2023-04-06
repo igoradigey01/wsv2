@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from './material.module';
-//import { ManagerServiceModule } from './shared/services/maneger-service.module';
 
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -15,10 +14,7 @@ import { MainComponent } from './main/main.component';
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,   
-    HttpClientModule,
-    
-   // ManagerServiceModule,  //old relize menyItems repozitory
+    MaterialModule,    
     RouterModule, // елси не задать неработает routerLink=''
   ],
   declarations: [

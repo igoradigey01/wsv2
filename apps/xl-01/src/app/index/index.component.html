@@ -1,8 +1,10 @@
 <p>index works!</p>
 
+<p>-- _test_property --{{_test_property}}</p>
+
 <x01-v1-header 
 [srcLogo]="_srcLogo"
-[jsonMenuURL]="_srcMenuJson"
+[menuItems]="_menuItems"
 [company_name_1]=" _company_name_1"
 [company_name_2]=" _company_name_2"
 (onToggleSideBar)="onSideBarVisible()"
@@ -25,7 +27,7 @@ class="example-toolbar"
     </div>
      
        <x01-v1-sidebar
-       [jsonMenuURL]="_srcMenuJson"
+       [menuItems]="_menuItems"
        (onToggleSideBar)="onSideBarVisible()"
        >
         

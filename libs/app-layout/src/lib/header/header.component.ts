@@ -1,8 +1,8 @@
 import { Component, OnInit,Output, EventEmitter,Input, OnDestroy  } from '@angular/core';
 import { Subscription } from 'rxjs';
-//import {MenuService} from './../shared/services/menu.service'
-import {MenyItemsService} from '@wsv2/app-config'
-import { MenuItem } from '../shared/_interfaces/menu-item.model';
+
+import {IMenyItem} from '@wsv2/app-config'
+
 import {UserManagerService} from '@wsv2/account-service'
 
 
@@ -40,17 +40,17 @@ export class HeaderComponent implements OnInit {
 @Input() public company_name_1:string|undefined;
 @Input() public company_name_2:string=""; //First Site
 @Input() public srcLogo:string='';
-@Input() public jsonMenuURL:string='';
+@Input() public menuItems:IMenyItem[]=[];
 @Output()
      onToggleSideBar = new EventEmitter()
    
 
-public MenuItems=():MenuItem[]=>{
-  return this.repozitory.shopMenyItems;
+public MenuItems=():IMenyItem[]=>{
+  return this.menuItems;
 }
 
   constructor(
-    private repozitory:MenyItemsService,
+  //  private repozitory:MenyItemsService,
     private userManager:UserManagerService
 
   ) {}

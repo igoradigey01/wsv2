@@ -10,7 +10,9 @@ export class CompanyInformationService implements ICompanyInformation {
     company_normalize_phone: string ='';
     company_photo:string[]=[]; //photo_1.webp,photo_2.webp...
     company_name:string='';
-    company_copyright:string='2020';
+    company_copyright:string='ИП';
+    company_time_create:string="2023";
+    company_activities:string="Розничная торговля мебелью.  Ханская"; //виды деятельности компании
     company_logo:string ='logo.webp';// logo.webp
     company_work_time:IWorkTime={start:'9-00',end:'17-00'};
     company_lunch_time:IWorkTime|undefined;

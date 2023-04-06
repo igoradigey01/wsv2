@@ -27,8 +27,8 @@ export const appRoutes: Route[] = [
         {
           path: 'menu',
           loadChildren: () =>
-            import('@wsv2/shop-services').then(
-              (m) => m.ShopServicesModule
+            import('@wsv2/shop-information').then(
+              (m) => m.ShopInformationModule
             ),
         } ,
         // {

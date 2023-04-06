@@ -24,7 +24,7 @@ export class AboutComponent implements OnInit {
       properties: {
         // The placemark content.
         iconContent: "Мы Здесь!!",
-       // hintContent: 'Come on, drag already!',
+        // hintContent: 'Come on, drag already!',
       },
     },
     options: {

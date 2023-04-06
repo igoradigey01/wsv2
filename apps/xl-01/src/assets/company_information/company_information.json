@@ -4,8 +4,10 @@
     "company_normalize_phone": "+79034668368",
     "company_photo":["photo_1","photo_2"],
     "company_name":"XL01",
-    "company_copyright":"",
-    "company_logo":"assets/logo/logo.webp",
+    "company_time_create":"2019",
+    "company_activities":"ЛДСП && МДФ Ханская",  
+    "company_copyright":"ИП Дячук",
+    "company_logo":"assets/company_information/logo.webp",
     "company_work_time":["9-00","17-00"],
     "company_lunch_time":[],
     "company_guarantees":"Товар предоставляется как есть -(что видишь то и покупаешь)-без предоставления каких-либо гарантий"

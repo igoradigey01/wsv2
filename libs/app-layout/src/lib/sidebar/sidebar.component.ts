@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 //import { MenuService } from './../shared/services/menu.service';
-import {MenyItemsService} from '@wsv2/app-config'
-import { MenuItem } from '../shared/_interfaces/menu-item.model';
+import {IMenyItem} from '@wsv2/app-config'
+
 import { Subscription } from 'rxjs';
 import { UserManagerService } from '@wsv2/account-service';
 
@@ -14,7 +14,7 @@ export class SidebarComponent implements OnInit {
   @Output()
   onToggleSideBar = new EventEmitter();
 
-  @Input() public jsonMenuURL: string = '';
+  @Input() public menuItems:IMenyItem[]=[];
 
   private _invalidLogin: boolean = false;
 
@@ -23,15 +23,15 @@ export class SidebarComponent implements OnInit {
 
   private _subscriptions: Subscription[] = [];
 
-  public MenuItems = (): MenuItem[] => {
-    let m = this.repozitory.shopMenyItems;
+  public MenuItems = (): IMenyItem[] => {
+    let m = this.menuItems;
   //  console.log(m);
 
     return m;
   };
 
   constructor(
-    private repozitory: MenyItemsService,
+  
     private userManager: UserManagerService
   ) {}
 
