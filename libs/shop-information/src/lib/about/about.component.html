@@ -1,15 +1,36 @@
 <div class="_container mat-typography">
   <h2 style="text-align: center">О НАС</h2>
+  <h3 style="margin-top: 1rem;margin-bottom: 1rem;">
+    <button (click)="toggle()" [ngClass]="{ active: isActive }"> Карта</button>
+    <button (click)="toggle()" [ngClass]="{ active: isDeactive }" style="margin-left:2rem;">Фото</button>
+  </h3>
 
-  
-
-  <div class="yandex-map">
-   
-      <ya-map [center]="[44.687199, 39.977717]" [zoom]="12">
+  <div *ngIf="condition">
+    <div class="yandex-map">
+    
+      <ya-map [center]="coordinates" [zoom]="12">
+        <div  *ngIf="geoObject">
         <ya-geoobject
         [feature]="geoObject.feature"
         [options]="geoObject.options"
       ></ya-geoobject>
+        </div>
       </ya-map>
-    
+  
 </div>
+  </div>
+  <div *ngIf="!condition">
+    <div style=" height: 500px; margin: 0 auto">
+      <wsv2-image-slider [slideImgs]="slideImgs"></wsv2-image-slider>
+    </div>
+    
+  </div>
+
+
+ 
+
+  
+
+ 
+
+

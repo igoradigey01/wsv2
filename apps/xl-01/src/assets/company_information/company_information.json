@@ -1,8 +1,11 @@
 {
-    "yandex_point":["44.687199","39.977717"],
+    "yandex_point":{"x":"44.687199","y":"39.977717"},
     "company_phone": "+7-903-466-83-68",
     "company_normalize_phone": "+79034668368",
-    "company_photo":["photo_1","photo_2"],
+    "company_photo":[
+        { "url": "assets/company_information/photo_1.webp", "title": "beach" },
+        {  "url": "assets/company_information/photo_2.webp","title": "boat"}
+        ],
     "company_name":"XL01",
     "company_time_create":"2019",
     "company_activities":"ЛДСП && МДФ Ханская",  

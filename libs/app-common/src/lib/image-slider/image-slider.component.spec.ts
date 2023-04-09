@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IndexComponent } from './index.component';
+import { ImageSliderComponent } from './image-slider.component';
 
-describe('IndexComponent', () => {
-  let component: IndexComponent;
-  let fixture: ComponentFixture<IndexComponent>;
+describe('ImageSliderComponent', () => {
+  let component: ImageSliderComponent;
+  let fixture: ComponentFixture<ImageSliderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IndexComponent],
+      imports: [ImageSliderComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(IndexComponent);
+    fixture = TestBed.createComponent(ImageSliderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

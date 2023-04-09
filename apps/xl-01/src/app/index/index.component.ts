@@ -25,6 +25,9 @@ export class IndexComponent {
   public _menuItems:IMenyItem[]=[];
   public _company_name_1:string|undefined;
   public _company_name_2:string=""
+   public _company_phone:string='';
+   public _company_normalize_phone:string='';
+
 
  public _test_property=''
 
@@ -40,7 +43,10 @@ export class IndexComponent {
     this._srcLogo=repositoryCompanyInformation.company_logo;
     this._company_name_2=repositoryCompanyInformation.company_name;
     this.title=repositoryCompanyInformation.company_name;
+    this._company_phone=repositoryCompanyInformation.company_phone;
+    this._company_normalize_phone=repositoryCompanyInformation.company_normalize_phone;
     this._menuItems=repositoryMenyItems.shopMenyItems;
+   
 
   }
 

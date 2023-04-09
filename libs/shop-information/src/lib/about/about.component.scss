@@ -8,7 +8,10 @@
   align-items: center;
   overflow:  hidden;
 }
-
+.active{
+  background-color: #94c9b7;
+  text-decoration: underline;
+}
 .yandex-map{
   display: block;
   //margin-left: auto;

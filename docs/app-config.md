@@ -19,9 +19,9 @@
 ### use providers
 
 ```
- create: constructor(@Inject(APP_CONFIG) appConfig: IEnvironment )
- -> libs/account/src/lib/shared/services/route-api.service.ts
-```
+ libs/account/src/lib/shared/services/route-api.service.ts
+    constructor(@Inject(APP_CONFIG) appConfig: IEnvironment )
+ ```
 
 ## APP_INITIALIZER App Config from file.json
 
@@ -67,11 +67,9 @@ create : export * from ''  -> index.ts
 ```
 
 ### use providers
-
-```
- create:
-  constructor(
-    private repozitory:MenyItemsService,
-    ) {}
- -> libs/app-layuot/src/lib/header/header.component.ts
-```
+  ```
+    libs/app-layuot/src/lib/header/header.component.ts
+       constructor(
+            private repozitory:MenyItemsService,
+        ) {}
+  ```
