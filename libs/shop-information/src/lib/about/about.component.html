@@ -20,8 +20,14 @@
 </div>
   </div>
   <div *ngIf="!condition">
-    <div style=" height: 500px; margin: 0 auto">
-      <wsv2-image-slider [slideImgs]="slideImgs"></wsv2-image-slider>
+    <div class="photo-slider" >
+      <wsv2-image-slider 
+      [slideImgs]="slideImgs"
+      [minHeightPhoto]="minHeightPhoto"
+      [minWidthPhoto]="minWidthPhoto"
+      [marginTopSlideBar] ="marginTopSlideBar" 
+      [marginLeftSlideBar] ="marginLeftSlideBar"  
+      ></wsv2-image-slider>
     </div>
     
   </div>

@@ -20,11 +20,12 @@ export class AboutComponent implements OnInit {
   public isDeactive=false;
   public coordinates: number[] = []
   public slideImgs: ISliderImage[] =[];
-  // [
-  //   { url: 'assets/company_information/photo_1.webp', title: 'beach' },
-  //   { url: 'assets/company_information/photo_2.webp', title: 'boat' },
-  // ]
-  // @Input() public srcLogo: string = '';
+
+  public minHeightPhoto ="470"
+  public minWidthPhoto="470"
+  public marginTopSlideBar:string="85" 
+  public marginLeftSlideBar:string="50"
+  
   geoObject: GeoObjectConstructor | undefined;
 
   constructor(
