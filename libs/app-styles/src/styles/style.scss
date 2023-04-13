@@ -1,23 +1,17 @@
 @use  "./reset" as r  ;
 @use "sass:map";
-//@use '@angular/material' as mat;
 @use './variables.scss' as v ;
+@use "@angular/material" as mat;
+
+
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
-
 
 @include r.reset-css() ;
 
 //https://materialtheme.arcsine.dev
+//Для использования прозрачности в Sass необходимо использовать цвет в RGB формате
 
-// Theme Text
-//$light-text: #ffffff;
-//v.$text-primary-color: $light-text;
-
-
-// Light Theme Text
-//$dark-text: #000000;
-//v.$text-primary-lighter-color: rgba($dark-text, 0.87);
 
 
 $mat-primary: (
@@ -59,24 +53,21 @@ $mat-warn: (
 
 
 // @include mat.all-component-themes($my-theme);
+@mixin mixin-mat-component-themes( $my-theme){
+ 
 
+@include  mat.core-theme($my-theme); 
+@include  mat.button-theme($my-theme);
+@include mat.toolbar-theme($my-theme);
+@include mat.icon-theme($my-theme);
+@include mat.menu-theme($my-theme);
+@include mat.checkbox-theme($my-theme);
+@include mat.card-theme($my-theme);
+@include mat.input-theme($my-theme);
+@include mat.form-field-theme($my-theme);
+@include mat.tabs-theme($my-theme);
+@include mat.list-theme($my-theme);
+@include mat.divider-theme($my-theme);
 
-.mat-raised-button, .mat-stroked-button, .mat-flat-button {
-  padding: 0 1.15em;
-  margin: 0 .65em;
-  min-width: 3em;
-  line-height: 36.4px
 }
 
-.mat-standard-chip {
-  padding: .5em .85em;
-  min-height: 2.5em;
-}
-
-.material-icons {
-  font-size: 24px;
-  font-family: 'Material Icons', 'Material Icons';  
-  .mat-badge-content {
-    font-family: 'Roboto';
-  }
-}

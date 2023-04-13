@@ -11,7 +11,10 @@
     "company_activities":"ЛДСП && МДФ Ханская",  
     "company_copyright":"ИП Дячук",
     "company_logo":"assets/company_information/logo.webp",
-    "company_work_time":["9-00","17-00"],
+    "company_work_time": {"start":"9-00","end":"17-00"},
+    "company_work_timeSaturdaySunday":{},
+    "company_day_off":["суббота","воскресенье"], 
+    "company_delivery":"true",
     "company_lunch_time":[],
     "company_guarantees":"Товар предоставляется как есть -(что видишь то и покупаешь)-без предоставления каких-либо гарантий"
     

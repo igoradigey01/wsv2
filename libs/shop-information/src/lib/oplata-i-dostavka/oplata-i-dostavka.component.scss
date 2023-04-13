@@ -1,10 +1,19 @@
 
-@use  '../../style.scss';
+@use  '../../style.scss' as s;
 
-@for $i from 2 through 4 {
-  h#{$i} {
-    //color:  style.$primary-color;             //#8c989b;
-    font-size: 1.1em;
-    margin-left: 40px;
-  }
+.not_delivery{
+  
+  color: rgba(var(--warn-lighter-color), $alpha: 1.0) ;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+//@debug rgba(var(--warn-lighter-color), $alpha: 1.0);
+h2{
+  margin-left: 3rem;
+}
+
+
+ul{
+  margin-left: 1rem;
+  margin-bottom: 1rem;
 }

@@ -22,6 +22,9 @@ export interface ICompanyInformation {
     company_activities:string;
     company_logo:string;// logo.webp
     company_work_time:IWorkTime;
+    company_work_timeSaturdaySunday:IWorkTime|undefined; //суббота воскресенье
+    company_day_off:string[]; //выходные
+    company_delivery:boolean; //доставка
     company_lunch_time:IWorkTime|undefined;
     company_guarantees:string;
 }

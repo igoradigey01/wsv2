@@ -1,2 +1,16 @@
 
-@use  '../../style.scss';
+@use  '../../style.scss' as s;
+
+.c-bottom{
+    margin-bottom: 2rem;
+    
+}
+
+  h2{
+    margin-left: 5rem;
+  }
+  h3{
+    color: s.$h-color; // #E87E04;
+    margin-left: 0px;
+    text-align: center;
+  }

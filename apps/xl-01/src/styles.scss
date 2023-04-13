@@ -1,27 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
-
 @forward "../../../libs/app-styles/src/styles/variables.scss" with (
     $primary-color: #768dd4 !default,
     $primary-lighter-color: #9EAFE0 !default
     );
-//@use "../../../libs/app-styles/src/styles/variables.scss"   ;
-
-
-//
-
-@use "../../../libs/app-styles/src/styles/index" as s;
+@use "../../../libs/app-styles/src/styles/style.scss" as s;
 @use "@angular/material" as mat;
-
+//  mat.core()- должен быть включен ровно один раз
 @include mat.core();
-@debug "background-color: #{s.$primary-color}";
-///'../../app-styles/src/styles/index.scss';
 
-/*-- пример : output debug см в терминале vs code -- !!
-//$primary-font-color:#f90;
-//#header::before{ content: "#{s.$accent-color}"};
-//@debug s.$accent-color;
-//@debug "font-size before media rules: #{s.$accent-color}";
-*/
+
 
 /* --Основной миксин должен быть включен ровно один раз для вашего приложения,--!! 
 @use '@angular/material' as mat;
@@ -51,4 +37,6 @@ $my-theme: mat.define-light-theme(
     )
 );
 
-@include mat.all-component-themes($my-theme);
+//@include mat.all-component-themes($my-theme);
+
+@include s.mixin-mat-component-themes ($my-theme);

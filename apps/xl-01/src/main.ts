@@ -154,6 +154,9 @@ bootstrapApplication(AppComponent, {
                   companyInformationService.company_photo = data.company_photo;
                   companyInformationService.company_time_create = data.company_time_create;
                   companyInformationService.company_work_time = data.company_work_time;
+                  companyInformationService.company_work_timeSaturdaySunday=data.company_work_timeSaturdaySunday;
+                  companyInformationService.company_day_off=data.company_day_off;
+                  companyInformationService.company_delivery=data.company_delivery;
                   companyInformationService.yandex_point = data.yandex_point;
 
                   /*  for (const key  in  data) {

@@ -1,40 +1,55 @@
-//@forward  'libs/xl01/shared/styles/src/styles/_style.scss';
+// должны быть заданы в app/index.scss: body{--accent-lighter-color:#fef6f6}
+//--accent-lighter-color: 
+//--accent-darker-color
+//--text-accent-lighter-color
 
-@forward  '../../app-styles/src/styles/index';
-//@forward  '../../app-styles/src/styles/variables.scss'  ;
+//  Для использования прозрачности в Sass необходимо использовать цвет в RGB формате
+// @function HexToRGB($hex) {
+//   @return red($hex), green($hex), blue($hex);
+// }
+//  @debug  #{HexToRGB($accent-lighter-color)}; 
+ 
 
-
+$bg-color: rgba(var(--accent-lighter-color), 0.15);   // #eeeef29e  ;
+$h-color: var(--accent-darker-color);          //#8c989b;
+$color: var(--text-accent-lighter-color); 
+ 
+ 
 ul{
-    list-style: none;
-  }
-  .c-1 {
-    min-height: 400px;
-  }
+  list-style: none;
+}
+.c-1 {
+  min-height: 400px;
+}
+.c-2 {
+  width: 90%;
+  padding: 10px;
+  margin: 1rem auto;
+  background-color: $bg-color; 
+
+  border-radius: 30px;
+}
+
+
+h1 {
+  color: $h-color; // #E87E04;
+  margin-left: 0px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+
+.c-p {
+  color: $color;
+  //	line-height: 150%;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
+@media (min-width: 768px){
   .c-2 {
-    width: 90%;
-    padding: 10px;
-    margin: 1rem auto;
-   
-  
-    border-radius: 30px;
+    width: 75%;
+    padding: 40px;
   }
-  @media (min-width: 768px){
-    .c-2 {
-      width: 75%;
-      padding: 40px;
-    }
-  
-  }
-  
-  h1 {
-   
-    margin-left: 0px;
-    text-align: center;
-  }
-  
-  
-  p {
-   
-    margin-top: 20px;
-    margin-left: 20px;
-  }
+
+}

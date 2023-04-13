@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CompanyInformationService} from '@wsv2/app-config'
 
 @Component({
   selector: 'app-oplata-i-dostavka',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OplataIDostavkaComponent implements OnInit {
 
-  constructor() { }
+  public product_delivery:boolean=false;
+
+  constructor(
+    private repository:CompanyInformationService
+  ) { 
+    this.product_delivery=repository.company_delivery;
+  }
 
   ngOnInit(): void {
   }

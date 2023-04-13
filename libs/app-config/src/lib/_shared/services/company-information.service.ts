@@ -16,6 +16,10 @@ export class CompanyInformationService implements ICompanyInformation {
     company_activities:string="Розничная торговля мебелью.  Ханская"; //виды деятельности компании
     company_logo:string ='logo.webp';// logo.webp
     company_work_time:IWorkTime={start:'9-00',end:'17-00'};
-    company_lunch_time:IWorkTime|undefined;
+   
+    company_work_timeSaturdaySunday:IWorkTime|undefined; // время работы в субботу воскресенье
+    company_day_off:string[]=["воскресенье"]; //выходные
+    company_delivery:boolean=true;  // доставка
+    company_lunch_time:IWorkTime|undefined; // время обеда
     company_guarantees:string='без предоставления каких-либо гарантий';
 }
