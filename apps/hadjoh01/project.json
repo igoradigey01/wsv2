@@ -92,5 +92,5 @@
       }
     }
   },
-  "tags": []
+  "tags": ["scope:hadjoh01", "type:app"]
 }

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { ISliderImage } from '../_shared/interfaces/slider-image.model';
-import { CompanyInformationService } from "@wsv2/app-config";
+
 
 import { CommonModule } from '@angular/common';
 

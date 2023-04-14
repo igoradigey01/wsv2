@@ -31,6 +31,11 @@
                   "sourceTag": "scope:shagen01",
                   "onlyDependOnLibsWithTags": ["scope:shagen01","type:01-lib"]
                 }
+                ,
+                {
+                  "sourceTag": "scope:hadjoh01",
+                  "onlyDependOnLibsWithTags": ["scope:hadjoh01","type:01-lib"]
+                }
                 ,           
               {
                 "sourceTag": "scope:01account-lib",
@@ -59,6 +64,11 @@
               {
                 "sourceTag": "scope:01app-styles-lib",
                 "onlyDependOnLibsWithTags": [ "scope:01app-styles-lib", "type:01-lib"]
+              }
+              ,           
+              {
+                "sourceTag": "01app-shop-information-lib",
+                "onlyDependOnLibsWithTags": [ "01app-shop-information-lib", "type:01-lib"]
               }
             ]
           }
