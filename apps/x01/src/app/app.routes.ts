@@ -5,12 +5,48 @@ import  {IndexComponent} from './index/index.component';
 
 
 export const appRoutes: Route[] = [
-
-    {
-        path: '',              
+         
+  { path: '',   redirectTo: 'index', pathMatch: 'full' },
+   
+      {
+        path: 'index',              
        component:IndexComponent,
-       pathMatch: 'full'
+       children: [
+        {
+          path: '',
+          loadComponent: () =>
+          import('@wsv2/shop-content').then((m) => m.IndexShopComponent)
+        },
+        {
+          path: 'account',              
+          loadChildren: () =>
+            import('@wsv2/account').then((m) => m.AccountModule)
+        },
+    
+    
+        {
+          path: 'menu',
+          loadChildren: () =>
+            import('@wsv2/shop-information').then(
+              (m) => m.ShopInformationModule
+            ),
+        } ,
+        // {
+        //   path: 'content',
+        //   loadChildren: () =>
+        //     import('@x01-v1/xl01/content-section').then(
+        //       (module) => module.Xl01ContentSectionModule
+        //     ),
+        // },
+        {
+          path: '**',
+        loadChildren: () =>
+        import('@wsv2/app-common').then((m) => m.App01CommonModule)
+        }
+      ],
+       
       },
+      
      
       {
         path: 'manager',              
@@ -23,19 +59,8 @@ export const appRoutes: Route[] = [
         loadComponent: () =>
           import('./admin/admin.component').then((m) => m.AdminComponent)
       },
-    {
-        path: 'account',              
-        loadChildren: () =>
-          import('@wsv2/account').then((m) => m.AccountModule)
-      }
+   
       
-      ,
-      {
-        path: '**',
-        loadChildren: () =>
-        import('@wsv2/app-common').then((m) => m.App01CommonModule)
-      }
+    
 ];
-
-
 

@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+@forward "../../../libs/app-styles/src/styles/variables.scss" with (
+    $primary-color: #768dd4 !default,
+    $primary-lighter-color: #9EAFE0 !default
+    );
+@use "../../../libs/app-styles/src/styles/style.scss" as s;
+@use "@angular/material" as mat;
+//  mat.core()- должен быть включен ровно один раз
+@include mat.core();
+
+
+
+/* --Основной миксин должен быть включен ровно один раз для вашего приложения,--!! 
+@use '@angular/material' as mat;
+@include mat.core();
+
+Angular Material определяет mixin named core , 
+который включает необходимые стили для общих функций,
+ используемых несколькими компонентами. 
+ Основной миксин должен быть включен ровно один раз для вашего приложения, 
+ даже если вы определяете несколько тем. 
+ Включение основного миксина несколько раз приведет к дублированию CSS в вашем приложении.
+*/
+
+$my-warn: mat.define-palette(s.$mat-warn, main, lighter, darker);
+$my-accent: mat.define-palette(s.$mat-accent, main, lighter, darker);
+$my-primary: mat.define-palette(s.$mat-primary, main, lighter, darker);
+
+$my-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $my-primary,
+            accent: $my-accent,
+            warn: $my-warn,
+        ),
+        typography: mat.define-typography-config(),
+        density: 0,
+    )
+);
+
+//@include mat.all-component-themes($my-theme);
+
+@include s.mixin-mat-component-themes ($my-theme);

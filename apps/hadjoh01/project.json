@@ -20,12 +20,7 @@
         "scripts": []
       },
       "configurations": {
-        "fileReplacements": [
-          {
-            "replace": "D:/NXWs_v2/wsv2/apps/hadjoh01/src/environments/environment.ts",
-            "with": "D:/NXWs_v2/wsv2/apps/hadjoh01/src/environments/environment.prod.ts"
-          }
-        ],
+       
         "production": {
           "budgets": [
             {
@@ -39,6 +34,12 @@
               "maximumError": "1mb"
             }
           ],
+           "fileReplacements": [
+          {
+            "replace": "apps/hadjoh01/src/environments/environment.ts",
+            "with": "apps/hadjoh01/src/environments/environment.prod.ts"
+          }
+        ],
           "outputHashing": "all"
         },
         "development": {

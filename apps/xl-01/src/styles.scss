@@ -1,7 +1,4 @@
-@forward "../../../libs/app-styles/src/styles/variables.scss" with (
-    $primary-color: #768dd4 !default,
-    $primary-lighter-color: #9EAFE0 !default
-    );
+@forward "../../../libs/app-styles/src/styles/variables.scss" ;
 @use "../../../libs/app-styles/src/styles/style.scss" as s;
 @use "@angular/material" as mat;
 //  mat.core()- должен быть включен ровно один раз

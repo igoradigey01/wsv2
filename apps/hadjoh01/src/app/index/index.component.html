@@ -1,1 +1,49 @@
-<p>index works!</p>
+<x01-v1-header 
+[srcLogo]="_srcLogo"
+[menuItems]="_menuItems"
+[company_name_1]=" _company_name_1"
+[company_name_2]=" _company_name_2"
+[company_phone]=" _company_phone"
+[company_normalize_phone]=" _company_normalize_phone"
+(onToggleSideBar)="onSideBarVisible()"
+class="example-toolbar"
+></x01-v1-header>
+
+<div name="main" class="_conteiner"
+    [ngClass]="{
+      'grid-container2': _flagPanel,
+      'grid-container1': ! _flagPanel 
+    }"
+  >
+    <div class="sidenav" [ngClass]="{ hiden: !_flagSideBarHiden }" >
+    <div class="sidenav-header" (click)="onSideBarVisible()" >
+      <div style=" height: 24px;">
+        <span><mat-icon aria-hidden="false" aria-label="navigate before icon" fontIcon="navigate_before"></mat-icon></span>
+  
+       
+    </div>
+    </div>
+     
+       <x01-v1-sidebar
+       [menuItems]="_menuItems"
+       (onToggleSideBar)="onSideBarVisible()"
+       >
+        
+       </x01-v1-sidebar>
+       
+       
+     
+    </div>    
+    
+    <div class="main_content">
+           
+             
+<!-------------------------------------------------------- start  main content-->
+<router-outlet></router-outlet>   
+
+
+  </div>
+
+  <!----------------- create end-->
+</div>
+<x01-v1-footer></x01-v1-footer>

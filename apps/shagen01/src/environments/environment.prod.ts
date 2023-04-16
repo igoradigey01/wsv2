@@ -1,13 +1,8 @@
 export const environment = {
+    production: 0
   
-  production: true,
-  clientUri:'https://sh.x-01.ru/', //  Host client
-  serverUri:'https://s.x-01.ru/',
-  serverAuthUri:'https://s.x-01.ru/',
-  clientId:'sh.x-01',
-  postavchikIds:'sh.x-01',//xl-01.ru laminat
-  vkId:'51431968',
-  version:'b3.03.23',
-  description:"Client shop- третья редакция (angular:15.1)(23.03.23)"
-
-};
+   // production: '0' -- app_environments.prod.json   default
+   // production: '1' -- app_environments.local_vm.json  localhost:8080
+   // production: '2' -- app_environments.local.json     localhost:5010
+  
+  };
