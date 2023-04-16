@@ -6,7 +6,7 @@ import {IEnvironment} from '../interfaces/environment.model'
 })
 export class EnvironmentService implements IEnvironment {
 
-    production: boolean=false;
+  
     clientUri: string='http://localhost:4200/'; //  Host client
     serverUri: string = 'http://localhost:8080/'; // Host api               //
     serverAuthUri: string='http://localhost:8080/'; // Host identity server          //

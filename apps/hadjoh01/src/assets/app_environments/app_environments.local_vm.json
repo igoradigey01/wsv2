@@ -1,0 +1,10 @@
+{
+  "clientUri": "http://localhost:4200/",
+  "serverUri": "http://localhost:8080/",
+  "serverAuthUri": "http://localhost:8080/",
+  "clientId": "mh-01",
+  "postavchikIds": ["mh-01", "xf-01", "xl-0l"],
+  "vkId": "51431968",
+  "version": "b3.03.23",
+  "description": "Client shop- третья редакция (angular:14.1.0)(22.03.23)"
+}

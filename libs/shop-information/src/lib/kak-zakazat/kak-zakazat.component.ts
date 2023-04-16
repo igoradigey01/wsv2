@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {CompanyInformationService} from '@wsv2/app-config';
 @Component({
   selector: 'app-kak-zakazat',
   templateUrl: './kak-zakazat.component.html',
@@ -7,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KakZakazatComponent implements OnInit {
 
-  constructor() { }
+  public phone:string=''
+
+  constructor( 
+    private repository:CompanyInformationService
+  ) {
+     this.phone=repository.company_phone;
+
+   }
 
   ngOnInit(): void {
   }

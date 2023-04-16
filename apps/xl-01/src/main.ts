@@ -7,7 +7,7 @@ import {
 import { AppComponent } from './app/app.component';
 import { appRoutes } from './app/app.routes';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AppConfigModule } from '@wsv2/app-config'
+import { AppConfigModule, IEnvironment } from '@wsv2/app-config'
 import { tap } from 'rxjs/operators';
 import { environment } from './environments/environment';
 //import { APP_CONFIG ,COMPANY_CONFIG,MENY_CONFIG} from "@wsv2/app-config";
@@ -115,15 +115,35 @@ bootstrapApplication(AppComponent, {
         const http = inject(HttpClient);
         return () =>
           new Promise((resolve) => {
-            // http
-            // .get('assets/meny_items_assembly/admin-meny-items.json')
-            // .pipe(
-            //    tap((data: any) => {
-            //     menyItemsService.adminMenyItems = data;
-            //     console.log("--promise is ok--");
-            //     resolve(true);
-            //      }))            
-            // .subscribe();
+
+            let url;
+            switch(environment.production){
+              case 1:
+                url='assets/app_environments/app_environments.local_vm.json';
+                break;
+            case 2:
+              url='assets/app_environments/app_environments.local.json';
+                break;
+              default: 
+              url='assets/app_environments/app_environments.prod.json';
+                  break;
+            }
+            http
+            .get<IEnvironment>(url)
+            .pipe(
+               tap((data: IEnvironment) => {
+                environmentService.clientId = data.clientId;
+                environmentService.clientUri=data.clientUri;
+                environmentService.description=data.description;
+                environmentService.postavchikIds=data.postavchikIds;
+                environmentService.serverAuthUri=data.serverAuthUri;
+                environmentService.serverUri=data.serverUri;
+                environmentService.version=data.version;
+                environmentService.vkId=data.vkId;
+                //console.log("--promise is ok--");
+                resolve(true);
+                 }))            
+            .subscribe();
             resolve(true)
           });
       }
@@ -158,6 +178,7 @@ bootstrapApplication(AppComponent, {
                   companyInformationService.company_day_off=data.company_day_off;
                   companyInformationService.company_delivery=data.company_delivery;
                   companyInformationService.yandex_point = data.yandex_point;
+                  companyInformationService.company_email_for_privacy_police=data.company_email_for_privacy_police;
 
                   /*  for (const key  in  data) {
                     if (companyInformationService.hasOwnProperty(key)) {

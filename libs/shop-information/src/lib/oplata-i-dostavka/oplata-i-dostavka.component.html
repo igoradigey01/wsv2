@@ -21,8 +21,9 @@
       <h2 >Время работы</h2>
   
         <ul>
-          <li>Пн - Пт: с 9:00 до 18:00 (МСК)</li>
-          <li>Сб-Вс: с 9:00 до 14:45 (МСК)</li>
+          <li>Пн - Пт: с{{work_time.start}} до {{work_time.end}} (МСК)</li>
+          <li *ngIf="work_time_timeSaturdaySunday" >Сб-Вс: с {{work_time_timeSaturdaySunday.start}}до {{work_time_timeSaturdaySunday.end}} (МСК)</li>
+          <li *ngIf="company_day_off">выходной : {{company_day_off}} </li>
         </ul>
       
     

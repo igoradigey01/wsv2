@@ -1,0 +1,13 @@
+{
+    "clientUri":"http://localhost:4200/",
+    "serverUri":"http://localhost:5010/",
+    "serverAuthUri":"http://localhost:5010/",
+    "clientId":"xf-01",
+     "postavchikIds":["xf-01"],
+    "vkId":"51431968",
+    "version":"b3.03.23",
+    "description":"Client shop- третья редакция (angular:14.1.0)(22.03.23)"
+  }
+
+  
+  

@@ -22,4 +22,5 @@ export class CompanyInformationService implements ICompanyInformation {
     company_delivery:boolean=true;  // доставка
     company_lunch_time:IWorkTime|undefined; // время обеда
     company_guarantees:string='без предоставления каких-либо гарантий';
+    company_email_for_privacy_police:string|undefined;
 }

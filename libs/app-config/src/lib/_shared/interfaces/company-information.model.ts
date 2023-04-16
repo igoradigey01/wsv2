@@ -27,4 +27,5 @@ export interface ICompanyInformation {
     company_delivery:boolean; //доставка
     company_lunch_time:IWorkTime|undefined;
     company_guarantees:string;
+    company_email_for_privacy_police:string|undefined;
 }

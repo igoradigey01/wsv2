@@ -1,16 +1,15 @@
 
 @use  '../../style.scss' as s;
 
-.c-bottom{
-    margin-bottom: 2rem;
+ul{
+    margin-left: 2rem;
     
 }
 
   h2{
     margin-left: 5rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    text-transform: uppercase;
   }
-  h3{
-    color: s.$h-color; // #E87E04;
-    margin-left: 0px;
-    text-align: center;
-  }
+ 

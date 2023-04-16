@@ -5,7 +5,7 @@
 
 export interface IEnvironment {
 
-  production: boolean;
+ 
   clientUri: string; //  Host client
   serverUri: string; // Host api               //
   serverAuthUri: string; // Host identity server          //

@@ -1,0 +1,9 @@
+[
+  { "id": 1, "name": "КАТЕГОРИЯ", "url": "/manager/categoria-n" },
+  { "id": 2, "name": "КАТАЛОГ", "url": "/manager/katalog-n" },
+  { "id": 3, "name": "БРЕНД", "url": "/manager/brand-n" },
+  { "id": 4, "name": "ЦВЕТ", "url": "/manager/color-n" },
+  { "id": 5, "name": "АРТИКУЛ ", "url": "/manager/article-n" },
+  { "id": 6, "name": "НОМЕНКЛАТУРА", "url": "/manager/katalog-n" },
+  { "id": 6, "name": "info", "url": "/manager/nomenclature" }
+]
