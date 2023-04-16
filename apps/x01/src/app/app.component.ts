@@ -1,6 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
-import {environment} from '../environments/environment'
+import {CompanyInformationService} from '@wsv2/app-config'
 
 @Component({
   standalone: true,
@@ -12,9 +12,11 @@ import {environment} from '../environments/environment'
 export class AppComponent {
 
   title = 'x-01';
-  constructor() {
+  constructor(
+    private repository:CompanyInformationService
+  ) {
     // global var create for account lib
-    (<any>window).vkId = environment.vkId;
+  //  (<any>window).vkId = environment.vkId;
     
   }
   
