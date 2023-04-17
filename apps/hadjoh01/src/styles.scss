@@ -1,13 +1,16 @@
 @forward "../../../libs/app-styles/src/styles/variables.scss" with (
-    $primary-color: #768dd4 !default,
-    $primary-lighter-color: #9EAFE0 !default
+    $primary-color: #76d4b9,  // #768dd4 !default,
+    $primary-lighter-color: #d6f2ea  // #9EAFE0 !default
     );
 @use "../../../libs/app-styles/src/styles/style.scss" as s;
 @use "@angular/material" as mat;
 //  mat.core()- должен быть включен ровно один раз
 @include mat.core();
 
-
+// accent --#6f6969
+// ligt accent #d4d2d2
+// dark accent #524c4c 17.04.23
+// primary dark #59c3a2
 
 /* --Основной миксин должен быть включен ровно один раз для вашего приложения,--!! 
 @use '@angular/material' as mat;

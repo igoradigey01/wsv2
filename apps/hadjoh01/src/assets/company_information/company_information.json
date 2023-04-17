@@ -3,8 +3,8 @@
     "company_phone": "+7-961-826-19-56",
     "company_normalize_phone": "+79618261956",
     "company_photo":[
-        { "url": "assets/company_information/photo_1.webp", "title": "beach" },
-        {  "url": "assets/company_information/photo_2.webp","title": "boat"}      
+        { "url": "assets/company_information/photo_1.webp", "title": "beach" }
+          
         ],
     "company_name":"MH01",
     "company_time_create":"2020",
