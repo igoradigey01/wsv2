@@ -15,6 +15,7 @@ export class AppComponent {
   constructor(
     private repository:CompanyInformationService
   ) {
+    
     // global var create for account lib
    // (<any>window).vkId = environment.vkId;
     

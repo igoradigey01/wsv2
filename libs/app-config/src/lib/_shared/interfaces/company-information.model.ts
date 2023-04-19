@@ -12,7 +12,8 @@ export interface IWorkTime{
 
 export interface ICompanyInformation {
 
-    yandex_point:IGeoPoint; // x ,y 
+    yandex_point:IGeoPoint; // x ,y
+    yandex_zoom:number; 
     company_phone: string;
     company_normalize_phone: string;
     company_photo:ISliderImage[]; //photo_1.webp,photo_2.webp...

@@ -6,9 +6,10 @@
   </h3>
 
   <div *ngIf="condition">
-    <div class="yandex-map">
+    <div class="yandex-map" *ngIf="coordinates">
+      
     
-      <ya-map [center]="coordinates" [zoom]="12">
+      <ya-map [center]="coordinates" [zoom]="yandex_zoom">
         <div  *ngIf="geoObject">
         <ya-geoobject
         [feature]="geoObject.feature"

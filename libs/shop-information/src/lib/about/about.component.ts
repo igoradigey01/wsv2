@@ -18,15 +18,18 @@ export class AboutComponent implements OnInit {
   public condition = true;
   public isActive=true;
   public isDeactive=false;
-  public coordinates: number[] = []
+  public coordinates: number[] |undefined;// = []
   public slideImgs: ISliderImage[] =[];
 
   public minHeightPhoto ="470"
   public minWidthPhoto="470"
   public marginTopSlideBar:string="85" 
   public marginLeftSlideBar:string="50"
+
   
   geoObject: GeoObjectConstructor | undefined;
+  yandex_zoom:number;
+
 
   constructor(
     private repository: CompanyInformationService
@@ -36,6 +39,7 @@ export class AboutComponent implements OnInit {
     let x = repository.yandex_point.x;
     let y = repository.yandex_point.y;
     this.coordinates = [Number(x), Number(y)]
+    this.yandex_zoom=repository.yandex_zoom;
     this.geoObject = {
       feature: {
         // The geometry description.

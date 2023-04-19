@@ -1,16 +1,17 @@
 @forward "../../../libs/app-styles/src/styles/variables.scss" with (
-    $primary-color: #76d4b9,  // #768dd4 !default,
-    $primary-lighter-color: #d6f2ea  // #9EAFE0 !default
+    $primary-color:  #49B891, // #76d4b9,  // #768dd4 !default,
+    $primary-lighter-color: #c8eade , // #9EAFE0 !default
+    $accent-color: #656464 
     );
 @use "../../../libs/app-styles/src/styles/style.scss" as s;
 @use "@angular/material" as mat;
 //  mat.core()- должен быть включен ровно один раз
 @include mat.core();
 
-// accent --#6f6969
-// ligt accent #d4d2d2
-// dark accent #524c4c 17.04.23
-// primary dark #59c3a2
+// accent --  #656464 #6f6969
+// ligt accent #d1d1d1
+// dark accent #494848 17.04.23
+// primary dark #31a074
 
 /* --Основной миксин должен быть включен ровно один раз для вашего приложения,--!! 
 @use '@angular/material' as mat;
@@ -27,6 +28,9 @@ Angular Material определяет mixin named core ,
 $my-warn: mat.define-palette(s.$mat-warn, main, lighter, darker);
 $my-accent: mat.define-palette(s.$mat-accent, main, lighter, darker);
 $my-primary: mat.define-palette(s.$mat-primary, main, lighter, darker);
+@function HexToRGB($hex) {
+    @return red($hex), green($hex), blue($hex);
+  }
 
 $my-theme: mat.define-light-theme(
     (

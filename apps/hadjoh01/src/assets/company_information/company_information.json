@@ -1,20 +1,21 @@
 {
     "yandex_point":{"x":"44.290947","y":"40.181127"},
+    "yandex_zoom":18,
     "company_phone": "+7-961-826-19-56",
     "company_normalize_phone": "+79618261956",
     "company_photo":[
         { "url": "assets/company_information/photo_1.webp", "title": "beach" }
           
         ],
-    "company_name":"MH01",
+    "company_name":"mh01",
     "company_time_create":"2020",
     "company_activities":"Розничная торговля мебелью. Каменномостский",  
     "company_email_for_privacy_police":"",
-    "company_copyright":"ИП ",
+    "company_copyright":"ИП Гаврияшев",
     "company_logo":"assets/company_information/logo.webp",
-    "company_work_time": {"start":"9-00","end":"17-00"},
-    "company_work_timeSaturdaySunday":{"start":"9-00","end":"15-00"},
-    "company_day_off":["понедельник"], 
+    "company_work_time": {"start":"9-00","end":"13-00"},
+    "company_work_timeSaturdaySunday":{"start":"8-00","end":"15-00"},
+    "company_day_off":["воскресенье"], 
     "company_delivery":"true",
     "company_lunch_time":[],
     "company_guarantees":"Товар предоставляется как есть -(что видишь то и покупаешь)-без предоставления каких-либо гарантий"

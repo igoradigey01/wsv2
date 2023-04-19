@@ -7,6 +7,7 @@ import { ISliderImage } from "@wsv2/app-common";
 })
 export class CompanyInformationService implements ICompanyInformation {
     yandex_point:IGeoPoint={x:'',y:''}// x ,y 
+    yandex_zoom: number=12;
     company_phone: string='';
     company_normalize_phone: string ='';
     company_photo:ISliderImage[]=[]; //photo_1.webp,photo_2.webp...

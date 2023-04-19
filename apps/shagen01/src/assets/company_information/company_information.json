@@ -1,20 +1,21 @@
 {
-    "yandex_point":{"x":"44.687199","y":"39.977717"},
-    "company_phone": "+7-903-466-83-68",
-    "company_normalize_phone": "+79034668368",
+    "yandex_point":{"x":"44.680935","y":"39.958916"},
+    "yandex_zoom":15,
+    "company_phone": "+7-952-980-57-14",
+    "company_normalize_phone": "+79529805714",
     "company_photo":[
-        { "url": "assets/company_information/photo_1.webp", "title": "beach" },
-        {  "url": "assets/company_information/photo_2.webp","title": "boat"}      
+        { "url": "assets/company_information/photo_1.webp", "title": "beach" }
+          
         ],
-    "company_name":"XL01",
-    "company_time_create":"2019",
-    "company_activities":"ЛДСП && МДФ Ханская",  
+    "company_name":"SH01",
+    "company_time_create":"1998",
+    "company_activities":"Розничная Оптовая торговля . Ханская",  
     "company_email_for_privacy_police":"",
-    "company_copyright":"ИП Дячук",
+    "company_copyright":"ИП ",
     "company_logo":"assets/company_information/logo.webp",
     "company_work_time": {"start":"9-00","end":"17-00"},
-    "company_work_timeSaturdaySunday":"",
-    "company_day_off":["суббота","воскресенье"], 
+    "company_work_timeSaturdaySunday":{"start":"9-00","end":"14-00"},
+    "company_day_off":["воскресенье"], 
     "company_delivery":"true",
     "company_lunch_time":[],
     "company_guarantees":"Товар предоставляется как есть -(что видишь то и покупаешь)-без предоставления каких-либо гарантий"
