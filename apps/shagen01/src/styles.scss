@@ -1,6 +1,10 @@
 @forward "../../../libs/app-styles/src/styles/variables.scss" with (
-    $primary-color: #768dd4 !default,
-    $primary-lighter-color: #9EAFE0 !default
+    $primary-color: #768dd4 ,
+    $primary-lighter-color: #d6ddf2 ,   
+    $primary-darker-color:#5970c3,
+    $accent-color: #565151 ,   
+    $accent-lighter-color:#cccbcb,
+    $accent-darker-color:#3c3737
     );
 @use "../../../libs/app-styles/src/styles/style.scss" as s;
 @use "@angular/material" as mat;

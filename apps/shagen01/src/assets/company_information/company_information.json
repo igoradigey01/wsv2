@@ -4,8 +4,8 @@
     "company_phone": "+7-952-980-57-14",
     "company_normalize_phone": "+79529805714",
     "company_photo":[
-        { "url": "assets/company_information/photo_1.webp", "title": "beach" }
-          
+        { "url": "assets/company_information/photo_1.webp", "title": "position" } ,
+        { "url": "assets/company_information/photo_2.webp", "title": "position" }         
         ],
     "company_name":"SH01",
     "company_time_create":"1998",

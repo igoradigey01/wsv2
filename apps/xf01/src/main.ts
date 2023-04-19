@@ -178,6 +178,7 @@ bootstrapApplication(AppComponent, {
                   companyInformationService.company_day_off=data.company_day_off;
                   companyInformationService.company_delivery=data.company_delivery;
                   companyInformationService.yandex_point = data.yandex_point;
+                  companyInformationService.yandex_zoom=data.yandex_zoom;
                   companyInformationService.company_email_for_privacy_police=data.company_email_for_privacy_police;
 
                   /*  for (const key  in  data) {
