@@ -4,7 +4,7 @@
   height: 100%;
   margin:-2em;;
   text-align: center;
-  background-image: url('/assets/app-common/not_found.webp')  ;
+  background-image: url('/assets/not_found.webp')  ; // в  apps/*name*/src/assets должна существовать
   background-repeat: no-repeat;
   background-size: 400px auto ;
   background-position: center, center;

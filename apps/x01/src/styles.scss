@@ -1,10 +1,10 @@
 @forward "../../../libs/app-styles/src/styles/variables.scss" with (
-    $primary-color:  #953B97, // #76d4b9,  // #768dd4 !default,
-    $primary-lighter-color: #dfc4e0 , // #9EAFE0 !default
-    $primary-darker-color:#78267a,
-    $accent-color: #524d4d,
-    $accent-lighter-color:#cbcaca,
-    $accent-darker-color:#383434
+    $primary-color:  #8c2b5e, // #76d4b9,  // #768dd4 !default,
+    $primary-lighter-color: #ddbfcf, // #9EAFE0 !default
+    $primary-darker-color:#6f1a42,
+    $accent-color: #454e5e,
+    $accent-lighter-color:#c7cacf,
+    $accent-darker-color:#2e3542
     );
 @use "../../../libs/app-styles/src/styles/style.scss" as s;
 @use "@angular/material" as mat;

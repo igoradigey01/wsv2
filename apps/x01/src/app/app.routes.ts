@@ -40,8 +40,8 @@ export const appRoutes: Route[] = [
         // },
         {
           path: '**',
-        loadChildren: () =>
-        import('@wsv2/app-common').then((m) => m.App01CommonModule)
+        loadComponent: () =>
+        import('@wsv2/app-common').then((c) => c.PageNotFoundComponent)
         }
       ],
        
@@ -59,7 +59,7 @@ export const appRoutes: Route[] = [
         loadComponent: () =>
           import('./admin/admin.component').then((m) => m.AdminComponent)
       },
-   
+      { path: '**',   redirectTo: 'index/**', pathMatch: 'full' },
       
     
 ];

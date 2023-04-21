@@ -1,20 +1,26 @@
 {
-    "yandex_point":{"x":"44.687199","y":"39.977717"},
-    "company_phone": "+7-903-466-83-68",
-    "company_normalize_phone": "+79034668368",
-    "company_photo":[
-        { "url": "assets/company_information/photo_1.webp", "title": "beach" },
-        {  "url": "assets/company_information/photo_2.webp","title": "boat"}      
+    "yandex_point":{"x":"44.671885","y":"39.972686"},
+    "yandex_zoom":16,
+    "company_phone": "+7-918-162-35-40",    
+    "company_normalize_phone": "+79181623540",
+    "company_phones":[
+        {"employee":"manager","phone":"+7-918-162-35-40","normalize_phone":"+79181623540"},
+        {"employee":"manager","phone":"+7-962-851-63-77","normalize_phone":"+79628516377"},
+        {"employee":"manager","phone":"+7-928-036-10-55","normalize_phone":"+79280361055"}
         ],
-    "company_name":"XL01",
-    "company_time_create":"2019",
-    "company_activities":"ЛДСП && МДФ Ханская",  
+    "company_photo":[
+        { "url": "assets/company_information/photo_1.webp", "title": "position" },
+        {  "url": "assets/company_information/photo_2.webp","title": "position"}      
+        ],
+    "company_name":"Fuksman",
+    "company_time_create":"2020",
+    "company_activities":"Розничная  Торговля  Фурнитурой для Мебели .Ханская",  
     "company_email_for_privacy_police":"",
-    "company_copyright":"ИП Дячук",
+    "company_copyright":"ИП  Должанский",
     "company_logo":"assets/company_information/logo.webp",
     "company_work_time": {"start":"9-00","end":"17-00"},
-    "company_work_timeSaturdaySunday":"",
-    "company_day_off":["суббота","воскресенье"], 
+    "company_work_timeSaturdaySunday": {"start":"9-00","end":"14-00"},
+    "company_day_off":["воскресенье"], 
     "company_delivery":"true",
     "company_lunch_time":[],
     "company_guarantees":"Товар предоставляется как есть -(что видишь то и покупаешь)-без предоставления каких-либо гарантий"
