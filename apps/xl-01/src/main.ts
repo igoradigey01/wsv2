@@ -172,6 +172,7 @@ bootstrapApplication(AppComponent, {
                   companyInformationService.company_normalize_phone = data.company_normalize_phone;
                   companyInformationService.company_phone = data.company_phone;
                   companyInformationService.company_photo = data.company_photo;
+                  companyInformationService.company_phones=data.company_phones;
                   companyInformationService.company_time_create = data.company_time_create;
                   companyInformationService.company_work_time = data.company_work_time;
                   companyInformationService.company_work_timeSaturdaySunday=data.company_work_timeSaturdaySunday;

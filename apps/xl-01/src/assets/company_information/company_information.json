@@ -2,6 +2,10 @@
     "yandex_point":{"x":"44.687199","y":"39.977717"},
     "company_phone": "+7-903-466-83-68",
     "company_normalize_phone": "+79034668368",
+    "company_phones":[
+        {"employee":"менеджер","phone":"+7-903-466-83-68","normalize_phone":"+79034668368"},
+        {"employee":"менеджер","phone":"+7-988-476-18-28","normalize_phone":"+79884761828"}
+    ],
     "company_photo":[
         { "url": "assets/company_information/photo_1.webp", "title": "beach" },
         {  "url": "assets/company_information/photo_2.webp","title": "boat"}      

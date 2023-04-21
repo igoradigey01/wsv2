@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ICompanyInformation,IGeoPoint,IWorkTime} from '../interfaces/company-information.model'
-import { ISliderImage } from "@wsv2/app-common";
+import { ISliderImage ,IPhone} from "@wsv2/app-common";
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,7 @@ export class CompanyInformationService implements ICompanyInformation {
     yandex_zoom: number=12;
     company_phone: string='';
     company_normalize_phone: string ='';
+    company_phones:IPhone[]=[];
     company_photo:ISliderImage[]=[]; //photo_1.webp,photo_2.webp...
     company_name:string='';
     company_copyright:string='ИП';

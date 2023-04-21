@@ -3,6 +3,11 @@
     "yandex_zoom":15,
     "company_phone": "+7-952-980-57-14",
     "company_normalize_phone": "+79529805714",
+    "company_phones":[
+        {"employee":"менеджер","phone":"+7-952-980-57-14","normalize_phone":"+79529805714"},
+        {"employee":"менеджер","phone":"+7-918-212-11-12","normalize_phone":"+79182121112"}
+        
+    ],
     "company_photo":[
         { "url": "assets/company_information/photo_1.webp", "title": "position" } ,
         { "url": "assets/company_information/photo_2.webp", "title": "position" }         

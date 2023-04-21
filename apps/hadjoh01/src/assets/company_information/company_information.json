@@ -3,6 +3,11 @@
     "yandex_zoom":18,
     "company_phone": "+7-961-826-19-56",
     "company_normalize_phone": "+79618261956",
+    "company_phones":[
+        {"employee":"менеджер","phone":"+7-961-826-19-56","normalize_phone":"+79618261956"},
+        {"employee":"менеджер","phone":"+7-928-669-40-59","normalize_phone":"+79286694059"}
+        
+    ],
     "company_photo":[
         { "url": "assets/company_information/photo_1.webp", "title": "position" },
         { "url": "assets/company_information/photo_2.webp", "title": "position" },

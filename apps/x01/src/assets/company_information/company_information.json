@@ -3,6 +3,10 @@
     "yandex_zoom":18,
     "company_phone": "+7-900-244-03-28",
     "company_normalize_phone": "+79002440328",
+    "company_phones":[
+        {"employee":"менеджер","phone":"+7-900-244-03-28","normalize_phone":"+79002440328"}
+        
+    ],
     "company_photo":[
         { "url": "assets/company_information/photo_1.webp", "title": "position" }
           

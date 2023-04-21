@@ -1,4 +1,4 @@
-import { ISliderImage} from '@wsv2/app-common'
+import { ISliderImage,IPhone} from '@wsv2/app-common'
 
 export interface IGeoPoint{
     x:string;
@@ -16,6 +16,7 @@ export interface ICompanyInformation {
     yandex_zoom:number; 
     company_phone: string;
     company_normalize_phone: string;
+    company_phones:IPhone[];
     company_photo:ISliderImage[]; //photo_1.webp,photo_2.webp...
     company_name:string;
     company_copyright:string;
