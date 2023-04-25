@@ -9,16 +9,14 @@
 
 @include r.reset-css() ;
 
-//https://materialtheme.arcsine.dev
-//https://colorhunt.co
-// https://mybrandnewlogo.com/ru/sozdat-logotip  создать логотип (генератор)
+/** - Material collors theme - docs/app-style.md*/
 //Для использования прозрачности в Sass необходимо использовать цвет в RGB формате
 
 
 
 
 $mat-primary: (
-  main: v.$primary-color ,  // #cc33ca,
+  main:  var(--primary-color),//v.$primary-color ,  // #cc33ca,
   lighter:v.$primary-lighter-color , // #f0c2ef,
   darker: v.$primary-darker-color , // #b920b7,
   200: v.$primary-color , // #cc33ca, // For slide toggle,
@@ -31,7 +29,7 @@ $mat-primary: (
 
 
 $mat-accent: (
-  main: v.$accent-color, // #797979,
+  main: var(--accent-color), // #797979,
   lighter: v.$accent-lighter-color , // #d7d7d7,
   darker:  v.$accent-darker-color, //#5c5c5c,
   200: v.$accent-color,// #797979, // For slide toggle,
@@ -56,8 +54,7 @@ $mat-warn: (
 
 
 // @include mat.all-component-themes($my-theme);
-@mixin mixin-mat-component-themes( $my-theme){
- 
+@mixin mixin-mat-component-themes( $my-theme){ 
 
 @include  mat.core-theme($my-theme); 
 @include  mat.button-theme($my-theme);
@@ -73,4 +70,5 @@ $mat-warn: (
 @include mat.divider-theme($my-theme);
 
 }
+
 

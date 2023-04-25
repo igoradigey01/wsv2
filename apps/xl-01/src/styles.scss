@@ -1,21 +1,19 @@
-@forward "../../../libs/app-styles/src/styles/variables.scss" ;
-@use "../../../libs/app-styles/src/styles/style.scss" as s;
+@forward "../../../libs/app-styles/src/styles/variables.scss" with (
+    $primary-color: #8c2b5e !default);
+@forward "../../../libs/app-styles/src/styles/style.scss" ;
+@use "../../../libs/app-styles/src/styles/style.scss"  as s;
 @use "@angular/material" as mat;
 //  mat.core()- должен быть включен ровно один раз
 @include mat.core();
+// включить typography
+$my-typography: mat.define-typography-config();
+@include mat.typography-hierarchy($my-typography);
 
 
-
-/* --Основной миксин должен быть включен ровно один раз для вашего приложения,--!! 
-@use '@angular/material' as mat;
+/** help - Material collors theme - docs/app-style.md*/
+//Для использования прозрачности в Sass необходимо использовать цвет в RGB формате
+/*!! --Основной миксин должен быть включен ровно один раз для вашего приложения,--!! 
 @include mat.core();
-
-Angular Material определяет mixin named core , 
-который включает необходимые стили для общих функций,
- используемых несколькими компонентами. 
- Основной миксин должен быть включен ровно один раз для вашего приложения, 
- даже если вы определяете несколько тем. 
- Включение основного миксина несколько раз приведет к дублированию CSS в вашем приложении.
 */
 
 $my-warn: mat.define-palette(s.$mat-warn, main, lighter, darker);
@@ -36,4 +34,6 @@ $my-theme: mat.define-light-theme(
 
 //@include mat.all-component-themes($my-theme);
 
+
 @include s.mixin-mat-component-themes ($my-theme);
+//@include  mat.button-theme($my-theme);

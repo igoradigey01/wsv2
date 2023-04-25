@@ -9,7 +9,7 @@
 class="example-toolbar"
 ></x01-v1-header>
 
-<div name="main" class="_conteiner"
+<div name="main" class="conteiner"
     [ngClass]="{
       'grid-container2': _flagPanel,
       'grid-container1': ! _flagPanel 
@@ -39,6 +39,8 @@ class="example-toolbar"
            
              
 <!-------------------------------------------------------- start  main content-->
+<button  mat-raised-button color="primary"  routerLink="/manager" >manager link</button>
+ 
 <router-outlet></router-outlet>   
 
 

@@ -51,7 +51,7 @@ export const appRoutes: Route[] = [
       {
         path: 'manager',              
         loadComponent: () =>
-          import('./manager/manager.component').then((m) => m.ManagerComponent)
+          import('@wsv2/manage-page').then((m) => m.IndexComponent)
       },
       
       {

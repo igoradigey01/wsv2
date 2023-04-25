@@ -1,0 +1,119 @@
+//@use "../../styles.scss" as s;
+@use "@angular/material" as mat;
+
+/** help - Material collors theme - docs/app-style.md*/
+//Для использования прозрачности в Sass необходимо использовать цвет в RGB формате
+
+/**
+$primary-admin-color: #825500 !default;
+$primary-lighter-admin-color: #ffddb3   !default;
+$primary-darker--admin-color: #653b00 !default;
+$text-primary--admin-color: #ffffff !default;
+$text-primary--admin-lighter-color: rgba(0, 0, 0, 0.87) !default;
+$text-primary--admin-darker-color: #ffffff !default;
+
+$accent-admin-color: #797979 !default;
+$accent-lighter-admin-color: #d7d7d7 !default;
+$accent-darker-admin-color: #5c5c5c !default;
+$text-accent-admin-color: #ffffff !default;
+$text-accent-lighter-admin-color: rgba(0, 0, 0, 0.87) !default;
+$text-accent-darker-admin-color: #ffffff !default;
+
+
+$warn-admin-color: #ff0000;
+$warn-lighter-admin-color: #ffb3b3;
+$warn-darker-admin-color: #ff0000;
+$text-warn-admin-color: #ffffff;
+$text-warn-lighter-admin-color: rgba(0, 0, 0, 0.87);
+$text-warn-darker-admin-color: #ffffff;
+*/
+
+$primary-admin: #805300;
+$on-primary-admin-admin: #ffffff;
+$primary-container-admin: #ffddb3;
+$on-primary-container-admin: #291800;
+$primary-dark:#ffb94f;
+$on-primary-dark:#452b00;
+
+$secondary-admin: #6f5b40;
+$on-secondary-admin: #ffffff;
+$secondary-container-admin: #fadebc;
+$on-secondary-container-admin: #271904;
+$secondary-dark:#ddc2a1;
+$on-secondary-dark:#3e2d16;
+
+
+$tertiary-admin: #516440;
+$on-tertiary-admin: #ffffff;
+$tertiary-container-admin: #d4eabc;
+$on-tertiary-container-admin: #102004;
+
+$error: #ba1a1a;
+$on-error: #ffffff;
+$error-container: #ffdad6;
+$on-error-container: #410002;
+$error-dark:#ffb4ab;
+$on-error-dark:#690005;
+
+$background: #fffbff;
+$on-background: #1f1b16;
+
+$surface: #fffbff;
+$on-surface: #1f1b16;
+$surface-variant: #f0e0cf;
+$on-surface-variant: #4f4539;
+
+$outline: #817567;
+
+$mat-primary-palette: (
+  primary: $primary-admin,
+  primary-container: $primary-container-admin,
+  primary-dark:$primary-dark, 
+  contrast:
+    (
+      primary: $on-primary-admin-admin,
+      primary-container: $on-primary-container-admin,
+      primary-dark:$on-primary-dark
+    )
+);
+
+$mat-accent-palette: (
+  secondary: $secondary-admin,
+  secondary-container: $secondary-container-admin,
+  secondary-dark: $secondary-dark,
+  contrast:(
+    secondary: $on-secondary-admin,
+    secondary-container: $secondary-container-admin,
+    secondary-dark: $on-secondary-dark
+  )
+);
+
+$mat-warn-palette: (
+  error: $error,
+  error-container: $error-container,
+  error-dark:$error-dark,
+  contrast: (
+    error: $on-error,
+    error-container: $on-error-container,
+    error-dark:$on-error-dark
+  )
+);
+
+.theme-admin-section {
+  $special-primary: mat.define-palette($mat-primary-palette, primary,primary-container,primary-dark);
+  $special-accent: mat.define-palette($mat-accent-palette,secondary,secondary-container,secondary-dark);
+  $special-warn: mat.define-palette($mat-warn-palette, error,error-container,error-dark);
+  $special-theme: mat.define-dark-theme(
+    (
+      color: (
+        primary: $special-primary,
+        accent: $special-accent,
+        warn: $special-warn
+      ),
+    )
+  );
+
+  @include mat.button-color($special-theme);
+}
+
+//var(--primary-color):black;
