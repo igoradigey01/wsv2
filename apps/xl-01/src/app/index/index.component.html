@@ -1,4 +1,5 @@
 <x01-v1-header 
+[is_shop]="_is_shop"
 [srcLogo]="_srcLogo"
 [menuItems]="_menuItems"
 [company_name_1]=" _company_name_1"
@@ -40,7 +41,11 @@ class="example-toolbar"
              
 <!-------------------------------------------------------- start  main content-->
 <button  mat-raised-button color="primary"  routerLink="/manager" >manager link</button>
- 
+<button mat-button >Basic</button>
+<button mat-button color="primary">Primary</button>
+<button mat-raised-button  color="primary" class="text_wite">Primary</button>
+<button mat-raised-button color="accent">Accent</button>
+<button mat-raised-button color="warn">Warn</button>
 <router-outlet></router-outlet>   
 
 

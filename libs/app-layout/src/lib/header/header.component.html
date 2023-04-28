@@ -1,20 +1,43 @@
 <mat-toolbar color="primary" class="_container_nav ">
-    <div class="col_inner">
+    <div class="col_inner" >
+      <div *ngIf="is_shop;else admin_logo">
       <a routerLink="" class="nav_link">
-  
+       
         <span class="logo_inner-name" *ngIf="company_name_1">{{company_name_1}}</span>
-  
-        <img class="logo_inner-img" [src]="srcLogo" alt="" loading="lazy" />
-        <span class="logo_inner-name-2">{{ company_name_2}}</span>
+
+        
+        <img class="logo_inner-img" [src]="srcLogo" alt="" loading="lazy" />       
+        <span class="logo_inner-name-2" *ngIf="company_name_2" >{{ company_name_2}}</span>
+     
       </a>
     </div>
-    <div class="col_inner logo-column">
+    </div>
+    <ng-template #admin_logo>
+     
+        <a routerLink="" class="nav_link">
+         
+          <div class="logo_inner-name" *ngIf="company_name_2">{{company_name_2}} <br>(Менеджер)</div>
+         
+         
+        </a>
+        <div class="logo_inner-name">
+          <button mat-raised-button color="accent" class="tertiary-button" routerLink="/content/">
+            Розница
+           </button>
+           <button mat-raised-button color="accent" routerLink="/content/opt">
+            Опт
+           </button>
+        </div>
+
+    </ng-template>
+
+    <div class="col_inner logo-column" *ngIf="is_shop" >
       <div class="logo-position-name"> <span> {{company_name_1}}</span><span> </span> <span> {{company_name_2}}</span>
       </div>
       <div class="commutation">
       <a class="nav_link" href="tel:{{company_normalize_phone}}"> ({{company_phone}} ) </a>
     </div>
-      <div class="conteiner-social-apps">
+      <div class="conteiner-social-apps" >
         <span>
   
           <a href=" https://wa.me/{{company_normalize_phone}}?text=Здравствуйте%20(xf-01)%20Меня%20интересует%20информация%20о%20 ">
@@ -86,12 +109,12 @@
         <!---------/-->
       </div>
   
-      <div class="menu-lg">
-        
+      <div class="menu-lg">     
+          
         <span  *ngFor="let item of MenuItems()  " >
             <a class="nav_link" routerLink="{{item.url}}" >{{ item.name }}</a>
           </span>
-       
+          <span></span>
   
   
         <!--start Role  --------------->
@@ -117,16 +140,18 @@
             Заказы
           </button>
         </span>
-  
+         <div *ngIf="is_shop">
         <span *ngIf="IsShopperOpt">
           <button mat-raised-button color="accent" routerLink="/content/opt">
             Оптовые цены
           </button>
         </span>
+      </div>
+    
         <!--end Role  --------------->
   
         <span>
-          <span *ngIf="InvalidLogin; else elseBlock">
+          <span *ngIf="InvalidLogin; else validLoginBlock">
   
             <a routerLink="/root/account">
   
@@ -167,7 +192,7 @@
             </a>
           </span>
   
-          <ng-template #elseBlock>
+          <ng-template #validLoginBlock>
   
             <a routerLink="/root/account/user-profile">
               <svg width="48" class="log-ok" version="1.1" id="log-in" xmlns="http://www.w3.org/2000/svg"

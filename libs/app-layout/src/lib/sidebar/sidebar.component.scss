@@ -10,28 +10,24 @@
 
 
 
-$color-not-viaw-logo: style.$warn-lighter-color;// #ffbd35;
-//$bg-color:   style.$primary-color;
-$color:  style.$text-primary-color;
-$color-hover: style.$primary-lighter-color;
 //---------------------------------------------------
 .log-in{
-  background-color:  style.$primary-color;
+  background-color:  var(--primary-color);
   margin-top: 4px;
   border-radius: 10%;
   &:hover {
     border-radius: 10%;
-    background-color: style.$accent-color;
+    background-color: var(--accent-color);
   }
   
 }
 
 .log-ok{
-  background-color:  style.$accent-color;
+  background-color:  var(--accent-color);
  
   margin-top: 4px;
   border-radius: 10%;
   &:hover {
-    background-color: style.$accent-lighter-color;
+    background-color: var(--accent-lighter-color);
   }  
 }

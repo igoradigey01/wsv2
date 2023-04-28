@@ -1,5 +1,5 @@
 @use  "./reset" as r  ;
-@use "sass:map";
+@use "sass:color";
 @use './variables.scss' as v ;
 @use "@angular/material" as mat;
 
@@ -15,28 +15,32 @@
 
 
 
+//$on-primary-lighter-color:v.HexToRGB(var(--on-primary-lighter-color));
+
+
 $mat-primary: (
   main:  var(--primary-color),//v.$primary-color ,  // #cc33ca,
-  lighter:v.$primary-lighter-color , // #f0c2ef,
-  darker: v.$primary-darker-color , // #b920b7,
-  200: v.$primary-color , // #cc33ca, // For slide toggle,
+  lighter:var(--primary-lighter-color) , // #f0c2ef,
+  darker: var(--primary-darker-color) , // #b920b7,
+  200:var(--primary-color) , // #cc33ca, // For slide toggle,
   contrast : (
-    main: v.$text-primary-color,
-    lighter: v.$text-primary-lighter-color,
-    darker: v.$text-primary-color,
+    main: var(--on-primary-color),
+    lighter: var(--on-primary-lighter-color),
+    darker: var(--on-primary-color),
+    //200:var(--on-primary-color)
   )
 );
 
 
 $mat-accent: (
   main: var(--accent-color), // #797979,
-  lighter: v.$accent-lighter-color , // #d7d7d7,
-  darker:  v.$accent-darker-color, //#5c5c5c,
-  200: v.$accent-color,// #797979, // For slide toggle,
+  lighter: var(--accent-lighter-color) , // #d7d7d7,
+  darker:  var(--accent-darker-color), //#5c5c5c,
+  200: (--accent-color),// #797979, // For slide toggle,
   contrast : (
-    main: v.$text-primary-color,
-    lighter: v.$text-primary-lighter-color,
-    darker: v.$text-primary-color,
+    main: var(--on-accent-color),
+    lighter: var(--on-accent-lighter-color),
+    darker:  var(--on-accent-color),
   )
 );
 
@@ -46,9 +50,9 @@ $mat-warn: (
   darker:  v.$warn-color,//#ff0000,
   200:  v.$warn-color ,//#ff0000, // For slide toggle,
   contrast : (
-    main: v.$text-primary-color,
-    lighter: v.$text-primary-lighter-color,
-    darker: v.$text-primary-color,
+    main: v.$on-primary-color,
+    lighter: v.$on-primary-lighter-color,
+    darker: v.$on-primary-color,
   )
 );
 

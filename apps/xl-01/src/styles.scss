@@ -1,5 +1,4 @@
-@forward "../../../libs/app-styles/src/styles/variables.scss" with (
-    $primary-color: #8c2b5e !default);
+
 @forward "../../../libs/app-styles/src/styles/style.scss" ;
 @use "../../../libs/app-styles/src/styles/style.scss"  as s;
 @use "@angular/material" as mat;

@@ -1,4 +1,4 @@
-@use "../../../style.scss" as st;
+//@use "../../../style.scss" as st;
 
 .container {
   min-height: 400px;
@@ -30,11 +30,11 @@
   width: 90%;
   // background-color: st.$accent-lighter-color ;
 
-  color: st.$text-accent-lighter-color;
+  color:var(--accent-lighter-color);
 }
 
 .error {
-  color: st.$warn-color;
+  color: var(--warn-color);
 
  // background-color: st.$warn-color;
 }

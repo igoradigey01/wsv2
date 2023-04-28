@@ -1,72 +1,66 @@
-
-//@use     '../../style.scss' as s  ;
-
 @import '../../style.scss';
+
 
 
 .mat-button-base {
   margin: 8px 8px 8px 0;
 }
 
+.tertiary-button{
+  color: var(--on-tertiary) !important;
+  background-color: var( --tertiary-color) !important;
+}
+
 // @debug  $primary-color ;
 //---------------------------------------------------
-.log-in{
-  background-color: var( --primary-color) ;
+.log-in {
+  background-color: var(--primary-color);
   margin-top: 4px;
   &:hover {
     border-radius: 10%;
-    background-color:  var( --primary-lighter-color );  //s.$accent-color ;
+    background-color: var(--primary-lighter-color); //s.$accent-color ;
   }
-  
 }
 
 //@debug  $primary-color;
 
-
-
-
-.log-ok{
-  background-color:  $accent-color ;
+.log-ok {
+  background-color:var(--accent-color);
   margin-top: 4px;
 
   border-radius: 10%;
   &:hover {
-    background-color: $primary-color;
-  }  
+    background-color: var(--primary-color);
+  }
 }
 
-.watchapp{
- // background-color: s.$primary-color;
-   width: 32px;
-   height: 32px;
+.watchapp {
+  // background-color: s.$primary-color;
+  width: 32px;
+  height: 32px;
   &:hover {
     border-radius: 50%;
-    background-color: var( --primary-lighter-color); //s.$accent-color;
+    background-color: var(--primary-lighter-color); //s.$accent-color;
   }
-
 }
-.telegram{
- 
-    //background-color: s.$primary-color;
-     width: 32px;
-     height: 32px;
-    &:hover {
-      border-radius: 50%;
-      background-color: var( --primary-lighter-color) ;
-    }
-  
-  
+.telegram {
+  //background-color: s.$primary-color;
+  width: 32px;
+  height: 32px;
+  &:hover {
+    border-radius: 50%;
+    background-color: var(--primary-lighter-color);
+  }
 }
 
 // region
 
 ._container_nav {
   min-height: 120px;
-  padding:  0;
-  display: flex; 
+  padding: 0;
+  display: flex;
   justify-content: space-between;
 }
-
 
 .col_inner {
   display: flex;
@@ -76,28 +70,30 @@
   display: flex;
   margin-top: 8px;
   align-items: stretch;
-  color: $text-primary-color;;
-  text-decoration: none;  // test host!!!
- // background-color: s.$primary-color;
-  
+  color: var(--on-primary-color);
+  text-decoration: none; // test host!!!
+  // background-color: s.$primary-color;
+
   &:hover {
-    color: var( --primary-lighter-color);
+    color: var(--primary-lighter-color);
   }
 }
 
-
-.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button{
+.mat-button,
+.mat-icon-button,
+.mat-stroked-button,
+.mat-flat-button {
   display: flex;
   justify-content: center;
 }
 
 .logo_inner-img {
   // position: relative;
-  height: 60px;;
+  height: 60px;
   // width: 70px;
   display: flex;
   //border-radius: 20%;
-  vertical-align: middle ;
+  vertical-align: middle;
   margin-left: 0.9rem;
   margin-right: 0.2rem;
 }
@@ -105,28 +101,28 @@
   //argin-top: 10px;
   margin-left: 0.4rem;
   display: none;
- // color: $color-logo;
+  // color: $color-logo;
   &:hover {
-    color: var( --primary-lighter-color);
+    color: var(--primary-lighter-color);
   }
 }
 .logo_inner-name-2 {
   //argin-top: 10px;
   display: none;
- // color: $bg-footer-color;
+  // color: $bg-footer-color;
   &:hover {
     color: var(--primary-lighter-color);
   }
 }
-.logo-position-name{
+.logo-position-name {
   margin-top: 0.5rem;
   display: flex;
-  color:  rgba($accent-lighter-color, $alpha:0.9)  ;       //$color-not-viaw-logo;
+  color: rgba(var(--accent-lighter-color), $alpha: 0.9); //$color-not-viaw-logo;
   &:hover {
     color: var(--primary-lighter-color);
   }
 }
-.logo-column{
+.logo-column {
   flex-direction: column;
   align-items: center;
 }
@@ -142,24 +138,18 @@
   display: flex;
   width: 100%;
 }
-.mobile-nav{
+.mobile-nav {
   display: block;
   position: relative;
 }
 
-
-
-
-.img-social-apps{
+.img-social-apps {
   height: 26px;
   margin-left: 0.5rem;
 }
 
-
-  
 //-------------------------------
-@media (min-width: 450px){
-
+@media (min-width: 450px) {
   .menu-lg {
     display: none;
   }
@@ -174,36 +164,31 @@
   .logo_inner-name {
     //argin-top: 10px;
     display: flex;
-
   }
   .logo_inner-name-2 {
     //argin-top: 10px;
     display: flex;
-
   }
-  .logo-position-name{
-
+  .logo-position-name {
     display: none;
-
   }
-  .logo_inner-img{
+  .logo_inner-img {
     margin-left: 0.2rem;
-    height: 60px;;
-
+    height: 60px;
   }
-
 }
 // @media (min-width:950px) {
 //   ._container_nav {
 //     min-height: 90px;
 //   }
-  
+
 // }
 
 @media (min-width: 1200px) {
   .menu-lg {
     display: flex;
     margin-right: 0.5rem;
+   // margin-left: 1rem;
   }
   .menu-md {
     display: none;
@@ -211,9 +196,8 @@
   ._container {
     padding: 0 20px;
   }
-  .logo_inner-img{
+  .logo_inner-img {
     margin-left: 0.2rem;
-    height: 60px;;
-
+    height: 60px;
   }
 }

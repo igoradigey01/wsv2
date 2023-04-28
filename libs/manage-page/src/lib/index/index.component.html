@@ -1,14 +1,11 @@
 <p>index manager-page.lib works!</p>
 <div class="theme-manager-section">
     <x01-v1-header 
-    [srcLogo]="_srcLogo"
-    [menuItems]="_menuItems"
-    [company_name_1]=" _company_name_1"
-    [company_name_2]=" _company_name_2"
-    [company_phone]=" _company_phone"
-    [company_normalize_phone]=" _company_normalize_phone"
+    [is_shop]="false"   
+    [menuItems]="_menuItems"    
+    [company_name_2]=" _company_name_2"   
     (onToggleSideBar)="onSideBarVisible()"
-    class="example-toolbar"
+   
     ></x01-v1-header>
   
   <div class="conteiner  mat-typography" >
@@ -16,7 +13,7 @@
       quibusdam fuga magni eos aspernatur molestias optio repellendus incidunt, adipisci quaerat qui? 
       Itaque aliquam nobis iure.</h1>
       <p>Manager page</p>
-      <button mat-button >Basic</button>
+      <button mat-button routerLink="" >Basic</button>
       <button mat-button color="primary">Primary</button>
       <button mat-raised-button color="primary">Primary</button>
   <button mat-raised-button color="accent">Accent</button>

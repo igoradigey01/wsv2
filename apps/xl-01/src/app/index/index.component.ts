@@ -27,6 +27,7 @@ export class IndexComponent {
   public _company_name_2:string=""
    public _company_phone:string='';
    public _company_normalize_phone:string='';
+   public _is_shop=true;
 
 
  public _test_property=''

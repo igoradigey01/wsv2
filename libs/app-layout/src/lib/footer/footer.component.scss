@@ -8,7 +8,7 @@
     padding: 20px;
     background : var( --accent-color); // style.$accent-darker-color;
     min-height: 60px;
-    color:    var( --text-accent-color)  ;//   style.$text-accent-darker-color;
+    color:    var( --on-accent-color)  ;//   style.$text-accent-darker-color;
    // align-items: center;
   }
   .copirate{
@@ -17,7 +17,7 @@
   
   }
   .nav_link{
-    color:  var( --text-accent-color);
+    color:  var( --on-accent-color);
     &:hover {
         border-radius: 10%;
         color: var(--accent-lighter-color);

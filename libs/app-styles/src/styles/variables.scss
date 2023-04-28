@@ -1,26 +1,23 @@
+$base-color-for-m3: #cc33ca;
 
 $primary-color: #cc33ca !default;
-$primary-lighter-color: #f0c2ef !default;
+$primary-lighter-color: #f0c2ef !default; //primary-container
 $primary-darker-color: #b920b7 !default;
-$text-primary-color: #ffffff !default;
-$text-primary-lighter-color: rgba(0, 0, 0, 0.87) !default;
-$text-primary-darker-color: #ffffff !default;
+$on-primary-color: rgb(255, 255, 255)  !default;
+$on-primary-lighter-color: rgb(56, 0, 56) !default;
 
-$accent-color: #797979 !default;
-$accent-lighter-color: #d7d7d7 !default;
-$accent-darker-color: #5c5c5c !default;
-$text-accent-color: #ffffff !default;
-$text-accent-lighter-color: hsla(0, 0%, 0%, 0.87) !default;
-$text-accent-darker-color: #ffffff !default;
+$accent-color: #6d5869 !default;
+$accent-lighter-color: #f7daef !default; //secondary-container
+$accent-darker-color: #503d4c !default;
+$on-accent-color: #ffffff !default;
+$on-accent-lighter-color: #271624 !default;
 
-
-$warn-color: #ff0000;
-$warn-lighter-color: #ffb3b3;
-$warn-darker-color: #ff0000;
-$text-warn-color: #ffffff;
-$text-warn-lighter-color: rgba(0, 0, 0, 0.87);
-$text-warn-darker-color: #ffffff;
-
+$warn-color: #ba1a1a;
+$warn-lighter-color: #ffdad6; //error-container
+$warn-darker-color: #690005;
+$on-warn-color: #ffffff;
+$on-warn-lighter-color: #410002;
+$on-warn-darker-color: #fffbff;
 
 //Для использования прозрачности в Sass необходимо использовать цвет в RGB формате
 //[CSS var в rgba] (https://habr.com/ru/articles/533084/)
@@ -28,38 +25,52 @@ $text-warn-darker-color: #ffffff;
 @function HexToRGB($hex) {
   @return red($hex), green($hex), blue($hex);
 }
-// @debug  #{HexToRGB($accent-lighter-color)}; 
-
+// @debug  #{HexToRGB($accent-lighter-color)};
+$dark-text: #000000;
+$dark-primary-text: rgba($dark-text, 0.87);
+$dark-accent-text: rgba($dark-primary-text, 0.54);
 
 body {
-  --primary-color: #{$primary-color};
-  --primary-lighter-color:#{$primary-lighter-color};
-  --primary-darker-color: #{$primary-darker-color};
-
-  --text-primary-color: #{$text-primary-color};
-  --text-primary-lighter-color: #{$text-primary-lighter-color};
- 
-}   
-body {
-  --accent-color: #{$accent-color};
-  --accent-lighter-color: #{HexToRGB($accent-lighter-color)};
-  --accent-darker-color: #{$accent-darker-color};
-
-  --text-accent-color: #{$text-accent-color};
-  --text-accent-lighter-color: #{$text-accent-lighter-color};
-  
+  --tertiary-color: #825345;
+  --tertiary-container-color: #ffdbd1;
+  --on-tertiary-color: #ffffff;
+  --on-tertiary-container-color: #321208;
 }
 
 body {
-  --warn-color: #{HexToRGB($warn-color)};
-  --warn-lighter-color: #{HexToRGB($warn-lighter-color)};
+  --background: #fffbff;
+  --on-background: #1f1b16;
 
-  --text-warn-color: #{$text-warn-color};
-  --text-warn-lighter-color: #{$text-warn-lighter-color};
-  
-}   
+  --surface-color: #fffbff;
+  --on-surface-color: #1f1b16;
+  --surface-variant-color: #eedee7;
+  --on-surface-variant-color: #4e444b;
 
+  --outline-color: #80747c;
+}
 
+body {
+  --primary-color: #{$primary-color};
+  --primary-lighter-color: #{$primary-lighter-color};
+  --primary-darker-color: #{$primary-darker-color};
 
+  --on-primary-color: #{$on-primary-color};
+  --on-primary-lighter-color: #{$on-primary-lighter-color};
+}
+body {
+  --accent-color: #{$accent-color};
+  --accent-lighter-color: #{HexToRGB($accent-lighter-color)}; //primary-container
+  --accent-darker-color: #{$accent-darker-color};
 
+  --on-accent-color: #{$on-accent-color};
+  --on-accent-lighter-color: #{$on-accent-lighter-color};
+}
 
+body {
+  --warn-color: #{$warn-color};
+  --warn-lighter-color: #{HexToRGB($warn-lighter-color)}; //secondary-container
+  --warn-darker-color: #{$warn-darker-color};
+
+  --on-warn-color: #{$on-warn-color};
+  --on-warn-lighter-color: #{$on-warn-lighter-color}; //error-container
+}

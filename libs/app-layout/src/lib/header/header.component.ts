@@ -29,9 +29,9 @@ export class HeaderComponent implements OnInit,OnDestroy {
 
   private _subscriptions: Subscription[] = [];
   // private subscription: Subscription|undefined ;
-
+  @Input() public is_shop:boolean=true;
   @Input() public company_name_1: string | undefined;
-  @Input() public company_name_2: string = ''; //First Site
+  @Input() public company_name_2: string | undefined;; //First Site
   @Input() public srcLogo: string = '';
   @Input() public company_phone: string = '';
   @Input() public company_normalize_phone: string = '';
