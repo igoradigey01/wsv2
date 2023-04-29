@@ -1,0 +1,24 @@
+
+.item-form {
+  text-align: center;
+  display: grid;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  grid-template-columns: 1fr;
+}
+.btn-group{
+ margin-left: auto;
+ margin-right: auto;
+}
+.seo{
+  width: 80%;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+._ok{
+background-color: var(--bs-success);
+}
+._error{
+  color: var(--bs-pink);
+}

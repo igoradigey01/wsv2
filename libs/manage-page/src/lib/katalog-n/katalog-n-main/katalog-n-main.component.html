@@ -1,0 +1,63 @@
+<div class="_main-container">
+ <app-left-panel-view-element
+ [_katalogUIs]="_categoriaNs"
+ [_router_link]="_router_link"
+ [_modul_name]="_modul_name"
+ (_onChangedKatalogUI)="onChangedCategoriaN($event)"
+ (_onChangedViewMode)="onChangedViewMode($event)"
+>
+
+
+
+
+<!------------------->
+<div [ngSwitch]="_flagViewState">
+  <ng-template ngSwitchDefault>
+    <div class="container-fluid">
+      <h4>  Каталог Позиции</h4>
+      <div class="grid-container">
+        <button
+          *ngFor="let item of _katalogNs"
+          class="btn"
+          style="text-align: justify; padding: 0px"
+          [class.active]="item == _select_katalog"
+          (click)="changePosition(item)"
+        >
+          <span class="badge-btn">{{ item.id }}</span>
+          <span style="padding: 1em ;"> {{ item.name }}</span>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <!--  Create template -->
+  <ng-template name="Create" ngSwitchCase="5">
+    <div class="edit-create">
+      <h4>Создать Позицию Категории</h4>
+
+      <app-katalog-n-item
+        [_select_KatalogN]="_select_katalog"
+        [_flagViewState]="5"
+        [_select_CategoriaN_ID]="_selected_categoriaN_ID"
+        (_onChangeStateView)="onChangeStateView($event)"
+        (_onKatalogNChange)="onChangedKatalogN($event)"
+      >
+      </app-katalog-n-item>
+    </div>
+  </ng-template>
+
+  <!--  Edit -Delete template -->
+  <ng-template name="Edit" ngSwitchCase="4">
+    <div class="edit-create">
+      <h4>Редактировать Позицию Категории</h4>
+      <app-katalog-n-item
+        [_select_KatalogN]="_select_katalog"
+        [_flagViewState]="4"
+        (_onChangeStateView)="onChangeStateView($event)"
+        (_onKatalogNChange)="onChangedKatalogN($event)"
+      >
+      </app-katalog-n-item>
+    </div>
+  </ng-template>
+</div>
+ </app-left-panel-view-element>
+</div>

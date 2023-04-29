@@ -1,0 +1,66 @@
+<div class="_main-container">
+  <app-left-panel-view-element
+    [_katalogUIs]="_katalogNs"
+    [_router_link]="_router_link"
+    [_modul_name]="_modul_name"
+    [_flagAddButton]="_flagAddButton"
+    (_onChangedKatalogUI)="onChangedKatalogUI($event)"
+    (_onChangedViewMode)="onChangedViewMode($event)"
+  >
+    <div [ngSwitch]="_flagViewState">
+      <ng-template name="Table" ngSwitchDefault>
+
+        <div class="navigate">
+          <div class="navigate-route" >категории >каталог></div>
+          <div>
+            <h4>Католог {{ _select_KatalogN.name }}</h4>
+          </div>
+          <div>
+            <a  class="navigate-route-link" (click)="onBackInKagegorias()" >назад</a>
+
+          </div>
+        </div>
+
+        <app-nomenclature-table
+          [_articles]="_articles"
+          [_brands]="_brands"
+          [_colors]="_colors"
+          [_nomenclatures]="_nomenclatures"
+          (_onChangeRow)="onChangeEditNomenrlature($event)"
+        >
+        </app-nomenclature-table>
+        <!-----------------------end Table-->
+      </ng-template>
+
+      <ng-template name="Edit" ngSwitchCase="4">
+        <!-- edit template-->
+
+        <app-nomenclature-item
+          [_select_Nomenclature]="_select_Nomenclature"
+          [_articles]="_articles"
+          [_brands]="_brands"
+          [_colors]="_colors"
+          [_select_katalogN]="_select_KatalogN"
+          [_flagViewMode]="4"
+          (_onChangeStateView)="onChangedViewMode($event)"
+          (_onNomenclatureChange)="onChangedNomenclature($event)"
+        >
+        </app-nomenclature-item>
+      </ng-template>
+      <ng-template name="Create" ngSwitchCase="5">
+
+        <app-nomenclature-item
+          [_select_Nomenclature]="_select_Nomenclature"
+          [_articles]="_articles"
+          [_brands]="_brands"
+          [_colors]="_colors"
+          [_select_katalogN]="_select_KatalogN"
+          [_flagViewMode]="5"
+          (_onChangeStateView)="onChangedViewMode($event)"
+          (_onNomenclatureChange)="onChangedNomenclature($event)"
+        >
+        </app-nomenclature-item>
+      </ng-template>
+    </div>
+  </app-left-panel-view-element>
+</div>

@@ -1,0 +1,131 @@
+@import "./../../../../styles/manager-styles.scss";
+
+.badge-btn {
+  display: inline-block;
+
+  font-size: small;
+  // color: white;
+  padding: 1em 0.5em 1em 0.5em;
+  background-color: #e2e20b; // #ffff00;// #cdb6e8;
+  line-height: 1em;
+  position: relative;
+  //left: -1px;
+  // top: -4px;
+  //height: 1.8em;
+  margin-right: 3em;
+  margin-left: 0px;
+  margin-top: 0px;
+  border-radius: 4px 0 0 4px;
+}
+
+
+.title {
+  color: white;
+}
+.grid-container {
+  display: grid;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  grid-template-columns: 1fr;
+}
+
+.edit-create {
+  text-align: center;
+  display: grid;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  grid-template-columns: 1fr;
+}
+
+
+
+
+/*------------------------------------------*/
+
+.grid-container button {
+  font-size: 1.2em;
+  font-weight: 900;
+  color: #161414;
+
+  text-transform: uppercase;
+  text-align: center;
+
+  border: 0.2em solid hsla(231, 78%, 30%, 0.527);
+  border-radius: 0.5em;
+  margin: 1%;
+}
+
+.grid-container button:hover {
+  border: solid #e66333;
+
+  background-color: #d1e8b678; // #d1e8b6;
+}
+.grid-container .active {
+  background-color:   #a1ff6b1c;
+}
+@media (min-width: 650px) {
+
+
+
+  //-----------------------
+  .grid-container {
+    display: grid;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .edit-create {
+    text-align: center;
+    display: grid;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 1fr;
+  }
+
+}
+@media (min-width: 960px) {
+  .grid-container {
+    display: grid;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .edit-create {
+    text-align: center;
+    display: grid;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (min-width: 1200px) {
+  .grid-container {
+    display: grid;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .edit-create {
+    text-align: center;
+    display: grid;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 1fr;
+  }
+
+
+
+}

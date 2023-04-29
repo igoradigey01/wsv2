@@ -1,0 +1,69 @@
+
+
+<!--- Output Error-->
+
+<app-root-view-element
+(onChangedViewMode)="onChangeStateView($event)"
+(onClickKatalog)="onChangedDefaultState()"
+[_selectedKagalogUI]="_select_colorN"
+[_modul_name]="_modul_name"
+[_router_link]="_router_link"
+
+></app-root-view-element>
+
+<!------------------->
+<div [ngSwitch]="_flagViewState">
+  <ng-template ngSwitchDefault>
+    <div class="container-fluid">
+      <h4>  Цвет Позиции</h4>
+      <div class="grid-container">
+
+        <button *ngFor="let item of _colorNs" class="btn" style="text-align: justify;padding: 0px;" [class.active]="item.id ==_select_colorN.id"
+          (click)="changeColorN(item)">
+          <span class=" badge-btn ">{{
+            item.id
+            }}</span>
+          <span style="padding: 1em;;">
+            {{ item.name }}</span>
+
+        </button>
+
+      </div>
+    </div>
+  </ng-template>
+  <!--  Create template -->
+  <ng-template name="Create" ngSwitchCase=5>
+    <div class="edit-create">
+    <h4>Создать Позицию</h4>
+
+
+    <app-color-n-item
+    [_select_colorN]="_select_colorN"
+
+    [_flagViewState]="5"
+    (_onChangeStateView)="onChangeStateView($event)"
+    (_onColorNChange)="onChangedColorN($event)"
+
+    >
+
+    </app-color-n-item>
+  </div>
+  </ng-template>
+
+  <!--  Edit -Delete template -->
+  <ng-template name="Edit" ngSwitchCase=4>
+    <div class="edit-create">
+    <h4>Редактировать Позицию</h4>
+    <app-color-n-item
+    [_select_colorN]="_select_colorN"
+
+    [_flagViewState]="4"
+    (_onChangeStateView)="onChangeStateView($event)"
+    (_onColorNChange)="onChangedColorN($event)"
+
+    >
+
+    </app-color-n-item>
+  </div>
+  </ng-template>
+</div>

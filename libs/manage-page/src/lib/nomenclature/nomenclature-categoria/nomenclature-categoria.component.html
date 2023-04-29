@@ -1,0 +1,28 @@
+<app-root-view-element
+  (onClickKatalogUI)="onChangedDefaultState()"
+  [_flagAddButton]="false"
+  [_modul_name]="_modul_name"
+  [_router_link]="_router_link"
+></app-root-view-element>
+
+<div class="navigate">
+  <div class="navigate-route" >категории ></div>
+  <div><h4>КАТЕГОРИИ Номенклатуры</h4></div>
+  <div>
+    <a  class="navigate-route-link" (click)="onBackInNavBar()" >назад</a>
+
+  </div>
+</div>
+
+<div class="grid-container">
+  <button
+    *ngFor="let item of _categoriaNs"
+    class="btn"
+    style="text-align: justify; padding: 0px"
+    [class.active]="item.id == _select_categoriaN.id"
+    (click)="changeCategoriaN(item)"
+  >
+    <span class="badge-btn">{{ item.id }}</span>
+    <span style="padding: 1em"> {{ item.name }}</span>
+  </button>
+</div>

@@ -1,0 +1,59 @@
+@import './../../../styles/manager-styles.scss';
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  text-align: center;
+  padding: 0;
+
+  font-size: 16px;
+}
+/*--------------------------------------------------------------*/
+.card {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  background-color: #f8f9fa;      // #EBEBEB;
+}
+
+.card-img{
+  display: block;
+  width: 450px;;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+
+}
+
+.c-1 {
+	padding-top: 5px;
+
+}
+
+.h6 {
+	color: #E87E04;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+.h4 {
+  color: #E87E04;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+.h5{
+  color: #E87E04;
+	font-family: 'Roboto Condensed', sans-serif;
+
+}
+p {
+	color: #22313F;
+	line-height: 150%;
+	margin-top: 20px;
+	margin-left: 20px;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+.emphasis {
+	font-weight: bold;
+}
+

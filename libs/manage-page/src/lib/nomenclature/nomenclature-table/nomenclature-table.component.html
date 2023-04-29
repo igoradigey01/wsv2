@@ -1,0 +1,141 @@
+<div style="display: flex;width: 100%;justify-content: flex-end;">
+<app-filter-n [_articles]="_articles" [_brands]="_brands" [_colors]="_colors" [_oldNomenclatures]="_nomenclatures"
+  (_onFilterNomenclatureChange)="onFilterNomenclatureChange($event)"></app-filter-n>
+<button  mat-mini-fab color="accent" (click)="onChangeViewRender()"><mat-icon>apps</mat-icon></button>
+<button  mat-mini-fab color="accent" (click)="onChangePriceEditChecks()" >
+ <span  >&#8381;</span> </button>
+</div>
+<div [ngSwitch]="_flagViewState">
+  <ng-template name="TableView" ngSwitchDefault>
+    <!--  start Table View -->
+    <div class="grid-sub-container-ms grid-sub-container">
+      <div>Name</div>
+      <div>Article</div>
+      <div>Brand</div>
+      <div>Color</div>
+      <div>Price</div>
+      <div class="hiden-description">descripstion</div>
+      <div>images</div>
+
+      <!-- start model view-->
+      <ng-template ngFor let-nomenclature [ngForOf]="_viewNomenclatrues" let-i="index">
+        <div [ngClass]="{ 'row-grid': i % 2 == 0 }" (click)="changeNomenclature(nomenclature)">
+          {{ nomenclature.name }}
+        </div>
+        <div [ngClass]="{ 'row-grid': i % 2 == 0 }" (click)="changeNomenclature(nomenclature)">
+          {{ nomenclature.articleName }}
+        </div>
+        <div [ngClass]="{ 'row-grid': i % 2 == 0 }" (click)="changeNomenclature(nomenclature)">
+          {{ nomenclature.brandName }}
+        </div>
+        <div [ngClass]="{ 'row-grid': i % 2 == 0 }" (click)="changeNomenclature(nomenclature)">
+          {{ nomenclature.colorName }}
+        </div>
+
+
+        <div [ngClass]="{ 'row-grid': i % 2 == 0 }" (click)="changeNomenclature(nomenclature)">
+          {{ nomenclature.price }}
+        </div>
+        <div class="hiden-description" [ngClass]="{ 'row-grid': i % 2 == 0 }"
+          (click)="changeNomenclature(nomenclature)">
+          {{ nomenclature.description }}
+        </div>
+
+        <div [ngClass]="{ 'row-grid': i % 2 == 0 }" *ngIf="nomenclature.guid">
+          <!---    start -->
+
+          <div class="img_block-table"  >
+            <img height="38" src="{{ ImgObj(nomenclature) }}" />
+
+          </div>
+
+
+          <!--   endt -->
+        </div>
+
+        <!-- end  model view-->
+      </ng-template>
+    </div>
+  </ng-template>
+  <!--  end  Table View -->
+
+  <!-- start Img View  -->
+  <ng-template name="ImgView" ngSwitchCase="3">
+
+
+    <div class="grid-img-view-container">
+      <ng-template ngFor let-nomenclature [ngForOf]="_viewNomenclatrues" >
+        <div (click)="changeNomenclature(nomenclature)" >
+          <!---    start -->
+
+          <div   class="img_block-img-view" >
+            <img class="img_block" src="{{ ImgObj(nomenclature) }}" />
+            <div style="vertical-align:text-bottom; text-align: center;">Ц:{{nomenclature.price}} </div>
+
+          </div>
+
+
+
+          <!--   endt -->
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
+
+  <!-- end Img View -->
+
+  <ng-template name="PriceEditChecks" ngSwitchCase="8">
+
+    <p>--- PriceEditChecks ---</p>
+    <div class="price-bar">
+
+
+      <div class="price-input" >
+        <label for="price" class="_label"> Выбрано-[{{_viewNomenclatrues.length}}]-</label>
+        <mat-form-field id="price" appearance="outline">
+          <mat-label> Цена </mat-label>
+          <input
+            matInput
+            type="text"
+            name="price"
+
+
+            [(ngModel)]="_price"
+            #nameFind="ngModel"
+          />
+
+        </mat-form-field>
+        <button  mat-raised-button color="primary" (click)="onSetDataPrice()" >OK</button>
+      </div>
+
+     </div>
+    <div class="grid-img-view-container">
+      <ng-template ngFor let-nomenclature [ngForOf]="_viewNomenclatrues" >
+        <div >
+          <!---    start -->
+
+          <div  class="img_block-img-view" >
+            <img class="img_block" src="{{ ImgObj(nomenclature) }}" />
+            <input type="checkbox" class="checkbox" id="check1" />
+            <div style="vertical-align:text-bottom; text-align: center;">Ц:{{nomenclature.price}} </div>
+          </div>
+
+
+
+          <!--   endt -->
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
+
+  <ng-template name="Wait" ngSwitchCase="6">
+    <div *ngIf="_error" style="color: red;" >{{_error}}</div>
+
+  <div class="_spinner">  <mat-spinner color="accent" ></mat-spinner> </div>
+
+  <button mat-raised-button color="accent" class="_spinner" (click)="onCansel()" >Cansel</button>
+  </ng-template>
+
+</div>
+
+<!----------------- create end-->

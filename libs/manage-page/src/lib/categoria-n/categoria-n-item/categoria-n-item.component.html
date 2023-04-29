@@ -1,0 +1,200 @@
+<div class="_contaner">
+  <div *ngIf="!_flag_sendServerData; else elseSendData">
+    <!-- begin edit  card ------------------------------------->
+    <form #myForm="ngForm" novalidate>
+      <div class="item-form">
+        <div class="_input-group" *ngIf="_select_categoriaN">
+          <label for="nameKatalog">Название Категории</label> <br />
+          <mat-form-field class="_input-name" appearance="fill">
+            <mat-label>ID( {{ _select_categoriaN.id }}) </mat-label>
+            <div>
+              <input
+                matInput
+                name="nameKatalog"
+                #nameKatalog="ngModel"
+                [(ngModel)]="_select_categoriaN.name"
+                required
+              />
+              <mat-error *ngIf="nameKatalog.invalid"> </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <!-------------          SEO -->
+        <div class="item-form">
+          <div class="_input-group" *ngIf="_select_categoriaN">
+            <label for="descriptionSEO">descriptionSEO </label> <br />
+            <mat-form-field   class="seo" appearance="fill">
+              <div>
+                <input
+
+                  matInput
+                  name="descriptionSEO"
+                  #descriptionSEO="ngModel"
+                  [(ngModel)]="_select_categoriaN.decriptSEO"
+                  
+                />
+                <mat-error *ngIf="descriptionSEO.invalid"> </mat-error>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-------------- end SEO-->
+
+        <div class="_input-group">
+          <label for="typeProduct" class="_label"> Скрыть Категорию</label><br />
+          <mat-form-field id="typeProduct" appearance="fill">
+            <div *ngIf="_select_categoriaN">
+              <mat-select
+                name="hiddenKatalog"
+                [(ngModel)]="_select_categoriaN.hidden"
+                #hiddenKatalog="ngModel"
+                required
+              >
+                <mat-option [value]="false">Нет </mat-option>
+                <mat-option [value]="true">Да </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hiddenKatalog.invalid"> </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+
+        <div class="_input-group">
+          <label for="typeProduct" class="_label">
+            Cсылка на <b> Отдельный Шаблон Существует</b>
+          </label>
+          <br />
+          <mat-form-field appearance="fill">
+            <div *ngIf="_select_categoriaN">
+              <mat-select
+                name="linkExist"
+                matNativeControl
+                [(ngModel)]="_select_categoriaN.flag_link"
+                #linkExist="ngModel"
+                required
+              >
+                <mat-option [value]="false">Нет </mat-option>
+                <mat-option [value]="true">Да </mat-option>
+              </mat-select>
+              <mat-error *ngIf="linkExist.invalid"> </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+
+        <div
+          class="_input-group"
+          *ngIf="_select_categoriaN && _select_categoriaN.flag_link"
+        >
+          <label for="typeProduct" class="_label">
+            Это ссылка на внешний ресурс
+          </label>
+          <br />
+          <mat-form-field id="typeProduct" appearance="fill">
+            <div *ngIf="_select_categoriaN">
+              <mat-select
+                name="hrefExist"
+                matNativeControl
+                [(ngModel)]="_select_categoriaN.flag_href"
+                #hrefExist="ngModel"
+                required
+              >
+                <mat-option [value]="false">Нет </mat-option>
+                <mat-option [value]="true">Да </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hrefExist.invalid"> </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+
+        <div
+          class="_input-group"
+          *ngIf="_select_categoriaN && _select_categoriaN.flag_link"
+        >
+          <label *ngIf="!_select_categoriaN.flag_href">
+            routerLink (внутренняя) </label
+          ><br />
+          <label *ngIf="_select_categoriaN.flag_href"> href(внешняя) </label><br />
+          <mat-form-field class="_input-name" appearance="fill">
+            <input
+              matInput
+              name="nameLink"
+              #linkKatalog="ngModel"
+              [(ngModel)]="_select_categoriaN.link"
+              required
+            />
+            <mat-error *ngIf="linkKatalog.invalid"> </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-----    ----------------- button gurop start           -->
+        <div class="btn-group" role="group">
+          <button
+            mat-flat-button
+            [disabled]="myForm.invalid || _flagInvalid"
+            color="primary"
+            (click)="save()"
+          >
+            Сохранить
+          </button>
+
+          <button
+            *ngIf="IsCreateView"
+            mat-flat-button
+            color="warn"
+            [disabled]="_flagInvalid"
+            (click)="delete()"
+          >
+            Удалить
+          </button>
+          <button
+            mat-flat-button
+            color="accent"
+            [disabled]="_flagInvalid"
+            (click)="cancel()"
+          >
+            Отмена
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template #elseSendData>
+    <div class="_error" role="alert" *ngIf="_errorMgs?.length || _flagError">
+      <ul>
+        <li *ngFor="let error of _errorMgs">
+          {{ error }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="progress">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        [style.width.%]="_progress"
+      ></div>
+    </div>
+
+    <div class="row" style="text-align: center">
+
+      <p>({{ _progress }})</p>
+      <button
+      mat-flat-button
+      color="accent"
+
+      (click)="undo()"
+    >
+      Отмена
+    </button>
+    <button
+    mat-flat-button
+    color="primary"
+
+    (click)="OK()"
+  >
+   OK
+  </button>
+
+    </div>
+  </ng-template>
+</div>

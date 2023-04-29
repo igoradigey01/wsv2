@@ -1,0 +1,349 @@
+<div class="navigate">
+  <div class="navigate-route">категории>каталог>номенклатура</div>
+  <div>
+    <a class="navigate-route-link" (click)="onBackInKatalog()">назад</a>
+  </div>
+</div>
+<h4>{{ TitleItem }}</h4>
+<div class="_contaner">
+  <div *ngIf="!_flag_sendServerData; else elseSendData">
+    <!-- begin edit  card ------------------------------------->
+    <form #myForm="ngForm" novalidate>
+      <div class="_input-group">
+        <label for="katalog" class="_label">Католог &nbsp; </label>
+        <mat-form-field id="katalog" appearance="outline">
+          <mat-label>
+            <span class="_label_id">
+              id( {{ _select_Nomenclature.katalogId }})</span
+            >&nbsp;{{ _select_Nomenclature.katalogName }}</mat-label
+          >
+          <input matInput name="katalogName" disabled />
+        </mat-form-field>
+      </div>
+
+
+      <div class="_input-group">
+        <label for="hiddenNomenclature" class="_label"> Скрыть </label>
+        <mat-form-field id="hiddenNomenclature" appearance="fill">
+          <div *ngIf=" _select_Nomenclature">
+            <mat-select
+              name="hiddenNomenclature"
+              [(ngModel)]=" _select_Nomenclature.hidden"
+              #hiddenNomenclature="ngModel"
+              required
+            >
+              <mat-option [value]="false">Нет </mat-option>
+              <mat-option [value]="true">Да </mat-option>
+            </mat-select>
+            <mat-error *ngIf="hiddenNomenclature.invalid"> </mat-error>
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div class="_input-group">
+        <label for="saleNomenclature" class="_label"> Распродажа</label>
+        <mat-form-field id="saleNomenclature" appearance="fill">
+          <div *ngIf=" _select_Nomenclature">
+            <mat-select
+              name="saleNomenclature"
+              [(ngModel)]=" _select_Nomenclature.sale"
+              #saleNomenclature="ngModel"
+              required
+            >
+              <mat-option [value]="false">Нет </mat-option>
+              <mat-option [value]="true">Да </mat-option>
+            </mat-select>
+            <mat-error *ngIf="saleNomenclature.invalid"> </mat-error>
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div class="_input-group">
+        <label for="inStokcNomenclature" class="_label"> На складе </label>
+        <mat-form-field id="saleNomenclature" appearance="fill">
+          <div *ngIf=" _select_Nomenclature">
+            <mat-select
+              name="inStokcNomenclature"
+              [(ngModel)]=" _select_Nomenclature.inStock"
+              #inStokcNomenclature="ngModel"
+              required
+            >
+              <mat-option [value]="false">Нет </mat-option>
+              <mat-option [value]="true">Да </mat-option>
+            </mat-select>
+            <mat-error *ngIf="inStokcNomenclature.invalid"> </mat-error>
+          </div>
+        </mat-form-field>
+      </div>
+
+
+
+
+
+      <!--------------  Материал== t        -->
+      <div class="_input-group">
+        <label for="brand" class="_label"> Бренд </label>
+        <mat-form-field id="brand" appearance="fill">
+          <mat-select
+            name="brand"
+            (selectionChange)="onBrandChange($event)"
+            [(ngModel)]="_select_Nomenclature.brandId"
+            #brand="ngModel"
+            required
+          >
+
+            <mat-option *ngFor="let item of _brands"
+            [value]="item.id"
+
+            >{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="brand.invalid"> </mat-error>
+        </mat-form-field>
+      </div>
+
+
+
+      <!-- idTypeProduct begin -->
+      <div class="_input-group">
+        <label for="color" class="_label"> Цвет</label>
+        <mat-form-field id="color" appearance="fill">
+          <mat-select
+            name="color"
+
+            [(ngModel)]="_select_Nomenclature.colorId"
+            (selectionChange)="onColorChange($event)"
+            #color="ngModel"
+            required
+          >
+            <mat-option *ngFor="let item of _colors" [value]="item.id">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="color.invalid"> </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="_input-group">
+        <label for="article" class="_label"> Артикул </label>
+        <mat-form-field id="article" appearance="fill">
+          <mat-select
+            name="article"
+            (selectionChange)="onArticleChange($event)"
+            [(ngModel)]="_select_Nomenclature.articleId"
+            #article="ngModel"
+            required
+          >
+            <mat-option *ngFor="let item of _articles" [value]="item.id">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="article.invalid"> </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!--------------------------->
+      <div class="_input-group">
+        <mat-form-field
+          id="nameNomenclature"
+          class="_input-name"
+          appearance="fill"
+        >
+          <mat-label>Название </mat-label>
+          <span matPrefix
+            >{{ _select_Nomenclature.katalogName }} &nbsp;
+            <span *ngIf=" _select_Nomenclature.brandName!=='none';else unbrand"  >
+              {{ _select_Nomenclature.brandName }}&nbsp;
+            </span>
+            <ng-template #unbrand>
+              <span></span>
+            </ng-template>
+
+            <span *ngIf=" _select_Nomenclature.articleName!=='none';else unarticle"  >
+              {{_select_Nomenclature.articleName}}&nbsp;
+            </span>
+            <ng-template #unarticle>
+              <span></span>
+            </ng-template>
+
+            <span *ngIf=" _select_Nomenclature.colorName!=='none';else uncolor"  >
+              {{_select_Nomenclature.colorName}}&nbsp;
+            </span>
+            <ng-template #uncolor>
+              <span></span>
+            </ng-template>
+
+
+          </span>
+          <input
+            matInput
+            name="productname"
+            #nameNomenclature="ngModel"
+            [(ngModel)]="_select_Nomenclature.name"
+
+          />
+          <mat-error *ngIf="nameNomenclature.invalid"> </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field id="position" class="_input-price" appearance="fill">
+        <mat-label>Позиция</mat-label>
+        <input
+          matInput
+          name="position"
+          [(ngModel)]="_select_Nomenclature.position"
+          #position="ngModel"
+          required
+          pattern="[0-9]{1}"
+        />
+
+        <mat-error *ngIf="position.invalid"> </mat-error>
+      </mat-form-field>
+
+      <mat-form-field id="PriceProduct" class="_input-price" appearance="fill">
+        <mat-label>Цена</mat-label>
+        <input
+          matInput
+          name="pace_product"
+          [(ngModel)]="_select_Nomenclature.price"
+          #price="ngModel"
+          required
+          pattern="[0-9]{1,7}"
+        />
+        <span matPrefix>₽ &nbsp;</span>
+        <span matSuffix>.00</span>
+        <mat-error *ngIf="price.invalid"> </mat-error>
+      </mat-form-field>
+
+      <mat-form-field id="markupProduct" class="_input-price" appearance="fill">
+        <mat-label>Торговая наценка</mat-label>
+        <input
+          matInput
+          name="markup_product"
+          [(ngModel)]="_select_Nomenclature.markup"
+          #markup="ngModel"
+          required
+          pattern="[0-9]{1,2}"
+        />
+        <span matPrefix>% &nbsp;</span>
+        <mat-error *ngIf="markup.invalid"> </mat-error>
+      </mat-form-field>
+
+      <!------------------------------------>
+      <div class="_input-group">
+
+        <mat-form-field id="discription" class="_input-price" appearance="fill">
+          <mat-label>Описание товара</mat-label>
+          <textarea
+            name="description_product"
+            matInput
+            [(ngModel)]="_select_Nomenclature.description"
+            rows="5"
+          >
+          </textarea>
+        </mat-form-field>
+      </div>
+
+      <!-----------img -render------------------------------------------>
+
+      <app-img-render
+        [_img_name]="_select_Nomenclature.guid"
+        [_rootSrc]="_select_Nomenclature.wwwroot"
+        (_onChangedDtoImage)="onChangedDtoImage($event)"
+        (_onFlagShowSaveDataBar)="onFlagButtonPanel($event)"
+      ></app-img-render>
+      <!---- error render 10.02.22 -->
+      <div class="alert alert-danger" role="alert" *ngIf="_errorMgs?.length">
+        <ul>
+          <li *ngFor="let error of _errorMgs">
+            {{ error }}
+          </li>
+        </ul>
+      </div>
+
+      <!---------------  Botton edit start (  panel buttons  )    -->
+
+      <div [ngClass]="{ show_ButtonsPanel: _flagButtonShow }">
+        <div class="d-flex justify-content-center">
+          <button
+            *ngIf="!IsCreateView"
+            mat-flat-button
+            [disabled]="myForm.invalid || _flagInvalid ||myForm.pristine"
+            color="primary"
+            (click)="saveIgnoreImgFromProduct()"
+          >
+            Сохранить Данные
+          </button>
+
+          <button
+            *ngIf="!IsCreateView && _selectDtoImg.flagChanged "
+            mat-flat-button
+            [disabled]="myForm.invalid || _flagInvalid "
+
+            color="primary"
+            (click)="saveOnlyImgFromProduct()"
+          >
+            Сохранить Фото
+          </button>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <button
+            mat-flat-button
+            [disabled]="myForm.invalid || _flagInvalid ||myForm.pristine"
+             *ngIf=" _selectDtoImg.flagChanged"
+            color="primary"
+            (click)="saveNomenclature()"
+          >
+            Сохранить
+          </button>
+          <button
+            *ngIf="!IsCreateView"
+            mat-flat-button
+            color="warn"
+            [disabled]="_flagInvalid"
+            (click)="deleteNomenclature()"
+          >
+            Удалить
+          </button>
+          <button
+            mat-flat-button
+
+            color="accent"
+            [disabled]="_flagInvalid"
+            (click)="cancel()"
+          >
+            Отмена
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!--button edit end-->
+    <!---------ng-template #elseBlock end-------------------------------------------- -->
+  </div>
+  <!-- end  _flag_sendServerData-->
+  <ng-template #elseSendData>
+    <div class="_error" role="alert" *ngIf="_errorMgs?.length || _flagError">
+      <ul>
+        <li *ngFor="let error of _errorMgs">
+          {{ error }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="progress">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        [style.width.%]="_progress"
+      ></div>
+    </div>
+    <div class="row" style="text-align: center">
+      <p>({{ _progress }})</p>
+      <button mat-flat-button color="accent" (click)="undo()">Отмена</button>
+      <button mat-flat-button color="primary" (click)="OK()">OK</button>
+    </div>
+  </ng-template>
+</div>

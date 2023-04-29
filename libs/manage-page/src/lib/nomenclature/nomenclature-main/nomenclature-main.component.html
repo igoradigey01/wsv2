@@ -1,0 +1,37 @@
+
+ <div [ngSwitch]="_flagViewState">
+
+      <ng-template ngSwitchDefault>
+
+
+        <app-nomenclature-categoria
+          [_categoriaNs]="_categoriaNs"
+          [_flagViewState]="_flagViewState"
+          (_onCategoriaNChange)="onChangeCategoriaN($event)"
+        >
+        <h4>  Каталоги Номенклатуры</h4>
+        </app-nomenclature-categoria>
+      </ng-template>
+
+
+      <ng-template name="Init" ngSwitchCase="1">
+        <!-- edit template-->
+
+        <app-nomenclature-katalog
+          [_select_CategoriaN_id]="_select_CategoriaN_id"
+          [_select_CategoriaN_name]="_select_CategoriaN_name"
+          [_articles]="_articles"
+          [_brands]="_brands"
+          [_colors]="_colors"
+          [_flagViewState]="1"
+          [_katalogNs]="_katalogNs"
+          (_onChangedViewModeNK)="onChangedViewModeMain($event)"
+          (_onChangedKatalogUI)="onChangedKatalogUI($event)"
+        >
+        <h4> Позиции Номенклатуры </h4>
+        </app-nomenclature-katalog>
+      </ng-template>
+
+
+    </div>
+    <!--------------------------------------------------- End ngSwith-->
