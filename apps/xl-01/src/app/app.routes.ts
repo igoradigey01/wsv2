@@ -57,7 +57,7 @@ export const appRoutes: Route[] = [
       {
         path: 'admin',              
         loadComponent: () =>
-          import('./admin/admin.component').then((m) => m.AdminComponent)
+          import('@wsv2/admin-page').then((m) => m.IndexComponent)
       },
       { path: '**',   redirectTo: 'index/**', pathMatch: 'full' },
    

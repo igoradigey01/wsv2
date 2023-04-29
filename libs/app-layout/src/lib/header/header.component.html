@@ -14,9 +14,11 @@
     </div>
     <ng-template #admin_logo>
      
-        <a routerLink="" class="nav_link">
+        <a routerLink="" class="nav_link" style="flex-direction: column;">
          
-          <div class="logo_inner-name" *ngIf="company_name_2">{{company_name_2}} <br>(Менеджер)</div>
+          <div class="logo_inner-name" *ngIf="company_name_2"><span>{{company_name_2}} </span> <br>
+          </div>
+           <div *ngIf="roleUser">({{roleUser}})</div>
          
          
         </a>

@@ -8,7 +8,7 @@ import { IThemeScss, ThemeScssServices } from '@wsv2/app-common'
 
 
 @Component({
-  selector: 'wsv2-manager-index',
+  selector: 'wsv2-admin-index',
   standalone: true,
   imports: [
     CommonModule,
@@ -21,27 +21,28 @@ import { IThemeScss, ThemeScssServices } from '@wsv2/app-common'
   providers:[ThemeScssServices]
 })
 export class IndexComponent implements OnInit, OnDestroy {
-
+   
   private _theme_css: IThemeScss = <IThemeScss>{
-    primary_color: "#a26c00", //primary50
-    primary_lighter_color: "#ffddb3",//primary90
-    primary_darker_color: "#452b00",//primary20
-    accent_color: "#8a7357",//secondary50
-    accent_lighter_color:"#fadebc",//secondary90
-    accent_darker_color: "#3e2d16",//secondary20
-    tertiary_color: "#697d57", //tertiary50
-    tertiary_container_color:"#d4eabc",//tertiary90
+    // --base-color-for-m3-palete:#6750A4;
+    primary_color: "#7F67BE",
+    primary_lighter_color: "#D0BCFF",
+    primary_darker_color: "#381E72",
+    accent_color: "#7A7289",
+    accent_lighter_color:"#CCC2DC",
+    accent_darker_color: "#332D41",
+    tertiary_color: "#986977",
+    tertiary_container_color:"#ffd9e3",
     on_tertiary_color: "#ffffff",
-    on_tertiary_container_color:"#243516"
+    on_tertiary_container_color:"#31101d"
   }
 
 
   public _menuItems: IMenyItem[] = [];
   public _company_name_2: string | undefined;
+  public _roleUser="Admin";
 
   public _company_phone: string = '';
   public _company_normalize_phone: string = '';
-  public _roleUser="Менеджер"
 
 
   public _test_property = ''
@@ -60,7 +61,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this._company_name_2 = repositoryCompanyInformation.company_name;
     this._company_phone = repositoryCompanyInformation.company_phone;
     this._company_normalize_phone = repositoryCompanyInformation.company_normalize_phone;
-    this._menuItems = repositoryMenyItems.managerMenyItems;
+    this._menuItems = repositoryMenyItems.adminMenyItems;
 
     repositoryThemeCss.initThemeComponent(this._theme_css);
 

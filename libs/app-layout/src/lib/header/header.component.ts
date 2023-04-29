@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
   @Input() public company_phone: string = '';
   @Input() public company_normalize_phone: string = '';
   @Input() public menuItems: IMenyItem[] = [];
+  @Input() public roleUser:string|undefined;
   @Output()
   onToggleSideBar = new EventEmitter();
 

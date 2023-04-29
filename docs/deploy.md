@@ -5,15 +5,7 @@
   scp -r C:\Users\Ks34\Documents\AngularProject\xf01\dist\xf01 root@46.173.223.214:~/myapp/nginx/data
   // backup
   scp -r root@46.173.223.214:~/myapp/images  E:\Backup_Host\Backup_images\12-05-22
-
-  // creat dir apps/xl-01/src/environments  on project !!!
-
-  // в project.json указываем 
-   "fileReplacements": [
-            {
-              "replace": "apps/xl-01/src/environments/environment.ts",
-              "with": "apps/xl-01/src/environments/environment.prod.ts"
-            }],
+  
   ```
    ### deploy : error budger
     ```

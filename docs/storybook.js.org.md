@@ -9,3 +9,14 @@ https://storybook.js.org/blog/storybook-7-0/
 
 ## GitHub
 https://github.com/storybookjs/storybook
+
+## Обзор -для чего нужен(ru)
+https://habr.com/ru/articles/340384/
+
+## Create
+```
+ yarn add -D @nx/storybook
+ npx create-nx-workspace@latest wsx01_sb
+   -create a new workspace
+   -change angular app
+```

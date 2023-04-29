@@ -1,4 +1,4 @@
-@use "../../style.scss" as st;
+//@use "../../style.scss" as st;
 
 .container {
   min-height: 400px;
@@ -26,20 +26,20 @@
   padding: 0;
 
   font-size: 16px;
-  background-color: st.$accent-color;
+  background-color: var(--accent-color);
 
-  color: st.$text-accent-color;
+  color: var(--on-accent-color);
 }
 .note-login {
   //background-color: #f1c40f;
-  background-color: st.$warn-lighter-color;
+  background-color: var(--warn-lighter-color);
 }
 
 .input-field {
   width: 90%;
   // background-color: st.$accent-lighter-color ;
 
-  color: st.$text-accent-lighter-color;
+  color: var(--on-accent-lighter-color);
 }
 
 .check-field {
@@ -53,8 +53,8 @@
 }
 
 .cansel {
-  background-color: st.$warn-lighter-color;
-  color: st.$text-warn-color;
+  background-color: var(--warn-lighter-color);
+  color: var(--on-warn-lighter-color);
 }
 .form-social {
   background-color: #fff;
@@ -107,7 +107,7 @@
   color: #fff;
 }
 .error {
-  color: st.$warn-color;
+  color: var(--warn-color);
 
  // background-color: st.$warn-color;
 }

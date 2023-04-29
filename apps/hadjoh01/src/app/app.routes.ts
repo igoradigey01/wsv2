@@ -51,14 +51,15 @@ export const appRoutes: Route[] = [
       {
         path: 'manager',              
         loadComponent: () =>
-          import('./manager/manager.component').then((m) => m.ManagerComponent)
+          import('@wsv2/manage-page').then((m) => m.IndexComponent)
       },
       
       {
         path: 'admin',              
         loadComponent: () =>
-          import('./admin/admin.component').then((m) => m.AdminComponent)
+          import('@wsv2/admin-page').then((m) => m.IndexComponent)
       },
+      { path: '**',   redirectTo: 'index/**', pathMatch: 'full' },
    
       
     
