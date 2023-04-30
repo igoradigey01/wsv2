@@ -12,12 +12,27 @@ $accent-darker-color: #503d4c !default;
 $on-accent-color: #ffffff !default;
 $on-accent-lighter-color: #271624 !default;
 
+$tertiary-color: #825345;
+$tertiary-container-color: #ffdbd1;
+$on-tertiary-color: #ffffff;
+$on-tertiary-container-color: #321208;
+
 $warn-color: #ba1a1a;
 $warn-lighter-color: #ffdad6; //error-container
 $warn-darker-color: #690005;
 $on-warn-color: #ffffff;
 $on-warn-lighter-color: #410002;
 $on-warn-darker-color: #fffbff;
+
+$background: #fffbff;
+$on-background: #1f1b16;
+
+$surface-color: #fffbff;
+$on-surface-color: #1f1b16;
+$surface-variant-color: #eedee7;
+$on-surface-variant-color: #4e444b;
+
+$outline-color: #80747c;
 
 //Для использования прозрачности в Sass необходимо использовать цвет в RGB формате
 //[CSS var в rgba] (https://habr.com/ru/articles/533084/)
@@ -26,27 +41,27 @@ $on-warn-darker-color: #fffbff;
   @return red($hex), green($hex), blue($hex);
 }
 // @debug  #{HexToRGB($accent-lighter-color)};
-$dark-text: #000000;
-$dark-primary-text: rgba($dark-text, 0.87);
-$dark-accent-text: rgba($dark-primary-text, 0.54);
+// $dark-text: #000000;
+// $dark-primary-text: rgba($dark-text, 0.87);
+// $dark-accent-text: rgba($dark-primary-text, 0.54);
 
 body {
-  --tertiary-color: #825345;
-  --tertiary-container-color: #ffdbd1;
-  --on-tertiary-color: #ffffff;
-  --on-tertiary-container-color: #321208;
+  --tertiary-color: #{$tertiary-color};
+  --tertiary-container-color:  #{$tertiary-container-color};
+  --on-tertiary-color:  #{$on-tertiary-color};
+  --on-tertiary-container-color:  #{$on-tertiary-container-color};
 }
 
 body {
-  --background: #fffbff;
-  --on-background: #1f1b16;
+  --background: #{$background};
+  --on-background: #{$on-background};
 
-  --surface-color: #fffbff;
-  --on-surface-color: #1f1b16;
-  --surface-variant-color: #eedee7;
-  --on-surface-variant-color: #4e444b;
+  --surface-color: #{$surface-color};
+  --on-surface-color: #{$on-surface-color};
+  --surface-variant-color: #{$surface-variant-color};
+  --on-surface-variant-color: #{$on-surface-variant-color};
 
-  --outline-color: #80747c;
+  --outline-color: #{$outline-color};
 }
 
 body {
