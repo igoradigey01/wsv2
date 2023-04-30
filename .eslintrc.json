@@ -1,74 +1,85 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": ["@nx"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
+        "@nx/enforce-module-boundaries": [
           "error",
           {
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
-              
-                {
-                  "sourceTag": "scope:x01",
-                  "onlyDependOnLibsWithTags": ["scope:x01","type:01-lib"]
-                },
-                {
-                  "sourceTag": "scope:xf01",
-                  "onlyDependOnLibsWithTags": ["scope:xf01","type:01-lib"]
-                }
-                ,
-                {
-                  "sourceTag": "scope:xl01",
-                  "onlyDependOnLibsWithTags": ["scope:xl01","type:01-lib"]
-                }
-                ,
-                {
-                  "sourceTag": "scope:shagen01",
-                  "onlyDependOnLibsWithTags": ["scope:shagen01","type:01-lib"]
-                }
-                ,
-                {
-                  "sourceTag": "scope:hadjoh01",
-                  "onlyDependOnLibsWithTags": ["scope:hadjoh01","type:01-lib"]
-                }
-                ,           
+              {
+                "sourceTag": "scope:x01",
+                "onlyDependOnLibsWithTags": ["scope:x01", "type:01-lib"]
+              },
+              {
+                "sourceTag": "scope:xf01",
+                "onlyDependOnLibsWithTags": ["scope:xf01", "type:01-lib"]
+              },
+              {
+                "sourceTag": "scope:xl01",
+                "onlyDependOnLibsWithTags": ["scope:xl01", "type:01-lib"]
+              },
+              {
+                "sourceTag": "scope:shagen01",
+                "onlyDependOnLibsWithTags": ["scope:shagen01", "type:01-lib"]
+              },
+              {
+                "sourceTag": "scope:hadjoh01",
+                "onlyDependOnLibsWithTags": ["scope:hadjoh01", "type:01-lib"]
+              },
               {
                 "sourceTag": "scope:01account-lib",
-                "onlyDependOnLibsWithTags": ["scope:01account-lib", "type:01-lib"]
-              }
-              ,           
+                "onlyDependOnLibsWithTags": [
+                  "scope:01account-lib",
+                  "type:01-lib"
+                ]
+              },
               {
                 "sourceTag": "scope:01mystylelib-lib",
-                "onlyDependOnLibsWithTags": [ "scope:01mystylelib-lib", "type:01-lib"]
-              }
-              ,           
+                "onlyDependOnLibsWithTags": [
+                  "scope:01mystylelib-lib",
+                  "type:01-lib"
+                ]
+              },
               {
                 "sourceTag": "scope:01app-config-lib",
-                "onlyDependOnLibsWithTags": [ "scope:01app-config-lib", "type:01-lib"]
-              },           
+                "onlyDependOnLibsWithTags": [
+                  "scope:01app-config-lib",
+                  "type:01-lib"
+                ]
+              },
               {
                 "sourceTag": "scope:01common-lib",
-                "onlyDependOnLibsWithTags": [ "scope:01common-lib", "type:01-lib"]
-              }
-              ,           
+                "onlyDependOnLibsWithTags": [
+                  "scope:01common-lib",
+                  "type:01-lib"
+                ]
+              },
               {
                 "sourceTag": "scope:01app-layout-lib",
-                "onlyDependOnLibsWithTags": [ "scope:01app-layout-lib", "type:01-lib"]
-              }
-              ,           
+                "onlyDependOnLibsWithTags": [
+                  "scope:01app-layout-lib",
+                  "type:01-lib"
+                ]
+              },
               {
                 "sourceTag": "scope:01app-styles-lib",
-                "onlyDependOnLibsWithTags": [ "scope:01app-styles-lib", "type:01-lib"]
-              }
-              ,           
+                "onlyDependOnLibsWithTags": [
+                  "scope:01app-styles-lib",
+                  "type:01-lib"
+                ]
+              },
               {
                 "sourceTag": "01app-shop-information-lib",
-                "onlyDependOnLibsWithTags": [ "01app-shop-information-lib", "type:01-lib"]
+                "onlyDependOnLibsWithTags": [
+                  "01app-shop-information-lib",
+                  "type:01-lib"
+                ]
               }
             ]
           }
@@ -77,12 +88,12 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
+      "extends": ["plugin:@nx/typescript"],
       "rules": {}
     },
     {
       "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
+      "extends": ["plugin:@nx/javascript"],
       "rules": {}
     },
     {

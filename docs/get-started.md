@@ -8,9 +8,9 @@ npx create-nx-workspace@latest
 
 
 --create angular app
--init workspase in nx console and create app; 
+-init workspase in nx console and create app;
    or
-nx generate @nrwl/angular:application x01
+nx generate @nx/angular:application x01
  nx init  // если замена ssd (жесткого диска)
  --monorepo уже создано--
  установить расшиерие 'Nx Console'
@@ -47,6 +47,7 @@ yarn add i @abacritt/angularx-social-login <br/>
 [help and sample](https://code-maze.com/how-to-sign-in-with-google-angular-aspnet-webapi/)<br/>
 
 ### Over External Provide
+
 ```
 https://github.com/Mawi137/ngx-image-cropper <br/>
 https://github.com/parallax/jsPDF<br/>
@@ -73,29 +74,33 @@ https://github.com/ddubrava/angular8-yandex-maps#readme
 
 restart nx server !!!
 ```
+
 ## Enviropment date on developer or deploy
+
 ```
  // creat dir apps/xl-01/src/environments  on project !!!
 
-  // в project.json указываем 
+  // в project.json указываем
    "fileReplacements": [
             {
               "replace": "apps/xl-01/src/environments/environment.ts",
               "with": "apps/xl-01/src/environments/environment.prod.ts"
             }],
 ```
+
 ## Lazy load component or module
+
 ```
 // Standalone Componet
 {
-        path: 'manager',              
+        path: 'manager',
   //!!!-->      loadComponent: () =>
           import('./manager/manager.component').then((m) => m.ManagerComponent)
  },
 
  //Module
  {
-        path: 'account',              
+        path: 'account',
    //!!!-->      loadChildren: () =>
           import('@wsv2/account').then((m) => m.AccountModule)
 }

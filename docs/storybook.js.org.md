@@ -18,6 +18,6 @@ https://habr.com/ru/articles/340384/
  npx create-nx-workspace@latest wsx01_sb
    -create a new workspace
    -change angular app
-     
- nx g @nx/angular:storybook-configuration ui --storybook7Configuration=true
+    //  nx = > 16.0 
+ nx g @nx/angular:storybook-configuration ui --storybook7Configuration=true  
 ```
