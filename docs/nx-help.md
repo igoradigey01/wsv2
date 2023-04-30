@@ -17,3 +17,8 @@ C:\users\your_user\AppData\Roaming\npm
 Соответственно помогло:
 npm config set prefix="C:\Users\nka20\AppData\Roaming\npm"
 ```
+## nx reset
+```
+https://nx.dev/packages/nx/documents/reset
+nx reset
+```
