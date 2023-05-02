@@ -1,0 +1,94 @@
+{
+    "pipes": [],
+    "interfaces": [],
+    "injectables": [],
+    "guards": [],
+    "interceptors": [],
+    "classes": [],
+    "directives": [],
+    "components": [],
+    "modules": [],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "KatalogButton",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/button/button.component.old-stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  render: (args: ButtonComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    id: 10,\r\n   name: \"name button\",\r\n   idVisible: true,\r\n   \r\n  },\r\n\r\n  \r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/button/button.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<ButtonComponent>",
+                "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  argTypes: {\r\n    name:{\r\n      name: 'имя кнопки',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    },\r\n    \r\n    onBtClick: { action: 'clicked' } },\r\n}"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "libs/ui/src/lib/button/button.component.old-stories.ts": [
+                {
+                    "name": "KatalogButton",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/button/button.component.old-stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  render: (args: ButtonComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    id: 10,\r\n   name: \"name button\",\r\n   idVisible: true,\r\n   \r\n  },\r\n\r\n  \r\n}"
+                }
+            ],
+            "libs/ui/src/lib/button/button.component.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/button/button.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<ButtonComponent>",
+                    "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  argTypes: {\r\n    name:{\r\n      name: 'имя кнопки',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    },\r\n    \r\n    onBtClick: { action: 'clicked' } },\r\n}"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": [],
+    "coverage": {
+        "count": 0,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "libs/ui/src/lib/button/button.component.old-stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "KatalogButton",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/button/button.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}

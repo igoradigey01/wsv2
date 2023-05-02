@@ -23,6 +23,51 @@ https://habr.com/ru/articles/340384/
  nx g @nx/angular:storybook-configuration ui --storybook7Configuration=true  
 ```
 
+## Add style.css
+```
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "libs/ui/.storybook",
+        "browserTarget": "ui:build-storybook",
+
+        "styles": ["libs/ui/src/style.css"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/ui/src/style.css"]
+        },
+        
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/ui",
+        "configDir": "libs/ui/.storybook",
+        "browserTarget": "ui:build-storybook",
+
+        "styles": ["libs/ui/src/style.css"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/ui/src/style.css"]
+        },
+
+        "compodoc": false
+      },
+```
+
+## создать документацию 
+```
+https://nx.dev/packages/storybook/documents/angular-storybook-compodoc
+yarn add -D @compodoc/compodoc
+```
+
 ## npm не туда устанавливает пакеты и выдает ошибку?
 ```
 Прислали решение, кому интересно:
@@ -32,4 +77,9 @@ C:\users\your_user\AppData\Roaming\npm
 
 Соответственно помогло:
 npm config set prefix="C:\Users\your_user\AppData\Roaming\npm"
+```
+## error dev-server
+```
+очистить кеш
+ node_modules/.cache/storybook/dev-server
 ```

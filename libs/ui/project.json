@@ -33,7 +33,11 @@
         "port": 4400,
         "configDir": "libs/ui/.storybook",
         "browserTarget": "ui:build-storybook",
-        "compodoc": false
+        "styles": ["libs/ui/src/style.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/ui/src/style.scss"]
+        },
+        "compodoc": true
       },
       "configurations": {
         "ci": {
@@ -48,7 +52,11 @@
         "outputDir": "dist/storybook/ui",
         "configDir": "libs/ui/.storybook",
         "browserTarget": "ui:build-storybook",
-        "compodoc": false
+        "styles": ["libs/ui/src/style.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/ui/src/style.scss"]
+        },
+        "compodoc": true
       },
       "configurations": {
         "ci": {

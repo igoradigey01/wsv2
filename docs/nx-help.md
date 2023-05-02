@@ -22,3 +22,5 @@ npm config set prefix="C:\Users\nka20\AppData\Roaming\npm"
 https://nx.dev/packages/nx/documents/reset
 nx reset
 ```
+## fix bug nx not found
+yarn add  nx@latest
