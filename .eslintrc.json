@@ -81,6 +81,14 @@
                   "type:01-lib"
                 ]
               }
+              ,
+              {
+                "sourceTag": "01app-ui-lib",
+                "onlyDependOnLibsWithTags": [
+                  "01app-ui-lib",
+                  "type:01-lib"
+                ]
+              }
             ]
           }
         ]

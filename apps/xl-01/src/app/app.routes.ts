@@ -31,6 +31,12 @@ export const appRoutes: Route[] = [
               (m) => m.ShopInformationModule
             ),
         } ,
+
+        // {
+        //   path:'test',
+        //   loadComponent: () =>
+        //   import('@wsv2/ui').then((m) => m.KatalogComponent)
+        // },
         // {
         //   path: 'content',
         //   loadChildren: () =>

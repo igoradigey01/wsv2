@@ -1,19 +1,9 @@
 @use "../../styles.scss" as s;
 //@use "@angular/material" as mat;
 
-::ng-deep body {
-  --primary-color: #cc33ca;
-  --primary-lighter-color: #f0c2ef;
-  --primary-darker-color: #b920b7;
 
-  --accent-color: #797979;
-  --accent-lighter-color: #d7d7d7;
-  --accent-darker-color: #5c5c5c;
-}
 
-.text_wite{
-  //color: var(--on-primary-color)!important;
-}
+
 $border: 2px inset #393939;
 // #ffbd35;
 

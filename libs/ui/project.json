@@ -2,8 +2,7 @@
   "name": "ui",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ui/src",
-  "prefix": "wsv2",
-  "tags": [],
+  "prefix": "wsv2",  
   "projectType": "library",
   "targets": {
     "test": {
@@ -76,5 +75,6 @@
         }
       }
     }
-  }
+  },
+  "tags": ["01app-ui-lib", "type:01-lib"]
 }

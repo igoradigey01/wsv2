@@ -1,25 +1,25 @@
 $base-color-for-m3: #cc33ca;
 
-$primary-color: #c82fc7 !default; //primary50
+$primary-color: #a800a9 !default; //primary40
 $primary-lighter-color: #ffd7f5 !default;//primary90
-$primary-darker-color: #5b005b !default;//primary20
+$primary-darker-color: #380038!default;//primary10
 $on-primary-color: #ffffff   !default;
-$on-primary-lighter-color: #5b005b !default;//primary20
+$on-primary-lighter-color: #380038 !default;//primary10
 
-$accent-color: #877082 !default;////secondary50
+$accent-color: #6d5869 !default;////secondary40
 $accent-lighter-color: #f7daef !default; //secondary90
-$accent-darker-color: #3d2b3a !default; ////secondary20
+$accent-darker-color: #380038 !default; ////secondary10
 $on-accent-color: #ffffff !default;
-$on-accent-lighter-color: #3d2b3a !default; //secondary20
+$on-accent-lighter-color: #380038 !default; //secondar10
 
-$tertiary-color: #9d6b5c !default;  //tertiary50
+$tertiary-color: #380038 !default;  //tertiary40
 $tertiary-container-color: #ffdbd1 !default ; //tertiary90
 $on-tertiary-color: #ffffff !default;
-$on-tertiary-container-color: #4c261b !default; //tertiary20
+$on-tertiary-container-color:  #321208 !default; //tertiary10
 
 // this warn palete  is color on  generete on https://m3.material.io/theme-builder#/custom
 $warn-color: #ba1a1a !default; //error40
-$warn-lighter-color: #ffb4ab !default; //error80
+$warn-lighter-color: #ffdad6!default; //error90
 $warn-darker-color: #690005 !default; //error10
 $on-warn-color: #ffffff !default;
 $on-warn-lighter-color: #410002 !default;  //error40

@@ -26,24 +26,24 @@ const meta: Meta<ButtonComponent> = {
       type:'number'
 
     },
-  
-
-    
     onBtClick: { action: 'clicked' ,return:{id:"10",name:"название категории"}} },
 };
 
 export default meta;
 
-export const KatalogButton = {
+export const ButtonUI = {
   render: (args: ButtonComponent) => ({
     props: args,
   }),
   args: {
     id: 10,
-   name: "название категории",
-   idVisible: true,
-   
-  },
+    name: "название категории",
+    idVisible: true,
+    buttonBackroundColor:true
 
+   
+  }
   
 };
+
+

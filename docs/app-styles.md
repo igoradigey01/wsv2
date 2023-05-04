@@ -1,5 +1,8 @@
 # App-styles lib
 ```
+ mat3 generate palette !!!!
+ https://m3.material.io/theme-builder#/custom 
+
 (1)Базовая - Material Theme -для  app и libs
 https://material.angular.io/guide/theming
 

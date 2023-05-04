@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
-import {IButton} from '../../_shared/_interfaces/button.model'
+import {IButton} from '../_interfaces/button.model'
 import { Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -16,27 +16,21 @@ import { Input, Output, EventEmitter } from '@angular/core';
 })
 export class ButtonComponent {
 
-  /**
-   * Optional click handler
-   */ 
+ 
   @Output() public onButtonClick = new EventEmitter<IButton>();
 
-  /**
-   * Button contents id 
-   * @required
-   */
+  
   @Input() public id:number | undefined=1;
 
-   /**
-   * Button contents   name
-   * @required
-   */
+   
   @Input() public name:string | undefined;
      /**
    * Is this visible id label
    */
   @Input() public idVisible:boolean=true;
-
+  
+  
+  @Input() public buttonBackroundColor:boolean=true;
    
    
    

@@ -42,11 +42,18 @@ class="example-toolbar"
 <!-------------------------------------------------------- start  main content-->
 <button  mat-raised-button color="primary"  routerLink="/manager" >manager link</button>
 <button mat-button routerLink="/admin" >admin link</button>
-<button mat-button color="primary">Primary</button>
+<!--   
+<button mat-button color="accent" routerLink="/index/test">Test ui  componet</button>
+-->
 <button mat-raised-button  color="primary" class="text_wite">Primary</button>
 <button mat-raised-button color="accent">Accent</button>
 <button mat-raised-button color="warn">Warn</button>
 <router-outlet></router-outlet>   
+
+<wsv2-katalog
+ [items]="tempRepozitory"
+
+></wsv2-katalog>
 
 
   </div>

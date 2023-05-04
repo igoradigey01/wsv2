@@ -1,1 +1,18 @@
 <p>katalog works!</p>
+<div [ngClass]="componetVisible ? 'contener' : 'not-contener'">
+  <div *ngIf="items">
+    <div class="grid-container">
+      
+        <div *ngFor="let item of items" style="margin-left: auto; margin-right: auto;">
+         
+            <wsv2-button
+              [name]="item.name"
+              (onButtonClick)="onSelectBt($event)"
+            >
+            </wsv2-button>
+         
+        </div>
+      
+    </div>
+  </div>
+</div>
