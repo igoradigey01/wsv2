@@ -1,21 +1,17 @@
 ## добавить app or lib
 
 ```
---create emty wokspase
-npx create-nx-workspace@latest
-
---add angular
-
-
---create angular app
--init workspase in nx console and create app;
-   or
-nx generate @nx/angular:application x01
- nx init  // если замена ssd (жесткого диска)
- --monorepo уже создано--
- установить расшиерие 'Nx Console'
- выбрать рабрать dir
- добавить app or lib выбрав меню 'generate' в 'Nx console'
+--create dir 
+-- cmd :
+1. npx create-nx-workspace@latest
+2. выбрать вторую сторочку : monorepo for angular
+//-----------
+✔ Choose your style                     · integrated
+✔ What to create in the new workspace   · angular
+✔ Repository name                       · wsv2
+✔ Application name                      · x01
+✔ Default stylesheet format             · cass
+✔ Enable distributed caching to make your CI faster · Yes
 ```
 
 ## Add License to repo
