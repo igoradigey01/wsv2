@@ -73,7 +73,7 @@
    ```
 
 
-## nginx.conf
+## nginx.conf - это старая версия 
 ```
 worker_processes auto;
 events { worker_connections 1024; }

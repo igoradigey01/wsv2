@@ -23,3 +23,12 @@
       //docker-compose.yml
     - ./dist/storybook/ui:/var/www/sb/html
 ```
+
+ ### delete old volume
+   ```
+   //---- docker-отчет об использовании дискового пространства 
+   docker system df 
+   docker volume ls 
+   docker volume prune // delete volume 
+   docker ps 
+   ```

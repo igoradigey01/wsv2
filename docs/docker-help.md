@@ -1,5 +1,4 @@
 ## Docker reload app on host
-
 ```
 // deploy on dockerHub
 docker image push igoradigey01/shopapi_web:latest 
@@ -47,69 +46,12 @@ sudo systemctl status docker
 sudo docker run hello-world
 ```
 
-
-
-## docker-compose.yarn on vps
-,,,
-version: "3.7"
-
-services:
-
-  nginx:
-    image: nginx
-    restart: always
-    depends_on:
-      - web
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./certs:/etc/nginx/certs
-      - ./nginx/data/xf01:/var/www/xf01/html
-      - ./nginx/data/xl01:/var/www/xl01/html
-      - ./nginx/data/x01:/var/www/x01/html
-      - ./nginx/data:/usr/share/nginx/html
-    ports: 
-       - "443:443"
-       - "80:80"
-
-  web:
-    image: igoradigey01/shopapi_web:latest
-    restart: always
-    depends_on:
-        - db
-    environment:
-       ASPNETCORE_ENVIRONMENT: Production
-       ASPNETCORE_URLS: http://+:80
-       FrontClient1: https://x-01.ru
-       FrontClient2: https://xf-01.ru
-       Issuer: https://s.x-01.ru
-       Audience: https://x-01.ru
-       ClientSecrets: client_secret_swagger
-       Scopes: api1.read
-       AdminPass: ####
-       AdminEmail: ###@x-01.ru
-       AdminPhone: +79002440328
-       ConnectString: server=db;port=3306;UserId=root;Password=####
-       From: ###@x-01.ru
-       SmtpServer: smtp.mail.ru
-       Port: 465
-       Username: ###@x-01.ru
-       Password: ###  
-       Google_idToken: "#####.googleusercontent.com"
-    ports:
-       - 80
-    volumes:
-        - ./images:/app/wwwroot/images  
-
-  db:
-    image: mysql:8.0
-    restart: always
-    volumes:
-      - ./mysql:/usr/sbin/mysql
-    environment:          
-        MYSQL_ROOT_PASSWORD: ###
-        MYSQL_DATABASE: AuthUserDB
-    ports:
-      - 3306:3306
-,,,
-
+ ### delete old volume
+   ```
+   //---- docker-отчет об использовании дискового пространства 
+   docker system df 
+   docker volume ls 
+   docker volume prune // delete volume 
+   docker ps 
+   ```
 
