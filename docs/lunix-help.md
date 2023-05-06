@@ -26,3 +26,10 @@ sudo ufw status verbose
 https://ruvds.com/ru/helpcenter/telegram-bot-dlya-ruvds/
 
 ```
+## create dir
+```
+mkdir dirname
+mkdir dirname1 dirname2
+mkdir [option] dieNameHere
+mkdir -p dir1/dir2/dir3
+```

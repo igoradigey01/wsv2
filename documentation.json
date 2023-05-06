@@ -34,21 +34,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<KatalogComponent>",
-                "defaultValue": "{\r\n \r\n  title: 'Katalog',\r\n  component:KatalogComponent,\r\n \r\n  argTypes: {\r\n    items:{\r\n      name:\"Items\",\r\n      description:\" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible:{\r\n      name:\"Visible\",\r\n      description:\"displey:block or none this component\"\r\n\r\n    },\r\n    pathBackgroundImg:{\r\n      name:\"background img\",\r\n      description:\"path for background img this componet\"\r\n    },\r\n    buttonBackground:{\r\n      name:\"button background\",\r\n      description:\"\"\r\n    }\r\n    \r\n    \r\n    \r\n}}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "libs/ui/src/lib/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonComponent>",
                 "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  argTypes: {\r\n    \r\n    name:{\r\n      name: 'label',\r\n    //  defaultValue: 'Hello',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    }, \r\n    id:{\r\n      id:'ID',\r\n      type:'number'\r\n\r\n    },\r\n    onBtClick: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<KatalogComponent>",
+                "defaultValue": "{\r\n \r\n  title: 'Katalog',\r\n  component:KatalogComponent,\r\n \r\n  argTypes: {\r\n    items:{\r\n      name:\"Items\",\r\n      description:\" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible:{\r\n      name:\"Visible\",\r\n      description:\"displey:block or none this component\"\r\n\r\n    },\r\n    pathBackgroundImg:{\r\n      name:\"background img\",\r\n      description:\"path for background img this componet\"\r\n    },\r\n    buttonBackground:{\r\n      name:\"button background\",\r\n      description:\"\"\r\n    },\r\n    onSelectBt: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} \r\n\r\n    \r\n    \r\n    \r\n}}"
             },
             {
                 "name": "tempRepozitory",
@@ -118,7 +118,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<KatalogComponent>",
-                    "defaultValue": "{\r\n \r\n  title: 'Katalog',\r\n  component:KatalogComponent,\r\n \r\n  argTypes: {\r\n    items:{\r\n      name:\"Items\",\r\n      description:\" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible:{\r\n      name:\"Visible\",\r\n      description:\"displey:block or none this component\"\r\n\r\n    },\r\n    pathBackgroundImg:{\r\n      name:\"background img\",\r\n      description:\"path for background img this componet\"\r\n    },\r\n    buttonBackground:{\r\n      name:\"button background\",\r\n      description:\"\"\r\n    }\r\n    \r\n    \r\n    \r\n}}"
+                    "defaultValue": "{\r\n \r\n  title: 'Katalog',\r\n  component:KatalogComponent,\r\n \r\n  argTypes: {\r\n    items:{\r\n      name:\"Items\",\r\n      description:\" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible:{\r\n      name:\"Visible\",\r\n      description:\"displey:block or none this component\"\r\n\r\n    },\r\n    pathBackgroundImg:{\r\n      name:\"background img\",\r\n      description:\"path for background img this componet\"\r\n    },\r\n    buttonBackground:{\r\n      name:\"button background\",\r\n      description:\"\"\r\n    },\r\n    onSelectBt: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} \r\n\r\n    \r\n    \r\n    \r\n}}"
                 },
                 {
                     "name": "tempRepozitory",

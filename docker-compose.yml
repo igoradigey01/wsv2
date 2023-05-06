@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+
+  web:
+    image: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/data:/var/www/html/test
+      - ./dist/storybook/ui:/var/www/sb/html
+      - ./dist/apps/xl01:/var/www/html
+    ports:
+     - "8080:8080"
+     - "8000:8000"
+

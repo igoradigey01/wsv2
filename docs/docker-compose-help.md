@@ -1,0 +1,25 @@
+# Create docker  deploy on local-mashine
+``` 
+ add file docker-compose.yml
+ add folder nginx 
+```
+###  static page index.html
+``` http://localhost:8080/test/
+
+      //docker-compose.yml
+   - ./dist/static/html:/var/www/html/test
+```
+
+###  angular app
+```  http://localhost:8080
+      
+      //docker-compose.yml
+    - ./dist/apps/x01:/var/www/html
+```
+
+###  storybook page
+```  http://localhost:8000
+      
+      //docker-compose.yml
+    - ./dist/storybook/ui:/var/www/sb/html
+```

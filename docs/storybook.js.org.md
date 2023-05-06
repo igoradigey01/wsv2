@@ -1,5 +1,8 @@
 ## get started
+```
 https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started/
+https://habr.com/ru/companies/simbirsoft/articles/729066/
+```
 
 ## youtube
 https://www.youtube.com/@chromaticui
