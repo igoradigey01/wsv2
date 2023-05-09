@@ -1,12 +1,26 @@
 .contener{
     min-height: 400px;
+     /* Center and scale the image nicely */
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: var(--background); 
 }
 .not-contener{
     display: none;
 }
 
+ .bt-svg{
+  margin-top: 0.4rem;
+  background-color: var(--accent-color);
+  color: var(--on-accent-color);
+
+ }
+
+
 .grid-container {
-    margin-top: 1rem;
+   
     display: grid;    
     width: 100%;
     margin-left:auto;
@@ -20,6 +34,7 @@
 
   @media (min-width: 768px) and (max-width: 1199px)  {
     .grid-container {
+     
       display: grid;
       width: 100%;
       margin-left: 0;
@@ -31,6 +46,7 @@
   }
     @media (min-width: 1200px) {
       .grid-container {
+        
         display: grid;
         width: 80%;
         margin-left: auto;

@@ -18,7 +18,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\r\n  render: (args: ButtonComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    id: 10,\r\n    name: \"название категории\",\r\n    idVisible: true,\r\n    buttonBackroundColor:true\r\n\r\n   \r\n  }\r\n  \r\n}"
+                "defaultValue": "{\r\n  render: (args: ButtonComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    id: 10,\r\n    name: \"название категории\",\r\n    flagButtonId:true,\r\n    flagButtonOpacity:true\r\n\r\n    \r\n\r\n   \r\n  }\r\n  \r\n}"
+            },
+            {
+                "name": "imgs",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "['/bg_img/photo_1.webp', '/bg_img/photo_2.webp', '/bg_img/photo_3.webp']"
             },
             {
                 "name": "KatalogUI",
@@ -28,7 +38,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{ \r\n  args: { \r\n  items:tempRepozitory,\r\n  componetVisible:true,\r\n },\r\n\r\n}"
+                "defaultValue": "{\r\n  args: {\r\n    items: tempRepozitory,\r\n    urlBackgroundImgs:imgs,\r\n    componetVisible: true,\r\n    flagBackgroundImg:true,\r\n    flagButtonOpacity:true,    \r\n    flagButtonId:true,\r\n    timer:5000\r\n  },\r\n\r\n}"
             },
             {
                 "name": "meta",
@@ -38,7 +48,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonComponent>",
-                "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  argTypes: {\r\n    \r\n    name:{\r\n      name: 'label',\r\n    //  defaultValue: 'Hello',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    }, \r\n    id:{\r\n      id:'ID',\r\n      type:'number'\r\n\r\n    },\r\n    onBtClick: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} },\r\n}"
+                "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  argTypes: {\r\n    \r\n    name:{\r\n      name: 'label',\r\n    //  defaultValue: 'Hello',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    },\r\n    id:{\r\n      id:'ID',\r\n      type:'number'\r\n\r\n    }\r\n    , \r\n    flagButtonId:{\r\n      name:\"visible id\",\r\n      type:\"boolean\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n    }\r\n    ,\r\n    onBtClick: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} },\r\n}"
             },
             {
                 "name": "meta",
@@ -48,7 +58,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<KatalogComponent>",
-                "defaultValue": "{\r\n \r\n  title: 'Katalog',\r\n  component:KatalogComponent,\r\n \r\n  argTypes: {\r\n    items:{\r\n      name:\"Items\",\r\n      description:\" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible:{\r\n      name:\"Visible\",\r\n      description:\"displey:block or none this component\"\r\n\r\n    },\r\n    pathBackgroundImg:{\r\n      name:\"background img\",\r\n      description:\"path for background img this componet\"\r\n    },\r\n    buttonBackground:{\r\n      name:\"button background\",\r\n      description:\"\"\r\n    },\r\n    onSelectBt: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} \r\n\r\n    \r\n    \r\n    \r\n}}"
+                "defaultValue": "{\r\n\r\n  title: 'Katalog',\r\n  component: KatalogComponent,\r\n\r\n  argTypes: {\r\n    items: {\r\n      name: \"Items\",\r\n      description: \" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible: {\r\n      name: \"Visible\",\r\n      description: \"displey:block or none this component\"\r\n\r\n    },\r\n    urlBackgroundImgs: {\r\n      name: \"background img\",\r\n      description: \"path for background img this componet\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n\r\n    },\r\n    flagBackgroundImg: {\r\n      name: \"flag show background-img\",\r\n      type:\"boolean\"\r\n    },\r\n    onSelectBt: { action: 'clicked', return: { id: \"10\", name: \"название категории\" } }\r\n\r\n\r\n\r\n\r\n  }\r\n}"
             },
             {
                 "name": "tempRepozitory",
@@ -58,7 +68,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
-                "defaultValue": "[\r\n  {id:1,name:\"каталог-1\"},\r\n  {id:2,name:\"каталог-2\"},\r\n  {id:3,name:\"каталог-3\"},\r\n  {id:4,name:\"каталог-4\"},\r\n  {id:5,name:\"каталог-5\"},\r\n  {id:6,name:\"каталог-6\"},\r\n  {id:7,name:\"каталог-7\"},\r\n  {id:8,name:\"каталог-8\"},\r\n  {id:9,name:\"каталог-9\"},\r\n  {id:10,name:\"каталог-10\"},\r\n  {id:11,name:\"каталог-11\"},\r\n ]"
+                "defaultValue": "[\r\n  { id: 1, name: \"каталог-1\" },\r\n  { id: 2, name: \"каталог-2\" },\r\n  { id: 3, name: \"каталог-3\" },\r\n  { id: 4, name: \"каталог-4\" },\r\n  { id: 5, name: \"каталог-5\" },\r\n  { id: 6, name: \"каталог-6\" },\r\n  { id: 7, name: \"каталог-7\" },\r\n  { id: 8, name: \"каталог-8\" },\r\n  { id: 9, name: \"каталог-9\" },\r\n  { id: 10, name: \"каталог-10\" },\r\n  { id: 11, name: \"каталог-11\" },\r\n]"
             }
         ],
         "functions": [],
@@ -86,7 +96,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\r\n  render: (args: ButtonComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    id: 10,\r\n    name: \"название категории\",\r\n    idVisible: true,\r\n    buttonBackroundColor:true\r\n\r\n   \r\n  }\r\n  \r\n}"
+                    "defaultValue": "{\r\n  render: (args: ButtonComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    id: 10,\r\n    name: \"название категории\",\r\n    flagButtonId:true,\r\n    flagButtonOpacity:true\r\n\r\n    \r\n\r\n   \r\n  }\r\n  \r\n}"
                 },
                 {
                     "name": "meta",
@@ -96,10 +106,20 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ButtonComponent>",
-                    "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  argTypes: {\r\n    \r\n    name:{\r\n      name: 'label',\r\n    //  defaultValue: 'Hello',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    }, \r\n    id:{\r\n      id:'ID',\r\n      type:'number'\r\n\r\n    },\r\n    onBtClick: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} },\r\n}"
+                    "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  argTypes: {\r\n    \r\n    name:{\r\n      name: 'label',\r\n    //  defaultValue: 'Hello',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    },\r\n    id:{\r\n      id:'ID',\r\n      type:'number'\r\n\r\n    }\r\n    , \r\n    flagButtonId:{\r\n      name:\"visible id\",\r\n      type:\"boolean\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n    }\r\n    ,\r\n    onBtClick: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} },\r\n}"
                 }
             ],
             "libs/ui/src/lib/katalog/katalog.component.stories.ts": [
+                {
+                    "name": "imgs",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "['/bg_img/photo_1.webp', '/bg_img/photo_2.webp', '/bg_img/photo_3.webp']"
+                },
                 {
                     "name": "KatalogUI",
                     "ctype": "miscellaneous",
@@ -108,7 +128,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{ \r\n  args: { \r\n  items:tempRepozitory,\r\n  componetVisible:true,\r\n },\r\n\r\n}"
+                    "defaultValue": "{\r\n  args: {\r\n    items: tempRepozitory,\r\n    urlBackgroundImgs:imgs,\r\n    componetVisible: true,\r\n    flagBackgroundImg:true,\r\n    flagButtonOpacity:true,    \r\n    flagButtonId:true,\r\n    timer:5000\r\n  },\r\n\r\n}"
                 },
                 {
                     "name": "meta",
@@ -118,7 +138,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<KatalogComponent>",
-                    "defaultValue": "{\r\n \r\n  title: 'Katalog',\r\n  component:KatalogComponent,\r\n \r\n  argTypes: {\r\n    items:{\r\n      name:\"Items\",\r\n      description:\" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible:{\r\n      name:\"Visible\",\r\n      description:\"displey:block or none this component\"\r\n\r\n    },\r\n    pathBackgroundImg:{\r\n      name:\"background img\",\r\n      description:\"path for background img this componet\"\r\n    },\r\n    buttonBackground:{\r\n      name:\"button background\",\r\n      description:\"\"\r\n    },\r\n    onSelectBt: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} \r\n\r\n    \r\n    \r\n    \r\n}}"
+                    "defaultValue": "{\r\n\r\n  title: 'Katalog',\r\n  component: KatalogComponent,\r\n\r\n  argTypes: {\r\n    items: {\r\n      name: \"Items\",\r\n      description: \" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible: {\r\n      name: \"Visible\",\r\n      description: \"displey:block or none this component\"\r\n\r\n    },\r\n    urlBackgroundImgs: {\r\n      name: \"background img\",\r\n      description: \"path for background img this componet\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n\r\n    },\r\n    flagBackgroundImg: {\r\n      name: \"flag show background-img\",\r\n      type:\"boolean\"\r\n    },\r\n    onSelectBt: { action: 'clicked', return: { id: \"10\", name: \"название категории\" } }\r\n\r\n\r\n\r\n\r\n  }\r\n}"
                 },
                 {
                     "name": "tempRepozitory",
@@ -128,7 +148,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "[]",
-                    "defaultValue": "[\r\n  {id:1,name:\"каталог-1\"},\r\n  {id:2,name:\"каталог-2\"},\r\n  {id:3,name:\"каталог-3\"},\r\n  {id:4,name:\"каталог-4\"},\r\n  {id:5,name:\"каталог-5\"},\r\n  {id:6,name:\"каталог-6\"},\r\n  {id:7,name:\"каталог-7\"},\r\n  {id:8,name:\"каталог-8\"},\r\n  {id:9,name:\"каталог-9\"},\r\n  {id:10,name:\"каталог-10\"},\r\n  {id:11,name:\"каталог-11\"},\r\n ]"
+                    "defaultValue": "[\r\n  { id: 1, name: \"каталог-1\" },\r\n  { id: 2, name: \"каталог-2\" },\r\n  { id: 3, name: \"каталог-3\" },\r\n  { id: 4, name: \"каталог-4\" },\r\n  { id: 5, name: \"каталог-5\" },\r\n  { id: 6, name: \"каталог-6\" },\r\n  { id: 7, name: \"каталог-7\" },\r\n  { id: 8, name: \"каталог-8\" },\r\n  { id: 9, name: \"каталог-9\" },\r\n  { id: 10, name: \"каталог-10\" },\r\n  { id: 11, name: \"каталог-11\" },\r\n]"
                 }
             ]
         },
@@ -171,6 +191,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "imgs",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

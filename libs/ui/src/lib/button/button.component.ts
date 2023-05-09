@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {IButton} from '../_interfaces/button.model'
@@ -6,7 +6,8 @@ import { Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'wsv2-button',
-  standalone: true,
+  standalone: true,  
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     MatButtonModule
@@ -27,10 +28,10 @@ export class ButtonComponent {
      /**
    * Is this visible id label
    */
-  @Input() public idVisible:boolean=true;
+  @Input() public flagButtonId:boolean=true;
   
   
-  @Input() public buttonBackroundColor:boolean=true;
+  @Input() public  flagButtonOpacity:boolean=true;
    
    
    
@@ -39,8 +40,4 @@ export class ButtonComponent {
     this.onButtonClick.next(date);
   }
 
-  // public get btSizeCss(): string[] {   
-
-  //   return  [`name-bt--${this.size}`];
-  // }
 }

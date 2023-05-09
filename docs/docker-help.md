@@ -1,14 +1,31 @@
 ## Docker reload app on host
 ```
-// deploy on dockerHub
-docker image push igoradigey01/shopapi_web:latest 
+  ssh root@46.173.223.214
+
+  // deploy on dockerHub
+    docker image push igoradigey01/shopapi_web:latest 
  
-//---- docker-отчет об использовании дискового пространства
-docker system df
-docker volume ls
-docker volume prune // delete volume
-docker ps
+  //deploy
+  scp -r C:\Users\Ks34\Documents\AngularProject\xf01\dist\xf01 root@46.173.223.214:~/myapp/nginx/data
+  // backup
+  scp -r root@46.173.223.214:~/myapp/images  E:\Backup_Host\Backup_images\12-05-22
+ 
+  //---- docker-отчет об использовании дискового пространства
+  docker system df
+  docker volume ls
+  docker volume prune // delete volume
+  docker ps
 ```
+ ### deploy on host
+  ```
+   docker ps 
+   docker pull _image_
+   docker stop _container_
+   docker rm _container_
+   //docker run _container 
+   docker-compose up web
+  ```
+
 
 ## Install docker on Host vps (виртуальный сервер у провайдера)
 

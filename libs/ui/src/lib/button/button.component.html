@@ -1,6 +1,6 @@
 
-<button mat-raised-button color="accent" (click)="onBtClick()" [ngClass]="buttonBackroundColor ? 'bt' : 'bt-opacity-not'" >
+<button mat-raised-button color="accent" (click)="onBtClick()" [ngClass]="flagButtonOpacity ? 'bt' : 'bt-opacity-not'" >
     
-    <span   [ngClass]="idVisible ? 'badge-btn' : 'not-badge-btn'" *ngIf="id" > {{id}} </span>
+    <span   [ngClass]="flagButtonId ? 'badge-btn' : 'not-badge-btn'" *ngIf="id" > {{id}} </span>
     <span class="name-bt" *ngIf="name">  {{name}} </span>
 </button>

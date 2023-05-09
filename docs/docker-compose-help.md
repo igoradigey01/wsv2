@@ -32,3 +32,13 @@
    docker volume prune // delete volume 
    docker ps 
    ```
+
+    ### deploy on host
+  ```
+   docker ps 
+   docker pull _image_
+   docker stop _container_
+   docker rm _container_
+   //docker run _container 
+   docker-compose up web
+  ```
