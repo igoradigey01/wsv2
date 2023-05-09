@@ -50,10 +50,6 @@ export const ButtonUI = {
     name: "название категории",
     flagButtonId:true,
     flagButtonOpacity:true
-
-    
-
-   
   }
   
 };
