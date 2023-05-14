@@ -31,6 +31,16 @@
                 "defaultValue": "{\r\n    render: (args: CardProductComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n\r\n    }\r\n\r\n}"
             },
             {
+                "name": "HeaderLayouttUI",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n    render: (args: AppHeaderLayoutComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n    \r\n        isShopHeader:true,\r\n        menuItems:repozitoryMenyShop,\r\n        srcLogo:logo,\r\n        company_name_2:\"name-2\",\r\n        company_name_1:\"name_1\",\r\n        company_phone:'+7-903-466-83-68',\r\n        company_normalize_phone:'+79034668368',\r\n        UserRole:'admin'\r\n\r\n    }\r\n\r\n}"
+            },
+            {
                 "name": "imgs",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -51,6 +61,16 @@
                 "defaultValue": "{\r\n  args: {\r\n    items: tempRepozitory,\r\n    urlBackgroundImgs:imgs,\r\n    componetVisible: true,\r\n    flagBackgroundImg:true,\r\n    flagButtonOpacity:true,    \r\n    flagButtonId:true,\r\n    timer:5000\r\n  },\r\n\r\n}"
             },
             {
+                "name": "logo",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "'/company-information/logo.webp'"
+            },
+            {
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -59,6 +79,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<ButtonComponent>",
                 "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  argTypes: {\r\n    \r\n    name:{\r\n      name: 'label',\r\n    //  defaultValue: 'Hello',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    },\r\n    id:{\r\n      id:'ID',\r\n      type:'number'\r\n\r\n    }\r\n    , \r\n    flagButtonId:{\r\n      name:\"visible id\",\r\n      type:\"boolean\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n    }\r\n    ,\r\n    onBtClick: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} },\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/card-product/card-product.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<CardProductComponent>",
+                "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    argTypes: {\r\n    }\r\n\r\n}"
             },
             {
                 "name": "meta",
@@ -74,11 +104,31 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/card-product/card-product.component.stories.ts",
+                "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<CardProductComponent>",
-                "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    argTypes: {\r\n    }\r\n\r\n}"
+                "type": "Meta<AppHeaderLayoutComponent>",
+                "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4],\r\n      \r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager']}\r\n        \r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      onClickCart: { action: 'clicked', return:'default' },\r\n      onClickLogin:{action: 'clicked', return:'default'},\r\n      onClickOrder:{action: 'clicked', return:'default'}\r\n      \r\n\r\n    }\r\n\r\n}"
+            },
+            {
+                "name": "repoxitoryMenyManager",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\r\n    { \"id\": 1, \"name\": \"КАТЕГОРИЯ\", \"url\": \"/manager/categoria-n\" },\r\n    { \"id\": 2, \"name\": \"КАТАЛОГ\", \"url\": \"/manager/katalog-n\" },\r\n    { \"id\": 3, \"name\": \"БРЕНД\", \"url\": \"/manager/brand-n\" },\r\n    { \"id\": 4, \"name\": \"ЦВЕТ\", \"url\": \"/manager/color-n\" },\r\n    { \"id\": 5, \"name\": \"АРТИКУЛ \", \"url\": \"/manager/article-n\" },\r\n    { \"id\": 6, \"name\": \"НОМЕНКЛАТУРА\", \"url\": \"/manager/katalog-n\" },\r\n    { \"id\": 6, \"name\": \"info\", \"url\": \"/manager/nomenclature\" }\r\n  ]"
+            },
+            {
+                "name": "repozitoryMenyShop",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[{\r\n    \"id\": 0,\r\n    \"name\": \"Как заказать?\",\r\n    \"url\": \"menu/kak-zakazat\"  \r\n  },\r\n  {\r\n    \"id\": 1,\r\n    \"name\": \"Оплата&Доставка\",\r\n    \"url\": \"menu/oplata-i-dostavka\"\r\n    \r\n  },\r\n  {\r\n    \"id\": 2,\r\n    \"name\": \"Гарантии\",\r\n    \"url\": \"menu/garantiya\"\r\n    \r\n  },\r\n  {\r\n    \"id\": 3,\r\n    \"name\": \"Как доехать\",\r\n    \"url\": \"menu/about\"\r\n    \r\n  }\r\n]"
             },
             {
                 "name": "tempRepozitory",
@@ -149,6 +199,58 @@
                     "deprecationMessage": "",
                     "type": "Meta<CardProductComponent>",
                     "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    argTypes: {\r\n    }\r\n\r\n}"
+                }
+            ],
+            "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts": [
+                {
+                    "name": "HeaderLayouttUI",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n    render: (args: AppHeaderLayoutComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n    \r\n        isShopHeader:true,\r\n        menuItems:repozitoryMenyShop,\r\n        srcLogo:logo,\r\n        company_name_2:\"name-2\",\r\n        company_name_1:\"name_1\",\r\n        company_phone:'+7-903-466-83-68',\r\n        company_normalize_phone:'+79034668368',\r\n        UserRole:'admin'\r\n\r\n    }\r\n\r\n}"
+                },
+                {
+                    "name": "logo",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "'/company-information/logo.webp'"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<AppHeaderLayoutComponent>",
+                    "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4],\r\n      \r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager']}\r\n        \r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      onClickCart: { action: 'clicked', return:'default' },\r\n      onClickLogin:{action: 'clicked', return:'default'},\r\n      onClickOrder:{action: 'clicked', return:'default'}\r\n      \r\n\r\n    }\r\n\r\n}"
+                },
+                {
+                    "name": "repoxitoryMenyManager",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\r\n    { \"id\": 1, \"name\": \"КАТЕГОРИЯ\", \"url\": \"/manager/categoria-n\" },\r\n    { \"id\": 2, \"name\": \"КАТАЛОГ\", \"url\": \"/manager/katalog-n\" },\r\n    { \"id\": 3, \"name\": \"БРЕНД\", \"url\": \"/manager/brand-n\" },\r\n    { \"id\": 4, \"name\": \"ЦВЕТ\", \"url\": \"/manager/color-n\" },\r\n    { \"id\": 5, \"name\": \"АРТИКУЛ \", \"url\": \"/manager/article-n\" },\r\n    { \"id\": 6, \"name\": \"НОМЕНКЛАТУРА\", \"url\": \"/manager/katalog-n\" },\r\n    { \"id\": 6, \"name\": \"info\", \"url\": \"/manager/nomenclature\" }\r\n  ]"
+                },
+                {
+                    "name": "repozitoryMenyShop",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[{\r\n    \"id\": 0,\r\n    \"name\": \"Как заказать?\",\r\n    \"url\": \"menu/kak-zakazat\"  \r\n  },\r\n  {\r\n    \"id\": 1,\r\n    \"name\": \"Оплата&Доставка\",\r\n    \"url\": \"menu/oplata-i-dostavka\"\r\n    \r\n  },\r\n  {\r\n    \"id\": 2,\r\n    \"name\": \"Гарантии\",\r\n    \"url\": \"menu/garantiya\"\r\n    \r\n  },\r\n  {\r\n    \"id\": 3,\r\n    \"name\": \"Как доехать\",\r\n    \"url\": \"menu/about\"\r\n    \r\n  }\r\n]"
                 }
             ],
             "libs/ui/src/lib/katalog/katalog.component.stories.ts": [
@@ -293,6 +395,56 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "tempRepozitory",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "HeaderLayouttUI",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "logo",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "repoxitoryMenyManager",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "repozitoryMenyShop",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

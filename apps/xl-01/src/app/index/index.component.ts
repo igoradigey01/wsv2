@@ -4,7 +4,8 @@ import {AppLayoutModule} from '@wsv2/app-layout'
 import  {MaterialModule}   from '../material.module'
 import {RouterModule} from "@angular/router";
 import {CompanyInformationService,MenyItemsService,IMenyItem} from '@wsv2/app-config'
-import {KatalogComponent,IButton} from '@wsv2/ui'
+import {KatalogComponent,IButton,AppHeaderLayoutComponent} from '@wsv2/ui'
+import { UserRole} from '@wsv2/app-common'
 
 
 @Component({
@@ -12,6 +13,7 @@ import {KatalogComponent,IButton} from '@wsv2/ui'
   standalone: true,
   imports: [
     CommonModule,
+    AppHeaderLayoutComponent,
     AppLayoutModule,
     MaterialModule,
     RouterModule ,
@@ -43,7 +45,8 @@ export class IndexComponent {
   public _company_name_2:string=""
    public _company_phone:string='';
    public _company_normalize_phone:string='';
-   public _is_shop=true;
+   public is_shop=true;
+   public roleUser:UserRole=UserRole.default;
 
 
  public _test_property=''

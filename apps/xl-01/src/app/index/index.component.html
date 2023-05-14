@@ -1,5 +1,6 @@
-<x01-v1-header 
-[is_shop]="_is_shop"
+<wsv2-app-header-layout
+
+[UserRole]="roleUser"
 [srcLogo]="_srcLogo"
 [menuItems]="_menuItems"
 [company_name_1]=" _company_name_1"
@@ -8,7 +9,7 @@
 [company_normalize_phone]=" _company_normalize_phone"
 (onToggleSideBar)="onSideBarVisible()"
 class="example-toolbar"
-></x01-v1-header>
+></wsv2-app-header-layout>
 
 <div name="main" class="conteiner"
     [ngClass]="{

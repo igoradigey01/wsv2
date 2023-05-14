@@ -5,23 +5,12 @@ https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started/
 https://habr.com/ru/companies/simbirsoft/articles/729066/
 ```
 
-## youtube
+## arg type
 
-https://www.youtube.com/@chromaticui
+- https://storybook.js.org/docs/angular/api/argtypes
+- https://storybook.js.org/docs/angular/api/argtypes
 
-## Next-level component development and testing
-
-https://storybook.js.org/blog/storybook-7-0/
-
-## GitHub
-
-https://github.com/storybookjs/storybook
-
-## Обзор -для чего нужен(ru)
-
-https://habr.com/ru/articles/340384/
-
-## Create
+## Create StoryBook7.0
 
 ```
  //сначало создаем app or lib
@@ -30,6 +19,39 @@ https://habr.com/ru/articles/340384/
    -change angular app
     //  nx = > 16.0  потом добавляеи storyBook
  nx g @nx/angular:storybook-configuration ui --storybook7Configuration=true
+```
+
+## not work Animation
+
+```
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+
+const meta: Meta<AppHeaderLayoutComponent> = {
+    title: 'Header-Layout',
+    component: AppHeaderLayoutComponent,
+    decorators: [
+      moduleMetadata({
+        imports: [
+          NoopAnimationsModule,
+        //  RouterModule
+        ],
+      }),
+    ],
+    tags: ['autodocs'],
+    argTypes: {}
+}
+
+```
+
+## not work RouterLink
+
+-- yarn add storybook-addon-angular-router
+
+```
+// .storybook/main.js
+module.exports = {
+   addons: ["storybook-addon-angular-router"],
+};
 ```
 
 ## Add style.css
