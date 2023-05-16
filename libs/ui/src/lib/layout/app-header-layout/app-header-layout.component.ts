@@ -51,6 +51,8 @@ export class AppHeaderLayoutComponent {
   private isUserAutorize: boolean = false;
   public view_header: boolean = true;
   public label_opt = 'ОПТ ₽'
+  public label_manager = 'Менеджер'
+  public label_admin = "Админ";
 
 
   @Input() public set UserRole(role: UserRole) {
@@ -58,11 +60,11 @@ export class AppHeaderLayoutComponent {
 
     this.userRole = role;
     //console.log("@Input() set UserRole-- :" + role);
-   
+
     //this.getViewHeader(role);
     this.thisUserAutorize(this.userRole);
     this.cd.detectChanges();
-    
+
   }
   @Input() public set SetCartCount(role: UserRole) { }
   @Input() public set isShopHeader(viewHeader: boolean) {
@@ -86,6 +88,8 @@ export class AppHeaderLayoutComponent {
 
   @Output() onClickOptPrice = new EventEmitter<UserRole>();
   @Output() onClickNotOptPrice = new EventEmitter<UserRole>();
+  @Output() onClickManager = new EventEmitter<UserRole>();
+  @Output() onClickAdmin = new EventEmitter<UserRole>();
 
 
 
@@ -119,7 +123,9 @@ export class AppHeaderLayoutComponent {
 
   }
 
-  public on_click_order() {
+  public on_click_order(userRole: string) {
+
+    // check not realize
 
     this.onClickOrder.emit(this.userRole);
 
@@ -135,6 +141,44 @@ export class AppHeaderLayoutComponent {
     this.onClickNotOptPrice.emit(this.userRole);
 
 
+  }
+
+  on_click_manager(actionName: string) {
+    if (actionName === 'manager') {
+      this.label_manager = 'Менеджер';
+      this.onClickManager.emit(this.userRole);
+    }
+    if (actionName === 'opt') {
+      this.label_manager = 'ОПТ ₽';
+      this.onClickOptPrice.emit(this.userRole);
+    }
+
+    if (actionName === 'not_opt') {
+      this.label_manager = 'РОЗН ₽'
+      this.onClickNotOptPrice.emit(this.userRole);
+    }
+  }
+
+
+  on_click_admin(actionName: string) {
+    if (actionName === 'admin') {
+      this.label_admin = 'Админ';
+      this.onClickAdmin.emit(this.userRole);
+    }
+
+    if (actionName === 'manager') {
+      this.label_admin = 'Менеджер';
+      this.onClickManager.emit(this.userRole);
+    }
+    if (actionName === 'opt') {
+      this.label_admin = 'ОПТ ₽';
+      this.onClickOptPrice.emit(this.userRole);
+    }
+
+    if (actionName === 'not_opt') {
+      this.label_admin = 'РОЗН ₽'
+      this.onClickNotOptPrice.emit(this.userRole);
+    }
   }
 
   public onSideBarVisible(): void {
@@ -181,34 +225,40 @@ export class AppHeaderLayoutComponent {
      this.is_shop=true;
    } */
 
+  // чет не чет -Остаток от деления (%)
+  /** это число четное ? */
+  private isOdd(number: number) {
+    return number % 2 === 0 ? true : false
+  }
+
   private thisUserAutorize(userRole: UserRole) {
-     //debugger
+    //debugger
     if (this.userRole == UserRole.admin) {
       this.isUserAutorize = true;
-   //   console.log("--UserRole--"+this.userRole);
+      //   console.log("--UserRole--"+this.userRole);
       return;
     }
 
     if (this.userRole == UserRole.manager) {
       this.isUserAutorize = true;
-    //  console.log("--UserRole--"+this.userRole);
+      //  console.log("--UserRole--"+this.userRole);
       return;
     }
     if (this.userRole == UserRole.shoperOpt) {
       this.isUserAutorize = true;
-    //  console.log("--UserRole--"+this.userRole);
+      //  console.log("--UserRole--"+this.userRole);
       return;
     }
     if (this.userRole == UserRole.shoper) {
       this.isUserAutorize = true;
-     // console.log("--UserRole--"+this.userRole);
+      // console.log("--UserRole--"+this.userRole);
       return;
     }
 
     this.isUserAutorize = false;
 
-  //  this.cd.detectChanges();
-    console.log("--UserRole = false --"+this.userRole);
+    //  this.cd.detectChanges();
+    console.log("--UserRole = false --" + this.userRole);
 
   }
 

@@ -122,8 +122,10 @@
 
         <!--- start role-meny ------>
         <span style="display: flex" *ngIf="IsAdmin">
+          <!----------------- start Admin------------------------------------------------->
+
            <!-- start order-meny -->
-           <button mat-button (click)="on_click_order()">
+           <button mat-button (click)="on_click_order('admin')">
             <div class="item-meny-svg">
               <div class="item-meny-icon-svg">
                 <svg
@@ -150,17 +152,40 @@
             </div>
           </button>
           <!-- end order-meny -->
-          <button mat-raised-button color="accent" routerLink="admin">
-            Admin
-          </button>
-          <button mat-raised-button color="accent" routerLink="manager">
-            Manager
-          </button>
+          <!-- start admin-meny -->
+          <button mat-button  [matMenuTriggerFor]="menuShopAdmin"  class="opt-meny" >
+         
+            {{label_admin}}
+           
+            </button>   
+            
+            <mat-menu #menuShopAdmin="matMenu" xPosition="before">
+              <button mat-menu-item   (click)="on_click_admin('manager')"    >
+                App Админ
+                </button>
+
+              <button mat-menu-item   (click)="on_click_admin('manager')"    >
+                App Менеджер
+                </button>
+              
+                <button mat-menu-item (click)="on_click_admin('opt')">
+                Оптовая цена
+                </button>
+  
+                <button mat-menu-item (click)="on_click_admin('not_opt')">
+                 Розница
+                 </button>
+              
+            </mat-menu>
+           <!------------- end admin-meny  --> 
+         <!----  end Admin-------------------------------------------------> 
         </span>
 
         <span *ngIf="IsManager">
+          <!-- start Manager---------------------------------------------->
+
            <!-- start order-meny -->
-           <button mat-button (click)="on_click_order()">
+           <button mat-button (click)="on_click_order('manager')">
             <div class="item-meny-svg">
               <div class="item-meny-icon-svg">
                 <svg
@@ -187,14 +212,36 @@
             </div>
           </button>
           <!-- end order-meny -->
-          <button mat-raised-button color="accent" routerLink="manager">
-            Manager
-          </button>
+          <!-- start manager-meny -->
+          <button mat-button  [matMenuTriggerFor]="menuShopManager"  class="opt-meny" >
+         
+            {{label_manager}}
+           
+            </button>   
+            
+            <mat-menu #menuShopManager="matMenu" xPosition="before">
+
+              <button mat-menu-item   (click)="on_click_manager('manager')"    >
+                App Менеджер
+                </button>
+              
+                <button mat-menu-item (click)="on_click_manager('opt')">
+                Оптовая цена
+                </button>
+  
+                <button mat-menu-item (click)="on_click_manager('not_opt')">
+                 Розница
+                 </button>
+              
+            </mat-menu>
+           <!------------- end manager-meny  --> 
+          <!--    end   Manager   ------------------------------------------>
         </span>
 
         <span class="nav-item" *ngIf="IsShopper">
+          
           <!-- start order-meny -->
-          <button mat-button (click)="on_click_order()">
+          <button mat-button (click)="on_click_order('shopper')">
             <div class="item-meny-svg">
               <div class="item-meny-icon-svg">
                 <svg
@@ -225,13 +272,13 @@
 
         <span *ngIf="IsOpt">
           <!-- start opt-->
-          <button mat-button  [matMenuTriggerFor]="menuShopInformation"  class="opt-meny" >
+          <button mat-button  [matMenuTriggerFor]="menuShopOpt"  class="opt-meny" >
          
           {{label_opt}}
          
           </button>   
           
-          <mat-menu #menuShopInformation="matMenu" xPosition="before">
+          <mat-menu #menuShopOpt="matMenu" xPosition="before">
             
               <button mat-menu-item (click)="on_click_OptPrice()">
               Оптовая цена

@@ -33,9 +33,13 @@ const meta: Meta<AppHeaderLayoutComponent> = {
         description:"Это витрина магазина или панель admin or manager"
       },
       /** return this.userRole */
-      onClickCart: { action: 'clicked', return:'default' },
-      onClickLogin:{action: 'clicked', return:'default'},
-      onClickOrder:{action: 'clicked', return:'default'}
+      onClickCart: { action: 'clicked', return:0 },
+      onClickLogin:{action: 'clicked', return:0},
+      onClickOrder:{action: 'clicked', return:0},
+      onClickOptPrice:{action: 'clicked', return:0},
+      onClickNotOptPrice:{action: 'clicked', return:0},
+      onClickManager:{action: 'clicked', return:0},
+      onClickAdmin:{action: 'clicked', return:0},
       
 
     }

@@ -38,7 +38,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\r\n    render: (args: AppHeaderLayoutComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n    \r\n        isShopHeader:true,\r\n        menuItems:repozitoryMenyShop,\r\n        srcLogo:logo,\r\n        company_name_2:\"name-2\",\r\n        company_name_1:\"name_1\",\r\n        company_phone:'+7-903-466-83-68',\r\n        company_normalize_phone:'+79034668368',\r\n        UserRole:'admin'\r\n\r\n    }\r\n\r\n}"
+                "defaultValue": "{\r\n    render: (args: AppHeaderLayoutComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n        UserRole:0,\r\n        isShopHeader:true,\r\n        menuItems:repozitoryMenyShop,\r\n        srcLogo:logo,\r\n        company_name_2:\"name-2\",\r\n        company_name_1:\"name_1\",\r\n        company_phone:'+7-903-466-83-68',\r\n        company_normalize_phone:'+79034668368',\r\n       \r\n\r\n    }\r\n\r\n}"
             },
             {
                 "name": "imgs",
@@ -108,10 +108,10 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<AppHeaderLayoutComponent>",
-                "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4],\r\n      \r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager']}\r\n        \r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      onClickCart: { action: 'clicked', return:'default' },\r\n      onClickLogin:{action: 'clicked', return:'default'},\r\n      onClickOrder:{action: 'clicked', return:'default'}\r\n      \r\n\r\n    }\r\n\r\n}"
+                "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4,5],\r\n      \r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager','admin']}\r\n        \r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      onClickCart: { action: 'clicked', return:'default' },\r\n      onClickLogin:{action: 'clicked', return:'default'},\r\n      onClickOrder:{action: 'clicked', return:'default'}\r\n      \r\n\r\n    }\r\n\r\n}"
             },
             {
-                "name": "repoxitoryMenyManager",
+                "name": "repozitoryMenyManager",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
@@ -210,7 +210,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\r\n    render: (args: AppHeaderLayoutComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n    \r\n        isShopHeader:true,\r\n        menuItems:repozitoryMenyShop,\r\n        srcLogo:logo,\r\n        company_name_2:\"name-2\",\r\n        company_name_1:\"name_1\",\r\n        company_phone:'+7-903-466-83-68',\r\n        company_normalize_phone:'+79034668368',\r\n        UserRole:'admin'\r\n\r\n    }\r\n\r\n}"
+                    "defaultValue": "{\r\n    render: (args: AppHeaderLayoutComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n        UserRole:0,\r\n        isShopHeader:true,\r\n        menuItems:repozitoryMenyShop,\r\n        srcLogo:logo,\r\n        company_name_2:\"name-2\",\r\n        company_name_1:\"name_1\",\r\n        company_phone:'+7-903-466-83-68',\r\n        company_normalize_phone:'+79034668368',\r\n       \r\n\r\n    }\r\n\r\n}"
                 },
                 {
                     "name": "logo",
@@ -230,10 +230,10 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<AppHeaderLayoutComponent>",
-                    "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4],\r\n      \r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager']}\r\n        \r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      onClickCart: { action: 'clicked', return:'default' },\r\n      onClickLogin:{action: 'clicked', return:'default'},\r\n      onClickOrder:{action: 'clicked', return:'default'}\r\n      \r\n\r\n    }\r\n\r\n}"
+                    "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4,5],\r\n      \r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager','admin']}\r\n        \r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      onClickCart: { action: 'clicked', return:'default' },\r\n      onClickLogin:{action: 'clicked', return:'default'},\r\n      onClickOrder:{action: 'clicked', return:'default'}\r\n      \r\n\r\n    }\r\n\r\n}"
                 },
                 {
-                    "name": "repoxitoryMenyManager",
+                    "name": "repozitoryMenyManager",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
@@ -434,7 +434,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "repoxitoryMenyManager",
+                "name": "repozitoryMenyManager",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
