@@ -28,6 +28,12 @@ const meta: Meta<AppHeaderLayoutComponent> = {
        control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager','admin']}
         
       },
+      CartItemsCount:{
+        name:"Корзина",
+        description: "Количество товара выбранного пользователем",
+        type:"number"
+
+      },
       isShopHeader:{
         name:"IsShopHeader",
         description:"Это витрина магазина или панель admin or manager"
@@ -93,6 +99,7 @@ export const HeaderLayouttUI = {
     args: {
         UserRole:0,
         isShopHeader:true,
+        CartItemsCount:3,
         menuItems:repozitoryMenyShop,
         srcLogo:logo,
         company_name_2:"name-2",

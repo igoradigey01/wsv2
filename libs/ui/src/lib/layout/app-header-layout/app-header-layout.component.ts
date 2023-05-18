@@ -49,7 +49,9 @@ export class AppHeaderLayoutComponent {
   private userRole: UserRole = UserRole.default;
 
   private isUserAutorize: boolean = false;
-  public view_header: boolean = true;
+  public label_cart_badge=false
+  public  cart_amount:number=0;
+  public is_shop_header: boolean = true;
   public label_opt = 'ОПТ ₽'
   public label_manager = 'Менеджер'
   public label_admin = "Админ";
@@ -66,9 +68,22 @@ export class AppHeaderLayoutComponent {
     this.cd.detectChanges();
 
   }
-  @Input() public set SetCartCount(role: UserRole) { }
+
+  @Input() public set CartItemsCount(amount:number|undefined) {
+    if(!amount||amount==0){
+      this.cart_amount=0;
+      this.label_cart_badge=false;
+      this.cd.detectChanges();
+     // return;
+    }else{
+    this.label_cart_badge=true;
+    this.cart_amount=amount;
+    this.cd.detectChanges();
+    }
+          
+   }
   @Input() public set isShopHeader(viewHeader: boolean) {
-    this.view_header = viewHeader;
+    this.is_shop_header = viewHeader;
 
   }
   @Input() public company_name_1: string | undefined;

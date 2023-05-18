@@ -1,4 +1,4 @@
-<div *ngIf="view_header; else admin_header">
+<div *ngIf="is_shop_header ; else admin_header">
   <mat-toolbar color="primary" class="_container_nav">
     <div class="col_inner">
       <a routerLink="" class="nav_link">
@@ -110,12 +110,250 @@
       <div class="mobile-nav">
         <!---       statr -->
         <div class="menu-md">
+
+
           <button mat-icon-button (click)="onSideBarVisible()" class="nav_link">
             <mat-icon>menu</mat-icon>
           </button>
         </div>
         <!---------/-->
       </div>
+
+      <div class="menu-tablet">
+      <!---------------------- start meny-tablet ------------------------------->
+       
+
+        <!--- start role-meny ------>
+        <span style="display: flex" *ngIf="IsAdmin">
+          <!----------------- start Admin------------------------------------------------->
+
+           <!-- start order-meny -->
+           <button mat-button (click)="on_click_order('admin')">
+            <div class="item-meny-svg">
+              <div class="item-meny-icon-svg">
+                <svg
+                  fill="currentColor"
+                  class="t1"
+                  viewBox="0 0 32 32"
+                  data-spm-anchor-id="a2g2w.cart.0.i3.2fbf4aa6j0Sgwr"
+                >
+                  <style type="text/css">
+                    .t1 {
+                      fill: var(--on-primary-color);
+                      width: 24px;
+                      height: 24px;
+                    }
+                  </style>
+                  <path
+                    fill-rule="evenodd"
+                    d="M2 7.984a1 1 0 01.653-.922l12.416-4.598a4 4 0 012.875.037l11.428 4.57a1 1 0 01.628.923V22.685a1.5 1.5 0 01-.85 1.353l-10.967 5.264a4 4 0 01-3.356.049l-11.64-5.173A2 2 0 012 22.35V8v-.016zm2 1.503V22.35l11.5 5.111v-13.34c-.2-.048-.398-.111-.592-.19L4 9.487zm13.5 17.924L28 22.37V9.496l-4.983 2.06-4.905 2.294a3.998 3.998 0 01-.612.228V27.41zM5.76 8.044l9.903 4.035a2 2 0 001.602-.04l4.945-2.313 4.136-1.71-9.145-3.658a2 2 0 00-1.437-.019L5.76 8.044z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <div class="item-meny-lable-svg">заказы</div>
+            </div>
+          </button>
+          <!-- end order-meny -->
+          <!-- start admin-meny -->
+          <button mat-button  [matMenuTriggerFor]="menuShopAdmin"  class="opt-meny" >
+         
+            {{label_admin}}
+           
+            </button>   
+            
+            <mat-menu #menuShopAdmin="matMenu" xPosition="before">
+              <button mat-menu-item   (click)="on_click_admin('manager')"    >
+                App Админ
+                </button>
+
+              <button mat-menu-item   (click)="on_click_admin('manager')"    >
+                App Менеджер
+                </button>
+              
+                <button mat-menu-item (click)="on_click_admin('opt')">
+                Оптовая цена
+                </button>
+  
+                <button mat-menu-item (click)="on_click_admin('not_opt')">
+                 Розница
+                 </button>
+              
+            </mat-menu>
+           <!------------- end admin-meny  --> 
+         <!----  end Admin-------------------------------------------------> 
+        </span>
+
+        <span *ngIf="IsManager">
+          <!-- start Manager---------------------------------------------->
+
+           <!-- start order-meny -->
+           <button mat-button (click)="on_click_order('manager')">
+            <div class="item-meny-svg">
+              <div class="item-meny-icon-svg">
+                <svg
+                  fill="currentColor"
+                  class="t1"
+                  viewBox="0 0 32 32"
+                  data-spm-anchor-id="a2g2w.cart.0.i3.2fbf4aa6j0Sgwr"
+                >
+                  <style type="text/css">
+                    .t1 {
+                      fill: var(--on-primary-color);
+                      width: 24px;
+                      height: 24px;
+                    }
+                  </style>
+                  <path
+                    fill-rule="evenodd"
+                    d="M2 7.984a1 1 0 01.653-.922l12.416-4.598a4 4 0 012.875.037l11.428 4.57a1 1 0 01.628.923V22.685a1.5 1.5 0 01-.85 1.353l-10.967 5.264a4 4 0 01-3.356.049l-11.64-5.173A2 2 0 012 22.35V8v-.016zm2 1.503V22.35l11.5 5.111v-13.34c-.2-.048-.398-.111-.592-.19L4 9.487zm13.5 17.924L28 22.37V9.496l-4.983 2.06-4.905 2.294a3.998 3.998 0 01-.612.228V27.41zM5.76 8.044l9.903 4.035a2 2 0 001.602-.04l4.945-2.313 4.136-1.71-9.145-3.658a2 2 0 00-1.437-.019L5.76 8.044z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <div class="item-meny-lable-svg">заказы</div>
+            </div>
+          </button>
+          <!-- end order-meny -->
+          <!-- start manager-meny -->
+          <button mat-button  [matMenuTriggerFor]="menuShopManager"  class="opt-meny" >
+         
+            {{label_manager}}
+           
+            </button>   
+            
+            <mat-menu #menuShopManager="matMenu" xPosition="before">
+
+              <button mat-menu-item   (click)="on_click_manager('manager')"    >
+                App Менеджер
+                </button>
+              
+                <button mat-menu-item (click)="on_click_manager('opt')">
+                Оптовая цена
+                </button>
+  
+                <button mat-menu-item (click)="on_click_manager('not_opt')">
+                 Розница
+                 </button>
+              
+            </mat-menu>
+           <!------------- end manager-meny  --> 
+          <!--    end   Manager   ------------------------------------------>
+        </span>
+
+        <span class="nav-item" *ngIf="IsShopper">
+          
+          <!-- start order-meny -->
+          <button mat-button (click)="on_click_order('shopper')">
+            <div class="item-meny-svg">
+              <div class="item-meny-icon-svg">
+                <svg
+                  fill="currentColor"
+                  class="t1"
+                  viewBox="0 0 32 32"
+                  data-spm-anchor-id="a2g2w.cart.0.i3.2fbf4aa6j0Sgwr"
+                >
+                  <style type="text/css">
+                    .t1 {
+                      fill: var(--on-primary-color);
+                      width: 24px;
+                      height: 24px;
+                    }
+                  </style>
+                  <path
+                    fill-rule="evenodd"
+                    d="M2 7.984a1 1 0 01.653-.922l12.416-4.598a4 4 0 012.875.037l11.428 4.57a1 1 0 01.628.923V22.685a1.5 1.5 0 01-.85 1.353l-10.967 5.264a4 4 0 01-3.356.049l-11.64-5.173A2 2 0 012 22.35V8v-.016zm2 1.503V22.35l11.5 5.111v-13.34c-.2-.048-.398-.111-.592-.19L4 9.487zm13.5 17.924L28 22.37V9.496l-4.983 2.06-4.905 2.294a3.998 3.998 0 01-.612.228V27.41zM5.76 8.044l9.903 4.035a2 2 0 001.602-.04l4.945-2.313 4.136-1.71-9.145-3.658a2 2 0 00-1.437-.019L5.76 8.044z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <div class="item-meny-lable-svg">заказы</div>
+            </div>
+          </button>
+          <!-- end order-meny -->
+        </span>
+
+        <span *ngIf="IsOpt">
+          <!-- start opt-->
+          <button mat-button  [matMenuTriggerFor]="menuShopOpt"  class="opt-meny" >
+         
+          {{label_opt}}
+         
+          </button>   
+          
+          <mat-menu #menuShopOpt="matMenu" xPosition="before">
+            
+              <button mat-menu-item (click)="on_click_OptPrice()">
+              Оптовая цена
+              </button>
+
+              <button mat-menu-item (click)="on_click_NotOptPrice()">
+               Розница
+               </button>
+            
+          </mat-menu>
+          
+
+          <!------ end opt -->
+        </span>
+
+        <!--  end role-meny  --------------->
+
+        <span>
+          <!-- start cart-meny -->
+          <button mat-button (click)="on_click_cart()">
+            <div class="item-meny-svg">
+              <div class="item-meny-icon-svg">
+                <mat-icon>shopping_cart</mat-icon>
+                <div class="badge-cart-product-conteiner">
+                  <div [ngClass]="label_cart_badge ? 'badge-cart-product':'not-badge-cart-product'">{{ cart_amount}}</div>
+                </div>
+              </div>
+              <div class="item-meny-lable-svg">корзина</div>
+            </div>
+          </button>
+          <!-- end cart-meny -->
+
+         
+
+          <!-- start company-info-meny-lg -->
+          <button mat-button [matMenuTriggerFor]="menuShopInformation">
+            <div class="item-meny-svg">
+              <div class="item-meny-icon-svg">
+                <mat-icon>more_vert</mat-icon>
+              </div>
+              <div class="item-meny-lable-svg">о нас</div>
+            </div>
+          </button>
+          <mat-menu #menuShopInformation="matMenu" xPosition="before">
+            <div *ngFor="let item of MenuItems()">
+              <button mat-menu-item routerLink="{{ item.url }}">
+                {{ item.name }}
+              </button>
+            </div>
+          </mat-menu>
+          <!-- end company-info-meny-lg -->
+
+          <!-- start new login-meny -->
+          <button mat-button  (click)="on_click_login()">
+            <div [ngClass]="AutorizeCssObj">
+            <div class="item-meny-svg">
+             
+              <div class="item-meny-icon-svg">
+                <mat-icon>person</mat-icon>
+              </div>
+              <div class="item-meny-lable-svg">войти</div>
+            </div>
+          </div>
+          </button>
+          <!-- end new login-meny -->
+        </span>
+        
+      
+      <!------   end meny-tablet----------------------------------- -->
+      </div>
+          
+
 
       <div class="menu-lg">
         <!---  --------------------------- start  menu-lg------------------------>
@@ -303,7 +541,7 @@
               <div class="item-meny-icon-svg">
                 <mat-icon>shopping_cart</mat-icon>
                 <div class="badge-cart-product-conteiner">
-                  <div class="badge-cart-product">121</div>
+                  <div [ngClass]="label_cart_badge ? 'badge-cart-product':'not-badge-cart-product'">{{ cart_amount}}</div>
                 </div>
               </div>
               <div class="item-meny-lable-svg">корзина</div>
