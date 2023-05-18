@@ -1,3 +1,4 @@
+
 ## ChangeDetectionStrategy.OnPush
   1. doc
     - [help-angular-doc-ru](https://angdev.ru/doc/angular-change-detection/#changedetectionstrategy)
