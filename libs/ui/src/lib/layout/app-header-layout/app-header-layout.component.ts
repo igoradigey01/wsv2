@@ -56,6 +56,17 @@ export class AppHeaderLayoutComponent {
   public label_manager = 'Менеджер'
   public label_admin = "Админ";
 
+  public get Label_amin_panel(){
+    let label='';
+    if(this.userRole==UserRole.admin){
+      label='Админ'
+    }
+    if(this.userRole==UserRole.manager){
+      label='Менеджер'
+    }
+    return label;
+  }
+
 
   @Input() public set UserRole(role: UserRole) {
     //  this.userRole = role; -задаем сразу или потом долго ищем ошибку логики
@@ -105,7 +116,8 @@ export class AppHeaderLayoutComponent {
   @Output() onClickNotOptPrice = new EventEmitter<UserRole>();
   @Output() onClickManager = new EventEmitter<UserRole>();
   @Output() onClickAdmin = new EventEmitter<UserRole>();
-
+  @Output() onClickGoAppShop = new EventEmitter<UserRole>();
+ 
 
 
 
@@ -201,6 +213,11 @@ export class AppHeaderLayoutComponent {
     this.onToggleSideBar.emit();
   }
 
+  public on_click_go_app_shop(){
+    this.onClickGoAppShop.next(this.userRole);
+
+  }
+
 
   public get IsAdmin(): boolean {
     if (this.userRole === UserRole.admin) {
@@ -231,14 +248,7 @@ export class AppHeaderLayoutComponent {
     return false;
   }
 
-  /*  private getViewHeader(userRole:UserRole){
-     //debugger
-     if(userRole==UserRole.admin||userRole==UserRole.manager){
-       this.is_shop=false
-       return;      
-     }
-     this.is_shop=true;
-   } */
+ 
 
   // чет не чет -Остаток от деления (%)
   /** это число четное ? */

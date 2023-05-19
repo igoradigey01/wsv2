@@ -46,6 +46,7 @@ const meta: Meta<AppHeaderLayoutComponent> = {
       onClickNotOptPrice:{action: 'clicked', return:0},
       onClickManager:{action: 'clicked', return:0},
       onClickAdmin:{action: 'clicked', return:0},
+      onClickGoAppShop:{action: 'clicked', return:0},
       
 
     }

@@ -1,23 +1,18 @@
 ## App Config fom invironment
 
-[help](https://stackoverflow.com/questions/52346969/how-to-use-app-environment-ts-in-libs-in-nrwl-nx-workspace)
+  [help](https://stackoverflow.com/questions/52346969/how-to-use-app-environment-ts-in-libs-in-nrwl-nx-workspace)
 
 ### Create app-config\*lib
+  - create : interface  -> environment.model.ts
+  - create : const APP_CONFIG  -> app-config.module.ts
+  - create : export * from   -> index.ts
 
-```
-   create : interface  -> environment.model.ts
-   create : const APP_CONFIG  -> app-config.module.ts
-   create : export * from   -> index.ts
-```
 
 ### add providers in main.ts app
+ -  { provide: APP_CONFIG, useValue: environment}
 
-```
-  { provide: APP_CONFIG, useValue: environment}
-```
 
 ### use providers
-
 ```
  libs/account/src/lib/shared/services/route-api.service.ts
     constructor(@Inject(APP_CONFIG) appConfig: IEnvironment )
@@ -25,22 +20,18 @@
 
 ## APP_INITIALIZER App Config from file.json
 
-### external help and sample
+ 1. external help and sample
+  - [help](https://github.com/profanis/codeShotsWithProfanis/tree/44/environmental_variables_app_initializer) 
+  - [ru help](https://blog.zverit.com/frontend/2017/06/17/app-initializer-bootstrap-service-method/?ysclid=lg0d0lnguq440310501)
 
-[help](https://github.com/profanis/codeShotsWithProfanis/tree/44/environmental_variables_app_initializer) <br>
-[ru help](https://blog.zverit.com/frontend/2017/06/17/app-initializer-bootstrap-service-method/?ysclid=lg0d0lnguq440310501) <br>
+ 2. Create app-config\*lib
+  -  create : interface  ->meny-items.model.ts
+  - create : services -> meny-items.service.ts
+  - create : export * from ''  -> index.ts
 
-### Create app-config\*lib
 
-```
-create : interface  ->meny-items.model.ts
-create : services -> meny-items.service.ts
-create : export * from ''  -> index.ts
-```
-
-### add providers in main.ts app
-
-```
+ 3. add providers in main.ts app
+ ```
   {provide: APP_INITIALIZER,
    useFactory: () => {
      const menyItemsService = inject(MenyItemsService);
@@ -64,9 +55,9 @@ create : export * from ''  -> index.ts
      }
 
    ,multi:true},
-```
+ ```
 
-### use providers
+ 4. use providers
   ```
     libs/app-layuot/src/lib/header/header.component.ts
        constructor(
