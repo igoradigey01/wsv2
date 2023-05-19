@@ -50,19 +50,22 @@ body {
   --tertiary-color: #{$tertiary-color};
   --tertiary-container-color:  #{$tertiary-container-color};
   --on-tertiary-color:  #{$on-tertiary-color};
-  --on-tertiary-container-color:  #{$on-tertiary-container-color};
+  --on-tertiary-container-color:  #{$on-tertiary-container-color};  
 }
 
 body {
   --background: #{$background};
   --on-background: #{$on-background};
-
+  
   --surface-color: #{$surface-color};
   --on-surface-color: #{$on-surface-color};
   --surface-variant-color: #{$surface-variant-color};
   --on-surface-variant-color: #{$on-surface-variant-color};
 
   --outline-color: #{$outline-color};
+
+  background-color: var(--background);
+  color: var(--on-background);
 }
 
 body {
