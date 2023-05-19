@@ -32,8 +32,11 @@
 
   10.  in cmd admin:
    -   yarn nx migrate --run-migrations
-
-   The @angular/cdk and @angular/material packages are ignored as well
+   -  delete migrations.json 
+   -   commit 
+ * . -------------------------------------------------------------------------  
+   ### Edit error 
+    - yarn add  angular8-yandex-maps
 
  ## vertion nx and vertion angular
  - https://nx.dev/packages/angular/documents/angular-nx-version-matrix#nx-and-angular-versions

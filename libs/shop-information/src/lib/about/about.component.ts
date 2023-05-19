@@ -3,6 +3,7 @@ import { CompanyInformationService } from '@wsv2/app-config'
 import { ISliderImage, ImageSliderComponent } from '@wsv2/app-common'
 
 
+
 interface GeoObjectConstructor {
   feature: ymaps.IGeoObjectFeature;
   options: ymaps.IGeoObjectOptions;

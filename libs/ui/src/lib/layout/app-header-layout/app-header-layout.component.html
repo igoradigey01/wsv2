@@ -615,7 +615,7 @@
       </div>
     </div>
 
-    <div class="col_inner logo-column" *ngIf="view_header">
+    <div class="col_inner logo-column" *ngIf="is_shop_header">
       <div class="logo-position-name">
         <span> {{ company_name_1 }}</span
         ><span> </span> <span> {{ company_name_2 }}</span>
@@ -747,7 +747,7 @@
             Заказы
           </button>
         </span>
-        <div *ngIf="view_header">
+        <div *ngIf="is_shop_header">
           <span *ngIf="IsOpt">
             <button mat-raised-button color="accent" routerLink="/content/opt">
               Оптовые цены
@@ -758,7 +758,7 @@
         <!--end Role  --------------->
 
         <span>
-          <span *ngIf="InvalidLogin; else validLoginBlock">
+          <span *ngIf="false; else validLoginBlock">
             <a routerLink="/root/account">
               <svg
                 width="48"

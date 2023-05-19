@@ -5836,12 +5836,12 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha512-S2Hw0TtNkMJhIabBwIojKL9YHO5T0n5eNqWJ7Lrlel/zDbftQpxpapi8tZs3X1HWa+u+QeydGmzzNU0m09+Rcg==
 
-angular8-yandex-maps@8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/angular8-yandex-maps/-/angular8-yandex-maps-8.0.0.tgz#fd906f70338d1a1975142b3f19b22960b4de6dc9"
-  integrity sha512-h2NbjqtIUps3lc64/YMHElquWj5l8Y4R6l8tXTBHYfomiedwH9cvga+oDVh2rxwZYtNABS8GnZipxICBy/B84Q==
+angular8-yandex-maps@^16.0.0:
+  version "16.0.0"
+  resolved "https://registry.yarnpkg.com/angular8-yandex-maps/-/angular8-yandex-maps-16.0.0.tgz#56cfddb953c8a7aa5e88e653bb21379da88d8a04"
+  integrity sha512-jcOHgcj7c6tZcyLzb61b85vU/HQgMU9NzyxgUezjLy7BoCckFbTC6/91TrVO8OzY2LEDFNnv8g1yeWTOHOFtgA==
   dependencies:
-    tslib "^1.9.0"
+    tslib "^2.3.0"
 
 ansi-align@^3.0.0:
   version "3.0.1"
