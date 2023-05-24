@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { signal } from "@angular/core";
 import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
@@ -48,13 +49,15 @@ export class AppHeaderLayoutComponent {
 
   private userRole: UserRole = UserRole.default;
 
-  private isUserAutorize: boolean = false;
+  private _isUserAutorize = signal(false);
   public label_cart_badge=false
   public  cart_amount:number=0;
   public is_shop_header: boolean = true;
   public label_opt = 'ОПТ ₽'
   public label_manager = 'Менеджер'
   public label_admin = "Админ";
+
+  
 
   public get Label_amin_panel(){
     let label='';
@@ -65,6 +68,10 @@ export class AppHeaderLayoutComponent {
       label='Менеджер'
     }
     return label;
+  }
+
+  public get IsUserAutorize(){
+    return this._isUserAutorize;
   }
 
 
@@ -109,6 +116,9 @@ export class AppHeaderLayoutComponent {
   @Output() onClickCart = new EventEmitter<UserRole>();
 
   @Output() onClickLogin = new EventEmitter<UserRole>();
+  @Output() onClickLogof = new EventEmitter<UserRole>();
+
+  
 
   @Output() onClickOrder = new EventEmitter<UserRole>();
 
@@ -127,7 +137,7 @@ export class AppHeaderLayoutComponent {
 
   public get AutorizeCssObj(): string {
     //debugger
-    if (this.isUserAutorize)
+    if (this._isUserAutorize())
       return 'user-autorize';
     return 'user-not-autorize';
   }
@@ -147,6 +157,12 @@ export class AppHeaderLayoutComponent {
   public on_click_login() {
 
     this.onClickLogin.emit(this.userRole);
+
+  }
+
+  public on_click_logof(){
+
+    this.onClickLogof.emit(this.userRole);
 
   }
 
@@ -259,31 +275,31 @@ export class AppHeaderLayoutComponent {
   private thisUserAutorize(userRole: UserRole) {
     //debugger
     if (this.userRole == UserRole.admin) {
-      this.isUserAutorize = true;
+      this._isUserAutorize.set( true);
       //   console.log("--UserRole--"+this.userRole);
       return;
     }
 
     if (this.userRole == UserRole.manager) {
-      this.isUserAutorize = true;
+      this._isUserAutorize.set( true);
       //  console.log("--UserRole--"+this.userRole);
       return;
     }
     if (this.userRole == UserRole.shoperOpt) {
-      this.isUserAutorize = true;
+      this._isUserAutorize.set( true);
       //  console.log("--UserRole--"+this.userRole);
       return;
     }
     if (this.userRole == UserRole.shoper) {
-      this.isUserAutorize = true;
+      this._isUserAutorize.set( true);
       // console.log("--UserRole--"+this.userRole);
       return;
     }
 
-    this.isUserAutorize = false;
+    this._isUserAutorize.set(false);
 
     //  this.cd.detectChanges();
-    console.log("--UserRole = false --" + this.userRole);
+  //  console.log("--UserRole = false --" + this.userRole);
 
   }
 

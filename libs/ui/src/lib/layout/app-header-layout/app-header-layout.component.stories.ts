@@ -41,6 +41,7 @@ const meta: Meta<AppHeaderLayoutComponent> = {
       /** return this.userRole */
       onClickCart: { action: 'clicked', return:0 },
       onClickLogin:{action: 'clicked', return:0},
+      onClickLogof:{action: 'clicked', return:0},
       onClickOrder:{action: 'clicked', return:0},
       onClickOptPrice:{action: 'clicked', return:0},
       onClickNotOptPrice:{action: 'clicked', return:0},

@@ -37,7 +37,7 @@ export class VkLoginWidgetService {
       // Add the script
 
       // Load the script
-      debugger
+      //debugger
       let elemetParent =  document.getElementById('x01-v2-VK-login-widget')
   if( elemetParent){
       let div = document.createElement("div");
@@ -52,7 +52,7 @@ export class VkLoginWidgetService {
       // document.getElementsByTagName('x01-v1-VK-login-widget')[0].appendChild(div);
 
       let scriptElement1 = document.createElement('script');
-      debugger
+     // debugger
       scriptElement1.type = 'text/javascript';
       scriptElement1.src = this.script.src;
       scriptElement1.charset='windows-1251';      

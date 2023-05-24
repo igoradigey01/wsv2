@@ -16,6 +16,7 @@ export class LogOffComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    //debugger
     this.userMangagerService.setInvalidLogin$(true, null);
     this.socialAuthService.signOut();
     this.router.navigate(['']);

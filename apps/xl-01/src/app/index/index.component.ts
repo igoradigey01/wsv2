@@ -46,7 +46,7 @@ export class IndexComponent {
   public _company_phone: string = '';
   public _company_normalize_phone: string = '';
   public is_shop = true;
-  public roleUser: UserRole = UserRole.admin;
+  public roleUser: UserRole = UserRole.default;
 
 
   
@@ -79,6 +79,11 @@ export class IndexComponent {
   }
    public onClickLogin(userRole:UserRole){
     this.router.navigate(['index/account']);
+
+  }
+
+  public onClickLogof(userRole:UserRole){
+    this.router.navigate(['index/account/sing-off']);
 
   }
   public onClickOrder(userRole:UserRole){

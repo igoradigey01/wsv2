@@ -1,15 +1,28 @@
-<x01-v1-header 
-[srcLogo]="_srcLogo"
-[menuItems]="_menuItems"
-[company_name_1]=" _company_name_1"
-[company_name_2]=" _company_name_2"
-[company_phone]=" _company_phone"
-[company_normalize_phone]=" _company_normalize_phone"
-(onToggleSideBar)="onSideBarVisible()"
-class="example-toolbar"
-></x01-v1-header>
 
-<div name="main" class="_conteiner"
+
+<wsv2-app-header-layout
+  [UserRole]="roleUser"
+  [CartItemsCount]="CartItemsCount"
+  [isShopHeader]="true"
+  [company_name_1]="_company_name_1"
+  [company_name_2]="_company_name_2"
+  [srcLogo]="_srcLogo"
+  [company_phone]="_company_phone"
+  [company_normalize_phone]="_company_normalize_phone"
+  [menuItems]="_menuItems"
+  (onClickCart)="onClickCart($event)"
+  (onClickLogin)="onClickLogin($event)"
+  (onClickLogof)="onClickLogof($event)"
+  (onClickOrder)="onClickOrder($event)"
+  (onClickOptPrice)="onClickOptPrice($event)"
+  (onClickNotOptPrice)="onClickNotOptPrice($event)"
+  (onClickManager)="onClickManager($event)"
+  (onClickAdmin)="onClickAdmin($event)"
+  (onClickGoAppShop)="onClickGoAppShop($event)"
+  (onToggleSideBar)="onSideBarVisible()"
+></wsv2-app-header-layout>
+
+<div name="main" class="conteiner"
     [ngClass]="{
       'grid-container2': _flagPanel,
       'grid-container1': ! _flagPanel 
@@ -22,7 +35,6 @@ class="example-toolbar"
   
        
     </div>
-    
     </div>
      
        <x01-v1-sidebar
@@ -40,6 +52,8 @@ class="example-toolbar"
            
              
 <!-------------------------------------------------------- start  main content-->
+
+
 <router-outlet></router-outlet>   
 
 

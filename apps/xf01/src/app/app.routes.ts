@@ -22,6 +22,17 @@ export const appRoutes: Route[] = [
           loadChildren: () =>
             import('@wsv2/account').then((m) => m.AccountModule)
         },
+        {
+          path: 'cart',              
+          loadComponent: () =>
+            import('@wsv2/shop-cart').then((m) => m.ShopShellComponent)
+        },
+        {
+          path: 'order',              
+          loadComponent: () =>
+            import('@wsv2/shop-orders').then((m) => m.OrdersShellComponent)
+        },
+    
     
     
         {
@@ -31,6 +42,12 @@ export const appRoutes: Route[] = [
               (m) => m.ShopInformationModule
             ),
         } ,
+
+        // {
+        //   path:'test',
+        //   loadComponent: () =>
+        //   import('@wsv2/ui').then((m) => m.KatalogComponent)
+        // },
         // {
         //   path: 'content',
         //   loadChildren: () =>
@@ -48,7 +65,6 @@ export const appRoutes: Route[] = [
       },
       
      
-     
       {
         path: 'manager',              
         loadComponent: () =>
@@ -61,6 +77,7 @@ export const appRoutes: Route[] = [
           import('@wsv2/admin-page').then((m) => m.IndexComponent)
       },
       { path: '**',   redirectTo: 'index/**', pathMatch: 'full' },
+   
       
     
 ];

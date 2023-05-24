@@ -22,6 +22,17 @@ export const appRoutes: Route[] = [
           loadChildren: () =>
             import('@wsv2/account').then((m) => m.AccountModule)
         },
+        {
+          path: 'cart',              
+          loadComponent: () =>
+            import('@wsv2/shop-cart').then((m) => m.ShopShellComponent)
+        },
+        {
+          path: 'order',              
+          loadComponent: () =>
+            import('@wsv2/shop-orders').then((m) => m.OrdersShellComponent)
+        },
+    
     
     
         {
@@ -31,6 +42,12 @@ export const appRoutes: Route[] = [
               (m) => m.ShopInformationModule
             ),
         } ,
+
+        // {
+        //   path:'test',
+        //   loadComponent: () =>
+        //   import('@wsv2/ui').then((m) => m.KatalogComponent)
+        // },
         // {
         //   path: 'content',
         //   loadChildren: () =>
@@ -40,8 +57,8 @@ export const appRoutes: Route[] = [
         // },
         {
           path: '**',
-        loadChildren: () =>
-        import('@wsv2/app-common').then((m) => m.App01CommonModule)
+        loadComponent: () =>
+        import('@wsv2/app-common').then((c) => c.PageNotFoundComponent)
         }
       ],
        

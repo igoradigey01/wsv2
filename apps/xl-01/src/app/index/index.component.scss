@@ -1,11 +1,6 @@
-@use "../../styles.scss" as s;
-//@use "@angular/material" as mat;
 
+$border: 2px inset  var(--accent-color);
 
-
-
-$border: 2px inset #393939;
-// #ffbd35;
 
 
 .hiden {
@@ -28,7 +23,7 @@ $border: 2px inset #393939;
 }
 
 .main_content {
-  background-color: white;
+  background-color:  var(--background);// white;
   margin: 0;
   padding: 0;
 }

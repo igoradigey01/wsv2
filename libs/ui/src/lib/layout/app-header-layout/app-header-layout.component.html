@@ -570,7 +570,7 @@
           <!-- end company-info-meny-lg -->
 
           <!-- start new login-meny -->
-          <button mat-button  (click)="on_click_login()">
+          <button mat-button  (click)="IsUserAutorize()? on_click_logof() : on_click_login()">
             <div [ngClass]="AutorizeCssObj">
             <div class="item-meny-svg">
              

@@ -84,16 +84,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/card-product/card-product.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<CardProductComponent>",
-                "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    argTypes: {\r\n    }\r\n\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -104,11 +94,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "libs/ui/src/lib/card-product/card-product.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<CardProductComponent>",
+                "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    argTypes: {\r\n    }\r\n\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<AppHeaderLayoutComponent>",
-                "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4,5],\r\n      \r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager','admin']}\r\n        \r\n      },\r\n      CartItemsCount:{\r\n        name:\"Корзина\",\r\n        description: \"Количество товара выбранного пользователем\",\r\n        type:\"number\"\r\n\r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      onClickCart: { action: 'clicked', return:0 },\r\n      onClickLogin:{action: 'clicked', return:0},\r\n      onClickOrder:{action: 'clicked', return:0},\r\n      onClickOptPrice:{action: 'clicked', return:0},\r\n      onClickNotOptPrice:{action: 'clicked', return:0},\r\n      onClickManager:{action: 'clicked', return:0},\r\n      onClickAdmin:{action: 'clicked', return:0},\r\n      onClickGoAppShop:{action: 'clicked', return:0},\r\n      \r\n\r\n    }\r\n\r\n}"
+                "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4,5],\r\n      \r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager','admin']}\r\n        \r\n      },\r\n      CartItemsCount:{\r\n        name:\"Корзина\",\r\n        description: \"Количество товара выбранного пользователем\",\r\n        type:\"number\"\r\n\r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      onClickCart: { action: 'clicked', return:0 },\r\n      onClickLogin:{action: 'clicked', return:0},\r\n      onClickLogof:{action: 'clicked', return:0},\r\n      onClickOrder:{action: 'clicked', return:0},\r\n      onClickOptPrice:{action: 'clicked', return:0},\r\n      onClickNotOptPrice:{action: 'clicked', return:0},\r\n      onClickManager:{action: 'clicked', return:0},\r\n      onClickAdmin:{action: 'clicked', return:0},\r\n      onClickGoAppShop:{action: 'clicked', return:0},\r\n      \r\n\r\n    }\r\n\r\n}"
             },
             {
                 "name": "repozitoryMenyManager",
@@ -230,7 +230,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<AppHeaderLayoutComponent>",
-                    "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4,5],\r\n      \r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager','admin']}\r\n        \r\n      },\r\n      CartItemsCount:{\r\n        name:\"Корзина\",\r\n        description: \"Количество товара выбранного пользователем\",\r\n        type:\"number\"\r\n\r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      onClickCart: { action: 'clicked', return:0 },\r\n      onClickLogin:{action: 'clicked', return:0},\r\n      onClickOrder:{action: 'clicked', return:0},\r\n      onClickOptPrice:{action: 'clicked', return:0},\r\n      onClickNotOptPrice:{action: 'clicked', return:0},\r\n      onClickManager:{action: 'clicked', return:0},\r\n      onClickAdmin:{action: 'clicked', return:0},\r\n      onClickGoAppShop:{action: 'clicked', return:0},\r\n      \r\n\r\n    }\r\n\r\n}"
+                    "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4,5],\r\n      \r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager','admin']}\r\n        \r\n      },\r\n      CartItemsCount:{\r\n        name:\"Корзина\",\r\n        description: \"Количество товара выбранного пользователем\",\r\n        type:\"number\"\r\n\r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      onClickCart: { action: 'clicked', return:0 },\r\n      onClickLogin:{action: 'clicked', return:0},\r\n      onClickLogof:{action: 'clicked', return:0},\r\n      onClickOrder:{action: 'clicked', return:0},\r\n      onClickOptPrice:{action: 'clicked', return:0},\r\n      onClickNotOptPrice:{action: 'clicked', return:0},\r\n      onClickManager:{action: 'clicked', return:0},\r\n      onClickAdmin:{action: 'clicked', return:0},\r\n      onClickGoAppShop:{action: 'clicked', return:0},\r\n      \r\n\r\n    }\r\n\r\n}"
                 },
                 {
                     "name": "repozitoryMenyManager",

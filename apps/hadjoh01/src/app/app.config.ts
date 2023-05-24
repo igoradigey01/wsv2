@@ -9,7 +9,7 @@ import {
   ICompanyInformation,
 } from '@wsv2/app-config';
 import { tap } from 'rxjs/operators';
-import { environment } from '..environmentsenvironment';
+import { environment } from '../environments/environment';
 import { AppConfigModule, IEnvironment } from '@wsv2/app-config';
 import {
   provideRouter,
