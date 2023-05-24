@@ -10,9 +10,9 @@ import {MatDividerModule} from '@angular/material/divider';
 const material = [
    MatButtonModule,
   // MatToolbarModule,
-  MatIconModule,
+   MatIconModule,
   // MatListModule
-  MatDividerModule
+  //MatDividerModule
 ]
 
 @NgModule({
