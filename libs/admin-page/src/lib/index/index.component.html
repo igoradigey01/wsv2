@@ -1,13 +1,25 @@
-<p>index manager-page.lib works!</p>
+
 <div class="theme-manager-section">
-    <x01-v1-header 
-    [is_shop]="false" 
-    [roleUser] ="_roleUser" 
-    [menuItems]="_menuItems"    
-    [company_name_2]=" _company_name_2"   
-    (onToggleSideBar)="onSideBarVisible()"
-   
-    ></x01-v1-header>
+  <wsv2-app-header-layout
+  [UserRole]="roleUser"
+  
+  [isShopHeader]="false"
+  [company_name_1]="_company_name_1"
+  [company_name_2]="_company_name_2"
+
+  
+  [menuItems]="_menuItems"
+  (onClickCart)="onClickCart($event)"
+  (onClickLogin)="onClickLogin($event)"
+  (onClickLogof)="onClickLogof($event)"
+  (onClickOrder)="onClickOrder($event)"
+  (onClickOptPrice)="onClickOptPrice($event)"
+  (onClickNotOptPrice)="onClickNotOptPrice($event)"
+  (onClickManager)="onClickManager($event)"
+  (onClickAdmin)="onClickAdmin($event)"
+  (onClickGoAppShop)="onClickGoAppShop($event)"
+  (onToggleSideBar)="onSideBarVisible()"
+></wsv2-app-header-layout>
   
   <div class="conteiner  mat-typography" >
     <h1 class="test-color">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, odit quo laudantium, unde iure 

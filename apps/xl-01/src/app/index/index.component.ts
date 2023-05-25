@@ -45,8 +45,8 @@ export class IndexComponent {
   public _company_name_2: string = ""
   public _company_phone: string = '';
   public _company_normalize_phone: string = '';
-  public is_shop = true;
-  public roleUser: UserRole = UserRole.default;
+  //public is_shop = true;
+  public roleUser: UserRole = UserRole.admin;
 
 
   

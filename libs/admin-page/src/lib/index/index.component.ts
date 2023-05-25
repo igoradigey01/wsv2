@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule ,Router} from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout';
+import { KatalogComponent, IButton, AppHeaderLayoutComponent } from '@wsv2/ui'
 import { MaterialModule } from '../material.module'
 import { CompanyInformationService, MenyItemsService, IMenyItem } from '@wsv2/app-config';
 import { IThemeScss, ThemeScssServices } from '@wsv2/app-common'
+import { UserRole } from '@wsv2/app-common'
 
 
 @Component({
@@ -13,6 +15,7 @@ import { IThemeScss, ThemeScssServices } from '@wsv2/app-common'
   imports: [
     CommonModule,
     AppLayoutModule,
+    AppHeaderLayoutComponent ,
     RouterModule,
     MaterialModule
   ],
@@ -39,7 +42,10 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   public _menuItems: IMenyItem[] = [];
   public _company_name_2: string | undefined;
+  public _company_name_1: string | undefined;
+  
   public _roleUser="Admin";
+  public roleUser: UserRole = UserRole.admin;
 
   public _company_phone: string = '';
   public _company_normalize_phone: string = '';
@@ -54,7 +60,8 @@ export class IndexComponent implements OnInit, OnDestroy {
   constructor(
     private repositoryCompanyInformation: CompanyInformationService,
     private repositoryMenyItems: MenyItemsService,
-    private repositoryThemeCss: ThemeScssServices
+    private repositoryThemeCss: ThemeScssServices,
+    private router: Router
   ) {
 
     this._test_property = repositoryCompanyInformation.company_logo;
@@ -80,12 +87,49 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   //---------------------------------
+  public onClickCart(userRole:UserRole){
+    this.router.navigate(['index/cart']);
+
+  }
+   public onClickLogin(userRole:UserRole){
+    this.router.navigate(['index/account']);
+
+  }
+
+  public onClickLogof(userRole:UserRole){
+    this.router.navigate(['index/account/sing-off']);
+
+  }
+  public onClickOrder(userRole:UserRole){
+    this.router.navigate(['index/order']);
+
+  }
+  public  onClickOptPrice(userRole:UserRole){
+    this.router.navigate([`index/katalog/opt/${this.id_katalog}`]);
+
+  }
+   private id_katalog=0;
+  onClickNotOptPrice(userRole:UserRole){
+    this.router.navigate([`index/katalog/${this.id_katalog}`]);
+
+  }
+  onClickManager(userRole:UserRole){
+    this.router.navigate(['manager']);
+
+  }
+  onClickAdmin(userRole:UserRole){
+    this.router.navigate(['admin']);
+
+  }
+  onClickGoAppShop(userRole:UserRole){
+    this.router.navigate(['index']);
+
+  }
   onSideBarVisible() {
     this._flagPanel = !this._flagPanel;
     //  this._flagPanel2 = !this._flagPanel2;
     this._flagSideBarHiden = !this._flagSideBarHiden;
   }
-
 
 
 }
