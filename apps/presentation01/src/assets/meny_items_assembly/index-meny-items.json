@@ -1,0 +1,24 @@
+[{
+    "id": 0,
+    "name": "Как заказать?",
+    "url": "menu/kak-zakazat"  
+  },
+  {
+    "id": 1,
+    "name": "Оплата&Доставка",
+    "url": "menu/oplata-i-dostavka"
+    
+  },
+  {
+    "id": 2,
+    "name": "Гарантии",
+    "url": "menu/garantiya"
+    
+  },
+  {
+    "id": 3,
+    "name": "онас",
+    "url": "menu/about"
+    
+  }
+]

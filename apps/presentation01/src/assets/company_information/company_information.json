@@ -1,0 +1,26 @@
+{
+    "yandex_point":{"x":"44.687199","y":"39.977717"},
+    "company_phone": "+7-903-466-83-64",
+    "company_normalize_phone": "+79034668364",
+    "company_phones":[
+        {"employee":"менеджер","phone":"+7-903-466-83-68","normalize_phone":"+79034668368"},
+        {"employee":"менеджер","phone":"+7-988-476-18-28","normalize_phone":"+79884761828"}
+    ],
+    "company_photo":[
+        { "url": "assets/company_information/photo_1.webp", "title": "beach" },
+        {  "url": "assets/company_information/photo_2.webp","title": "boat"}      
+        ],
+    "company_name":"presentation01",
+    "company_time_create":"2019",
+    "company_activities":"ЛДСП && МДФ Ханская",  
+    "company_email_for_privacy_police":"",
+    "company_copyright":"ИП Дячук",
+    "company_logo":"assets/company_information/logo.webp",
+    "company_work_time": {"start":"9-00","end":"17-00"},
+    "company_work_timeSaturdaySunday":"",
+    "company_day_off":["суббота","воскресенье"], 
+    "company_delivery":"true",
+    "company_lunch_time":[],
+    "company_guarantees":"Товар предоставляется как есть -(что видишь то и покупаешь)-без предоставления каких-либо гарантий"
+    
+}

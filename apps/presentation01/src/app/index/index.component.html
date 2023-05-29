@@ -1,0 +1,80 @@
+
+
+<wsv2-app-header-layout
+  [UserRole]="roleUser()"
+  [CartItemsCount]="CartItemsCount"
+  [isShopHeader]="true"
+  [company_name_1]="_company_name_1"
+  [company_name_2]="_company_name_2"
+  [srcLogo]="_srcLogo"
+  [company_phone]="_company_phone"
+  [company_normalize_phone]="_company_normalize_phone"
+  [menuItems]="_menuItems"
+  (onClickCart)="onClickCart($event)"
+  (onClickLogin)="onClickLogin($event)"
+  (onClickLogof)="onClickLogof($event)"
+  (onClickOrder)="onClickOrder($event)"
+  (onClickOptPrice)="onClickOptPrice($event)"
+  (onClickNotOptPrice)="onClickNotOptPrice($event)"
+  (onClickManager)="onClickManager($event)"
+  (onClickAdmin)="onClickAdmin($event)"
+  (onClickGoAppShop)="onClickGoAppShop($event)"
+  (onToggleSideBar)="onSideBarVisible()"
+></wsv2-app-header-layout>
+
+<div name="main" class="conteiner"
+    [ngClass]="{
+      'grid-container2': _flagPanel,
+      'grid-container1': ! _flagPanel 
+    }"
+  >
+    <div class="sidenav" [ngClass]="{ hiden: !_flagSideBarHiden }" >
+    <div class="sidenav-header" (click)="onSideBarVisible()" >
+      <div style=" height: 24px;">
+        <span><mat-icon aria-hidden="false" aria-label="navigate before icon" fontIcon="navigate_before"></mat-icon></span>
+  
+       
+    </div>
+    </div>
+     
+       <x01-v1-sidebar
+       [menuItems]="_menuItems"
+       (onToggleSideBar)="onSideBarVisible()"
+       >
+        
+       </x01-v1-sidebar>
+       
+       
+     
+    </div>    
+    
+    <div class="main_content">
+           
+             
+<!-------------------------------------------------------- start  main content-->
+
+
+<router-outlet></router-outlet>   
+
+<div class="change-role-contener">
+
+
+  <select
+  class="change-role"
+  (change)="changeRole($event)"
+ 
+>
+  <option value="">Choose Role</option>
+  <option *ngFor="let role of  roles" >
+    {{ role }}
+  </option>
+</select>
+</div>
+
+
+
+  </div>
+
+  <!----------------- create end-->
+</div>
+<x01-v1-footer></x01-v1-footer>

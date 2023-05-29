@@ -1,1 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+
+@forward "../../../libs/app-styles/src/styles/style.scss" ;
+@use "../../../libs/app-styles/src/styles/style.scss"  as s;
+@use "@angular/material" as mat;
+//  mat.core()- должен быть включен ровно один раз
+@include mat.core();
+// включить typography
+$my-typography: mat.define-typography-config();
+@include mat.typography-hierarchy($my-typography);
+
+
+/** help - Material collors theme - docs/app-style.md*/
+//Для использования прозрачности в Sass необходимо использовать цвет в RGB формате
+/*!! --Основной миксин должен быть включен ровно один раз для вашего приложения,--!! 
+@include mat.core();
+*/
+
+$my-warn: mat.define-palette(s.$mat-warn, main, lighter, darker);
+$my-accent: mat.define-palette(s.$mat-accent, main, lighter, darker);
+$my-primary: mat.define-palette(s.$mat-primary, main, lighter, darker);
+
+$my-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $my-primary,
+            accent: $my-accent,
+            warn: $my-warn,
+        ),
+        typography: mat.define-typography-config(),
+        density: 0,
+    )
+);
+
+//@include mat.all-component-themes($my-theme);
+
+
+@include s.mixin-mat-component-themes ($my-theme);
+//@include  mat.button-theme($my-theme);
