@@ -1,7 +1,7 @@
 import { Component,ChangeDetectionStrategy } from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import {IButton} from '../_interfaces/button.model'
+import {IButton} from '../_shared/_interfaces/button.model'
 import { Input, Output, EventEmitter } from '@angular/core';
 
 @Component({

@@ -31,6 +31,16 @@
                 "defaultValue": "{\r\n    render: (args: CardProductComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n\r\n    }\r\n\r\n}"
             },
             {
+                "name": "CartPresentationUI",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n    \r\n  },\r\n\r\n}"
+            },
+            {
                 "name": "HeaderLayouttUI",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -44,21 +54,41 @@
                 "name": "imgs",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
                 "defaultValue": "['/bg_img/photo_1.webp', '/bg_img/photo_2.webp', '/bg_img/photo_3.webp']"
             },
             {
-                "name": "KatalogUI",
+                "name": "KatalogButtonUI",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\r\n  args: {\r\n    items: tempRepozitory,\r\n    urlBackgroundImgs:imgs,\r\n    componetVisible: true,\r\n    flagBackgroundImg:true,\r\n    flagButtonOpacity:true,    \r\n    flagButtonId:true,\r\n    timer:5000\r\n  },\r\n\r\n}"
+            },
+            {
+                "name": "KatalogImgUI",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n  \r\n  },\r\n\r\n}"
+            },
+            {
+                "name": "KatalogTableUI",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\r\n  args: {\r\n \r\n  },\r\n\r\n}"
             },
             {
                 "name": "logo",
@@ -84,16 +114,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<KatalogComponent>",
-                "defaultValue": "{\r\n\r\n  title: 'Katalog',\r\n  component: KatalogComponent,\r\n\r\n  argTypes: {\r\n    items: {\r\n      name: \"Items\",\r\n      description: \" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible: {\r\n      name: \"Visible\",\r\n      description: \"displey:block or none this component\"\r\n\r\n    },\r\n    urlBackgroundImgs: {\r\n      name: \"background img\",\r\n      description: \"path for background img this componet\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n\r\n    },\r\n    flagBackgroundImg: {\r\n      name: \"flag show background-img\",\r\n      type:\"boolean\"\r\n    },\r\n    onSelectBt: { action: 'clicked', return: { id: \"10\", name: \"название категории\" } }\r\n\r\n\r\n\r\n\r\n  }\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "libs/ui/src/lib/card-product/card-product.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -104,11 +124,51 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<CartPresentationComponent>",
+                "defaultValue": "{\r\n\r\n  title: 'Корзина',\r\n  component: CartPresentationComponent,\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [\r\n        HttpClientModule,\r\n      //  RouterModule\r\n      ],\r\n    }),\r\n  ],\r\n  \r\n \r\n\r\n \r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<AppHeaderLayoutComponent>",
                 "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4,5],\r\n      \r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager','admin']}\r\n        \r\n      },\r\n      CartItemsCount:{\r\n        name:\"Корзина\",\r\n        description: \"Количество товара выбранного пользователем\",\r\n        type:\"number\"\r\n\r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      onClickCart: { action: 'clicked', return:0 },\r\n      onClickLogin:{action: 'clicked', return:0},\r\n      onClickLogof:{action: 'clicked', return:0},\r\n      onClickOrder:{action: 'clicked', return:0},\r\n      onClickOptPrice:{action: 'clicked', return:0},\r\n      onClickNotOptPrice:{action: 'clicked', return:0},\r\n      onClickManager:{action: 'clicked', return:0},\r\n      onClickAdmin:{action: 'clicked', return:0},\r\n      onClickGoAppShop:{action: 'clicked', return:0},\r\n      \r\n\r\n    }\r\n\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<KatalogComponent>",
+                "defaultValue": "{\r\n\r\n  title: 'Katalog',\r\n  component: KatalogComponent,\r\n\r\n  argTypes: {\r\n    items: {\r\n      name: \"Items\",\r\n      description: \" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible: {\r\n      name: \"Visible\",\r\n      description: \"displey:block or none this component\"\r\n\r\n    },\r\n    urlBackgroundImgs: {\r\n      name: \"background img\",\r\n      description: \"path for background img this componet\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n\r\n    },\r\n    flagBackgroundImg: {\r\n      name: \"flag show background-img\",\r\n      type:\"boolean\"\r\n    },\r\n    onSelectBt: { action: 'clicked', return: { id: \"10\", name: \"название категории\" } }\r\n\r\n\r\n\r\n\r\n  }\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<KatalogImgComponent>",
+                "defaultValue": "{\r\n\r\n  title: 'Katalog',\r\n  component:  KatalogImgComponent,\r\n\r\n  argTypes: {\r\n  }\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<KatalogTableComponent>",
+                "defaultValue": "{\r\n\r\n  title: 'Katalog',\r\n  component: KatalogTableComponent,\r\n\r\n  argTypes: {\r\n    \r\n\r\n\r\n\r\n  }\r\n}"
             },
             {
                 "name": "repozitoryMenyManager",
@@ -134,7 +194,7 @@
                 "name": "tempRepozitory",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
@@ -147,8 +207,41 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<CartPresentationComponent>",
+                "file": "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 177
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<KatalogComponent>",
-                "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 177
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<KatalogImgComponent>",
+                "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 177
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "StoryObj<KatalogTableComponent>",
+                "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -199,6 +292,28 @@
                     "deprecationMessage": "",
                     "type": "Meta<CardProductComponent>",
                     "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    argTypes: {\r\n    }\r\n\r\n}"
+                }
+            ],
+            "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts": [
+                {
+                    "name": "CartPresentationUI",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    \r\n  },\r\n\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<CartPresentationComponent>",
+                    "defaultValue": "{\r\n\r\n  title: 'Корзина',\r\n  component: CartPresentationComponent,\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [\r\n        HttpClientModule,\r\n      //  RouterModule\r\n      ],\r\n    }),\r\n  ],\r\n  \r\n \r\n\r\n \r\n}"
                 }
             ],
             "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts": [
@@ -253,22 +368,22 @@
                     "defaultValue": "[{\r\n    \"id\": 0,\r\n    \"name\": \"Как заказать?\",\r\n    \"url\": \"menu/kak-zakazat\"  \r\n  },\r\n  {\r\n    \"id\": 1,\r\n    \"name\": \"Оплата&Доставка\",\r\n    \"url\": \"menu/oplata-i-dostavka\"\r\n    \r\n  },\r\n  {\r\n    \"id\": 2,\r\n    \"name\": \"Гарантии\",\r\n    \"url\": \"menu/garantiya\"\r\n    \r\n  },\r\n  {\r\n    \"id\": 3,\r\n    \"name\": \"Как доехать\",\r\n    \"url\": \"menu/about\"\r\n    \r\n  }\r\n]"
                 }
             ],
-            "libs/ui/src/lib/katalog/katalog.component.stories.ts": [
+            "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts": [
                 {
                     "name": "imgs",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                    "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "[]",
                     "defaultValue": "['/bg_img/photo_1.webp', '/bg_img/photo_2.webp', '/bg_img/photo_3.webp']"
                 },
                 {
-                    "name": "KatalogUI",
+                    "name": "KatalogButtonUI",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                    "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
@@ -278,7 +393,7 @@
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                    "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<KatalogComponent>",
@@ -288,24 +403,107 @@
                     "name": "tempRepozitory",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                    "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "[]",
                     "defaultValue": "[\r\n  { id: 1, name: \"каталог-1\" },\r\n  { id: 2, name: \"каталог-2\" },\r\n  { id: 3, name: \"каталог-3\" },\r\n  { id: 4, name: \"каталог-4\" },\r\n  { id: 5, name: \"каталог-5\" },\r\n  { id: 6, name: \"каталог-6\" },\r\n  { id: 7, name: \"каталог-7\" },\r\n  { id: 8, name: \"каталог-8\" },\r\n  { id: 9, name: \"каталог-9\" },\r\n  { id: 10, name: \"каталог-10\" },\r\n  { id: 11, name: \"каталог-11\" },\r\n]"
+                }
+            ],
+            "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts": [
+                {
+                    "name": "KatalogImgUI",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n  \r\n  },\r\n\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<KatalogImgComponent>",
+                    "defaultValue": "{\r\n\r\n  title: 'Katalog',\r\n  component:  KatalogImgComponent,\r\n\r\n  argTypes: {\r\n  }\r\n}"
+                }
+            ],
+            "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts": [
+                {
+                    "name": "KatalogTableUI",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n \r\n  },\r\n\r\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<KatalogTableComponent>",
+                    "defaultValue": "{\r\n\r\n  title: 'Katalog',\r\n  component: KatalogTableComponent,\r\n\r\n  argTypes: {\r\n    \r\n\r\n\r\n\r\n  }\r\n}"
                 }
             ]
         },
         "groupedFunctions": {},
         "groupedEnumerations": {},
         "groupedTypeAliases": {
-            "libs/ui/src/lib/katalog/katalog.component.stories.ts": [
+            "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<CartPresentationComponent>",
+                    "file": "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 177
+                }
+            ],
+            "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "StoryObj<KatalogComponent>",
-                    "file": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                    "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 177
+                }
+            ],
+            "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<KatalogImgComponent>",
+                    "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 177
+                }
+            ],
+            "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<KatalogTableComponent>",
+                    "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -360,27 +558,17 @@
                 "status": "low"
             },
             {
-                "filePath": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                "filePath": "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "imgs",
+                "name": "CartPresentationUI",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
             },
             {
-                "filePath": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "KatalogUI",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                "filePath": "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -390,11 +578,81 @@
                 "status": "low"
             },
             {
-                "filePath": "libs/ui/src/lib/katalog/katalog.component.stories.ts",
+                "filePath": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "imgs",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "KatalogButtonUI",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "tempRepozitory",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "KatalogImgUI",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "KatalogTableUI",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

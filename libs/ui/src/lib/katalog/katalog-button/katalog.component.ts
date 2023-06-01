@@ -6,15 +6,15 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '../button/button.component';
+import { ButtonComponent } from '../../button/button.component';
 
 import { Input, Output, EventEmitter } from '@angular/core';
-import { IButton } from '../_interfaces/button.model';
+import { IButton } from '../../_shared/_interfaces/button.model';
 import { Subscription } from 'rxjs';
 import { interval } from 'rxjs';
 
 @Component({
-  selector: 'wsv2-katalog',
+  selector: 'wsv2-katalog-button',
   standalone: true,
   imports: [CommonModule, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,

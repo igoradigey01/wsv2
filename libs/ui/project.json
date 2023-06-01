@@ -29,7 +29,7 @@
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
       "options": {
-        "port": 4400,
+        "port": 4200,
         "configDir": "libs/ui/.storybook",
         "browserTarget": "ui:build-storybook",
         "styles": ["libs/ui/src/style.scss"],

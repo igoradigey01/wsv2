@@ -4,8 +4,8 @@ import type { Meta, StoryObj } from '@storybook/angular';
 
 import { action } from '@storybook/addon-actions';
 import { KatalogComponent } from './katalog.component';
-import { IButton } from '../_interfaces/button.model'
-import { ButtonComponent } from '../button/button.component';
+//import { IButton } from '../../_interfaces/button.model'
+//import { ButtonComponent } from '../../button/button.component';
 
 const meta: Meta<KatalogComponent> = {
 
@@ -63,7 +63,7 @@ const imgs = ['/bg_img/photo_1.webp', '/bg_img/photo_2.webp', '/bg_img/photo_3.w
 
 type Story = StoryObj<KatalogComponent>;
 
-export const KatalogUI: Story = {
+export const KatalogButtonUI: Story = {
   args: {
     items: tempRepozitory,
     urlBackgroundImgs:imgs,

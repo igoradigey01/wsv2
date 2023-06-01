@@ -1,0 +1,37 @@
+<p>katalog-img works!</p>
+<div *ngIf="flagView; else ImgCard">
+  <div class="imgs-body">
+    <div *ngFor="let item of nomenclatrues()">
+      <div (click)="changeProduct(item)">
+        <!---    start -->
+
+        <div class="img_block-img-view">
+          <img class="img_block" src="{{ ImgObj(item) }}" />
+        </div>
+
+        <!--   endt -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #ImgCard>
+  <div class="cards-body">
+    <div *ngFor="let item of nomenclatrues()">
+      <div (click)="changeProduct(item)">
+        <!---    start -->
+
+        <div class="card-body">
+          <div style="vertical-align: text-bottom; text-align: center">
+            {{ item.name }}
+          </div>
+          <img class="img_block" src="{{ ImgObj(item) }}" />
+          <div style="vertical-align: text-bottom; text-align: center">
+            <span *ngIf="flagOpt; else opt"> Ц:{{ item.cost_total }}р </span>
+            <ng-template #opt> Ц:{{ item.price }} </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

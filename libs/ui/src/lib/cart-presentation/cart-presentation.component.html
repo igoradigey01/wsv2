@@ -1,0 +1,16 @@
+<p>cart-presentation works!</p>
+<wsv2-app-header-layout
+  [UserRole]="roleUser"
+  [CartItemsCount]="cartItemsCount"
+  [isShopHeader]="true"
+  [company_name_1]="_company_name_1"
+  [company_name_2]="_company_name_2"
+  [srcLogo]="_srcLogo"
+  [company_phone]="_company_phone"
+  [company_normalize_phone]="_company_normalize_phone"
+  [menuItems]="_menuItems"
+  
+  (onToggleSideBar)="onSideBarVisible()"
+></wsv2-app-header-layout>
+ 
+<wsv2-shop-cart></wsv2-shop-cart>
