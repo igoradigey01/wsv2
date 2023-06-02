@@ -19,9 +19,10 @@ import { Nomenclature } from '@wsv2/shop-cart';
 @Injectable({
   providedIn: 'root'
 })
-export class CartPresentationService {
+export class DataPresentationService {
   //private url = 'https://s.x-01.ru/api/Nomenclature/NomenclaturePKs/1?postavchikId=1';
   private url = 'http://localhost:8080/api/Nomenclature/NomenclaturePKs/1?postavchikId=1'
+  
   
   private products$ = this.http.get<Nomenclature[]>(this.url).pipe(
     map((data: any) => {
@@ -53,6 +54,7 @@ export class CartPresentationService {
 
   // Expose signals from this service
   products = toSignal<Nomenclature[], Nomenclature[]>(this.products$, {initialValue: []});
+
   selectedProduct = signal<Nomenclature| undefined>(undefined);
   
   

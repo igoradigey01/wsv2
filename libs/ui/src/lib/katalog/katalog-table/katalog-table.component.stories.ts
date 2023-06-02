@@ -26,7 +26,7 @@ export default meta;
 
 type Story = StoryObj<KatalogTableComponent>;
 
-export const KatalogTableUI: Story = {
+export const SubKatalogTableUI: Story = {
   args: {
  
   },

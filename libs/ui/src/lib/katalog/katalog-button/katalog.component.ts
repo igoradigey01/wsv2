@@ -51,47 +51,47 @@ export class KatalogComponent implements OnInit, OnDestroy {
 
   public get slideStyleObj(): string {
 
-    if(this.flagBackgroundImg){
-    // debugger
-    if (this.urlBackgroundImgs && this.urlBackgroundImgs.length > 0) {
-      let j = 0;
-      //----------------------if----------------
-      if (this.i == this.urlBackgroundImgs.length - 1) {
+    if (this.flagBackgroundImg) {
+      // debugger
+      if (this.urlBackgroundImgs && this.urlBackgroundImgs.length > 0) {
+        let j = 0;
+        //----------------------if----------------
+        if (this.i == this.urlBackgroundImgs.length - 1) {
+          j = this.i;
+          let obj1 = 'background-image: url(' + this.urlBackgroundImgs[j] + ');';
+          this.i = 0;
+          return obj1;
+        }
+        //------------else-----------
         j = this.i;
-        let obj1 = 'background-image: url(' + this.urlBackgroundImgs[j] + ');';
-        this.i = 0;
-        return obj1;
+        let obj2 = 'background-image: url(' + this.urlBackgroundImgs[j] + ');';
+        this.i++;
+        return obj2;
+      } else {
+        //------------------------ elese  ----
+        return 'background-image: none;';
       }
-      //------------else-----------
-      j = this.i;
-      let obj2 = 'background-image: url(' + this.urlBackgroundImgs[j] + ');';
-      this.i++;
-      return obj2;
-    } else {
-      //------------------------ elese  ----
-      return 'background-image: none;';
     }
-  }
-   
-  return 'background-image: none;';
+
+    return 'background-image: none;';
   }
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     if (this.urlBackgroundImgs && this.urlBackgroundImgs.length > 1) {
       const source = interval(this.timer);
       //output: 0,1,2,3,4,5....
       this.subscription_timer = source.subscribe((val) => {
-        console.log("--i time-interval --"+this.i);
+        console.log("--i time-interval --" + this.i);
         this.slideStyleObj;
         this.cd.detectChanges(); // проверить измениения в компоненте
       });
       return;
     }
-     
+
     this.slideStyleObj;
-    console.log("--i not-tim-interval --"+this.i);
+    console.log("--i not-tim-interval --" + this.i);
   }
 
   ngOnDestroy() {
@@ -99,10 +99,10 @@ export class KatalogComponent implements OnInit, OnDestroy {
   }
 
   public onSelectBt(obj: IButton) {
-    this.onSelectButton.next(obj);
+    this.onSelectButton.emit(obj);
   }
 
-  public onBackgroundImg(){
-    this.flagBackgroundImg=!this.flagBackgroundImg;
+  public onBackgroundImg() {
+    this.flagBackgroundImg = !this.flagBackgroundImg;
   }
 }

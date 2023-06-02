@@ -1,8 +1,8 @@
-import { Component,computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component,computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartShellComponent ,CartService,Nomenclature} from '@wsv2/shop-cart'
 import { AppHeaderLayoutComponent } from '../layout/app-header-layout/app-header-layout.component'
-import {CartPresentationService } from '../_shared/servises/data-presentation.service'
+import {DataPresentationService } from '../_shared/servises/data-presentation.service'
 
 import {  IMenyItem } from '@wsv2/app-config'
 
@@ -17,9 +17,10 @@ import { UserRole } from '@wsv2/app-common'
     AppHeaderLayoutComponent
 
   ],
-  providers: [CartPresentationService ] ,
+  providers: [DataPresentationService ] ,
   templateUrl: './cart-presentation.component.html',
   styleUrls: ['./cart-presentation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartPresentationComponent {
 
@@ -66,7 +67,7 @@ export class CartPresentationComponent {
 
   constructor(
     private cartService: CartService,
-    private repository:CartPresentationService
+    private repository:DataPresentationService
     ) { }
 
   addToCart(product: Nomenclature| undefined) {

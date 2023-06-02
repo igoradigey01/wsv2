@@ -1,23 +1,36 @@
 <p>katalog-img works!</p>
-<div *ngIf="flagView; else ImgCard">
-  <div class="imgs-body">
-    <div *ngFor="let item of nomenclatrues()">
-      <div (click)="changeProduct(item)">
-        <!---    start -->
+<div class="card">
+  <div class="card-header">
+    {{ pageTitle }}
+  </div>
 
-        <div class="img_block-img-view">
-          <img class="img_block" src="{{ ImgObj(item) }}" />
+  <div *ngIf="flagView; else ImgCard">
+    <div class="imgs-body">
+      <div *ngFor="let item of  products">
+        <div (click)="changeProduct(item)">
+          <!---    start -->
+
+          <div class="img_block-img-view">
+            <img class="img_block" src="{{ ImgObj(item) }}" />
+          </div>
+
+          <!--   endt -->
         </div>
-
-        <!--   endt -->
       </div>
     </div>
   </div>
+
+  <div class="alert alert-danger"
+       *ngIf="errorMessage">
+    {{errorMessage }}
+  </div>
+
+
 </div>
 
 <ng-template #ImgCard>
   <div class="cards-body">
-    <div *ngFor="let item of nomenclatrues()">
+    <div *ngFor="let item of  products">
       <div (click)="changeProduct(item)">
         <!---    start -->
 

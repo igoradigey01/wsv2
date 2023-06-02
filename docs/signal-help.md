@@ -1,9 +1,11 @@
 ## Angular Signal
-- https://github.com/angular/angular/blob/main/packages/core/src/signals/README.md
-- https://habr.com/ru/articles/726886/
+
+- https://angular.io/guide/signals
+
 - !!! https://blog.ninja-squad.com/2023/04/26/angular-signals/
-- https://dev.to/this-is-angular/angular-signals-everything-you-need-to-know-2b7g
-- https://www.freecodecamp.org/news/angular-signals/
+
+- https://github.com/angular/angular/discussions/49682
+
 - https://www.youtube.com/watch?v=oqYQG7QMdzw !!!
 
 ## Angular Update for 16 vertion
