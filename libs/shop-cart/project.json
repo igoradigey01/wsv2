@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shop-cart/src",
   "prefix": "wsv2",
-  "tags": [],
+
   "projectType": "library",
   "targets": {
     "build": {
@@ -46,5 +46,6 @@
         ]
       }
     }
-  }
+  },
+  "tags": ["01app-cart-lib", "type:01-lib"]
 }

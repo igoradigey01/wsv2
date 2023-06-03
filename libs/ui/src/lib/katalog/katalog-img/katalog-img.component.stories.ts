@@ -1,25 +1,28 @@
 // https://storybook.js.org/docs/angular/configure/overview#configure-story-loading
 
 import type { Meta, StoryObj } from '@storybook/angular';
-import { inject } from '@angular/core';
 
-import { action } from '@storybook/addon-actions';
+
+//import { action } from '@storybook/addon-actions';
 import { KatalogImgComponent } from './katalog-img.component';
-import {DataPresentationService} from '../../_shared/servises/data-presentation.service'
+//import {DataPresentationService} from '../../_shared/servises/data-presentation.service'
 import {katalog_data2} from '../../_shared/servises/data-fake2'
 
-import { APP_INITIALIZER } from '@angular/core';
-import { moduleMetadata } from '@storybook/angular';
-import { single } from 'rxjs';
+//import { APP_INITIALIZER } from '@angular/core';
+//import { moduleMetadata } from '@storybook/angular';
+import {  signal } from '@angular/core';;
 import {Nomenclature} from '@wsv2/app-common'
+//import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 
 
-let i:Nomenclature[]=katalog_data2 as Nomenclature[];
+
 // function myServiceFactory(myService: DataPresentationService) {
 //   return () =>  i=myService.products() ;
 // } 
 
-
+ 
+ 
+const i= signal<Nomenclature[]>( katalog_data2 as Nomenclature[]);
 
 const meta: Meta< KatalogImgComponent> = {
 
@@ -53,8 +56,7 @@ export const  SubKatalogImgUI: Story = {
     flagView:false,
     flagOpt:false,
     serverUrl:'https://s.x-01.ru/',
-    pageTitle : 'Каталог',
-    errorMessage : '',
+   
     products:i
   
   },

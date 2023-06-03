@@ -26,32 +26,32 @@ import { UserRole } from '@wsv2/app-common'
 export class IndexComponent {
 
   private _cartItemsCount = 0; // haader
-  
-  _flagPanel: boolean = true; // sidenav 
+
+  _flagPanel = true; // sidenav
   _flagSideBarHiden = false; //sidenav
 
 
- 
 
 
 
 
-  
+
+
 
   title = ''; // not relize
-  public _srcLogo: string = '';
+  public _srcLogo = '';
   public _menuItems: IMenyItem[] = [];
   public _company_name_1: string | undefined;
-  public _company_name_2: string = ""
-  public _company_phone: string = '';
-  public _company_normalize_phone: string = '';
+  public _company_name_2 = ""
+  public _company_phone = '';
+  public _company_normalize_phone = '';
   public is_shop = true;
   public roleUser: UserRole = UserRole.default;
 
 
-  
 
-  
+
+
 
   get CartItemsCount(): number {
     return this._cartItemsCount;
@@ -64,7 +64,7 @@ export class IndexComponent {
     private repositoryCompanyInformation: CompanyInformationService,
     private repositoryMenyItems: MenyItemsService,
     private router: Router
-  ) {    
+  ) {
     this._srcLogo = repositoryCompanyInformation.company_logo;
     this._company_name_2 = repositoryCompanyInformation.company_name;
     this.title = repositoryCompanyInformation.company_name;

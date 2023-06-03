@@ -6,7 +6,7 @@ import { MaterialModule } from './material.module';
 
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { HeaderComponent } from './header/header.component';
+//import { HeaderComponent } from './header/header.component';
 import { MainComponent } from './main/main.component';
 
 
@@ -20,13 +20,13 @@ import { MainComponent } from './main/main.component';
   declarations: [
     FooterComponent,
     SidebarComponent,
-    HeaderComponent,
+   // HeaderComponent,
     MainComponent,   
   ],
   exports: [
     FooterComponent,
     SidebarComponent,
-    HeaderComponent,
+   // HeaderComponent,
     MainComponent,   
   ],
 })

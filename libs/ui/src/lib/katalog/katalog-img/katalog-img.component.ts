@@ -17,14 +17,13 @@ export class KatalogImgComponent {
   @Input() public flagView = false;
   @Input() public flagOpt = false;
   @Input() public serverUrl = 'https://s.x-01.ru/';
-  @Input() public pageTitle = 'Каталог';
-  @Input() public errorMessage = '';
-  @Input() public products =<Nomenclature[]>[];
 
-  @Output() public onSelectedProduct = new EventEmitter<Nomenclature>();
+  @Input() public products =signal<Nomenclature[]>([]);
+
+  @Output() public _onSelectedProduct = new EventEmitter<Nomenclature>();
 
   public changeProduct(item: Nomenclature) {
-    this.onSelectedProduct.emit(item);
+    this._onSelectedProduct.emit(item);
 
   }
 

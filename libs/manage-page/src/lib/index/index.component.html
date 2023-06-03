@@ -2,28 +2,28 @@
 <div class="theme-manager-section">
   <wsv2-app-header-layout
   [UserRole]="roleUser"
- 
+
   [isShopHeader]="false"
   [company_name_1]="_company_name_1"
   [company_name_2]="_company_name_2"
-  
-  
+
+
   [menuItems]="_menuItems"
-  (onClickCart)="onClickCart($event)"
-  (onClickLogin)="onClickLogin($event)"
-  (onClickLogof)="onClickLogof($event)"
-  (onClickOrder)="onClickOrder($event)"
-  (onClickOptPrice)="onClickOptPrice($event)"
-  (onClickNotOptPrice)="onClickNotOptPrice($event)"
-  (onClickManager)="onClickManager($event)"
-  (onClickAdmin)="onClickAdmin($event)"
-  (onClickGoAppShop)="onClickGoAppShop($event)"
-  (onToggleSideBar)="onSideBarVisible()"
+  (_onClickCart)="onClickCart($event)"
+  (_onClickLogin)="onClickLogin($event)"
+  (_onClickLogof)="onClickLogof($event)"
+  (_onClickOrder)="onClickOrder($event)"
+  (_onClickOptPrice)="onClickOptPrice($event)"
+  (_onClickNotOptPrice)="onClickNotOptPrice($event)"
+  (_onClickManager)="onClickManager($event)"
+  (_onClickAdmin)="onClickAdmin($event)"
+  (_onClickGoAppShop)="onClickGoAppShop($event)"
+  (_onToggleSideBar)="onSideBarVisible()"
 ></wsv2-app-header-layout>
-  
+
   <div class="conteiner  mat-typography" >
-    <h1 class="test-color">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, odit quo laudantium, unde iure 
-      quibusdam fuga magni eos aspernatur molestias optio repellendus incidunt, adipisci quaerat qui? 
+    <h1 class="test-color">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, odit quo laudantium, unde iure
+      quibusdam fuga magni eos aspernatur molestias optio repellendus incidunt, adipisci quaerat qui?
       Itaque aliquam nobis iure.</h1>
       <p>Manager page</p>
       <button mat-button routerLink="" >Basic</button>
@@ -31,14 +31,14 @@
       <button mat-raised-button color="primary">Primary</button>
   <button mat-raised-button color="accent">Accent</button>
   <button mat-raised-button color="warn">Warn</button>
-    <router-outlet></router-outlet>   
-  
-  
+    <router-outlet></router-outlet>
+
+
     </div>
-  
+
     <!----------------- create end-->
-  
+
   <x01-v1-footer></x01-v1-footer>
-  
-      
+
+
   </div>

@@ -1,26 +1,34 @@
-import { ChangeDetectionStrategy, Component,computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component,signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartShellComponent ,CartService,Nomenclature} from '@wsv2/shop-cart'
+import { Input, Output, EventEmitter } from '@angular/core';
+
 import { AppHeaderLayoutComponent } from '../layout/app-header-layout/app-header-layout.component'
+import { CartShellComponent ,CartService,Nomenclature} from '@wsv2/shop-cart'
 import {DataPresentationService } from '../_shared/servises/data-presentation.service'
+import {katalog_data2} from '../_shared/servises/data-fake2'
 
 import {  IMenyItem } from '@wsv2/app-config'
 
 import { UserRole } from '@wsv2/app-common'
+import {KatalogImgComponent} from '../katalog/katalog-img/katalog-img.component'
+
+
 
 @Component({
-  selector: 'wsv2-cart-presentation',
-  standalone: true,
-  imports: [
-    CommonModule,
-    CartShellComponent,
-    AppHeaderLayoutComponent
-
-  ],
-  providers: [DataPresentationService ] ,
-  templateUrl: './cart-presentation.component.html',
-  styleUrls: ['./cart-presentation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'wsv2-cart-presentation',
+    standalone: true,
+  
+    templateUrl: './cart-presentation.component.html',
+    styleUrls: ['./cart-presentation.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        CartShellComponent,
+        AppHeaderLayoutComponent,
+        KatalogImgComponent
+        
+    ],
+    providers: [DataPresentationService],
 })
 export class CartPresentationComponent {
 
@@ -49,21 +57,27 @@ export class CartPresentationComponent {
   }
   ]
 
-   cartItemsCount = 0; // haader
-  
-  flagPanel: boolean = true; 
+ public data_fake= signal<Nomenclature[]>( katalog_data2 as Nomenclature[]);
+ 
+ @Input() public flagView = false;
+  @Input() public flagOpt = false;
+  @Input() public serverUrl = 'https://s.x-01.ru/';
 
-  public _srcLogo: string = '/company-information/logo.webp' ;
+   cartItemsCount = 0; // haader
+
+  flagPanel = true;
+
+  public _srcLogo = '/company-information/logo.webp' ;
 
   _company_name_1="";
-  public _company_name_2: string = "cart-presentation"
-  public _company_phone: string = '+7-903-466-83-68';
-  public _company_normalize_phone: string = '+79034668368';
+  public _company_name_2 = "cart-presentation"
+  public _company_phone = '+7-903-466-83-68';
+  public _company_normalize_phone= '+79034668368';
   public roleUser: UserRole = UserRole.default;
 
 
 
-  errorMessage = ''; 
+  errorMessage = '';
 
   constructor(
     private cartService: CartService,
@@ -76,21 +90,22 @@ export class CartPresentationComponent {
     }
   }
 
-  
+
 
 
   public onClickCart(userRole:UserRole){
 
     this.flagPanel=!this.flagPanel;
-    
+
 
   }
+
+
+  onSideBarVisible(role:UserRole) {
+    throw Error("not Implement");
   
- 
-  onSideBarVisible() {
-   
   }
-  
+
 
 
 }

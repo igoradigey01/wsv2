@@ -51,13 +51,13 @@ export class AppHeaderLayoutComponent {
 
   private _isUserAutorize = signal(false);
   public label_cart_badge=false
-  public  cart_amount:number=0;
-  public is_shop_header: boolean = true;
+  public  cart_amount=0;
+  public is_shop_header = true;
   public label_opt = 'ОПТ ₽'
   public label_manager = 'Менеджер'
   public label_admin = "Админ";
 
-  
+
 
   public get Label_amin_panel(){
     let label='';
@@ -98,7 +98,7 @@ export class AppHeaderLayoutComponent {
     this.cart_amount=amount;
     this.cd.detectChanges();
     }
-          
+
    }
   @Input() public set isShopHeader(viewHeader: boolean) {
     this.is_shop_header = viewHeader;
@@ -106,28 +106,28 @@ export class AppHeaderLayoutComponent {
   }
   @Input() public company_name_1: string | undefined;
   @Input() public company_name_2: string | undefined; //First Site
-  @Input() public srcLogo: string = '';
-  @Input() public company_phone: string = '';
-  @Input() public company_normalize_phone: string = '';
+  @Input() public srcLogo = '';
+  @Input() public company_phone = '';
+  @Input() public company_normalize_phone = '';
   @Input() public menuItems: IMenyItem[] = [];
 
-  @Output() onToggleSideBar = new EventEmitter<UserRole>();
+  @Output() _onToggleSideBar = new EventEmitter<UserRole>();
 
-  @Output() onClickCart = new EventEmitter<UserRole>();
+  @Output() _onClickCart = new EventEmitter<UserRole>();
 
-  @Output() onClickLogin = new EventEmitter<UserRole>();
-  @Output() onClickLogof = new EventEmitter<UserRole>();
+  @Output() _onClickLogin = new EventEmitter<UserRole>();
+  @Output() _onClickLogof = new EventEmitter<UserRole>();
 
-  
 
-  @Output() onClickOrder = new EventEmitter<UserRole>();
 
-  @Output() onClickOptPrice = new EventEmitter<UserRole>();
-  @Output() onClickNotOptPrice = new EventEmitter<UserRole>();
-  @Output() onClickManager = new EventEmitter<UserRole>();
-  @Output() onClickAdmin = new EventEmitter<UserRole>();
-  @Output() onClickGoAppShop = new EventEmitter<UserRole>();
- 
+  @Output() _onClickOrder = new EventEmitter<UserRole>();
+
+  @Output() _onClickOptPrice = new EventEmitter<UserRole>();
+  @Output() _onClickNotOptPrice = new EventEmitter<UserRole>();
+  @Output() _onClickManager = new EventEmitter<UserRole>();
+  @Output() _onClickAdmin = new EventEmitter<UserRole>();
+  @Output() _onClickGoAppShop = new EventEmitter<UserRole>();
+
 
 
 
@@ -150,19 +150,19 @@ export class AppHeaderLayoutComponent {
 
 
   public on_click_cart() {
-    this.onClickCart.emit(this.userRole);
+    this._onClickCart.emit(this.userRole);
 
   }
 
   public on_click_login() {
 
-    this.onClickLogin.emit(this.userRole);
+    this._onClickLogin.emit(this.userRole);
 
   }
 
   public on_click_logof(){
 
-    this.onClickLogof.emit(this.userRole);
+    this._onClickLogof.emit(this.userRole);
 
   }
 
@@ -170,18 +170,18 @@ export class AppHeaderLayoutComponent {
 
     // check not realize
 
-    this.onClickOrder.emit(this.userRole);
+    this._onClickOrder.emit(this.userRole);
 
   }
 
   public on_click_OptPrice() {
     this.label_opt = 'ОПТ ₽'
-    this.onClickOptPrice.emit(this.userRole);
+    this._onClickOptPrice.emit(this.userRole);
   }
 
   on_click_NotOptPrice() {
     this.label_opt = 'РОЗН ₽'
-    this.onClickNotOptPrice.emit(this.userRole);
+    this._onClickNotOptPrice.emit(this.userRole);
 
 
   }
@@ -189,16 +189,16 @@ export class AppHeaderLayoutComponent {
   on_click_manager(actionName: string) {
     if (actionName === 'manager') {
       this.label_manager = 'Менеджер';
-      this.onClickManager.emit(this.userRole);
+      this._onClickManager.emit(this.userRole);
     }
     if (actionName === 'opt') {
       this.label_manager = 'ОПТ ₽';
-      this.onClickOptPrice.emit(this.userRole);
+      this._onClickOptPrice.emit(this.userRole);
     }
 
     if (actionName === 'not_opt') {
       this.label_manager = 'РОЗН ₽'
-      this.onClickNotOptPrice.emit(this.userRole);
+      this._onClickNotOptPrice.emit(this.userRole);
     }
   }
 
@@ -206,31 +206,31 @@ export class AppHeaderLayoutComponent {
   on_click_admin(actionName: string) {
     if (actionName === 'admin') {
       this.label_admin = 'Админ';
-      this.onClickAdmin.emit(this.userRole);
+      this._onClickAdmin.emit(this.userRole);
     }
 
     if (actionName === 'manager') {
       this.label_admin = 'Менеджер';
-      this.onClickManager.emit(this.userRole);
+      this._onClickManager.emit(this.userRole);
     }
     if (actionName === 'opt') {
       this.label_admin = 'ОПТ ₽';
-      this.onClickOptPrice.emit(this.userRole);
+      this._onClickOptPrice.emit(this.userRole);
     }
 
     if (actionName === 'not_opt') {
       this.label_admin = 'РОЗН ₽'
-      this.onClickNotOptPrice.emit(this.userRole);
+      this._onClickNotOptPrice.emit(this.userRole);
     }
   }
 
   public onSideBarVisible(): void {
     //  this.login.emit(this.loginForm.value)
-    this.onToggleSideBar.emit();
+    this._onToggleSideBar.emit();
   }
 
   public on_click_go_app_shop(){
-    this.onClickGoAppShop.next(this.userRole);
+    this._onClickGoAppShop.next(this.userRole);
 
   }
 
@@ -264,7 +264,7 @@ export class AppHeaderLayoutComponent {
     return false;
   }
 
- 
+
 
   // чет не чет -Остаток от деления (%)
   /** это число четное ? */

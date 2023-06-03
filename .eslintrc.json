@@ -88,6 +88,13 @@
                   "01app-ui-lib",
                   "type:01-lib"
                 ]
+              },
+              {
+                "sourceTag": "01app-cart-lib",
+                "onlyDependOnLibsWithTags": [
+                  "01app-cart-lib",
+                  "type:01-lib"
+                ]
               }
             ]
           }

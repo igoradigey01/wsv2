@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule ,Router} from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout';
-import { KatalogComponent, IButton, AppHeaderLayoutComponent } from '@wsv2/ui'
+import { AppHeaderLayoutComponent } from '@wsv2/ui'
 import { MaterialModule } from '../material.module'
 import { CompanyInformationService, MenyItemsService, IMenyItem } from '@wsv2/app-config';
 import { IThemeScss, ThemeScssServices } from '@wsv2/app-common'

@@ -1,0 +1,172 @@
+//@import "./../../../../styles/content-styles.scss";
+
+
+.cards-body {
+  display: grid;
+  width: 275px;
+  margin-left: auto;
+  margin-right: auto;
+  grid-template-columns: 33.3% auto 33.3%;
+
+  grid-auto-rows: max-content;
+}
+
+.imgs-body{
+  display: grid;
+  width: 275px;
+  margin-left: auto;
+  margin-right: auto;
+  grid-template-columns: 33.3% auto 33.3%;
+
+  grid-auto-rows: max-content;
+
+}
+.img_block{
+  height:90px;
+
+}
+
+.card-body {
+  position: relative;
+  width: 90;
+  height: auto;
+  float: left;
+  margin-bottom: 3px;
+}
+.img-body{
+  position: relative;
+  width: 90;
+  height: auto;
+  float: left;
+  margin-bottom: 3px;
+
+}
+@media (min-width: 413px){
+  .cards-body {
+    display: grid;
+    width:  380px;
+    gap: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 33.3% auto 33.3%;
+
+    grid-auto-rows: max-content;
+  }
+  .card-body {
+    position: relative;
+    width: 120px;
+    height: auto;
+    float: left;
+    margin-bottom: 2px;
+  }
+
+  .img_block{
+    height:120px;
+
+  }
+
+  .imgs-body{
+    display: grid;
+    width:  380px;
+    gap: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 33.3% auto 33.3%;
+
+    grid-auto-rows: max-content;
+
+  }
+  .img-body{
+    position: relative;
+    width: 120px;
+    height: auto;
+    float: left;
+    margin-bottom: 2px;
+
+  }
+
+}
+
+
+@media (min-width: 768px)  {
+  .img_block{
+    height:200px;
+
+  }
+  .cards-body {
+    display: grid;
+    width: 610px;
+    gap: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 33.3% auto 33.3%;
+
+    grid-auto-rows: max-content;
+  }
+  .card-body {
+    position: relative;
+    width: 200px;
+    height: auto;
+    float: left;
+    margin-bottom: 2px;
+  }
+
+  .imgs-body{
+    display: grid;
+    width: 610px;
+    gap: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 33.3% auto 33.3%;
+
+    grid-auto-rows: max-content;
+
+  }
+  .img-body{
+    position: relative;
+    width: 200px;
+    height: auto;
+    float: left;
+    margin-bottom: 2px;
+
+  }
+}
+
+@media (min-width:992px) {
+  .cards-body {
+    display: grid;
+    width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 2px;
+    grid-template-columns: 24% auto auto  24%;
+
+    grid-auto-rows: max-content;
+  }
+  .card-body {
+    position: relative;
+    width: 200px;
+    height: auto;
+    float: left;
+    margin-bottom: 2px;
+  }
+
+  .imgs-body{
+    display: grid;
+    width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 24% auto auto 24%;
+
+    grid-auto-rows: max-content;
+
+  }
+  .img-body{
+    position: relative;
+    width: 200px;
+    height: auto;
+    float: left;
+   // margin-bottom: 2px;
+
+  }
+}

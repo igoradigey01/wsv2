@@ -24,9 +24,9 @@ const meta: Meta<AppHeaderLayoutComponent> = {
         name: "UserRole",
         description: "роль пользователя определяет вид appHeader",
         options: [0, 1, 2,3,4,5],
-      
+
        control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager','admin']}
-        
+
       },
       CartItemsCount:{
         name:"Корзина",
@@ -39,16 +39,16 @@ const meta: Meta<AppHeaderLayoutComponent> = {
         description:"Это витрина магазина или панель admin or manager"
       },
       /** return this.userRole */
-      onClickCart: { action: 'clicked', return:0 },
-      onClickLogin:{action: 'clicked', return:0},
-      onClickLogof:{action: 'clicked', return:0},
-      onClickOrder:{action: 'clicked', return:0},
-      onClickOptPrice:{action: 'clicked', return:0},
-      onClickNotOptPrice:{action: 'clicked', return:0},
-      onClickManager:{action: 'clicked', return:0},
-      onClickAdmin:{action: 'clicked', return:0},
-      onClickGoAppShop:{action: 'clicked', return:0},
-      
+      _onClickCart: { action: 'clicked', return:0 },
+      _onClickLogin:{action: 'clicked', return:0},
+      _onClickLogof:{action: 'clicked', return:0},
+      _onClickOrder:{action: 'clicked', return:0},
+      _onClickOptPrice:{action: 'clicked', return:0},
+      _onClickNotOptPrice:{action: 'clicked', return:0},
+      _onClickManager:{action: 'clicked', return:0},
+      _onClickAdmin:{action: 'clicked', return:0},
+      _onClickGoAppShop:{action: 'clicked', return:0},
+
 
     }
 
@@ -60,25 +60,25 @@ export default meta;
 const repozitoryMenyShop=[{
     "id": 0,
     "name": "Как заказать?",
-    "url": "menu/kak-zakazat"  
+    "url": "menu/kak-zakazat"
   },
   {
     "id": 1,
     "name": "Оплата&Доставка",
     "url": "menu/oplata-i-dostavka"
-    
+
   },
   {
     "id": 2,
     "name": "Гарантии",
     "url": "menu/garantiya"
-    
+
   },
   {
     "id": 3,
     "name": "Как доехать",
     "url": "menu/about"
-    
+
   }
 ]
 
@@ -92,7 +92,7 @@ const repozitoryMenyManager=[
     { "id": 6, "name": "info", "url": "/manager/nomenclature" }
   ]
 
- const logo='/company-information/logo.webp' 
+ const logo='/company-information/logo.webp'
 
 export const HeaderLayouttUI = {
     render: (args: AppHeaderLayoutComponent) => ({
@@ -108,7 +108,7 @@ export const HeaderLayouttUI = {
         company_name_1:"name_1",
         company_phone:'+7-903-466-83-68',
         company_normalize_phone:'+79034668368',
-       
+
 
     }
 

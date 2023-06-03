@@ -1,16 +1,14 @@
-<p>katalog-img works!</p>
+
 <div class="card">
-  <div class="card-header">
-    {{ pageTitle }}
-  </div>
+  
 
   <div *ngIf="flagView; else ImgCard">
     <div class="imgs-body">
-      <div *ngFor="let item of  products">
+      <div *ngFor="let item of  products()">
         <div (click)="changeProduct(item)">
           <!---    start -->
 
-          <div class="img_block-img-view">
+          <div class="img-body">
             <img class="img_block" src="{{ ImgObj(item) }}" />
           </div>
 
@@ -20,17 +18,13 @@
     </div>
   </div>
 
-  <div class="alert alert-danger"
-       *ngIf="errorMessage">
-    {{errorMessage }}
-  </div>
-
+  
 
 </div>
 
 <ng-template #ImgCard>
   <div class="cards-body">
-    <div *ngFor="let item of  products">
+    <div *ngFor="let item of  products()">
       <div (click)="changeProduct(item)">
         <!---    start -->
 
