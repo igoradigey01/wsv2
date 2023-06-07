@@ -6,7 +6,7 @@ import { CartItem } from '../_shared/interfaces/cart-item.model';
 import { CartService } from '../_shared/services/cart.service';
 
 @Component({
-  selector: 'sw-cart-item',
+  selector: 'wsv2-cart-item',
   standalone: true,
   imports: [DecimalPipe, FormsModule, NgFor, NgIf],
   templateUrl: './cart-item.component.html'

@@ -4,7 +4,7 @@
 
   <div *ngIf="flagView; else ImgCard">
     <div class="imgs-body">
-      <div *ngFor="let item of  products()">
+      <div *ngFor="let item of  products">
         <div (click)="changeProduct(item)">
           <!---    start -->
 
@@ -24,7 +24,7 @@
 
 <ng-template #ImgCard>
   <div class="cards-body">
-    <div *ngFor="let item of  products()">
+    <div *ngFor="let item of  products">
       <div (click)="changeProduct(item)">
         <!---    start -->
 

@@ -18,7 +18,7 @@ import { Input, Output, EventEmitter } from '@angular/core';
 export class ButtonComponent {
 
  
-  @Output() public onButtonClick = new EventEmitter<IButton>();
+  @Output() public _onButtonClick = new EventEmitter<IButton>();
 
   
   @Input() public id:number | undefined=1;
@@ -28,16 +28,16 @@ export class ButtonComponent {
      /**
    * Is this visible id label
    */
-  @Input() public flagButtonId:boolean=true;
+  @Input() public flagButtonId=true;
   
   
-  @Input() public  flagButtonOpacity:boolean=true;
+  @Input() public  flagButtonOpacity=true;
    
    
    
   public onBtClick(){
-    let date=<IButton>{id:this.id,name:this.name}
-    this.onButtonClick.next(date);
+    const date=<IButton>{id:this.id,name:this.name}
+    this._onButtonClick.next(date);
   }
 
 }

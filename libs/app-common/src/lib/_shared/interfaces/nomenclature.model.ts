@@ -11,11 +11,14 @@ export interface Nomenclature {
 
   inStock: boolean | undefined; //есть  на складе ?
 
+  katalogId:number;
+  katalogName?:string |undefined;
+
   colorName: string | undefined;
   brandName: string | undefined;
   articleName: string | undefined;
   
   postavchik: string | undefined;
 
-  photo: string;
+
 }

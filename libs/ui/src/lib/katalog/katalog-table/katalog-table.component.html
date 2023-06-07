@@ -1,1 +1,52 @@
 <p>katalog-table works!</p>
+
+    <!--  start Table View -->
+    <div class="grid-sub-container-ms grid-sub-container">
+      <div>Name</div>
+      <div class="hiden-col">Article</div>
+      <div class="hiden-col">Brand</div>
+      <div class="hiden-col">Color</div>
+      <div>Price</div>
+      <div >descripstion</div>
+      <div>images</div>
+
+      <!-- start model view-->
+      <ng-template ngFor let-item [ngForOf]="products" let-i="index">
+        <div [ngClass]="{ 'row-grid': i % 2 === 0 }" (click)="changeProduct(item)">
+          {{ item.name }}
+        </div>
+        <div class="hiden-col" [ngClass]="{ 'row-grid': i % 2 === 0 }" (click)="changeProduct(item)">
+          {{ item.articleName }}
+        </div>
+        <div class="hiden-col" [ngClass]="{ 'row-grid': i % 2 === 0 }" (click)="changeProduct(item)">
+          {{ item.brandName }}
+        </div>
+        <div class="hiden-col" [ngClass]="{ 'row-grid': i % 2 === 0 }" (click)="changeProduct(item)">
+          {{ item.colorName }}
+        </div>
+
+
+        <div [ngClass]="{ 'row-grid': i % 2 === 0 }" (click)="changeProduct(item)">
+            <span *ngIf="flagOpt; else opt"> Ц:{{ item.cost_total }}р </span>
+            <ng-template #opt> Ц:{{ item.price }} </ng-template>
+        </div>
+        <div  [ngClass]="{ 'row-grid': i % 2 === 0 }"
+          (click)="changeProduct(item)">
+          {{ item.description }}
+        </div>
+
+        <div [ngClass]="{ 'row-grid': i % 2 === 0 }" *ngIf="item.guid">
+          <!---    start -->
+
+          <div class="img_block-table"  >
+            <img height="38" src="{{ ImgObj(item) }}" />
+
+          </div>
+
+
+          <!--   endt -->
+        </div>
+
+        <!-- end  model view-->
+      </ng-template>
+    </div>

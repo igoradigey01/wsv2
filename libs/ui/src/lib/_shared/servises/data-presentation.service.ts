@@ -41,7 +41,7 @@ export class DataPresentationService {
             brandName: this.get_name_or_emptystring(f.brand,"brand"),
             articleName: this.get_name_or_emptystring(f.article,"article"),
             postavchik: "xl-01",
-            photo: this.get_photo_url(f.guid)
+          
             
             
           };

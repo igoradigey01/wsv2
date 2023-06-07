@@ -1,19 +1,25 @@
-// https://storybook.js.org/docs/angular/configure/overview#configure-story-loading
+
 
 import type { Meta, StoryObj } from '@storybook/angular';
-
-import { action } from '@storybook/addon-actions';
+import {katalog_data2} from '../../_shared/servises/data-fake2'
+import {Nomenclature} from '@wsv2/app-common'
 import { KatalogTableComponent } from './katalog-table.component';
-//import { IButton } from '../../_interfaces/button.model'
-//import { ButtonComponent } from '../../button/button.component';
+
+const i= katalog_data2 as Nomenclature[];
 
 const meta: Meta<KatalogTableComponent> = {
 
-  title: 'Katalog',
+  title: 'Katalog-table',
   component: KatalogTableComponent,
+  tags: ['autodocs'],
 
   argTypes: {
+    flagOpt: {
+      name: "flagView",
+      description: "переключатель оптовая to рознечная цена"
+    },
     
+    changeProduct: { action: 'clicked' }
 
 
 
@@ -28,6 +34,11 @@ type Story = StoryObj<KatalogTableComponent>;
 
 export const SubKatalogTableUI: Story = {
   args: {
+   
+    flagOpt:false,
+    serverUrl:'https://s.x-01.ru/',
+   
+    products:i
  
   },
 

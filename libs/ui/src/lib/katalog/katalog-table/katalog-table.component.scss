@@ -3,7 +3,7 @@
   width: 100%;
   margin-left: 0;
   margin-right: 0;
-  grid-template-columns: 15% 15% 15% auto 20% 20%;
+  grid-template-columns: 30% 15%  auto  15%;
 
   grid-auto-rows: max-content;
 }
@@ -26,7 +26,7 @@
   text-align: center;
 }
 
-.hiden-description {
+.hiden-col {
   display: none;
 }
 
@@ -36,6 +36,19 @@
 
 .row-grid {
   background-color: lightgoldenrodyellow;
+}
+
+@media (min-width: 413px){
+  .grid-sub-container {
+    display: grid;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    grid-template-columns: 30% 15%  auto  13%;
+  
+    grid-auto-rows: max-content;
+  }
+
 }
 
 
@@ -56,4 +69,8 @@
     border: 1px solid black;
     text-align: center;
   }
+  
+.hiden-col {
+  display: block;
+}
 }

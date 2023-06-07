@@ -4,7 +4,7 @@
   <div class='card-header text-primary'>
     <div class="row">
       <div class="col-md-4">Name:</div>
-      <div class="col-md-6  fw-bold">{{cartItem().vehicle.name}}</div>
+      <div class="col-md-6  fw-bold">{{cartItem(). product.name}}</div>
       <div class="col-md-2">
         <button type="button"
                 class="btn-close"
@@ -17,11 +17,11 @@
   <div class='card-body'>
     <div class="row">
       <div class="col-md-4">Price (credits):</div>
-      <div class="col-md-6">{{cartItem().vehicle.cost_in_credits | number:'1.2-2'}}</div>
+      <div class="col-md-6">{{cartItem(). product.cost_total | number:'1.2-2'}}</div>
     </div>
     <div class="row">
       <div class="col-md-4">Class:</div>
-      <div class="col-md-6">{{cartItem().vehicle.vehicle_class}}</div>
+      <div class="col-md-6">{{cartItem(). product.colorName}}</div>
     </div>
 
     <div class="row">

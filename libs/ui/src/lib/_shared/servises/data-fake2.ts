@@ -10,11 +10,13 @@ const katalog_data2=[
         "markup": 30,
         "cost_total": 61.1,
         "inStock": true,
+        "katalogId":1,
+        "katalogName":"Ручки",
         "colorName": "имя color",
         "brandName": "имя brand",
         "articleName": "имя article",
         "postavchik": "xl-01",
-        "photo": "https://s.x-01.ru/images/L8e2d9464-337c-4a1a-8933-ac831ad78318.webp"
+       
     },
     {
         "id": 48,
@@ -25,11 +27,13 @@ const katalog_data2=[
         "markup": 30,
         "cost_total": 72.8,
         "inStock": true,
+        "katalogId":1,
+        "katalogName":"Ручки",
         "colorName": "имя color",
         "brandName": "имя brand",
         "articleName": "имя article",
         "postavchik": "xl-01",
-        "photo": "https://s.x-01.ru/images/L42e1c644-f915-4133-845a-f831c924c9c6.webp"
+       
     },
     {
         "id": 45,
@@ -40,11 +44,13 @@ const katalog_data2=[
         "markup": 20,
         "cost_total": 57.6,
         "inStock": true,
+        "katalogId":1,
+        "katalogName":"Ручки",
         "colorName": "имя color",
         "brandName": "имя brand",
         "articleName": "имя article",
         "postavchik": "xl-01",
-        "photo": "https://s.x-01.ru/images/L0985a980-f766-491b-a55d-61081566aefe.webp"
+        
     },
     {
         "id": 47,
@@ -55,11 +61,13 @@ const katalog_data2=[
         "markup": 30,
         "cost_total": 61.1,
         "inStock": true,
+        "katalogId":1,
+        "katalogName":"Ручки",
         "colorName": "имя color",
         "brandName": "имя brand",
         "articleName": "имя article",
         "postavchik": "xl-01",
-        "photo": "https://s.x-01.ru/images/L9a88936b-baea-47ea-bafb-8be1cdf8e628.webp"
+       
     },
     {
         "id": 50,
@@ -70,11 +78,13 @@ const katalog_data2=[
         "markup": 30,
         "cost_total": 39,
         "inStock": true,
+        "katalogId":1,
+        "katalogName":"Ручки",
         "colorName": "имя color",
         "brandName": "имя brand",
         "articleName": "имя article",
         "postavchik": "xl-01",
-        "photo": "https://s.x-01.ru/images/Lba6eeb25-5e29-4ae1-8efe-1e641a77d33f.webp"
+      
     },
     {
         "id": 49,
@@ -85,11 +95,13 @@ const katalog_data2=[
         "markup": 30,
         "cost_total": 74.1,
         "inStock": true,
+        "katalogId":1,
+        "katalogName":"Ручки",
         "colorName": "имя color",
         "brandName": "имя brand",
         "articleName": "имя article",
         "postavchik": "xl-01",
-        "photo": "https://s.x-01.ru/images/L3e537c98-61ac-4192-b279-3f576bffc150.webp"
+       
     },
     {
         "id": 51,
@@ -100,11 +112,13 @@ const katalog_data2=[
         "markup": 30,
         "cost_total": 228.8,
         "inStock": true,
+        "katalogId":1,
+        "katalogName":"Ручки",
         "colorName": "имя color",
         "brandName": "имя brand",
         "articleName": "имя article",
         "postavchik": "xl-01",
-        "photo": "https://s.x-01.ru/images/L1673eeef-70c1-412b-8b16-efb15e6b90c1.webp"
+       
     },
     {
         "id": 54,
@@ -115,11 +129,13 @@ const katalog_data2=[
         "markup": 30,
         "cost_total": 26,
         "inStock": true,
+        "katalogId":1,
+        "katalogName":"Ручки",
         "colorName": "имя color",
         "brandName": "имя brand",
         "articleName": "имя article",
         "postavchik": "xl-01",
-        "photo": "https://s.x-01.ru/images/L86abbf75-91bf-42ef-a82f-da47fca6c398.webp"
+       
     },
     {
         "id": 52,
@@ -129,11 +145,13 @@ const katalog_data2=[
         "price": 35,
         "markup": 30,
         "cost_total": 45.5,
+        "katalogId":1,
+        "katalogName":"Ручки",
         "colorName": "имя color",
         "brandName": "имя brand",
         "articleName": "имя article",
         "postavchik": "xl-01",
-        "photo": "https://s.x-01.ru/images/L264d5817-3d5d-41a1-807f-97e840503c42.webp"
+        
     },
     {
         "id": 60,
@@ -144,11 +162,13 @@ const katalog_data2=[
         "markup": 30,
         "cost_total": 145.6,
         "inStock": true,
+        "katalogId":1,
+        "katalogName":"Ручки",
         "colorName": "имя color",
         "brandName": "имя brand",
         "articleName": "имя article",
         "postavchik": "xl-01",
-        "photo": "https://s.x-01.ru/images/L7b520988-7af5-4ad3-bd49-b8c20fd8eaae.webp"
+        
     },
     {
         "id": 59,
@@ -159,10 +179,12 @@ const katalog_data2=[
         "markup": 30,
         "cost_total": 145.6,
         "inStock": true,
+        "katalogId":1,
+        "katalogName":"Ручки",
         "colorName": "имя color",
         "brandName": "имя brand",
         "articleName": "имя article",
         "postavchik": "xl-01",
-        "photo": "https://s.x-01.ru/images/L2d30558e-ae4e-42f9-b014-284ffeebd35d.webp"
+       
     }
 ]

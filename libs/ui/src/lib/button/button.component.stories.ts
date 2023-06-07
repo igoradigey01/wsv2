@@ -12,6 +12,7 @@ const meta: Meta<ButtonComponent> = {
    */
   title: 'Button',
   component: ButtonComponent,
+  tags: ['autodocs'],
   argTypes: {
     
     name:{

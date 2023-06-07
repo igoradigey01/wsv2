@@ -5,11 +5,11 @@ import { CartService } from '../_shared/services/cart.service';
 import { CartItemComponent } from "../cart-item/cart-item.component";
 
 @Component({
-  selector: 'sw-cart-list',
+  selector: 'wsv2-cart-list',
   standalone: true,
   template: `
   <div *ngFor="let item of cartItems()">
-     <sw-cart-item [item]='item'></sw-cart-item>
+     <wsv2-cart-item [item]='item'></wsv2-cart-item>
   </div>
   `,
   imports: [NgFor, CartItemComponent]

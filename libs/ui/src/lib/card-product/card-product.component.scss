@@ -1,0 +1,45 @@
+.card {
+    width: 18rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.panel-copy-button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.3rem;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+}
+
+.row-cart{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.3rem;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+
+}
+.cart{
+    background-color: var( --warn-color);
+    color: var(--on-warn-color);
+}
+.title-card {
+    text-align: center;
+    width: 100%;
+}
+
+.list-group{
+    line-height: 1.5em;
+    margin: 5px 0 15px;
+    padding: 0;
+  }
+  
+ .list-item {
+    list-style: none;
+    position: relative;
+    padding: 0 0 0 5px;
+  }
+ .name-item {
+    font-weight:500;
+    font-family : Inter,Roboto,sans-serif;
+  }

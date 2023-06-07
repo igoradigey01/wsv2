@@ -11,6 +11,7 @@ const meta: Meta<KatalogComponent> = {
 
   title: 'Katalog',
   component: KatalogComponent,
+  tags: ['autodocs'],
 
   argTypes: {
     items: {

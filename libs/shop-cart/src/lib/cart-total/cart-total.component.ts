@@ -4,7 +4,7 @@ import { DecimalPipe, NgIf } from '@angular/common';
 import { CartService } from '../_shared/services/cart.service';
 
 @Component({
-  selector: 'sw-cart-total',
+  selector: 'wsv2-cart-total',
   standalone: true,
   imports: [DecimalPipe, NgIf],
   templateUrl: './cart-total.component.html'

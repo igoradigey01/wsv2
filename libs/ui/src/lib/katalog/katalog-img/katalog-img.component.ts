@@ -17,8 +17,9 @@ export class KatalogImgComponent {
   @Input() public flagView = false;
   @Input() public flagOpt = false;
   @Input() public serverUrl = 'https://s.x-01.ru/';
+ // @Input() public serverUrl = 'https://s.x-01.ru/v2';
 
-  @Input() public products =signal<Nomenclature[]>([]);
+  @Input() public products =<Nomenclature[]>[];
 
   @Output() public _onSelectedProduct = new EventEmitter<Nomenclature>();
 
