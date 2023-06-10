@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component,signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Input, Output, EventEmitter } from '@angular/core';
+import { Input } from '@angular/core';
 
 import { AppHeaderLayoutComponent } from '../layout/app-header-layout/app-header-layout.component'
-import { CartShellComponent ,CartService,Nomenclature} from '@wsv2/shop-cart'
+import { CartShellComponent ,CartService} from '@wsv2/shop-cart'
+import {Nomenclature} from '@wsv2/app-common'
 import {DataPresentationService } from '../_shared/servises/data-presentation.service'
 import {katalog_data2} from '../_shared/servises/data-fake2'
 

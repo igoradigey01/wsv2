@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CompanyInformationService } from '@wsv2/app-config'
-import { ISliderImage, ImageSliderComponent } from '@wsv2/app-common'
+import { ISliderImage} from '@wsv2/app-common'
+//import {ImageSliderComponent} from '@wsv2/ui'
 
 
 
@@ -10,11 +11,11 @@ interface GeoObjectConstructor {
 }
 
 @Component({
-  selector: 'app-about',
+  selector: 'wsv2-app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent  {
 
   public condition = true;
   public isActive=true;
@@ -22,10 +23,10 @@ export class AboutComponent implements OnInit {
   public coordinates: number[] |undefined;// = []
   public slideImgs: ISliderImage[] =[];
 
-  public minHeightPhoto ="470"
-  public minWidthPhoto="470"
-  public marginTopSlideBar:string="85" 
-  public marginLeftSlideBar:string="50"
+  public minHeightPhoto ="450"
+  public minWidthPhoto="450"
+  public marginTopSlideBar="85" 
+  public marginLeftSlideBar="50"
 
   
   geoObject: GeoObjectConstructor | undefined;
@@ -37,8 +38,8 @@ export class AboutComponent implements OnInit {
   ) {
     // debugger
      this.slideImgs=repository.company_photo;
-    let x = repository.yandex_point.x;
-    let y = repository.yandex_point.y;
+    const x = repository.yandex_point.x;
+    const y = repository.yandex_point.y;
     this.coordinates = [Number(x), Number(y)]
     this.yandex_zoom=repository.yandex_zoom;
     this.geoObject = {
@@ -70,8 +71,6 @@ export class AboutComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-  }
 
   public toggle() {
     this.condition = !this.condition;

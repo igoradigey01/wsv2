@@ -13,8 +13,9 @@ import { CommonModule } from '@angular/common';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Input, Output, EventEmitter } from '@angular/core';
-import { Nomenclature } from '@wsv2/shop-cart';
-
+import { Nomenclature } from '@wsv2/app-common';
+import {ImageSliderComponent} from '../image-slider/image-slider.component'
+import { ISliderImage } from '@wsv2/app-common';
 
 @Component({
   selector: 'wsv2-card-product',
@@ -26,7 +27,8 @@ import { Nomenclature } from '@wsv2/shop-cart';
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    ImageSliderComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './card-product.component.html',
@@ -71,7 +73,14 @@ export class CardProductComponent {
 
   @Output() public _onBack = new EventEmitter();
   @Output() public addCart = new EventEmitter<Nomenclature>();
+
   public productItem = signal(this._product);
+
+  public get ImgUrls():ISliderImage[]{
+    //return `${this.serverUrl}images/L${this.productItem().guid}.webp`;
+
+    return [];
+  }
 
   public get FullName(): string {
     // replace in new vertion db !!!

@@ -22,27 +22,27 @@ import { interval } from 'rxjs';
   styleUrls: ['./katalog.component.scss'],
 })
 export class KatalogComponent implements OnInit, OnDestroy {
-  @Output() public onSelectButton = new EventEmitter<IButton>();
+  @Output() public _onSelectButton = new EventEmitter<IButton>();
 
   @Input() public items: IButton[] | undefined;
 
   /**
    * Is this visible katalog
    */
-  @Input() public componetVisible: boolean = true;
+  @Input() public componetVisible = true;
 
   /**
    * Is this [] url img for Background katalog
    */
   @Input() public urlBackgroundImgs: string[] | undefined;
 
-  @Input() public flagButtonId: boolean = true;
+  @Input() public flagButtonId = true;
 
-  @Input() public flagButtonOpacity: boolean = true;
+  @Input() public flagButtonOpacity = true;
 
-  @Input() public flagBackgroundImg: boolean = true;
+  @Input() public flagBackgroundImg = true;
 
-  @Input() public timer: number = 10000;
+  @Input() public timer = 10000;
 
   private i = 0;
   private timerId: any;
@@ -58,13 +58,13 @@ export class KatalogComponent implements OnInit, OnDestroy {
         //----------------------if----------------
         if (this.i == this.urlBackgroundImgs.length - 1) {
           j = this.i;
-          let obj1 = 'background-image: url(' + this.urlBackgroundImgs[j] + ');';
+          const obj1 = 'background-image: url(' + this.urlBackgroundImgs[j] + ');';
           this.i = 0;
           return obj1;
         }
         //------------else-----------
         j = this.i;
-        let obj2 = 'background-image: url(' + this.urlBackgroundImgs[j] + ');';
+        const obj2 = 'background-image: url(' + this.urlBackgroundImgs[j] + ');';
         this.i++;
         return obj2;
       } else {
@@ -99,7 +99,7 @@ export class KatalogComponent implements OnInit, OnDestroy {
   }
 
   public onSelectBt(obj: IButton) {
-    this.onSelectButton.emit(obj);
+    this._onSelectButton.emit(obj);
   }
 
   public onBackgroundImg() {

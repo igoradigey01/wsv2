@@ -31,7 +31,14 @@
   
   </mat-card-subtitle>
   </mat-card-header>
+  <wsv2-image-slider
+  [slideImgs]="ImgUrls"
+  >
+
+  </wsv2-image-slider>
+  <!--
   <img mat-card-image src="{{ ImgObj() }}" alt="{{productItem().name}}">
+  -->
   <mat-card-content>
     <div class="card-description ">
     <h5 class="name-item title-card">Описание товара</h5>

@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 
 import  {IndexComponent} from './index/index.component';
+
 //import {PageNotFoundComponent} from '@wsv2/app-common'
 
 
@@ -22,11 +23,11 @@ export const appRoutes: Route[] = [
           loadChildren: () =>
             import('@wsv2/account').then((m) => m.AccountModule)
         },
-        {
-          path: 'cart',              
-          loadComponent: () =>
-            import('@wsv2/shop-cart').then((m) => m.ShopShellComponent)
-        },
+        // {
+        //   path: 'cart',              
+        //   loadComponent: () =>
+        //     import('@wsv2/shop-cart').then((m) => m.ShopShellComponent)
+        // },
         {
           path: 'order',              
           loadComponent: () =>

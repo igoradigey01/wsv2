@@ -1,6 +1,7 @@
 export interface Nomenclature {
   id: number;
   guid: string | undefined;
+  img_guids:string[]|undefined;
   name: string;
   description: string | undefined;
  

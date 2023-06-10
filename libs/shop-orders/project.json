@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shop-orders/src",
   "prefix": "wsv2",
-  "tags": [],
+ 
   "projectType": "library",
   "targets": {
     "test": {
@@ -30,5 +30,9 @@
         ]
       }
     }
-  }
+  },
+  "tags":  [
+    "01app-shop-orders-lib",
+    "type:01-lib"
+  ]
 }

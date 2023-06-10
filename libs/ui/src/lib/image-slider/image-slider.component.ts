@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { ISliderImage } from '../_shared/interfaces/slider-image.model';
+import { ISliderImage } from '@wsv2/app-common';
 
 
 import { CommonModule } from '@angular/common';
@@ -15,24 +15,26 @@ import { CommonModule } from '@angular/common';
 export class ImageSliderComponent implements OnInit, OnDestroy {
 
   @Input() slideImgs: ISliderImage[] = [];
-  @Input() minHeightPhoto:string="300";
-  @Input() minWidthPhoto:string="300"
-  @Input()  marginTopSlideBar:string="85"  // опустить от верха на 85%
-  @Input()  marginLeftSlideBar:string="40"  // отсптупить с лева на 40%(для шести точек 30%)
+  @Input() minHeight="200px";
+  @Input() minWidth="200px"
+  //@Input() height="450px"
+  @Input()  marginTopSlideBar="85%"  // опустить от верха на 85%
+  @Input()  marginLeftSlideBar="40%"  // отсптупить с лева на 40%(для шести точек 30%)
 
 
-  currentIndex: number = 0;
+  currentIndex = 0;
   timeoutId?: number;
 
-  img_bg:string=''
+  img_bg=''
 
   public get  slideStyleObj(){
-    return `background-image: url(${this.img_bg});min-height:${this.minHeightPhoto}px;min-width: ${this.minWidthPhoto}px;`
+    return `background-image: url(${this.img_bg});min-height:${this.minHeight};min-width: ${this.minWidth};`
+    //  ` height: ${this.height} ;`
 
   }
 
   public get dotsContainerStyleObj(){
-    return `margin-left: ${this.marginLeftSlideBar}%; margin-top: ${this.marginTopSlideBar}%;`
+    return `margin-left: ${this.marginLeftSlideBar}; margin-top: ${this.marginTopSlideBar};`
   }
 
   constructor(

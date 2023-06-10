@@ -5,7 +5,7 @@
     <button (click)="toggle()" [ngClass]="{ active: isDeactive }" style="margin-left:2rem;">Фото</button>
   </h3>
 
-  <div *ngIf="condition">
+  <div *ngIf="condition; else photo">
     <div class="yandex-map" *ngIf="coordinates">
       
     
@@ -20,18 +20,19 @@
   
 </div>
   </div>
-  <div *ngIf="!condition">
+  <ng-template #photo>
+    
     <div class="photo-slider" >
       <wsv2-image-slider 
       [slideImgs]="slideImgs"
-      [minHeightPhoto]="minHeightPhoto"
-      [minWidthPhoto]="minWidthPhoto"
+      [minHeight]="minHeightPhoto"
+      [minWidth]="minWidthPhoto"
       [marginTopSlideBar] ="marginTopSlideBar" 
       [marginLeftSlideBar] ="marginLeftSlideBar"  
       ></wsv2-image-slider>
     </div>
     
-  </div>
+  </ng-template>
 
 
  

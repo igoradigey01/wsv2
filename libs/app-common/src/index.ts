@@ -11,5 +11,4 @@ export * from './lib/_shared/interfaces/nomenclature.model';
 
 export * from './lib/_shared/services/theme-scss.services';
 
-export * from './lib/image-slider/image-slider.component';
 export * from './lib/page-not-found/page-not-found.component';

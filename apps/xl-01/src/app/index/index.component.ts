@@ -1,12 +1,12 @@
-import { Component, Signal, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Router} from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout'
 import { MaterialModule } from '../material.module'
 import { RouterModule } from "@angular/router";
-import { CompanyInformationService, MenyItemsService, IMenyItem } from '@wsv2/app-config'
-import { KatalogComponent, IButton, AppHeaderLayoutComponent } from '@wsv2/ui'
-import { UserRole } from '@wsv2/app-common'
+import { CompanyInformationService, MenyItemsService, IMenyItem} from '@wsv2/app-config'
+import { KatalogComponent, AppHeaderLayoutComponent } from '@wsv2/ui'
+import {  UserRole} from '@wsv2/app-common'
 
 
 @Component({
@@ -27,7 +27,7 @@ export class IndexComponent {
 
   private _cartItemsCount = 0; // haader
   
-  _flagPanel: boolean = true; // sidenav 
+  _flagPanel = true; // sidenav 
   _flagSideBarHiden = false; //sidenav
 
 
@@ -39,12 +39,12 @@ export class IndexComponent {
   
 
   title = ''; // not relize
-  public _srcLogo: string = '';
-  public _menuItems: IMenyItem[] = [];
+  public _srcLogo = '';
+  public _menuItems:IMenyItem[] = [];
   public _company_name_1: string | undefined;
-  public _company_name_2: string = ""
-  public _company_phone: string = '';
-  public _company_normalize_phone: string = '';
+  public _company_name_2= ""
+  public _company_phone = '';
+  public _company_normalize_phone = '';
   //public is_shop = true;
   public roleUser: UserRole = UserRole.admin;
 
@@ -70,7 +70,7 @@ export class IndexComponent {
     this.title = repositoryCompanyInformation.company_name;
     this._company_phone = repositoryCompanyInformation.company_phone;
     this._company_normalize_phone = repositoryCompanyInformation.company_normalize_phone;
-    this._menuItems = repositoryMenyItems.shopMenyItems;
+    this._menuItems = repositoryMenyItems.shopMenyItems as IMenyItem[];
   }
 
   public onClickCart(userRole:UserRole){

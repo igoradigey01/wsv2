@@ -96,6 +96,22 @@
                   "type:01-lib"
                 ]
               }
+              ,
+              {
+                "sourceTag": "01app-shop-content-lib",
+                "onlyDependOnLibsWithTags": [
+                  "01app-shop-content-lib",
+                  "type:01-lib"
+                ]
+              }
+              ,
+              {
+                "sourceTag": "01app-shop-orders-lib",
+                "onlyDependOnLibsWithTags": [
+                  "01app-shop-orders-lib",
+                  "type:01-lib"
+                ]
+              }
             ]
           }
         ]

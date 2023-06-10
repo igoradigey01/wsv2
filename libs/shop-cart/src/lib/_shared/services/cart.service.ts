@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { Nomenclature } from '../../../../../app-common/src/lib/_shared/interfaces/nomenclature.model';
+import { Nomenclature } from '@wsv2/app-common';
 import { CartItem } from '../interfaces/cart-item.model';
 
 @Injectable({

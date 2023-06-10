@@ -46,5 +46,8 @@
       }
     }
   },
-  "tags": []
+  "tags": [
+    "01app-shop-content-lib",
+    "type:01-lib"
+  ]
 }

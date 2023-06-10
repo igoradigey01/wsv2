@@ -64,6 +64,16 @@
                 "name": "i",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "data as Nomenclature"
+            },
+            {
+                "name": "i",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -79,6 +89,26 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "katalog_data2 as Nomenclature[]"
+            },
+            {
+                "name": "ImageSliderUI",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  render: (args: ImageSliderComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    minHeight: '500px',\r\n    minWidth : '200px',\r\n    \r\n    marginTopSlideBar: '85%', // опустить от верха на 85%\r\n    marginLeftSlideBar: '40%', //отсптупить с лева на 40%(для шести точек 30%)\r\n     \r\n\r\n    slideImgs: img_urls ,\r\n    //   serverUrl:'https://s.x-01.ru/',\r\n  },\r\n}"
+            },
+            {
+                "name": "img_urls",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "ISliderImage[]",
+                "defaultValue": "[]"
             },
             {
                 "name": "imgs",
@@ -128,7 +158,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CardProductComponent>",
-                "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        flagOpt: {\r\n            name: \"flagOpt\",\r\n            description: \"переключатель оптовая to рознечная цена\"\r\n          },\r\n    },\r\n    //on_back: { action: 'clicked' }\r\n\r\n}"
+                "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        flagOpt: {\r\n            name: \"flagOpt\",\r\n            description: \"переключатель оптовая to рознечная цена\"\r\n          },\r\n    },\r\n  //  add_cart: { action: 'clicked',return  }\r\n\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<ImageSliderComponent>",
+                "defaultValue": "{\r\n  title: 'Card-Product',\r\n  component: ImageSliderComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {},\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
             },
             {
                 "name": "meta",
@@ -199,6 +239,16 @@
                 "deprecationMessage": "",
                 "type": "[]",
                 "defaultValue": "[{\r\n    \"id\": 0,\r\n    \"name\": \"Как заказать?\",\r\n    \"url\": \"menu/kak-zakazat\"\r\n  },\r\n  {\r\n    \"id\": 1,\r\n    \"name\": \"Оплата&Доставка\",\r\n    \"url\": \"menu/oplata-i-dostavka\"\r\n\r\n  },\r\n  {\r\n    \"id\": 2,\r\n    \"name\": \"Гарантии\",\r\n    \"url\": \"menu/garantiya\"\r\n\r\n  },\r\n  {\r\n    \"id\": 3,\r\n    \"name\": \"Как доехать\",\r\n    \"url\": \"menu/about\"\r\n\r\n  }\r\n]"
+            },
+            {
+                "name": "serverUrl",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "string",
+                "defaultValue": "'https://s.x-01.ru/'"
             },
             {
                 "name": "SubKatalogImgUI",
@@ -331,7 +381,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CardProductComponent>",
-                    "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        flagOpt: {\r\n            name: \"flagOpt\",\r\n            description: \"переключатель оптовая to рознечная цена\"\r\n          },\r\n    },\r\n    //on_back: { action: 'clicked' }\r\n\r\n}"
+                    "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        flagOpt: {\r\n            name: \"flagOpt\",\r\n            description: \"переключатель оптовая to рознечная цена\"\r\n          },\r\n    },\r\n  //  add_cart: { action: 'clicked',return  }\r\n\r\n}"
                 }
             ],
             "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts": [
@@ -406,6 +456,58 @@
                     "deprecationMessage": "",
                     "type": "[]",
                     "defaultValue": "[{\r\n    \"id\": 0,\r\n    \"name\": \"Как заказать?\",\r\n    \"url\": \"menu/kak-zakazat\"\r\n  },\r\n  {\r\n    \"id\": 1,\r\n    \"name\": \"Оплата&Доставка\",\r\n    \"url\": \"menu/oplata-i-dostavka\"\r\n\r\n  },\r\n  {\r\n    \"id\": 2,\r\n    \"name\": \"Гарантии\",\r\n    \"url\": \"menu/garantiya\"\r\n\r\n  },\r\n  {\r\n    \"id\": 3,\r\n    \"name\": \"Как доехать\",\r\n    \"url\": \"menu/about\"\r\n\r\n  }\r\n]"
+                }
+            ],
+            "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts": [
+                {
+                    "name": "i",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "data as Nomenclature"
+                },
+                {
+                    "name": "ImageSliderUI",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  render: (args: ImageSliderComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    minHeight: '500px',\r\n    minWidth : '200px',\r\n    \r\n    marginTopSlideBar: '85%', // опустить от верха на 85%\r\n    marginLeftSlideBar: '40%', //отсптупить с лева на 40%(для шести точек 30%)\r\n     \r\n\r\n    slideImgs: img_urls ,\r\n    //   serverUrl:'https://s.x-01.ru/',\r\n  },\r\n}"
+                },
+                {
+                    "name": "img_urls",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ISliderImage[]",
+                    "defaultValue": "[]"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<ImageSliderComponent>",
+                    "defaultValue": "{\r\n  title: 'Card-Product',\r\n  component: ImageSliderComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {},\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
+                },
+                {
+                    "name": "serverUrl",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "defaultValue": "'https://s.x-01.ru/'"
                 }
             ],
             "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts": [
@@ -643,6 +745,56 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "i",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ImageSliderUI",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "img_urls",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "serverUrl",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

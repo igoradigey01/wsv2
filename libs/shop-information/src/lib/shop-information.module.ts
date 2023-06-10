@@ -1,8 +1,12 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { shopInformationRoutes } from './lib.routes';
-import {ImageSliderComponent} from '@wsv2/app-common'
+
+
+
+import {ImageSliderComponent} from '@wsv2/ui'
 import { AboutComponent } from './about/about.component';
 import { KakZakazatComponent } from './kak-zakazat/kak-zakazat.component';
 import { OplataIDostavkaComponent } from './oplata-i-dostavka/oplata-i-dostavka.component';
