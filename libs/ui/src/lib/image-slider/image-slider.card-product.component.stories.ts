@@ -13,10 +13,30 @@ data.img_guids.map(d=>{img_urls.push( {url:`${serverUrl}images/L${d}.webp`,title
 
 
 const meta: Meta<ImageSliderComponent> = {
-  title: 'Card-Product',
+  title: 'ImageSliderUI',
   component: ImageSliderComponent,
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    minHeight: {
+      name: "minHeight",
+      description: "min-height img css - задавать обязательно ,sample '450px' or 'auto' or '15rem' ,задать желательно для каждого "+
+      "@media (min-width: 413px) ,@media (min-width: 768px), @media (min-width:992px)",
+    
+      
+    },
+    minWidth: {
+      name: " minWidth",
+      description: " min-width img css,sample '450px' or 'auto' or '15rem'"
+    },
+    marginTopSlideBar: {
+      name: " marginTopSlideBar",
+      description: "опустить от верха контейнера img на 85%,задавать в %"
+    },
+    marginLeftSlideBar: {
+      name: "marginLeftSlideBar",
+      description: "опустить от верха отсптупить с лева контейнера img на 40%(для шести точек 30%) ,зависит от количества img в [],задавать в %"
+    },
+  },
 
   //  add_cart: { action: 'clicked',return  }
 };

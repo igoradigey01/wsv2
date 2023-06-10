@@ -84,6 +84,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   }
 
   getCurrentSlideUrl() {
+   //debugger
     this.img_bg=this.slideImgs[this.currentIndex].url;
   }
 }

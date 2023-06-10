@@ -23,10 +23,10 @@ export class AboutComponent  {
   public coordinates: number[] |undefined;// = []
   public slideImgs: ISliderImage[] =[];
 
-  public minHeightPhoto ="500"
-  public minWidthPhoto="200"
-  public marginTopSlideBar="85" 
-  public marginLeftSlideBar="50"
+  public minHeightPhoto ="450px"
+  public minWidthPhoto="200px"
+  public marginTopSlideBar="85%" 
+  public marginLeftSlideBar="50%"
 
   
   geoObject: GeoObjectConstructor | undefined;

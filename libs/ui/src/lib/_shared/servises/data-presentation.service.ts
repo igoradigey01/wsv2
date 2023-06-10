@@ -14,7 +14,7 @@ import {
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 //import {katalog_data} from './data-fake'
 
-import { Nomenclature } from '@wsv2/shop-cart';
+import { Nomenclature } from '@wsv2/app-common';
 
 @Injectable({
   providedIn: 'root'
