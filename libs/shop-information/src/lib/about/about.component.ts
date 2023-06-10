@@ -23,8 +23,8 @@ export class AboutComponent  {
   public coordinates: number[] |undefined;// = []
   public slideImgs: ISliderImage[] =[];
 
-  public minHeightPhoto ="450"
-  public minWidthPhoto="450"
+  public minHeightPhoto ="500"
+  public minWidthPhoto="200"
   public marginTopSlideBar="85" 
   public marginLeftSlideBar="50"
 

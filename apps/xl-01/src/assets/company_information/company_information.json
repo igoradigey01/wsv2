@@ -7,8 +7,8 @@
         {"employee":"менеджер","phone":"+7-988-476-18-28","normalize_phone":"+79884761828"}
     ],
     "company_photo":[
-        { "url": "assets/company_information/photo_1.webp", "title": "beach" },
-        {  "url": "assets/company_information/photo_2.webp","title": "boat"}      
+        { "url": "assets/company_information/photo_1.webp", "title": "company photo" },
+        {  "url": "assets/company_information/photo_2.webp","title": "company photo"}      
         ],
     "company_name":"XL01",
     "company_time_create":"2019",
