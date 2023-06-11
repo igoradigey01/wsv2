@@ -164,21 +164,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<ImageSliderComponent>",
-                "defaultValue": "{\r\n  title: 'ImageSliderUI',\r\n  component: ImageSliderComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    minHeight: {\r\n      name: \"minHeight\",\r\n      description: \"min-height img css - задавать обязательно  ,задать желательно для каждого \"+\r\n      \"@media (min-width: 413px) ,@media (min-width: 768px), @media (min-width:992px)\"\r\n    },\r\n    minWidth: {\r\n      name: \" minWidth\",\r\n      description: \" min-width img css,sample '450px' or 'auto' or '15rem'\"\r\n    },\r\n    marginTopSlideBar: {\r\n      name: \" marginTopSlideBar\",\r\n      description: \"опустить от верха контейнера img на 85%,задавать в %\"\r\n    },\r\n    marginLeftSlideBar: {\r\n      name: \"marginLeftSlideBar\",\r\n      description: \"опустить от верха отсптупить с лева контейнера img на 40%(для шести точек 30%) ,зависит от количества img в [],задавать в %\"\r\n    },\r\n  },\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CartPresentationComponent>",
                 "defaultValue": "{\r\n\r\n  title: 'Корзина',\r\n  component: CartPresentationComponent,\r\n  decorators: [\r\n    moduleMetadata({\r\n      imports: [\r\n        HttpClientModule,\r\n       // AppHeaderLayoutComponent\r\n      //  RouterModule\r\n      ],\r\n    }),\r\n  ],\r\n  \r\n \r\n\r\n \r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<ImageSliderComponent>",
+                "defaultValue": "{\r\n  title: 'ImageSliderUI',\r\n  component: ImageSliderComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    minHeight: {\r\n      name: \"minHeight\",\r\n      description: \"min-height img css - задавать обязательно ,sample '450px' or 'auto' or '15rem' ,задать желательно для каждого \"+\r\n      \"@media (min-width: 413px) ,@media (min-width: 768px), @media (min-width:992px)\",\r\n    \r\n      \r\n    },\r\n    minWidth: {\r\n      name: \" minWidth\",\r\n      description: \" min-width img css,sample '450px' or 'auto' or '15rem'\"\r\n    },\r\n    marginTopSlideBar: {\r\n      name: \" marginTopSlideBar\",\r\n      description: \"опустить от верха контейнера img на 85%,задавать в %\"\r\n    },\r\n    marginLeftSlideBar: {\r\n      name: \"marginLeftSlideBar\",\r\n      description: \"опустить от верха отсптупить с лева контейнера img на 40%(для шести точек 30%) ,зависит от количества img в [],задавать в %\"\r\n    },\r\n  },\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
             },
             {
                 "name": "meta",
@@ -204,21 +204,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<KatalogTableComponent>",
-                "defaultValue": "{\r\n\r\n  title: 'Katalog-table',\r\n  component: KatalogTableComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagOpt: {\r\n      name: \"flagView\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n\r\n\r\n\r\n  }\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "libs/ui/src/lib/layout/app-header-layout/app-header-layout.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<AppHeaderLayoutComponent>",
                 "defaultValue": "{\r\n    title: 'Header-Layout',\r\n    component: AppHeaderLayoutComponent,\r\n    decorators: [\r\n      moduleMetadata({\r\n        imports: [\r\n          NoopAnimationsModule,\r\n        //  RouterModule\r\n        ],\r\n      }),\r\n    ],\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n      UserRole: {\r\n        name: \"UserRole\",\r\n        description: \"роль пользователя определяет вид appHeader\",\r\n        options: [0, 1, 2,3,4,5],\r\n\r\n       control: {type: 'select', labels: ['default', 'opt','shoper','shoperOpt','manager','admin']}\r\n\r\n      },\r\n      CartItemsCount:{\r\n        name:\"Корзина\",\r\n        description: \"Количество товара выбранного пользователем\",\r\n        type:\"number\"\r\n\r\n      },\r\n      isShopHeader:{\r\n        name:\"IsShopHeader\",\r\n        description:\"Это витрина магазина или панель admin or manager\"\r\n      },\r\n      /** return this.userRole */\r\n      _onClickCart: { action: 'clicked', return:0 },\r\n      _onClickLogin:{action: 'clicked', return:0},\r\n      _onClickLogof:{action: 'clicked', return:0},\r\n      _onClickOrder:{action: 'clicked', return:0},\r\n      _onClickOptPrice:{action: 'clicked', return:0},\r\n      _onClickNotOptPrice:{action: 'clicked', return:0},\r\n      _onClickManager:{action: 'clicked', return:0},\r\n      _onClickAdmin:{action: 'clicked', return:0},\r\n      _onClickGoAppShop:{action: 'clicked', return:0},\r\n\r\n\r\n    }\r\n\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<KatalogTableComponent>",
+                "defaultValue": "{\r\n\r\n  title: 'Katalog-table',\r\n  component: KatalogTableComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagOpt: {\r\n      name: \"flagView\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n\r\n\r\n\r\n  }\r\n}"
             },
             {
                 "name": "repozitoryMenyManager",
@@ -497,7 +497,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ImageSliderComponent>",
-                    "defaultValue": "{\r\n  title: 'ImageSliderUI',\r\n  component: ImageSliderComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    minHeight: {\r\n      name: \"minHeight\",\r\n      description: \"min-height img css - задавать обязательно  ,задать желательно для каждого \"+\r\n      \"@media (min-width: 413px) ,@media (min-width: 768px), @media (min-width:992px)\"\r\n    },\r\n    minWidth: {\r\n      name: \" minWidth\",\r\n      description: \" min-width img css,sample '450px' or 'auto' or '15rem'\"\r\n    },\r\n    marginTopSlideBar: {\r\n      name: \" marginTopSlideBar\",\r\n      description: \"опустить от верха контейнера img на 85%,задавать в %\"\r\n    },\r\n    marginLeftSlideBar: {\r\n      name: \"marginLeftSlideBar\",\r\n      description: \"опустить от верха отсптупить с лева контейнера img на 40%(для шести точек 30%) ,зависит от количества img в [],задавать в %\"\r\n    },\r\n  },\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
+                    "defaultValue": "{\r\n  title: 'ImageSliderUI',\r\n  component: ImageSliderComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    minHeight: {\r\n      name: \"minHeight\",\r\n      description: \"min-height img css - задавать обязательно ,sample '450px' or 'auto' or '15rem' ,задать желательно для каждого \"+\r\n      \"@media (min-width: 413px) ,@media (min-width: 768px), @media (min-width:992px)\",\r\n    \r\n      \r\n    },\r\n    minWidth: {\r\n      name: \" minWidth\",\r\n      description: \" min-width img css,sample '450px' or 'auto' or '15rem'\"\r\n    },\r\n    marginTopSlideBar: {\r\n      name: \" marginTopSlideBar\",\r\n      description: \"опустить от верха контейнера img на 85%,задавать в %\"\r\n    },\r\n    marginLeftSlideBar: {\r\n      name: \"marginLeftSlideBar\",\r\n      description: \"опустить от верха отсптупить с лева контейнера img на 40%(для шести точек 30%) ,зависит от количества img в [],задавать в %\"\r\n    },\r\n  },\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
                 },
                 {
                     "name": "serverUrl",
