@@ -1,20 +1,21 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  OnInit,
   signal,
- 
+
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatListModule} from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { Nomenclature } from '@wsv2/app-common';
-import {ImageSliderComponent} from '../image-slider/image-slider.component'
+import { ImageSliderComponent } from '../image-slider/image-slider.component'
 import { ISliderImage } from '@wsv2/app-common';
 
 @Component({
@@ -34,11 +35,12 @@ import { ISliderImage } from '@wsv2/app-common';
   templateUrl: './card-product.component.html',
   styleUrls: ['./card-product.component.scss'],
 })
-export class CardProductComponent {
+export class CardProductComponent implements OnInit {
 
   private _product = <Nomenclature>{
     id: -1,
     guid: '',
+    img_guids: <string[]>[],
     name: '',
     description: '',
     price: -1,
@@ -53,7 +55,7 @@ export class CardProductComponent {
     postavchik: '',
   };
 
-  @Input()  public katalog_name: string | undefined;
+  @Input() public katalog_name: string | undefined;
   // _product =signal<Nomenclature ,undefined>(undefined);
 
   @Input()
@@ -72,14 +74,23 @@ export class CardProductComponent {
   @Input() public katalogURL: string | undefined;
 
   @Output() public _onBack = new EventEmitter();
+  @Output() public _onQRCode = new EventEmitter();
   @Output() public addCart = new EventEmitter<Nomenclature>();
+  
 
   public productItem = signal(this._product);
 
-  public get ImgUrls():ISliderImage[]{
-    //return `${this.serverUrl}images/L${this.productItem().guid}.webp`;
+  public get ImgUrls(): ISliderImage[] {
 
-    return [];
+    const img_urls: ISliderImage[] = [];
+
+    const guis = this.productItem().img_guids;
+    if (guis) {
+      guis.map(d => { img_urls.push({ url: `${this.serverUrl}images/L${d}.webp`, title: '' }) });
+
+    }
+
+    return img_urls;
   }
 
   public get FullName(): string {
@@ -98,12 +109,26 @@ export class CardProductComponent {
   }
 
   constructor(private clipboard: Clipboard) //private cd: ChangeDetectorRef
-  {}
+  { }
 
-  // public ngOnChanges(changes: SimpleChanges) {
-  // //  this.productItem.set(this._product);
+  ngOnInit() {
+    this.productItem.mutate(d => { this.addImgToArry(d.img_guids, d.guid) })
 
-  // }
+  }
+
+  private addImgToArry(arry: string[] | undefined, img_guid: string | undefined) {
+    if (!img_guid) return;
+    if (arry) {
+      arry.unshift(img_guid);
+
+    } else {
+      arry = <string[]>[];
+      arry.push(img_guid);
+
+    }
+
+  }
+
 
   public copyLinkP() {
     if (this.productURL) this.clipboard.copy(this.productURL);
@@ -124,7 +149,11 @@ export class CardProductComponent {
     this._onBack.emit();
   }
 
-  public add_cart(){
+  public on_qr_code() {
+    this._onQRCode.emit();
+  }
+
+  public add_cart() {
     this.addCart.emit(this.productItem());
 
   }

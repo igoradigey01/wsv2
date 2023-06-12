@@ -1,10 +1,10 @@
-<p>card-product works!</p>
-<mat-card class="card">
+
+<mat-card class="card" >
   <div class="panel-copy-button">
 
-    <button class="btn btn-link"  (click)="copyLinkK()"  >
+    <button   (click)="copyLinkK()"  >
       <mat-icon aria-hidden="false" aria-label="copy katalog link">content_copy</mat-icon>K</button>
-    <button class="btn btn-link" (click)="copyLinkP()" >
+    <button (click)="copyLinkP()" >
       <mat-icon aria-hidden="false" aria-label="copy nomenclature link">content_copy</mat-icon>T</button>
   </div>
   <mat-card-title class="title-card">{{katalog_name}}</mat-card-title>
@@ -33,6 +33,9 @@
   </mat-card-header>
   <wsv2-image-slider
   [slideImgs]="ImgUrls"
+  [minHeight]="'19rem'"
+  [marginTopSlideBar]="'85%'"
+  [marginLeftSlideBar]="'30%'"
   >
 
   </wsv2-image-slider>
@@ -60,11 +63,17 @@
             <ng-template #opt> Ц:{{ productItem().price }} </ng-template>
     </li>
   </ul>
+
+  <div class="panel-card-action">
+      
+    <button (click)="on_back()" class="btn-link" mat-button>Назад</button>
+
+  
+    <button (click)="on_qr_code()" class="btn-link" mat-button>QR Code</button>
+  
+  </div>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
+  
 </mat-card>
 
 <!-----------------------end card-------------------->

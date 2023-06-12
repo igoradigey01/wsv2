@@ -28,7 +28,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\r\n    render: (args: CardProductComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n       \r\n        flagOpt:false,\r\n        katalog_name:\"Ручки\",\r\n        productURL:'https://xf-01.ru/content/opt/optkatalog/optnomenclature/48',\r\n        katalogURL:'https://xf-01.ru/content/opt/optkatalog/1',\r\n        serverUrl:'https://s.x-01.ru/',\r\n     \r\n       \r\n        product:i[0]\r\n\r\n    }\r\n\r\n}"
+                "defaultValue": "{\r\n    render: (args: CardProductComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n       \r\n        flagOpt:false,\r\n        katalog_name:\"Ручки\",\r\n        productURL:'https://xf-01.ru/content/opt/optkatalog/optnomenclature/48',\r\n        katalogURL:'https://xf-01.ru/content/opt/optkatalog/1',\r\n        serverUrl:'https://s.x-01.ru/',\r\n     \r\n        product:i\r\n\r\n    }\r\n\r\n}"
             },
             {
                 "name": "CartPresentationUI",
@@ -58,7 +58,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "katalog_data2 as Nomenclature[]"
+                "defaultValue": "data as Nomenclature"
             },
             {
                 "name": "i",
@@ -361,7 +361,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\r\n    render: (args: CardProductComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n       \r\n        flagOpt:false,\r\n        katalog_name:\"Ручки\",\r\n        productURL:'https://xf-01.ru/content/opt/optkatalog/optnomenclature/48',\r\n        katalogURL:'https://xf-01.ru/content/opt/optkatalog/1',\r\n        serverUrl:'https://s.x-01.ru/',\r\n     \r\n       \r\n        product:i[0]\r\n\r\n    }\r\n\r\n}"
+                    "defaultValue": "{\r\n    render: (args: CardProductComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n       \r\n        flagOpt:false,\r\n        katalog_name:\"Ручки\",\r\n        productURL:'https://xf-01.ru/content/opt/optkatalog/optnomenclature/48',\r\n        katalogURL:'https://xf-01.ru/content/opt/optkatalog/1',\r\n        serverUrl:'https://s.x-01.ru/',\r\n     \r\n        product:i\r\n\r\n    }\r\n\r\n}"
                 },
                 {
                     "name": "i",
@@ -371,7 +371,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "katalog_data2 as Nomenclature[]"
+                    "defaultValue": "data as Nomenclature"
                 },
                 {
                     "name": "meta",
