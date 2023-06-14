@@ -1,0 +1,33 @@
+<div class="card">
+
+  <div *ngIf="flagShowQrKatlog">
+    <h4 class="title-card " >QR Каталог</h4>
+    <div class="qr-img" *ngIf="KatalogURL">
+
+      <qr-code id="printK" value={{KatalogURL}} size="250" errorCorrectionLevel="Q"></qr-code>
+
+
+    </div>
+    <div class="panel-card-action">
+
+      <button mat-button  (click)="printQrKtalog()">Печать</button>
+      <button mat-button  (click)="downloadQrKtalog()">Скачать</button>
+    </div>
+
+  </div>
+
+
+
+
+  <h4 class="title-card">QR Товар</h4>
+
+  <div class="qr-img">
+    <qr-code value={{NomenclatureURL}} size="250" errorCorrectionLevel="Q"></qr-code>
+  </div>
+  <div class="panel-card-action">
+
+    <button mat-button  (click)="printQrNomenclature()">Печать</button>
+    <button mat-button (click)="downloadQrNomenclature()">Скачать</button>
+  </div>
+
+</div>

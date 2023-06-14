@@ -22,6 +22,7 @@
       "@wsv2/app-config": ["libs/app-config/src/index.ts"],
       "@wsv2/app-layout": ["libs/app-layout/src/index.ts"],
       "@wsv2/app-styles": ["libs/app-styles/src/index.ts"],
+      "@wsv2/js-pdf": ["libs/js-pdf/src/index.ts"],
       "@wsv2/manage-page": ["libs/manage-page/src/index.ts"],
       "@wsv2/my-styles-library": ["libs/my-styles-library/src/index.ts"],
       "@wsv2/shop-cart": ["libs/shop-cart/src/index.ts"],

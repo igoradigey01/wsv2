@@ -1,0 +1,51 @@
+{
+  "name": "js-pdf",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/js-pdf/src",
+  "prefix": "wsv2",
+ 
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/js-pdf/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/js-pdf/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/js-pdf/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/js-pdf/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/js-pdf/**/*.ts", "libs/js-pdf/**/*.html"]
+      }
+    }
+  },
+  "tags":  [
+    "01app-js-pdf-lib",
+    "type:01-lib"
+  ]
+}

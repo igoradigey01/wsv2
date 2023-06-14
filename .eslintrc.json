@@ -112,6 +112,14 @@
                   "type:01-lib"
                 ]
               }
+              ,
+              {
+                "sourceTag": "01app-js-pdf-lib",
+                "onlyDependOnLibsWithTags": [
+                  "01app-js-pdf-lib",
+                  "type:01-lib"
+                ]
+              }
             ]
           }
         ]

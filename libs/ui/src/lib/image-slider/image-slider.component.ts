@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/core';
 
 import { ISliderImage } from '@wsv2/app-common';
 
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   selector: 'wsv2-image-slider',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './image-slider.component.html',
   styleUrls: ['./image-slider.component.scss'],
 })

@@ -20,6 +20,8 @@
     "@nx/angular": "16.2.1",
     "angular8-yandex-maps": "^16.0.0",
     "i": "^0.3.7",
+    "jspdf": "^2.5.1",
+    "ng-qrcode": "^16.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rxjs": "~7.8.0",
