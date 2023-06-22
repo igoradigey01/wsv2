@@ -7,10 +7,10 @@
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 2h14v14H2V2m20 6v14H8v-4h10V8h4M4 4v10h10V4H4Z"/></svg>  
 </button> 
 </div>
-  <div *ngIf="items">
+  <div *ngIf="katalogItems().length>0">
     <div class="grid-container">
       
-        <div *ngFor="let item of items" style="margin-left: auto; margin-right: auto;">
+        <div *ngFor="let item of katalogItems()" style="margin-left: auto; margin-right: auto;">
          
             <wsv2-button
                [id]="item.id"

@@ -4,6 +4,7 @@ import {
   OnDestroy,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  signal
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
@@ -24,7 +25,16 @@ import { interval } from 'rxjs';
 export class KatalogComponent implements OnInit, OnDestroy {
   @Output() public _onSelectButton = new EventEmitter<IButton>();
 
-  @Input() public items: IButton[] | undefined;
+ private _items =<IButton[]>[] ;
+
+  @Input()
+  set items(value: IButton[]) {
+   this._items = value;
+    this.katalogItems.set(this._items);
+
+    //console.log(value);
+  }
+  public katalogItems = signal(this._items);
 
   /**
    * Is this visible katalog
@@ -83,7 +93,7 @@ export class KatalogComponent implements OnInit, OnDestroy {
       const source = interval(this.timer);
       //output: 0,1,2,3,4,5....
       this.subscription_timer = source.subscribe((val) => {
-        console.log("--i time-interval --" + this.i);
+        //console.log("--i time-interval --" + this.i);
         this.slideStyleObj;
         this.cd.detectChanges(); // проверить измениения в компоненте
       });
@@ -91,7 +101,7 @@ export class KatalogComponent implements OnInit, OnDestroy {
     }
 
     this.slideStyleObj;
-    console.log("--i not-tim-interval --" + this.i);
+    //console.log("--i not-tim-interval --" + this.i);
   }
 
   ngOnDestroy() {

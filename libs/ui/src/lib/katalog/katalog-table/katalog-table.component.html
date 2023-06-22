@@ -11,7 +11,7 @@
       <div>images</div>
 
       <!-- start model view-->
-      <ng-template ngFor let-item [ngForOf]="products" let-i="index">
+      <ng-template ngFor let-item [ngForOf]="productItems()" let-i="index">
         <div [ngClass]="{ 'row-grid': i % 2 === 0 }" (click)="changeProduct(item)">
           {{ item.name }}
         </div>

@@ -34,7 +34,7 @@ const meta: Meta< KatalogImgComponent> = {
       description: "переключатель img to card_img"
     },
     flagOpt: {
-      name: "flagView",
+      name: "flagOpt",
       description: "переключатель оптовая to рознечная цена"
     },
     

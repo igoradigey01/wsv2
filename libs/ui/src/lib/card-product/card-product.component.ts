@@ -65,6 +65,7 @@ export class CardProductComponent implements OnInit {
 
     //console.log(value);
   }
+  public productItem = signal(this._product);
 
   @Input() public flagOpt = false;
 
@@ -78,7 +79,7 @@ export class CardProductComponent implements OnInit {
   @Output() public addCart = new EventEmitter<Nomenclature>();
   
 
-  public productItem = signal(this._product);
+  
 
   public get ImgUrls(): ISliderImage[] {
 

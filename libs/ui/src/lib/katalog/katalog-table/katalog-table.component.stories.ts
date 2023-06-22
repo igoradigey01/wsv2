@@ -15,7 +15,7 @@ const meta: Meta<KatalogTableComponent> = {
 
   argTypes: {
     flagOpt: {
-      name: "flagView",
+      name: "flagOpt",
       description: "переключатель оптовая to рознечная цена"
     },
     

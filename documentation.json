@@ -74,17 +74,7 @@
                 "name": "i",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "data as Nomenclature"
-            },
-            {
-                "name": "i",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
+                "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -94,7 +84,7 @@
                 "name": "i",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -118,23 +108,13 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\r\n  render: (args: QrCodeComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    nomenclatureURL: 'https://xf-01.ru/content/categoria/katalog/1?katalog=%D0%A0%D1%83%D1%87%D0%BA%D0%B8',\r\n    katalogURL : 'https://xf-01.ru/content/categoria/katalog/1?katalog=%D0%A0%D1%83%D1%87%D0%BA%D0%B8',\r\n    productName: 'С15 Серебро 160',\r\n    katalogName: 'РУЧКИ',\r\n    \r\n    flagShowQrKatlog: true\r\n  },\r\n}"
+                "defaultValue": "{\r\n  render: (args: QrCodeComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    productURL: 'https://xf-01.ru/content/categoria/katalog/1?katalog=%D0%A0%D1%83%D1%87%D0%BA%D0%B8',\r\n    katalogURL : 'https://xf-01.ru/content/categoria/katalog/1?katalog=%D0%A0%D1%83%D1%87%D0%BA%D0%B8',\r\n    productName: 'С15 Серебро 160',\r\n    katalogName: 'РУЧКИ',\r\n    \r\n    flagShowQrKatlog: true\r\n  },\r\n}"
             },
             {
                 "name": "img_urls",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "ISliderImage[]",
-                "defaultValue": "[]"
-            },
-            {
-                "name": "img_urls",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "ISliderImage[]",
@@ -174,16 +154,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/button/button.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<ButtonComponent>",
-                "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    \r\n    name:{\r\n      name: 'label',\r\n    //  defaultValue: 'Hello',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    },\r\n    id:{\r\n      id:'ID',\r\n      type:'number'\r\n\r\n    }\r\n    , \r\n    flagButtonId:{\r\n      name:\"visible id\",\r\n      type:\"boolean\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n    }\r\n    ,\r\n    onBtClick: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} },\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "libs/ui/src/lib/card-product/card-product.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -214,21 +184,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
+                "file": "libs/ui/src/lib/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<QrCodeComponent>",
-                "defaultValue": "{\r\n  title: 'QrCodeComponentUI',\r\n  component: QrCodeComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    productURL: {\r\n      name: \"productURL\",\r\n      description: \"link on prduct\",\r\n    \r\n      \r\n    },\r\n    katalogURL: {\r\n      name: \"katalogURL\",\r\n      description: \" link on catalog\"\r\n    },\r\n    productName: {\r\n      name: \"productName\",\r\n      description: \" название товара\"\r\n    },\r\n    katalogName: {\r\n      name: \"katalogName\",\r\n      description: \"название каталога в ктором находится товар\"\r\n    },\r\n    flagShowQrKatlog: {\r\n      name: \"  flagShowQrKatlog\",\r\n      description: \"видимость Qr каталога\"\r\n    }\r\n  },\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
+                "type": "Meta<ButtonComponent>",
+                "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    \r\n    name:{\r\n      name: 'label',\r\n    //  defaultValue: 'Hello',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    },\r\n    id:{\r\n      id:'ID',\r\n      type:'number'\r\n\r\n    }\r\n    , \r\n    flagButtonId:{\r\n      name:\"visible id\",\r\n      type:\"boolean\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n    }\r\n    ,\r\n    onBtClick: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} },\r\n}"
             },
             {
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
+                "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<KatalogComponent>",
-                "defaultValue": "{\r\n\r\n  title: 'Katalog',\r\n  component: KatalogComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    items: {\r\n      name: \"Items\",\r\n      description: \" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible: {\r\n      name: \"Visible\",\r\n      description: \"displey:block or none this component\"\r\n\r\n    },\r\n    urlBackgroundImgs: {\r\n      name: \"background img\",\r\n      description: \"path for background img this componet\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n\r\n    },\r\n    flagBackgroundImg: {\r\n      name: \"flag show background-img\",\r\n      type:\"boolean\"\r\n    },\r\n    onSelectBt: { action: 'clicked', return: { id: \"10\", name: \"название категории\" } }\r\n\r\n\r\n\r\n\r\n  }\r\n}"
+                "type": "Meta<QrCodeComponent>",
+                "defaultValue": "{\r\n  title: 'QrCodeComponentUI',\r\n  component: QrCodeComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    productURL: {\r\n      name: \"productURL\",\r\n      description: \"link on prduct\",\r\n    \r\n      \r\n    },\r\n    katalogURL: {\r\n      name: \"katalogURL\",\r\n      description: \" link on catalog\"\r\n    },\r\n    productName: {\r\n      name: \"productName\",\r\n      description: \" название товара\"\r\n    },\r\n    katalogName: {\r\n      name: \"katalogName\",\r\n      description: \"название каталога в ктором находится товар\"\r\n    },\r\n    flagShowQrKatlog: {\r\n      name: \"  flagShowQrKatlog\",\r\n      description: \"видимость Qr каталога\"\r\n    }\r\n  },\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
             },
             {
                 "name": "meta",
@@ -244,11 +214,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
+                "file": "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<KatalogTableComponent>",
-                "defaultValue": "{\r\n\r\n  title: 'Katalog-table',\r\n  component: KatalogTableComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagOpt: {\r\n      name: \"flagView\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n\r\n\r\n\r\n  }\r\n}"
+                "type": "Meta<KatalogComponent>",
+                "defaultValue": "{\r\n\r\n  title: 'Katalog',\r\n  component: KatalogComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    items: {\r\n      name: \"Items\",\r\n      description: \" Массив имён подкаталогов или названий товара в формате item:IButton\"\r\n    },\r\n    componetVisible: {\r\n      name: \"Visible\",\r\n      description: \"displey:block or none this component\"\r\n\r\n    },\r\n    urlBackgroundImgs: {\r\n      name: \"background img\",\r\n      description: \"path for background img this componet\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n\r\n    },\r\n    flagBackgroundImg: {\r\n      name: \"flag show background-img\",\r\n      type:\"boolean\"\r\n    },\r\n    onSelectBt: { action: 'clicked', return: { id: \"10\", name: \"название категории\" } }\r\n\r\n\r\n\r\n\r\n  }\r\n}"
             },
             {
                 "name": "meta",
@@ -258,7 +228,17 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<KatalogImgComponent>",
-                "defaultValue": "{\r\n\r\n  title: 'Katalog-img',\r\n  component:  KatalogImgComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagView: {\r\n      name: \"flagView\",\r\n      description: \"переключатель img to card_img\"\r\n    },\r\n    flagOpt: {\r\n      name: \"flagView\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n  },\r\n  // decorators: [\r\n  //   moduleMetadata({\r\n  //     imports: [\r\n        \r\n  //     ],\r\n  //     providers: [\r\n  //       {\r\n  //         provide: APP_INITIALIZER,\r\n  //         useFactory: myServiceFactory,\r\n  //         deps: [DataPresentationService]\r\n  //       }\r\n  //     ]\r\n  //   })\r\n  // ]\r\n}"
+                "defaultValue": "{\r\n\r\n  title: 'Katalog-img',\r\n  component:  KatalogImgComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagView: {\r\n      name: \"flagView\",\r\n      description: \"переключатель img to card_img\"\r\n    },\r\n    flagOpt: {\r\n      name: \"flagOpt\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n  },\r\n  // decorators: [\r\n  //   moduleMetadata({\r\n  //     imports: [\r\n        \r\n  //     ],\r\n  //     providers: [\r\n  //       {\r\n  //         provide: APP_INITIALIZER,\r\n  //         useFactory: myServiceFactory,\r\n  //         deps: [DataPresentationService]\r\n  //       }\r\n  //     ]\r\n  //   })\r\n  // ]\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<KatalogTableComponent>",
+                "defaultValue": "{\r\n\r\n  title: 'Katalog-table',\r\n  component: KatalogTableComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagOpt: {\r\n      name: \"flagOpt\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n\r\n\r\n\r\n  }\r\n}"
             },
             {
                 "name": "repozitoryMenyManager",
@@ -285,16 +265,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "string",
-                "defaultValue": "'https://s.x-01.ru/'"
-            },
-            {
-                "name": "serverUrl",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "string",
@@ -359,8 +329,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<KatalogTableComponent>",
-                "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
+                "rawtype": "StoryObj<KatalogImgComponent>",
+                "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -370,8 +340,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<KatalogImgComponent>",
-                "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                "rawtype": "StoryObj<KatalogTableComponent>",
+                "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -560,56 +530,36 @@
                     "defaultValue": "'https://s.x-01.ru/'"
                 }
             ],
-            "libs/ui/src/lib/qr-code/qr-code.component.stories.ts": [
+            "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts": [
                 {
                     "name": "i",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
+                    "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "data as Nomenclature"
-                },
-                {
-                    "name": "ImageSliderUI",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\r\n  render: (args: QrCodeComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    nomenclatureURL: 'https://xf-01.ru/content/categoria/katalog/1?katalog=%D0%A0%D1%83%D1%87%D0%BA%D0%B8',\r\n    katalogURL : 'https://xf-01.ru/content/categoria/katalog/1?katalog=%D0%A0%D1%83%D1%87%D0%BA%D0%B8',\r\n    productName: 'С15 Серебро 160',\r\n    katalogName: 'РУЧКИ',\r\n    \r\n    flagShowQrKatlog: true\r\n  },\r\n}"
-                },
-                {
-                    "name": "img_urls",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "ISliderImage[]",
-                    "defaultValue": "[]"
+                    "defaultValue": "katalog_data2 as Nomenclature[]"
                 },
                 {
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
+                    "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Meta<QrCodeComponent>",
-                    "defaultValue": "{\r\n  title: 'QrCodeComponentUI',\r\n  component: QrCodeComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    productURL: {\r\n      name: \"productURL\",\r\n      description: \"link on prduct\",\r\n    \r\n      \r\n    },\r\n    katalogURL: {\r\n      name: \"katalogURL\",\r\n      description: \" link on catalog\"\r\n    },\r\n    productName: {\r\n      name: \"productName\",\r\n      description: \" название товара\"\r\n    },\r\n    katalogName: {\r\n      name: \"katalogName\",\r\n      description: \"название каталога в ктором находится товар\"\r\n    },\r\n    flagShowQrKatlog: {\r\n      name: \"  flagShowQrKatlog\",\r\n      description: \"видимость Qr каталога\"\r\n    }\r\n  },\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
+                    "type": "Meta<KatalogImgComponent>",
+                    "defaultValue": "{\r\n\r\n  title: 'Katalog-img',\r\n  component:  KatalogImgComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagView: {\r\n      name: \"flagView\",\r\n      description: \"переключатель img to card_img\"\r\n    },\r\n    flagOpt: {\r\n      name: \"flagOpt\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n  },\r\n  // decorators: [\r\n  //   moduleMetadata({\r\n  //     imports: [\r\n        \r\n  //     ],\r\n  //     providers: [\r\n  //       {\r\n  //         provide: APP_INITIALIZER,\r\n  //         useFactory: myServiceFactory,\r\n  //         deps: [DataPresentationService]\r\n  //       }\r\n  //     ]\r\n  //   })\r\n  // ]\r\n}"
                 },
                 {
-                    "name": "serverUrl",
+                    "name": "SubKatalogImgUI",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
+                    "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "string",
-                    "defaultValue": "'https://s.x-01.ru/'"
+                    "type": "Story",
+                    "defaultValue": "{\r\n  args: {\r\n    flagView:false,\r\n    flagOpt:false,\r\n    serverUrl:'https://s.x-01.ru/',\r\n   \r\n    products:i\r\n  \r\n  },\r\n\r\n}"
                 }
             ],
             "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts": [
@@ -631,7 +581,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<KatalogTableComponent>",
-                    "defaultValue": "{\r\n\r\n  title: 'Katalog-table',\r\n  component: KatalogTableComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagOpt: {\r\n      name: \"flagView\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n\r\n\r\n\r\n  }\r\n}"
+                    "defaultValue": "{\r\n\r\n  title: 'Katalog-table',\r\n  component: KatalogTableComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagOpt: {\r\n      name: \"flagOpt\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n\r\n\r\n\r\n  }\r\n}"
                 },
                 {
                     "name": "SubKatalogTableUI",
@@ -644,36 +594,26 @@
                     "defaultValue": "{\r\n  args: {\r\n   \r\n    flagOpt:false,\r\n    serverUrl:'https://s.x-01.ru/',\r\n   \r\n    products:i\r\n \r\n  },\r\n\r\n}"
                 }
             ],
-            "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts": [
+            "libs/ui/src/lib/qr-code/qr-code.component.stories.ts": [
                 {
-                    "name": "i",
+                    "name": "ImageSliderUI",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                    "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "katalog_data2 as Nomenclature[]"
+                    "type": "object",
+                    "defaultValue": "{\r\n  render: (args: QrCodeComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    productURL: 'https://xf-01.ru/content/categoria/katalog/1?katalog=%D0%A0%D1%83%D1%87%D0%BA%D0%B8',\r\n    katalogURL : 'https://xf-01.ru/content/categoria/katalog/1?katalog=%D0%A0%D1%83%D1%87%D0%BA%D0%B8',\r\n    productName: 'С15 Серебро 160',\r\n    katalogName: 'РУЧКИ',\r\n    \r\n    flagShowQrKatlog: true\r\n  },\r\n}"
                 },
                 {
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                    "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Meta<KatalogImgComponent>",
-                    "defaultValue": "{\r\n\r\n  title: 'Katalog-img',\r\n  component:  KatalogImgComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagView: {\r\n      name: \"flagView\",\r\n      description: \"переключатель img to card_img\"\r\n    },\r\n    flagOpt: {\r\n      name: \"flagView\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n  },\r\n  // decorators: [\r\n  //   moduleMetadata({\r\n  //     imports: [\r\n        \r\n  //     ],\r\n  //     providers: [\r\n  //       {\r\n  //         provide: APP_INITIALIZER,\r\n  //         useFactory: myServiceFactory,\r\n  //         deps: [DataPresentationService]\r\n  //       }\r\n  //     ]\r\n  //   })\r\n  // ]\r\n}"
-                },
-                {
-                    "name": "SubKatalogImgUI",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    flagView:false,\r\n    flagOpt:false,\r\n    serverUrl:'https://s.x-01.ru/',\r\n   \r\n    products:i\r\n  \r\n  },\r\n\r\n}"
+                    "type": "Meta<QrCodeComponent>",
+                    "defaultValue": "{\r\n  title: 'QrCodeComponentUI',\r\n  component: QrCodeComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    productURL: {\r\n      name: \"productURL\",\r\n      description: \"link on prduct\",\r\n    \r\n      \r\n    },\r\n    katalogURL: {\r\n      name: \"katalogURL\",\r\n      description: \" link on catalog\"\r\n    },\r\n    productName: {\r\n      name: \"productName\",\r\n      description: \" название товара\"\r\n    },\r\n    katalogName: {\r\n      name: \"katalogName\",\r\n      description: \"название каталога в ктором находится товар\"\r\n    },\r\n    flagShowQrKatlog: {\r\n      name: \"  flagShowQrKatlog\",\r\n      description: \"видимость Qr каталога\"\r\n    }\r\n  },\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
                 }
             ],
             "libs/ui/src/lib/katalog/katalog-button/katalog.component.stories.ts": [
@@ -748,19 +688,6 @@
                     "kind": 177
                 }
             ],
-            "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<KatalogTableComponent>",
-                    "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 177
-                }
-            ],
             "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts": [
                 {
                     "name": "Story",
@@ -768,6 +695,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<KatalogImgComponent>",
                     "file": "libs/ui/src/lib/katalog/katalog-img/katalog-img.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 177
+                }
+            ],
+            "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<KatalogTableComponent>",
+                    "file": "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1056,16 +996,6 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "i",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
                 "name": "ImageSliderUI",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
@@ -1076,27 +1006,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "img_urls",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
                 "name": "meta",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "serverUrl",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
