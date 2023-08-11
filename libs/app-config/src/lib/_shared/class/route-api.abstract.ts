@@ -4,7 +4,7 @@ import { IEnvironment } from '../interfaces/environment.model';
 export abstract class RouteApiAbstract {
   private _serverAuthority: string | undefined;
   private _serverUri:string|undefined;
-  private _controller: string = '';
+  private _controller = '';
   private _action: string | null = null;
   private _id: number | null = null;
   private _clientId: string | undefined;
@@ -73,7 +73,7 @@ export abstract class RouteApiAbstract {
     else throw new Error(' Environment : serverUri -undefined'); //return 'undefined';
   }
   public get AuthUrl(): string {
-    debugger
+    //debugger
     if (this._serverAuthority)
       return this.createCompleteRoute(
         this._serverAuthority,

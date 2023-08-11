@@ -1,8 +1,10 @@
 
 export interface LoginDto {
 
-  email: string;
+  email?: string;
+  phone?:string;
   password: string;
+  spaId:string; 
   rememberMe:boolean;
 
 }

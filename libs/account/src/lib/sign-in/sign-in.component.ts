@@ -6,13 +6,13 @@ import {
 } from '@angular/core';
 import {
   SocialAuthService,
-  VKLoginProvider,
-  GoogleLoginProvider,
+  // VKLoginProvider,
+  // GoogleLoginProvider,
   SocialUser,
 } from '@abacritt/angularx-social-login';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormControl, NgForm } from '@angular/forms';
+import {  NgForm } from '@angular/forms';
 import { UserManagerService } from '@wsv2/account-service';
 import { AccountService } from '../_shared/services/account.service';
 import { Subscription } from 'rxjs';
@@ -30,7 +30,7 @@ import {VkLoginWidgetService} from '../_shared/services/vk-login-widger.service'
 //https://github.com/abacritt/angularx-social-login
 
 @Component({
-  selector: 'app-sign-in',
+  selector: '@wsv2-app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
   providers: [],
@@ -46,10 +46,11 @@ export class SignInComponent implements OnInit, OnDestroy {
   _isUserInvalid = false;
 
   // parser file on load
-  public password: string = '';
-  public email: string = '';
-  public rememberme: boolean = true;
-  public returnUrl: string = '/';
+  public password = '';
+  public email = '';
+  public phone='';
+  public rememberme = true;
+  public returnUrl = '/';
   //http://jsonip.com/
   public ipAddress = '';
   public nameClient:string;
@@ -76,13 +77,13 @@ export class SignInComponent implements OnInit, OnDestroy {
    
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    let subGoogle =   this.socialAuthService.authState.subscribe((user) => {
+    const subGoogle =   this.socialAuthService.authState.subscribe((user) => {
       // this.socialUser = user;
-      let credentialsGoogle=<ExternalAuthSocialDto>{provider:user.provider,idToken:user.idToken,idUser:user.id};
+      const credentialsGoogle=<ExternalAuthSocialDto>{provider:user.provider,idToken:user.idToken,idUser:user.id};
     
     if(user.provider=="GOOGLE"){
       
-      let subApiGoogle=    this.repozitory.googleLogin(credentialsGoogle).subscribe({
+      const subApiGoogle=    this.repozitory.googleLogin(credentialsGoogle).subscribe({
         next: (d) => {
           this.userManager.setInvalidLogin$(false, d.access_token);
           //  console.log("login_in-"+d.access_token)
@@ -90,7 +91,7 @@ export class SignInComponent implements OnInit, OnDestroy {
          
         },
         error: (err: HttpErrorResponse) => {
-          let body: string;
+          let body='';
           this.userManager.setInvalidLogin$(true, null);
          
           if (err.status === 401) {
@@ -118,13 +119,13 @@ export class SignInComponent implements OnInit, OnDestroy {
     if(user.provider=="VK"){
       // https://vk.com/dev/widget_auth (!!!)
       //https://dev.vk.com/api/open-api/getting-started
-    let  credentialsVK=<ExternalAuthSocialDto>{provider:user.provider,idToken:user.authToken,idUser:user.id}
+      const  credentialsVK=<ExternalAuthSocialDto>{provider:user.provider,idToken:user.authToken,idUser:user.id}
      // credentials.idToken=user.idToken ;
       // credentials.idToken=user.authToken
       // credentials.provider="VK";
       // credentials.idUser=user.id;
 
-          let subApiVK=    this.repozitory.vkLogin(credentialsVK).subscribe({
+      const subApiVK=    this.repozitory.vkLogin(credentialsVK).subscribe({
             next: (d) => {
               
               this.userManager.setInvalidLogin$(false, d.access_token);
@@ -133,7 +134,7 @@ export class SignInComponent implements OnInit, OnDestroy {
              
             },
             error: (err: HttpErrorResponse) => {
-              let body: string;
+              let body="";
               this.userManager.setInvalidLogin$(true, null);
              
               if (err.status === 401) {
@@ -162,7 +163,7 @@ export class SignInComponent implements OnInit, OnDestroy {
   //  console.log(user)
     });
 
-    let subLogin = this.userManager.InvalidLogin$.subscribe((d) => {
+   const subLogin = this.userManager.InvalidLogin$.subscribe((d) => {
       this._isUserInvalid = d;
       if (!d) {
         this.router.navigate([this.returnUrl]);;
@@ -197,7 +198,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
     const credentials = JSON.stringify(loginForm.value);
 
-    let subLogin2 = this.repozitory.login(credentials).subscribe({
+    const subLogin2 = this.repozitory.login(credentials).subscribe({
       next: (d) => {
         this.userManager.setInvalidLogin$(false, d.access_token);
         //  console.log("login_in-"+d.access_token)
@@ -205,7 +206,7 @@ export class SignInComponent implements OnInit, OnDestroy {
        
       },
       error: (err: HttpErrorResponse) => {
-        let body: string;
+        let body="";
         this.userManager.setInvalidLogin$(true, null);
         console.error(err);
         if (err.status === 401) {
@@ -233,15 +234,15 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   onFileInput(event: any) {
-    let data = event.target.files[0];
+   const data = event.target.files[0];
 
-    let fr = new FileReader();
+    const fr = new FileReader();
     fr.readAsText(data);
     fr.onload = () => {
       console.log('Input-file cheng ok------' + fr.result);
-      let coolVar = fr.result as string;
+      const coolVar = fr.result as string;
 
-      var partsArray = coolVar.split(';');
+    const partsArray = coolVar.split(';');
       this.email = partsArray[0].trim();
       this.password = partsArray[1].trim();
 

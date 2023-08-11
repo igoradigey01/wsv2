@@ -2,6 +2,15 @@
 [vscode&github](https://vscode.github.com)
 ## Git help about-remote-repositories
 [doc git](https://docs.github.com/ru/get-started/getting-started-with-git/about-remote-repositories)
+## create
+ 1. create in github
+ 2. init in project
+- git init
+- git add README.md
+- git commit -m "first commit"
+- git branch -M main
+- git remote add origin https://github.com/igoradigey01/webapi.git
+- git push -u origin main
 
  ## Commit names
  ```

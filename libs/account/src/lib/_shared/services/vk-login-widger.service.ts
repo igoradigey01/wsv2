@@ -33,14 +33,15 @@ export class VkLoginWidgetService {
   public loadWidgetScript(): void {
     // Complete if already loaded
      if (this.script.loaded) {
+      return;
     } else {
       // Add the script
 
       // Load the script
       //debugger
-      let elemetParent =  document.getElementById('x01-v2-VK-login-widget')
+     const elemetParent =  document.getElementById('x01-v2-VK-login-widget')
   if( elemetParent){
-      let div = document.createElement("div");
+     const div = document.createElement("div");
        div.id="vk_auth";
        elemetParent.parentNode?.appendChild(div)
 ;
@@ -51,7 +52,7 @@ export class VkLoginWidgetService {
 
       // document.getElementsByTagName('x01-v1-VK-login-widget')[0].appendChild(div);
 
-      let scriptElement1 = document.createElement('script');
+      const scriptElement1 = document.createElement('script');
      // debugger
       scriptElement1.type = 'text/javascript';
       scriptElement1.src = this.script.src;
@@ -71,7 +72,7 @@ export class VkLoginWidgetService {
        
       elemetParent.parentNode?.appendChild(scriptElement1)
     
-      let scriptElement2=document.createElement('script');
+      const scriptElement2=document.createElement('script');
       scriptElement2.type = 'text/javascript';
       scriptElement2.text=`VK.init({ apiId: ${this.url.VkId} });`
 
@@ -88,7 +89,7 @@ export class VkLoginWidgetService {
       //document.getElementsByTagName('x01-v1-VK-login-widget')[0].appendChild(scriptElement2);
        
 
-      let scriptElement3=document.createElement('script');
+      const scriptElement3=document.createElement('script');
       scriptElement3.type = 'text/javascript';
       scriptElement3.text=`VK.Widgets.Auth("vk_auth", {width: 200, authUrl: "${this.url.ClientUri}account/auth-callback-vk"});`
 
@@ -114,7 +115,7 @@ export class VkLoginWidgetService {
     this.url.Controller='Account';
     this.url.Action = 'VKExternalLogin';
     this.url.ID=null;
-    let headers: HttpHeaders = new HttpHeaders({
+   const headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + '',
     });

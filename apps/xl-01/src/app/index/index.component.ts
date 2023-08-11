@@ -74,24 +74,24 @@ export class IndexComponent {
   }
 
   public onClickCart(userRole:UserRole){
-    this.router.navigate(['index/cart']);
+    this.router.navigate(['/index/cart']);
 
   }
    public onClickLogin(userRole:UserRole){
-    this.router.navigate(['index/account']);
+    this.router.navigate(['/index/account']);
 
   }
 
   public onClickLogof(userRole:UserRole){
-    this.router.navigate(['index/account/sing-off']);
+    this.router.navigate(['/index/account/sing-off']);
 
   }
   public onClickOrder(userRole:UserRole){
-    this.router.navigate(['index/order']);
+    this.router.navigate(['/index/order']);
 
   }
   public  onClickOptPrice(userRole:UserRole){
-    this.router.navigate([`index/katalog/opt/${this.id_katalog}`]);
+    this.router.navigate([`/index/katalog/opt/${this.id_katalog}`]);
 
   }
    private id_katalog=0;
@@ -108,7 +108,7 @@ export class IndexComponent {
 
   }
   onClickGoAppShop(userRole:UserRole){
-    this.router.navigate(['index']);
+    this.router.navigate(['/index']);
 
   }
   onSideBarVisible() {

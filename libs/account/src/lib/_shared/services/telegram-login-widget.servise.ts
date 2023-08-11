@@ -32,11 +32,12 @@ export class TelegramLoginWidgetService {
   public loadWidgetScript(): void {
     // Complete if already loaded
     if (this.script.loaded) {
+      return;
     } else {
       // Add the script
 
       // Load the script
-      let scriptElement = document.createElement('script');
+      const scriptElement = document.createElement('script');
       scriptElement.type = 'text/javascript';
       scriptElement.src = this.script.src;
 
@@ -66,11 +67,11 @@ export class TelegramLoginWidgetService {
     this.url.Controller='Account';
     this.url.Action = 'TelegramExternalLogin';
     this.url.ID=null;
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + '',
     });
-    var credentials=JSON.stringify(user);
+    const credentials=JSON.stringify(user);
     return this.http.post(this.url.AuthUrl, credentials, { headers });
 
    }
