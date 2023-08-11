@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, } from 'rxjs';
 
 import { ManagerServiceModule } from './maneger-service.module';
 
-import { ApiService } from './route-api.service';
+import { ApiService } from '@wsv2/app-common';
 import { RegistrationResponseDto } from '../_interfaces/registration-responseDto.model';
 import { UserRegistrationDto } from '../_interfaces/user-registrationDto.model';
 import { ForgotPasswordDto } from '../_interfaces/forgot-passwordDto.model';
@@ -68,7 +68,7 @@ export class AccountService {
     this.url.Controller = 'Account';
     this.url.Action = 'VKExternalLogin';
     this.url.ID = null;
-     debugger
+     //debugger
     //new Response(fd).text().then(console.log);
         
    //console.log('vkLogin-credentials = '+JSON.stringify( credentials) );

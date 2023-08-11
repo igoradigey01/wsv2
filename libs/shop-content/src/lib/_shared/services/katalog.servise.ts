@@ -1,76 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CategoriaN} from '../../../_shared/_interfaces/categoria-n.model';
-import { RouteApiService } from 'src/app/_shared/services/route-api.service';
-import { Color } from 'src/app/_shared/_interfaces/color.model';
-import { Brand } from 'src/app/_shared/_interfaces/brand.model';
-import { Article } from 'src/app/_shared/_interfaces/article.model';
+
+import { ApiService, Katalog } from '@wsv2/app-common';
+
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriaNService {
+export class KatlogService {
   constructor(
-    private _http: HttpClient,
-    private url: RouteApiService,
-    private _url: RouteApiService
-  ) {
-   // url.Controller = 'Katalog';
-   // console.log("test -- Katalog Servises - init ok")
+    private _http: HttpClient, 
+    private url: ApiService) {
+   
   }
 
-  public CategoriaNs = (): Observable<CategoriaN[]> => {
+  public Katalogs = (): Observable<Katalog[]> => {
     this.url.Controller = 'CategoriaN';
     this.url.Action = 'GetPostavchik';
-    this.url.ID=this.url.PostavchikId;
-    let headers: HttpHeaders = new HttpHeaders({
+    this.url.ID = 1; //this.url.PostavchikId;
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       //  Authorization: 'Bearer ' + token,
     });
 
-    return this._http.get<CategoriaN[]>(this.url.Url, { headers });
-  };
-
-  public ArticleNs = (): Observable<Article[]> => {
-    this._url.Controller = 'ArticleN';
-    this._url.Action = 'getPostavchik';
-    this._url.ID=this._url.PostavchikId;
-
-    let headers: HttpHeaders = new HttpHeaders({
-      Accept: 'application/json',
-     //  Authorization: 'Bearer ' + this._token.AccessToken,
-    });
-
-
-    return this._http.get<Article[]>(this._url.Url, { headers });
-  };
-
-
-  public BrandNs = (): Observable<Brand[]> => {
-    this._url.Controller = 'BrandN';
-    this._url.Action = 'getPostavchik';
-    this._url.ID=this._url.PostavchikId;
-    let headers: HttpHeaders = new HttpHeaders({
-      Accept: 'application/json',
-     //  Authorization: 'Bearer ' + this._token.AccessToken,
-    });
-
-
-    return this._http.get<Brand[]>(this._url.Url, { headers });
-  };
-
-  public ColorNs = (): Observable<Color[]> => {
-    this._url.Controller = 'ColorN';
-    this._url.Action = 'getPostavchik';
-    this._url.ID=this._url.PostavchikId;
-
-    let headers: HttpHeaders = new HttpHeaders({
-      Accept: 'application/json',
-      // Authorization: 'Bearer ' + this._token.AccessToken,
-    });
-
-
-    return this._http.get<Color[]>(this._url.Url, { headers });
+    return this._http.get<Katalog[]>(this.url.Url, { headers });
   };
 }

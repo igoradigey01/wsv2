@@ -13,5 +13,5 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts", "../account/src/lib/_shared/services/route-api.service.ts"]
+  "include": ["src/**/*.ts", "../app-common/src/lib/_shared/services/route-api.service.ts"]
 }

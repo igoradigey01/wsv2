@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ForgotPasswordDto } from '../_shared/_interfaces/forgot-passwordDto.model';
 
 import { AccountService } from '../_shared/services/account.service';
-import { ApiService} from '../_shared/services/route-api.service';
+import { ApiService} from '@wsv2/app-common';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({

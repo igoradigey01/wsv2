@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {UserTelegramDto} from '../_interfaces/user-telegramDto.model'
-import { ApiService } from './route-api.service';
+import { ApiService } from '@wsv2/app-common';
 import { ManagerServiceModule } from './maneger-service.module';
 
 export interface ScriptModel {

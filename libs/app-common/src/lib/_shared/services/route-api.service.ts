@@ -1,14 +1,14 @@
 
-import { Injectable,Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
   //APP_CONFIG ,IEnvironment ,
 import { RouteApiAbstract,EnvironmentService} from '@wsv2/app-config';
-import {ManagerServiceModule} from './maneger-service.module'
+//import {ManagerServiceModule} from '../../../../../account/src/lib/_shared/services/maneger-service.module'
 
 
 
 
 @Injectable({
-  providedIn:  ManagerServiceModule ,
+  providedIn: 'root' ,
 })
 
 export class ApiService extends RouteApiAbstract {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ManagerServiceModule } from './maneger-service.module';
-import { ApiService } from './route-api.service';
+import { ApiService } from '@wsv2/app-common';
 import {UserProfileDto} from '../_interfaces/user-profileDto.model'
 import {UserManagerService} from '@wsv2/account-service'
 import {ResetPasswordProfileDto} from '../_interfaces/reset-password-profileDto.model'
@@ -36,7 +36,7 @@ export class ProfileService {
 
    // console.log("getUser token-"+this.userManager.AccessToken);
 
-    let headers: HttpHeaders = new HttpHeaders({
+  const headers = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken,
     });
@@ -51,7 +51,7 @@ export class ProfileService {
     this.url.Controller='Profile';
     this.url.Action = 'EditUser';
     this.url.ID=null;
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.userManager.AccessToken,
     });
@@ -62,7 +62,7 @@ export class ProfileService {
     this.url.Controller = 'Profile';
     this.url.Action = 'ResetPasswordProfile';
     this.url.ID = null;
-    let headers: HttpHeaders = new HttpHeaders({
+   const headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.userManager.AccessToken,
     });
@@ -74,11 +74,11 @@ export class ProfileService {
     this.url.Controller = 'Profile';
     this.url.Action = 'Delete';
     this.url.ID=null;
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken,
     });
-    let url = this.url.AuthUrl + '/' + id;
+   const url = this.url.AuthUrl + '/' + id;
     console.log("url delete profile-"+url);
     return this.http.delete(url, { headers });
   }
