@@ -1,11 +1,10 @@
 {
-    "yandex_point":{"x":"44.671885","y":"39.972686"},
+    "yandex_point":{"x":"44.67247687","y":"39.971559"},
     "yandex_zoom":16,
     "company_phone": "+7-918-162-35-40",    
     "company_normalize_phone": "+79181623540",
     "company_phones":[
-        {"employee":"менеджер","phone":"+7-918-162-35-40","normalize_phone":"+79181623540"},
-        {"employee":"менеджер","phone":"+7-962-851-63-77","normalize_phone":"+79628516377"},
+        {"employee":"менеджер","phone":"+7-918-162-35-40","normalize_phone":"+79181623540"},       
         {"employee":"менеджер","phone":"+7-928-036-10-55","normalize_phone":"+79280361055"}
         ],
     "company_photo":[
