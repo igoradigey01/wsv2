@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ForgotPasswordDto } from '../_shared/_interfaces/forgot-passwordDto.model';
 
 import { AccountService } from '../_shared/services/account.service';
-import { ApiService} from '@wsv2/app-common';
+import { ApiService} from '@wsv2/app-config';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-forgot-password',
+  selector: 'wsv2-app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss'],
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent {
 
 
   public _forgotPass:ForgotPasswordDto=<ForgotPasswordDto>{
@@ -19,17 +19,15 @@ export class ForgotPasswordComponent implements OnInit {
 
   }
   public _errorMgs: string[] = [];
-  public showSuccess: boolean = false;
-  public _flagButoon: boolean = false;
+  public showSuccess= false;
+  public _flagButoon = false;
   constructor(
     private repozitory: AccountService,
     private apiService:ApiService
     
     ) {}
 
-  ngOnInit(): void {
-    // this.forgotPasswordForm =
-  }
+  
 
   public forgotPassword = () => {
     //this.showError = this.showSuccess = false;
@@ -58,5 +56,5 @@ export class ForgotPasswordComponent implements OnInit {
     });
   };
 
-  public onBack() {}
+ 
 }

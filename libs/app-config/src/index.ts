@@ -8,4 +8,5 @@ export * from './lib/_shared/services/company-information.service';
 export * from './lib/_shared/services/meny-items.service';
 export * from './lib/_shared/services/environment.service';
 export * from './lib/_shared/class/route-api.abstract';
+export * from './lib/_shared/services/route-api.service';
 

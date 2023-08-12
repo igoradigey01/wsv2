@@ -12,6 +12,6 @@ export * from './lib/_shared/interfaces/katalog.model';
 export * from './lib/_shared/interfaces/sub-katalog.model';
 
 export * from './lib/_shared/services/theme-scss.services';
-export * from './lib/_shared/services/route-api.service';
+
 
 export * from './lib/page-not-found/page-not-found.component';

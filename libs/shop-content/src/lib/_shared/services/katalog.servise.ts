@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { ApiService, Katalog } from '@wsv2/app-common';
+import { ApiService, } from '@wsv2/app-config';
+import {Katalog } from '@wsv2/app-common'
 
 import { Observable } from 'rxjs';
 
