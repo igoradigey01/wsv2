@@ -1,8 +1,8 @@
 
 import { Injectable } from '@angular/core';
   //APP_CONFIG ,IEnvironment ,
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { RouteApiAbstract,EnvironmentService} from '@wsv2/app-config';
-//import {ManagerServiceModule} from '../../../../../account/src/lib/_shared/services/maneger-service.module'
 
 
 

@@ -3,7 +3,7 @@ import { IEnvironment } from '../interfaces/environment.model';
 
 export abstract class RouteApiAbstract {
   private _serverAuthority: string | undefined;
-  private _serverUri:string|undefined;
+  private _serverUri= '';
   private _controller = '';
   private _action: string | null = null;
   private _id: number | null = null;
@@ -17,6 +17,7 @@ export abstract class RouteApiAbstract {
     this._clientId = appConfig.clientId;
     this._serverAuthority = appConfig.serverAuthUri;
     this._clientUrl= appConfig.clientUri;
+    this._serverUri=appConfig.serverUri;
   }
 
   public set Controller(name: string) {
@@ -63,14 +64,14 @@ export abstract class RouteApiAbstract {
   }
   public get Url(): string {
     //debugger
-    if (this._serverUri)
+   // if (this._serverUri)
       return this.createCompleteRoute(
         this._serverUri,
         this._controller,
         this._action,
         this._id
       );
-    else throw new Error(' Environment : serverUri -undefined'); //return 'undefined';
+   // else throw new Error(' Environment : serverUri -undefined'); //return 'undefined';
   }
   public get AuthUrl(): string {
     //debugger

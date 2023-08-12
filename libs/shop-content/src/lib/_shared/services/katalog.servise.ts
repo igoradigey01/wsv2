@@ -16,6 +16,7 @@ export class KatlogService {
   }
 
   public Katalogs = (): Observable<Katalog[]> => {
+   // debugger
     this.url.Controller = 'CategoriaN';
     this.url.Action = 'GetPostavchik';
     this.url.ID = 1; //this.url.PostavchikId;

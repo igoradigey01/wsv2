@@ -107,6 +107,7 @@ export const appConfig: ApplicationConfig = {
         const environmentService = inject(EnvironmentService);
 
         const http = inject(HttpClient);
+        //debugger
         return () =>
           new Promise((resolve) => {
             let url;
@@ -122,7 +123,9 @@ export const appConfig: ApplicationConfig = {
                 break;
             }
             http
-              .get<IEnvironment>(url)
+              .get<IEnvironment>(
+                url
+                )
               .pipe(
                 tap((data: IEnvironment) => {
                   environmentService.clientId = data.clientId;
