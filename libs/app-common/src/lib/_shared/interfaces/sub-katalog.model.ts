@@ -2,8 +2,8 @@
 
 export interface SubKatalog {
   id: number;
-  categoriaId:number; // CategoriaN ID
-  categoriaName:string;
+  katalogId:number; // CategoriaN ID
+  katalogName:string;
   name: string;
   hidden:boolean;
   decriptSEO: string;

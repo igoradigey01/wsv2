@@ -11,9 +11,7 @@
     "src/**/*.spec.ts",
     "src/test-setup.ts",
     "jest.config.ts",
-    "src/**/*.test.ts",
-    "**/*.stories.ts",
-    "**/*.stories.js"
+    "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts", "../app-common/src/lib/_shared/interfaces/button.model.ts"]
+  "include": ["src/**/*.ts"]
 }

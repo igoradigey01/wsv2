@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { ApiService, } from '@wsv2/app-config';
-import {Katalog } from '@wsv2/app-common'
+import { Katalog } from '@wsv2/app-common'
 
 import { Observable } from 'rxjs';
 
@@ -11,13 +11,13 @@ import { Observable } from 'rxjs';
 })
 export class KatlogService {
   constructor(
-    private _http: HttpClient, 
+    private _http: HttpClient,
     private url: ApiService) {
-   
+
   }
 
   public Katalogs = (): Observable<Katalog[]> => {
-   // debugger
+    // debugger
     this.url.Controller = 'CategoriaN';
     this.url.Action = 'GetPostavchik';
     this.url.ID = 1; //this.url.PostavchikId;

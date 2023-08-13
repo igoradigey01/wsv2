@@ -2,7 +2,8 @@
 import { Injectable } from '@angular/core';
   //APP_CONFIG ,IEnvironment ,
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { RouteApiAbstract,EnvironmentService} from '@wsv2/app-config';
+import { RouteApiAbstract,} from '../class/route-api.abstract';
+import {EnvironmentService} from './environment.service'
 
 
 

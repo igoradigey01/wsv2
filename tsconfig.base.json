@@ -30,6 +30,7 @@
       "@wsv2/shop-information": ["libs/shop-information/src/index.ts"],
       "@wsv2/shop-orders": ["libs/shop-orders/src/index.ts"],
       "@wsv2/shop-services": ["libs/shop-services/src/index.ts"],
+      "@wsv2/shop-sub-content": ["libs/shop-sub-content/src/index.ts"],
       "@wsv2/ui": ["libs/ui/src/index.ts"]
     }
   },

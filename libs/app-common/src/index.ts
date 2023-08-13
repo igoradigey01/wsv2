@@ -10,6 +10,7 @@ export * from './lib/_shared/interfaces/theme-scss.model';
 export * from './lib/_shared/interfaces/nomenclature.model';
 export * from './lib/_shared/interfaces/katalog.model';
 export * from './lib/_shared/interfaces/sub-katalog.model';
+export * from './lib/_shared/interfaces/button.model';
 
 export * from './lib/_shared/services/theme-scss.services';
 

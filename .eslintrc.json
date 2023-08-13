@@ -120,6 +120,14 @@
                   "type:01-lib"
                 ]
               }
+              ,
+              {
+                "sourceTag": "01app-shop-sub-content-lib",
+                "onlyDependOnLibsWithTags": [
+                  "01app-shop-sub-content-lib",
+                  "type:01-lib"
+                ]
+              }
             ]
           }
         ]

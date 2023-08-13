@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
 
 import { Input, Output, EventEmitter } from '@angular/core';
-import { IButton } from '../../_shared/_interfaces/button.model';
+import { IButton } from '@wsv2/app-common';
 import { Subscription } from 'rxjs';
 import { interval } from 'rxjs';
 
@@ -109,6 +109,7 @@ export class KatalogComponent implements OnInit, OnDestroy {
   }
 
   public onSelectBt(obj: IButton) {
+    //debugger
     this._onSelectButton.emit(obj);
   }
 

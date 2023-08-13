@@ -18,6 +18,11 @@ export const appRoutes: Route[] = [
           import('@wsv2/shop-content').then((m) => m.IndexShopComponent)
         },
         {
+          path: 'subkatalogs/:id',
+          loadComponent: () =>
+          import('@wsv2/shop-sub-content').then((m) => m.SubCatalogComponent)
+        },
+        {
           path: 'account',              
           loadChildren: () =>
             import('@wsv2/account').then((m) => m.AccountModule)

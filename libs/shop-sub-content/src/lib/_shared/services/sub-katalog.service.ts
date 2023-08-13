@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { ApiService, SubKatalog } from '@wsv2/app-common';
+import { ApiService } from '@wsv2/app-config';
+import {SubKatalog} from "@wsv2/app-common"
 
 @Injectable({
   providedIn: 'root',
