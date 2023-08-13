@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Input, Output, EventEmitter } from '@angular/core';
-import { Nomenclature } from '@wsv2/app-common';
+import { Product } from '@wsv2/app-common';
 import { ImageSliderComponent } from '../image-slider/image-slider.component'
 import { ISliderImage } from '@wsv2/app-common';
 
@@ -37,7 +37,7 @@ import { ISliderImage } from '@wsv2/app-common';
 })
 export class CardProductComponent implements OnInit {
 
-  private _product = <Nomenclature>{
+  private _product = <Product>{
     id: -1,
     guid: '',
     img_guids: <string[]>[],
@@ -59,7 +59,7 @@ export class CardProductComponent implements OnInit {
   // _product =signal<Nomenclature ,undefined>(undefined);
 
   @Input()
-  set product(value: Nomenclature) {
+  set product(value: Product) {
     this._product = value;
     this.productItem.set(this._product);
 
@@ -76,7 +76,7 @@ export class CardProductComponent implements OnInit {
 
   @Output() public _onBack = new EventEmitter();
   @Output() public _onQRCode = new EventEmitter();
-  @Output() public addCart = new EventEmitter<Nomenclature>();
+  @Output() public addCart = new EventEmitter<Product>();
   
 
   

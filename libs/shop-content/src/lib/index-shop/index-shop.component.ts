@@ -41,8 +41,8 @@ export class IndexShopComponent implements OnInit {
 
   ChangeButton(katalog:IButton){
 
-    this.router.navigate(['/index/subkatalogs',  katalog.id ]);
-    console.log("change sub catalog - " + katalog.id)
+    this.router.navigate(['/index/katalogs',  katalog.id ]);
+   // console.log("change sub catalog - " + katalog.id)
 
   }
 }
