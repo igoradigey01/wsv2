@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ChangeDetectionStrategy} from '@angular/core';
 import { Router  } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { KatalogComponent } from '@wsv2/ui';
 import {Katalog,IButton} from '@wsv2/app-common'
 import { KatlogService } from '../_shared/services/katalog.servise'
+import { signal } from '@angular/core';
 
 
 @Component({
@@ -13,12 +14,13 @@ import { KatlogService } from '../_shared/services/katalog.servise'
   standalone: true,
   imports: [CommonModule, KatalogComponent],
   templateUrl: './index-shop.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./index-shop.component.scss'],
 })
 export class IndexShopComponent implements OnInit {
-  katalogs: IButton[] = [
-    
-  ];
+ 
+
+  katalogs = signal<IButton[]>([])
 
   _categoriaNs:Katalog[]=[];
   constructor(
@@ -30,7 +32,7 @@ export class IndexShopComponent implements OnInit {
     //debugger
     this._repository.Katalogs().subscribe({
       next: (data) => {
-        this.katalogs = data;
+        this.katalogs.set( data);
         console.log( this.katalogs);
       },
       error: (err:HttpErrorResponse) => console.error('load katalog err: --' + err.message)

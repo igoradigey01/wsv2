@@ -6,21 +6,20 @@ import { Subscription } from 'rxjs';
 import { UserManagerService } from '@wsv2/account-service';
 
 @Component({
-  selector: 'x01-v1-sidebar',
+  selector: 'wsv2-x01-v1-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
   @Output()
-  onToggleSideBar = new EventEmitter();
+  _onToggleSideBar = new EventEmitter();
 
   @Input() public menuItems:IMenyItem[]=[];
 
-  private _invalidLogin: boolean = false;
+  private _invalidLogin = false;
 
-  private _isOptovik: boolean = false;
+  private _isOptovik = false;
   private _userRole: string | null = null;
-
   private _subscriptions: Subscription[] = [];
 
   public MenuItems = (): IMenyItem[] => {
@@ -37,14 +36,14 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     //this.repozitory.setMenuFromJSON(this.jsonMenuURL);
-    let sub1 = this.userManager.InvalidLogin$.subscribe((d) => {
+    const sub1 = this.userManager.InvalidLogin$.subscribe((d) => {
       this._invalidLogin = d;
       this._userRole = this.userManager.RoleUser;
 
      // console.log('menu conctructor -- userManager.InvalidLogin$--' + d);
     });
 
-    let sub2 = this.userManager.InvalidOptShopper$.subscribe((d) => {
+   const sub2 = this.userManager.InvalidOptShopper$.subscribe((d) => {
       this._isOptovik = d;
     });
     this._subscriptions.push(sub1);
@@ -87,7 +86,7 @@ export class SidebarComponent implements OnInit {
   }
 
   public onSideBarVisible(): void {
-    this.onToggleSideBar.emit();
+    this._onToggleSideBar.emit();
   }
 
   
