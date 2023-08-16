@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../_shared/services/product.service';
-import {Product} from '@wsv2/app-common'
+import {Product,StateView} from '@wsv2/app-common'
 import { signal } from '@angular/core';
 
 @Component({
@@ -18,6 +18,9 @@ export class ProductComponent implements OnInit {
 
   products = signal<Product[]>([])
   idKatatlog:number|undefined;
+  subkatalog_name ='';
+  pageTitle =this.subkatalog_name;
+   flagViewState: StateView = StateView.default;
 
   constructor(
     private _repository: ProductService,
@@ -30,12 +33,36 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     //debugger
     if(!this.idKatatlog) return;
-    this._repository.Products(this.idKatatlog).subscribe({
-      next: (data) => {
-        this. products.set( data);
-        console.log( this.products);
-      },
-      error: (err:HttpErrorResponse) => console.error('load katalog err: --' + err.message)
-    });
+    // this._repository.Products(this.idKatatlog).subscribe({
+    //   next: (data) => {
+    //     this. products.set( data);
+    //     console.log( this.products);
+    //   },
+    //   error: (err:HttpErrorResponse) => console.error('load katalog err: --' + err.message)
+    // });
   }
+
+
+  
+  public onBackInNavBar() {
+    // //console.log(" onBackInNavBar")
+    //  if(this.sharedVar.IdCategoria!==-1)
+    // this.router.navigateByUrl('/content/categoria/'+this.sharedVar.IdCategoria);
+    // else{
+    //   if(this._nomenclatures.length>0)
+    //   this.repository.KatalogN(this._nomenclatures[0].katalogId).subscribe(
+    //     d=>{
+
+    //       this.router.navigateByUrl('/content/categoria/'+d.categoriaId);
+
+    //     }
+    //   )
+
+
+
+    
+
+
+  }
+
 }

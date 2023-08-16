@@ -46,5 +46,8 @@
       }
     }
   },
-  "tags": []
+  "tags": [
+    "scope:01app-manage-page-lib",
+    "type:01-lib"
+ ]
 }

@@ -1,25 +1,36 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { map,tap } from 'rxjs/operators';
+
 
 import { ApiService } from '@wsv2/app-config';
 import { Product,Article,Brand,Color } from "@wsv2/app-common"
+import { catchError, of, tap,map} from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
+
+  Article=signal<Article[]>([]);
+  Brand=signal <Brand[]>([]);
+  Color=signal <Color[]>([]);
+
   constructor(
     private _http: HttpClient,
     private _url: ApiService
-  ) { }
+  ) {
+    this.Article$();
+    this.Brand$();
+    this.Color$();
+   }
 
 
 
-  public Poducts = (idKatlaog: number): Observable<Product[]> => {
+  private Poducts$ = (idKatlaog: number): Observable<Product[]> => {
     this._url.Controller = 'Nomenclature';
     this._url.Action = 'NomenclaturePKs';
     this._url.ID = idKatlaog;
@@ -77,10 +88,10 @@ export class ProductService {
   };
 
 
-  public Nomenclature = (idNomenclature: number): Observable<Product> => {
+  private ProductItem$ = (idProductItem: number): Observable<Product> => {
     this._url.Controller = 'Nomenclature';
     this._url.Action = 'Item';
-    this._url.ID = idNomenclature;
+    this._url.ID = idProductItem;
 
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -112,13 +123,13 @@ export class ProductService {
           katalogName: undefined,
 
           colorId: f.colorId,
-          colorName: undefined,
-
+          colorName: this.Color().length>0?this.Color().find(d=>d.id===f.colorId)?.name:undefined,
+         // colorName:this.sharedVar.ColorNs.length>0?this.sharedVar.ColorNs.find(d=>d.id===f.articleId)?.name:undefined,
           brandId: f.brandId,
-          brandName: undefined,
+          brandName:  this.Brand().length>0?this.Brand().find(d=>d.id===f.brandId)?.name:undefined,
 
           articleId: f.articleId,
-          articleName: undefined,
+          articleName: this.Article().length>0?this.Article().find(d=>d.id===f.articleId)?.name:undefined,
 
           hidden: f.hidden,
 
@@ -134,7 +145,7 @@ export class ProductService {
 
   ///  for: nomenclatureItem  ___________________
 
-  public Article = (): Observable<Article[]> => {
+  private Article$ = (): void => {
     this._url.Controller = 'ArticleN';
     this._url.Action = 'getPostavchik';
     const postavchikId = 1; //this.url.PostavchikId;
@@ -146,11 +157,17 @@ export class ProductService {
     });
 
 
-    return this._http.get<Article[]>(this._url.Url, { headers });
+     this._http.get<Article[]>(this._url.Url, { headers })
+     .pipe(
+      tap((data) => this.Article.set(data)),
+      takeUntilDestroyed(),
+      catchError(() => of([] as Article[])) //  on any error, just return an empty array
+    )
+    .subscribe();
+     ;
   };
 
-
-  public Brand = (): Observable<Brand[]> => {
+  private Brand$ = (): void => {
     this._url.Controller = 'BrandN';
     this._url.Action = 'getPostavchik';
     const postavchikId = 1; //this.url.PostavchikId;
@@ -161,10 +178,17 @@ export class ProductService {
     });
 
 
-    return this._http.get<Brand[]>(this._url.Url, { headers });
+    this._http.get<Brand[]>(this._url.Url, { headers })
+    .pipe(
+      tap((data) => this.Brand.set(data)),
+      takeUntilDestroyed(),
+      catchError(() => of([] as Brand[])) //  on any error, just return an empty array
+    )
+    .subscribe();
+     
   };
 
-  public Color = (): Observable<Color[]> => {
+  private Color$ = ():void => {
     this._url.Controller = 'ColorN';
     this._url.Action = 'getPostavchik';
     const postavchikId = 1; //this.url.PostavchikId;
@@ -175,6 +199,12 @@ export class ProductService {
     });
 
 
-    return this._http.get<Color[]>(this._url.Url, { headers });
+     this._http.get<Color[]>(this._url.Url, { headers })
+     .pipe(
+      tap((data) => this.Color.set(data)),
+      takeUntilDestroyed(),
+      catchError(() => of([] as Color[])) //  on any error, just return an empty array
+    )
+    .subscribe();;
   };
 }

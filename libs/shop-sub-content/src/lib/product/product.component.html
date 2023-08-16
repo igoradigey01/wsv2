@@ -1,1 +1,19 @@
 <p>product works!</p>
+<div class="navigate">
+    <div class="navigate-route" ><span class="navigate-route-hiden"> категории>каталог</span>>номенклатура </div>
+  
+    <div>
+      <a  class="navigate-route-link" (click)="onBackInNavBar()" >назад</a>
+    </div>
+  </div>
+  
+  <div><h4> {{ pageTitle}} </h4></div>
+
+  <div [ngSwitch]="flagViewState">
+
+    <ng-template name="ImgView" ngSwitchDefault>
+    </ng-template>
+
+    <ng-template name="ItemView"   ngSwitchCase="3" >
+    </ng-template>
+  </div>

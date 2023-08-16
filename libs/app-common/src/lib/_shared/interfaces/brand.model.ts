@@ -1,6 +1,6 @@
-import {UI} from './ui.mondel'
 
-export interface Brand extends UI{
+
+export interface Brand{
   id: number;
   name: string;
   hidden:boolean;

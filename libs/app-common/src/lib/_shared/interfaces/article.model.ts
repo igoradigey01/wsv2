@@ -1,6 +1,6 @@
-import { UI } from './ui.mondel'
 
-export interface Article extends UI {
+
+export interface Article  {
   id: number;
   name: string;
   hidden: boolean;

@@ -1,6 +1,6 @@
-import {UI} from './ui.mondel'
 
-export interface Color extends UI{
+
+export interface Color {
   id: number;
   name: string;
   hidden:boolean;

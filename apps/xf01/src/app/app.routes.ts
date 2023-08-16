@@ -18,15 +18,12 @@ export const appRoutes: Route[] = [
           import('@wsv2/shop-content').then((m) => m.IndexShopComponent)
         },
         {
-          path: 'katalogs/:id',
-          providers: [
-            AdminService,
-          ],
+          path: 'katalogs/:id',         
           loadComponent: () =>
           import('@wsv2/shop-sub-content').then((m) => m.SubCatalogComponent)
         },
         {
-          path: 'katalogs/:id/products',
+          path: 'katalogs/:id/products/:id',
           loadComponent: () =>
           import('@wsv2/shop-sub-content').then((m) => m.ProductComponent)
         },

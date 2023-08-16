@@ -1,6 +1,6 @@
-import {Nomenclature} from '@wsv2/app-common'
+import {Product} from '@wsv2/app-common'
 
 export interface CartItem {
-    product: Nomenclature;
+    product: Product;
     quantity: number;
   }

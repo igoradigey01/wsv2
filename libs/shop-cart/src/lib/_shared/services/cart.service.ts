@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { Nomenclature } from '@wsv2/app-common';
+import {  Product } from '@wsv2/app-common';
 import { CartItem } from '../interfaces/cart-item.model';
 
 @Injectable({
@@ -28,7 +28,7 @@ export class CartService {
      totalPrice = computed(() => this.subTotal() + this.deliveryFee() + this.tax()); 
      */
 
-  addToCart(product: Nomenclature): void {
+  addToCart(product: Product): void {
     const index = this.cartItems().findIndex((item: CartItem) => {
       if (product.guid && item.product.guid) {
         item.product.guid === product.guid;

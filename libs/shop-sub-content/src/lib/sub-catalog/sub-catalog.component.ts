@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component ,OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { Router ,ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -19,8 +20,8 @@ export class SubCatalogComponent  implements OnInit{
 
  
 
-  subkatalogs = signal<SubKatalog[]>([])
-   idKatatlog:number|undefined;
+  subkatalogs = this._repository.SubKatalog;
+    idKatatlog:string|undefined;
 
 
   constructor(
@@ -29,21 +30,28 @@ export class SubCatalogComponent  implements OnInit{
     private router: Router,
     ) {
    //   = this.route.snapshot.queryParams['id'];
-      routeActvate.params.subscribe(params=>this.idKatatlog=params['id']);
+   //  this.idKatatlog=this._repository.idKatatlog
+      routeActvate.params.subscribe(params=>this.idKatatlog= params['id']);
+      if(this.idKatatlog){
       
+        this._repository.SubKatalogsSet(this.idKatatlog);
+      }
 
      }
 
   ngOnInit(): void {
     //debugger
-    if(!this.idKatatlog) return;
-    this._repository.SubKatalogs(this.idKatatlog).subscribe({
-      next: (data) => {
-        this.subkatalogs.set( data);
-        console.log( this.subkatalogs);
-      },
-      error: (err:HttpErrorResponse) => console.error('load katalog err: --' + err.message)
-    });
+    // if(!this.idKatatlog) return;
+    // this._repository.SubKatalogs(this.idKatatlog).subscribe({
+    //   next: (data) => {
+    //     this.subkatalogs.set( data);
+    //     console.log( this.subkatalogs);
+    //   },
+    //   error: (err:HttpErrorResponse) => console.error('load katalog err: --' + err.message)
+    // });
+
+   // debugger
+   
   }
 
   ChangeButton(idSubKatalog:IButton){

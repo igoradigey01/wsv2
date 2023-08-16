@@ -128,6 +128,22 @@
                   "type:01-lib"
                 ]
               }
+              ,
+              {
+                "sourceTag":"scope:01app-admin-page-lib",
+                "onlyDependOnLibsWithTags": [
+                  "scope:01app-admin-page-lib",
+                  "type:01-lib"
+                ]
+              }
+              ,
+              {
+                "sourceTag": "scope:01app-manage-page-lib",
+                "onlyDependOnLibsWithTags": [
+                  "scope:01app-manage-page-lib",
+                  "type:01-lib"
+                ]
+              }
             ]
           }
         ]
