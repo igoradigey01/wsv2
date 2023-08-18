@@ -1,12 +1,13 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component ,OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { Router ,ActivatedRoute } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { CommonModule } from '@angular/common';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { KatalogComponent } from '@wsv2/ui';
-import {SubKatalog,IButton} from '@wsv2/app-common'
+import {IButton} from '@wsv2/app-common'
 import { SubKatalogService } from '../_shared/services/sub-katalog.service'
-import { signal } from '@angular/core';
+
 
 @Component({
   selector: 'wsv2-sub-catalog',

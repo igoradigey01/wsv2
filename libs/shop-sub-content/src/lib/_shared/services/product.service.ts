@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 
 import { ApiService } from '@wsv2/app-config';
 import { Product,Article,Brand,Color } from "@wsv2/app-common"
+import {SubKatalogService} from "./sub-katalog.service"
+
 import { catchError, of, tap,map} from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -19,9 +21,15 @@ export class ProductService {
   Brand=signal <Brand[]>([]);
   Color=signal <Color[]>([]);
 
+  serverUrl=this._url.ServerUri
+
+
+  Products = signal<Product[]>([]);
+
   constructor(
     private _http: HttpClient,
-    private _url: ApiService
+    private _url: ApiService,
+    private _subKatalogService:SubKatalogService
   ) {
     this.Article$();
     this.Brand$();
@@ -30,10 +38,10 @@ export class ProductService {
 
 
 
-  private Poducts$ = (idKatlaog: number): Observable<Product[]> => {
+  private Poducts$ = (idSubKatlog: number):void=> {
     this._url.Controller = 'Nomenclature';
     this._url.Action = 'NomenclaturePKs';
-    this._url.ID = idKatlaog;
+    this._url.ID = idSubKatlog;
     const postavchikId = 1; //this.url.PostavchikId;
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -43,7 +51,7 @@ export class ProductService {
     const params: HttpParams = new HttpParams().set('postavchikId', postavchikId)
 
     const httpOptions = { headers, params }
-    return this._http.get<Product[]>(this._url.Url, httpOptions).pipe(
+     this._http.get<Product[]>(this._url.Url, httpOptions).pipe(
        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       map((data: any) => {
         
@@ -65,30 +73,36 @@ export class ProductService {
             sale: f.sale,
 
             katalogId: f.katalogId,
-            katalogName: undefined,
+            katalogName: this._subKatalogService.SubKatalog().find(d=>d.id===f.katalogId)?.name ,
 
             colorId: f.colorId,
-            colorName: undefined,
+            colorName: this.Color().length>0?this.Color().find(d=>d.id===f.colorId)?.name:undefined,
 
             brandId: f.brandId,
-            brandName: undefined,
+            brandName:  this.Brand().length>0?this.Brand().find(d=>d.id===f.brandId)?.name:undefined,
 
             articleId: f.articleId,
-            articleName: undefined,
+            articleName: this.Article().length>0?this.Article().find(d=>d.id===f.articleId)?.name:undefined,
 
             hidden: f.hidden,
 
             postavchikId: f.postavchikId
           };
         });
-      }),tap(
-        x => console.log(x)
-      )
-    );
+      }),tap((data) => this.Products.set(data)),
+      takeUntilDestroyed(),
+      catchError(() => of([] as Product[])) //  on any error, just return an empty array
+    )
+    .subscribe();;
   };
 
+  PoductsSet = (idSubKatlog:string ):void => {
+    this.Poducts$(+idSubKatlog) ;
+  }
 
-  private ProductItem$ = (idProductItem: number): Observable<Product> => {
+
+
+  /* private ProductItem$ = (idProductItem: number): Observable<Product> => {
     this._url.Controller = 'Nomenclature';
     this._url.Action = 'Item';
     this._url.ID = idProductItem;
@@ -142,6 +156,11 @@ export class ProductService {
       )
     );
   };
+
+  PoductsItemSet = (idProductItem:string ):void => {
+    this.ProductItem$(+idProductItem) ;
+  } */
+
 
   ///  for: nomenclatureItem  ___________________
 

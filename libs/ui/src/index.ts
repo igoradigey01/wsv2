@@ -2,8 +2,10 @@ export * from './lib/ui.module';
 
 export * from './lib/button/button.component';
 export * from './lib/katalog/katalog-button/katalog.component';
+export * from './lib/katalog/katalog-img/katalog-img.component';
+export * from './lib/katalog/katalog-table/katalog-table.component';
 
-export * from '../../app-common/src/lib/_shared/interfaces/button.model';
+
 
 export * from './lib/card-product/card-product.component';
 

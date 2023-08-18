@@ -1,11 +1,12 @@
-import { Component, Signal, signal } from '@angular/core';
+import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Router} from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout'
 import { MaterialModule } from '../material.module'
 import { RouterModule } from "@angular/router";
 import { CompanyInformationService, MenyItemsService, IMenyItem } from '@wsv2/app-config'
-import { KatalogComponent, IButton, AppHeaderLayoutComponent } from '@wsv2/ui'
+import { KatalogComponent,  AppHeaderLayoutComponent } from '@wsv2/ui'
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserRole } from '@wsv2/app-common'
 
 

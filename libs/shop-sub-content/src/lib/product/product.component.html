@@ -1,19 +1,41 @@
 <p>product works!</p>
 <div class="navigate">
-    <div class="navigate-route" ><span class="navigate-route-hiden"> категории>каталог</span>>номенклатура </div>
-  
-    <div>
-      <a  class="navigate-route-link" (click)="onBackInNavBar()" >назад</a>
-    </div>
+  <div class="navigate-route">
+    <span class="navigate-route-hiden"> категории>каталог</span>>номенклатура
   </div>
-  
-  <div><h4> {{ pageTitle}} </h4></div>
 
-  <div [ngSwitch]="flagViewState">
-
-    <ng-template name="ImgView" ngSwitchDefault>
-    </ng-template>
-
-    <ng-template name="ItemView"   ngSwitchCase="3" >
-    </ng-template>
+  <div>
+    <a class="navigate-route-link" (click)="onBackInNavBar()">назад</a>
   </div>
+</div>
+
+<div>
+  <h4>{{ pageTitle }}</h4>
+</div>
+
+<div [ngSwitch]="flagViewState">
+  <ng-template name="ImgView" ngSwitchDefault>
+    <wsv2-katalog-img
+      [flagView]="false"
+      [flagOpt]="false"
+      [serverUrl]="serverUrl"
+      [products]="products()"
+      (_onSelectedProduct)="changeProduct($event)"
+    ></wsv2-katalog-img>
+  </ng-template>
+
+  <ng-template name="ItemView" ngSwitchCase="3"> 
+    <wsv2-card-product
+    [katalog_name]="subkatalog_name"
+    [product]="itemProduct()"
+    [flagOpt]="false"
+    [serverUrl]="serverUrl"
+    [productURL]="UrlProduct"
+    [katalogURL]=" UrlKatalog"
+    (_onBack)="changeViewState(0)"
+    (_onQRCode)="_onQRCode()"
+    (addCart)="addCart($event)"
+  ></wsv2-card-product>
+
+  </ng-template>
+</div>
