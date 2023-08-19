@@ -5,13 +5,13 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../_shared/services/product.service';
 import { StateView, Product, } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { KatalogImgComponent,CardProductComponent } from '@wsv2/ui';
+import { KatalogImgComponent, CardProductComponent } from '@wsv2/ui';
 
 
 @Component({
   selector: 'wsv2-product',
   standalone: true,
-  imports: [CommonModule, KatalogImgComponent,CardProductComponent],
+  imports: [CommonModule, KatalogImgComponent, CardProductComponent],
   templateUrl: './product.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./product.component.scss'],
@@ -20,27 +20,33 @@ export class ProductComponent {
 
   products = this._repository.Products;
 
-  itemProduct = signal<Product>({ id: -1, name: '', price: -1, katalogId: -1,
-   colorId: -1, brandid: -1, hidden: false, guid: undefined, img_guids: undefined,
-    description: undefined, sale: undefined, brandName: undefined, colorName: undefined,
-     articleId: -1, articleName: undefined, postavchik: undefined, markup: undefined, 
-     cost_total: undefined, inStock: undefined, katalogName: undefined });
+  itemProduct =
+    signal<Product>({
+      id: -1, name: '', price: -1, katalogId: -1,
+      colorId: -1, brandid: -1, hidden: false, guid: undefined, img_guids: undefined,
+      description: undefined, sale: undefined, brandName: undefined, colorName: undefined,
+      articleId: -1, articleName: undefined, postavchik: undefined, markup: undefined,
+      cost_total: undefined, inStock: undefined, katalogName: undefined
+    });
 
   idSubKatatlog: string | undefined;
   subkatalog_name = '';
   pageTitle = this.subkatalog_name;
   flagViewState: StateView = StateView.default;
   serverUrl = this._repository.serverUrl;
+  private _subKatalogProductsUrl: string;
+  private _subKatalogProductItemUrl='';
 
 
-  public get UrlProduct():string{
-    throw console.error("not implement  UrlProduct()")
-    return "";
+
+  public get UrlProduct(): string {
+
+    return  this._subKatalogProductItemUrl;
   }
 
-  public get UrlKatalog():string{
-    throw console.error("not implement UrlKatalog()")
-    return "";
+  public get UrlKatalogProducts(): string {
+    // throw console.error("not implement UrlKatalog()")
+    return this._subKatalogProductsUrl;
 
   }
 
@@ -49,34 +55,44 @@ export class ProductComponent {
     private routeActvate: ActivatedRoute,
 
   ) {
-    //   = this.route.snapshot.queryParams['id'];
+    // debugger
+    this._subKatalogProductsUrl = window.location.href;
+
+    const idProduct  = this.routeActvate.snapshot.queryParams['productId'];
     routeActvate.params.subscribe((params) => (this.idSubKatatlog = params['id']));
+
     if (this.idSubKatatlog) {
       _repository.PoductsSet(this.idSubKatatlog)
     }
+    this.ShowChangeProduct(idProduct);
+
+   
 
   }
 
 
   public changeProduct(item: Product): void {
-    debugger
-    this.flagViewState = StateView.itemView;
+    // debugger
     this.itemProduct.set(item);
+    this._subKatalogProductItemUrl=this._subKatalogProductsUrl  + "?productId=" + this.itemProduct().id;
+
+    this.flagViewState = StateView.itemView;
+
 
   }
 
-  public changeViewState(viewState:number){
-   // debugger
-    this.flagViewState=viewState;
-   
+  public changeViewState(viewState: number) {
+    // debugger
+    this.flagViewState = viewState;
+
 
   }
-  public _onQRCode(){
+  public _onQRCode() {
     throw console.error("not implement _onQRCode click");
-    
+
   }
 
-  public addCart(item:Product){
+  public addCart(item: Product) {
     throw console.error("not implement addCart click");
 
   }
@@ -102,6 +118,19 @@ export class ProductComponent {
 
 
 
+  }
+
+  private ShowChangeProduct(idProduct:string){
+   // debugger
+    if(idProduct){
+      this._subKatalogProductItemUrl='';
+    this._repository.PoductsItemSet(idProduct);
+    this.itemProduct=this._repository.ProductItem;
+   this._subKatalogProductItemUrl=this._subKatalogProductsUrl;
+
+      this.flagViewState=StateView.itemView;
+    }
+    
   }
 
 }

@@ -22,9 +22,19 @@ export class ProductService {
   Color=signal <Color[]>([]);
 
   serverUrl=this._url.ServerUri
+  //http://localhost:4200/index/katalogs/1/products/15
+ // katalogUrl= this._url.ClientUri+""       
 
 
   Products = signal<Product[]>([]);
+  ProductItem =
+    signal<Product>({
+      id: -1, name: '', price: -1, katalogId: -1,
+      colorId: -1, brandid: -1, hidden: false, guid: undefined, img_guids: undefined,
+      description: undefined, sale: undefined, brandName: undefined, colorName: undefined,
+      articleId: -1, articleName: undefined, postavchik: undefined, markup: undefined,
+      cost_total: undefined, inStock: undefined, katalogName: undefined
+    });
 
   constructor(
     private _http: HttpClient,
@@ -100,9 +110,8 @@ export class ProductService {
     this.Poducts$(+idSubKatlog) ;
   }
 
-
-
-  /* private ProductItem$ = (idProductItem: number): Observable<Product> => {
+   private ProductItem$ = (idProductItem: number):void => {
+    //debugger
     this._url.Controller = 'Nomenclature';
     this._url.Action = 'Item';
     this._url.ID = idProductItem;
@@ -115,7 +124,7 @@ export class ProductService {
     // let params:HttpParams=new HttpParams().set('postavchikId',this._url.PostavchikId)
 
     const httpOptions = { headers }
-    return this._http.get<Product>(this._url.Url, httpOptions).pipe(
+   this._http.get<Product>(this._url.Url, httpOptions).pipe(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       map((f: any) => {
         //  console.log(JSON.stringify(data))
@@ -134,7 +143,7 @@ export class ProductService {
           sale: f.sale,
 
           katalogId: f.katalogId,
-          katalogName: undefined,
+          katalogName: this._subKatalogService.SubKatalog().find(d=>d.id===f.katalogId)?.name ,
 
           colorId: f.colorId,
           colorName: this.Color().length>0?this.Color().find(d=>d.id===f.colorId)?.name:undefined,
@@ -151,15 +160,32 @@ export class ProductService {
         };
 
       })
-      ,tap(
-        x => console.log(x)
-      )
-    );
+      ,tap((data) => {
+        
+        this.ProductItem.set(data);
+        console.log(data.articleId+"+ productItem id"+data.name);
+      }
+      
+      ),
+      takeUntilDestroyed(),
+      catchError(() => of({
+        id: -1, name: '', price: -1, katalogId: -1,
+        colorId: -1, brandid: -1, hidden: false, guid: undefined, img_guids: undefined,
+        description: undefined, sale: undefined, brandName: undefined, colorName: undefined,
+        articleId: -1, articleName: undefined, postavchik: undefined, markup: undefined,
+        cost_total: undefined, inStock: undefined, katalogName: undefined
+      } as Product
+        
+        
+        )) //  on any error, just return an empty ProductItem
+    )
+    .subscribe();;
+    
   };
 
   PoductsItemSet = (idProductItem:string ):void => {
     this.ProductItem$(+idProductItem) ;
-  } */
+  } 
 
 
   ///  for: nomenclatureItem  ___________________

@@ -60,7 +60,7 @@ export class CardProductComponent implements OnInit {
 
   @Input()
   set product(value: Product) {
-    debugger
+    //debugger
     this._product = value;
     this.productItem.set(this._product);
 
