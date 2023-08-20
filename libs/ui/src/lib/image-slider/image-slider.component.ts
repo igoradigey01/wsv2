@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 
 import { ISliderImage } from '@wsv2/app-common';
 
@@ -13,9 +13,18 @@ import { CommonModule } from '@angular/common';
   templateUrl: './image-slider.component.html',
   styleUrls: ['./image-slider.component.scss'],
 })
-export class ImageSliderComponent implements OnInit, OnDestroy {
+export class ImageSliderComponent implements  OnDestroy {
 
-  @Input() slideImgs: ISliderImage[] = [];
+
+   arryImgs:ISliderImage[]=[];
+  @Input()
+   set  slideImgs(value:ISliderImage[]){
+    if(value.length>0){
+    this.arryImgs=value;
+    this.getCurrentSlideUrl();
+    }
+
+   }
   @Input() minHeight="200px";
   @Input() minWidth="200px"
   //@Input() height="450px"
@@ -44,10 +53,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
     //this.slideImgs=repository.company_photo;
   }
 
-  ngOnInit(): void {
-   this.getCurrentSlideUrl();
 
-  }
   ngOnDestroy() {
     window.clearTimeout(this.timeoutId);
   }
@@ -61,7 +67,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   goToPrevious(): void {
     const isFirstSlide = this.currentIndex === 0;
     const newIndex = isFirstSlide
-      ? this.slideImgs.length - 1
+      ? this.arryImgs.length - 1
       : this.currentIndex - 1;
 
     //  this.resetTimer();
@@ -70,7 +76,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
   }
 
   goToNext(): void {
-    const isLastSlide = this.currentIndex === this.slideImgs.length - 1;
+    const isLastSlide = this.currentIndex === this.arryImgs.length - 1;
     const newIndex = isLastSlide ? 0 : this.currentIndex + 1;
 
     //this.resetTimer();
@@ -86,6 +92,7 @@ export class ImageSliderComponent implements OnInit, OnDestroy {
 
   getCurrentSlideUrl() {
    //debugger
-    this.img_bg=this.slideImgs[this.currentIndex].url;
+   if(this.arryImgs.length>0)
+    this.img_bg=this.arryImgs[this.currentIndex].url;
   }
 }

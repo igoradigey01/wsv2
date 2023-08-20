@@ -71,7 +71,7 @@ export class ProductService {
           return <Product><unknown>{
             id: f.id,
             guid: f.guid,
-            img_guids: undefined,
+            img_guids: f.img_guids?[...f.img_guids.push(f.guid)]:[f.guid],
             name: f.name,
             description: f.description,
 
@@ -131,7 +131,7 @@ export class ProductService {
         return <Product><unknown>{
           id: f.id,
           guid: f.guid,
-          img_guids: undefined,
+          img_guids: f.img_guids?[...f.img_guids.push(f.guid)]:[f.guid],
           name: f.name,
           description: f.description,
 
@@ -163,7 +163,7 @@ export class ProductService {
       ,tap((data) => {
         
         this.ProductItem.set(data);
-        console.log(data.articleId+"+ productItem id"+data.name);
+        console.log(JSON.stringify( data));
       }
       
       ),

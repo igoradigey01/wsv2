@@ -1,7 +1,6 @@
 import {
   Component,
-  ChangeDetectionStrategy,
-  OnInit,
+  ChangeDetectionStrategy, 
   signal,
 
 } from '@angular/core';
@@ -35,7 +34,7 @@ import { ISliderImage } from '@wsv2/app-common';
   templateUrl: './card-product.component.html',
   styleUrls: ['./card-product.component.scss'],
 })
-export class CardProductComponent implements OnInit {
+export class CardProductComponent  {
 
   private _product = <Product>{
     id: -1,
@@ -85,52 +84,42 @@ export class CardProductComponent implements OnInit {
   public get ImgUrls(): ISliderImage[] {
 
     const img_urls: ISliderImage[] = [];
-
+  // debugger
     const guis = this.productItem().img_guids;
     if (guis) {
       guis.map(d => { img_urls.push({ url: `${this.serverUrl}images/L${d}.webp`, title: '' }) });
 
     }
-
+       
     return img_urls;
   }
 
   public get FullName(): string {
-    // replace in new vertion db !!!
+    let name='';
+    let article:string|undefined;
+    let color:string|undefined;
+    let brand:string|undefined;
+    name=this.productItem().name?this.productItem().name:'';
+    if(this.productItem().articleName){
+    article=this.productItem().articleName==='none'?'':this.productItem().articleName;
+    }
+    if(this.productItem().colorName)
+    color=this.productItem().colorName==='none'?'':this.productItem().colorName;
+    if(this.productItem().brandName)
+    brand=this.productItem().brandName==='none'?'':this.productItem().brandName;
 
-    //  console.log( )
-    return (
-      this.productItem().name +
-      ' ' +
-      this.productItem().brandName +
-      ' ' +
-      this.productItem().articleName +
-      ' ' +
-      this.productItem().colorName
-    );
+  //  console.log( )
+    return name+" "+brand+" "+color+" "+article;
+  
   }
 
-  constructor(private clipboard: Clipboard) //private cd: ChangeDetectorRef
+  constructor(
+    private clipboard: Clipboard
+    ) //private cd: ChangeDetectorRef
   { }
 
-  ngOnInit() {
-    this.productItem.mutate(d => { this.addImgToArry(d.img_guids, d.guid) })
 
-  }
-
-  private addImgToArry(arry: string[] | undefined, img_guid: string | undefined) {
-    if (!img_guid) return;
-    if (arry) {
-      arry.unshift(img_guid);
-
-    } else {
-      arry = <string[]>[];
-      arry.push(img_guid);
-
-    }
-
-  }
-
+  
 
   public copyLinkP() {
     if (this.productURL) this.clipboard.copy(this.productURL);
@@ -140,12 +129,12 @@ export class CardProductComponent implements OnInit {
     if (this.katalogURL) this.clipboard.copy(this.katalogURL);
   }
 
-  public ImgObj(): string {
-    //const guid = this.product?.guid ? this.product.guid : '';
-    //const url=single(this.product?.guid)
+  // public ImgObj(): string {
+  //   //const guid = this.product?.guid ? this.product.guid : '';
+  //   //const url=single(this.product?.guid)
 
-    return `${this.serverUrl}images/L${this.productItem().guid}.webp`;
-  }
+  //   return `${this.serverUrl}images/L${this.productItem().guid}.webp`;
+  // }
 
   public on_back() {
     this._onBack.emit();

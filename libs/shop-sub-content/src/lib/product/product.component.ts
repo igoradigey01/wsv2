@@ -59,12 +59,13 @@ export class ProductComponent {
     this._subKatalogProductsUrl = window.location.href;
 
     const idProduct  = this.routeActvate.snapshot.queryParams['productId'];
+    this.ShowChangeProduct(idProduct);
     routeActvate.params.subscribe((params) => (this.idSubKatatlog = params['id']));
 
     if (this.idSubKatatlog) {
       _repository.PoductsSet(this.idSubKatatlog)
     }
-    this.ShowChangeProduct(idProduct);
+   
 
    
 
