@@ -24,6 +24,9 @@
 .not-badge-cart-product{
   display: none;
 }
+.cart-mobile{
+  display: inline-block;
+}
 
 .opt-meny{
   background-color: var(--primary-darker-color);
@@ -237,6 +240,10 @@
 
 //-------------------------------
 @media (min-width: 450px)  {
+  .cart-mobile{
+    display: inline-block;
+  }
+
   .menu-lg {
     display: none;
   }
@@ -271,6 +278,11 @@
   }
 }
 @media (min-width: 768px)   {
+
+  .cart-mobile{
+    display: none;
+  }
+
   .menu-lg {
     display: none;
   }
@@ -287,6 +299,9 @@
 }
 
 @media (min-width:992px) {
+  .cart-mobile{
+    display:none;
+  }
   .menu-lg {
     display: flex;
     margin-right: 0.5rem;

@@ -102,6 +102,21 @@
             </svg>
           </a>
         </span>
+        <span class="cart-mobile" >
+
+          <button mat-button (click)="on_click_cart()" style="margin-top: 0.4rem;">
+            <div class="item-meny-svg">
+              <div class="item-meny-icon-svg">
+                <mat-icon>shopping_cart</mat-icon>
+                <div class="badge-cart-product-conteiner">
+                  <div [ngClass]="label_cart_badge ? 'badge-cart-product':'not-badge-cart-product'">{{ cart_amount}}</div>
+                </div>
+              </div>
+             
+            </div>
+          </button>
+          
+        </span>
       </div>
     </div>
 

@@ -9,7 +9,7 @@ import {katalog_data2} from '../../_shared/servises/data-fake2'
 //import { APP_INITIALIZER } from '@angular/core';
 //import { moduleMetadata } from '@storybook/angular';
 //import {  signal } from '@angular/core';;
-import {Nomenclature} from '@wsv2/app-common'
+import { Product} from '@wsv2/app-common'
 //import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 
 
@@ -20,7 +20,7 @@ import {Nomenclature} from '@wsv2/app-common'
 
  
  
-const i=  katalog_data2 as Nomenclature[];
+const i=  katalog_data2 as Product[];
 
 const meta: Meta< KatalogImgComponent> = {
 

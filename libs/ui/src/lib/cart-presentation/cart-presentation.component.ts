@@ -4,7 +4,7 @@ import { Input } from '@angular/core';
 
 import { AppHeaderLayoutComponent } from '../layout/app-header-layout/app-header-layout.component'
 import { CartShellComponent ,CartService} from '@wsv2/shop-cart'
-import {Nomenclature} from '@wsv2/app-common'
+import { Product} from '@wsv2/app-common'
 import {DataPresentationService } from '../_shared/servises/data-presentation.service'
 import {katalog_data2} from '../_shared/servises/data-fake2'
 
@@ -58,7 +58,7 @@ export class CartPresentationComponent {
   }
   ]
 
- public data_fake= signal<Nomenclature[]>( katalog_data2 as Nomenclature[]);
+ public data_fake= signal<Product[]>( katalog_data2 as Product[]);
  
  @Input() public flagView = false;
   @Input() public flagOpt = false;
@@ -85,7 +85,7 @@ export class CartPresentationComponent {
     private repository:DataPresentationService
     ) { }
 
-  addToCart(product: Nomenclature| undefined) {
+  addToCart(product: Product| undefined) {
     if (product) {
       this.cartService.addToCart(product);
     }

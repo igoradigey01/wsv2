@@ -2,9 +2,9 @@ import type { Meta} from '@storybook/angular';
 import {data} from '../_shared/servises/data-fake3'
 import { action } from '@storybook/addon-actions';
 import { CardProductComponent } from './card-product.component';
-import {Nomenclature} from '@wsv2/app-common'
+import { Product} from '@wsv2/app-common'
 
-const i=  data as Nomenclature;
+const i=  data as Product;
 const meta: Meta<CardProductComponent> = {
     title: 'Card-Product',
     component: CardProductComponent,

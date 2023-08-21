@@ -2,10 +2,10 @@
 
 import type { Meta, StoryObj } from '@storybook/angular';
 import {katalog_data2} from '../../_shared/servises/data-fake2'
-import {Nomenclature} from '@wsv2/app-common'
+import {Product} from '@wsv2/app-common'
 import { KatalogTableComponent } from './katalog-table.component';
 
-const i= katalog_data2 as Nomenclature[];
+const i= katalog_data2 as Product[];
 
 const meta: Meta<KatalogTableComponent> = {
 

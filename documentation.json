@@ -54,21 +54,21 @@
                 "name": "i",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/card-product/card-product.component.stories.ts",
+                "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "data as Nomenclature"
+                "defaultValue": "data as Product"
             },
             {
                 "name": "i",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/image-slider/image-slider.card-product.component.stories.ts",
+                "file": "libs/ui/src/lib/card-product/card-product.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "data as Nomenclature"
+                "defaultValue": "data as Product"
             },
             {
                 "name": "i",
@@ -78,7 +78,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "katalog_data2 as Nomenclature[]"
+                "defaultValue": "katalog_data2 as Product[]"
             },
             {
                 "name": "i",
@@ -88,7 +88,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "katalog_data2 as Nomenclature[]"
+                "defaultValue": "katalog_data2 as Product[]"
             },
             {
                 "name": "ImageSliderUI",
@@ -154,11 +154,11 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/card-product/card-product.component.stories.ts",
+                "file": "libs/ui/src/lib/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<CardProductComponent>",
-                "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        flagOpt: {\r\n            name: \"flagOpt\",\r\n            description: \"переключатель оптовая to рознечная цена\"\r\n          },\r\n          _onBack:{ action: 'clicked'},\r\n          _onQRCode:{action: 'clicked'},\r\n          addCart:{action: 'clicked', return:0},\r\n    },\r\n   \r\n\r\n\r\n}"
+                "type": "Meta<ButtonComponent>",
+                "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    \r\n    name:{\r\n      name: 'label',\r\n    //  defaultValue: 'Hello',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    },\r\n    id:{\r\n      id:'ID',\r\n      type:'number'\r\n\r\n    }\r\n    , \r\n    flagButtonId:{\r\n      name:\"visible id\",\r\n      type:\"boolean\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n    }\r\n    ,\r\n    onBtClick: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} },\r\n}"
             },
             {
                 "name": "meta",
@@ -184,21 +184,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ui/src/lib/button/button.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<ButtonComponent>",
-                "defaultValue": "{\r\n  /* 👇 The title prop is optional.\r\n   * See https://storybook.js.org/docs/angular/configure/overview#configure-story-loading\r\n   * to learn how to generate automatic titles\r\n   */\r\n  title: 'Button',\r\n  component: ButtonComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    \r\n    name:{\r\n      name: 'label',\r\n    //  defaultValue: 'Hello',\r\n      type: 'string',\r\n      description:\"название родительского или дочернего каталога\",\r\n      control:{type:'text'}\r\n    },\r\n    id:{\r\n      id:'ID',\r\n      type:'number'\r\n\r\n    }\r\n    , \r\n    flagButtonId:{\r\n      name:\"visible id\",\r\n      type:\"boolean\"\r\n    },\r\n    flagButtonOpacity:{\r\n      name:\"button opacity\",\r\n      type:\"boolean\"\r\n    }\r\n    ,\r\n    onBtClick: { action: 'clicked' ,return:{id:\"10\",name:\"название категории\"}} },\r\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "libs/ui/src/lib/qr-code/qr-code.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<QrCodeComponent>",
                 "defaultValue": "{\r\n  title: 'QrCodeComponentUI',\r\n  component: QrCodeComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    productURL: {\r\n      name: \"productURL\",\r\n      description: \"link on prduct\",\r\n    \r\n      \r\n    },\r\n    katalogURL: {\r\n      name: \"katalogURL\",\r\n      description: \" link on catalog\"\r\n    },\r\n    productName: {\r\n      name: \"productName\",\r\n      description: \" название товара\"\r\n    },\r\n    katalogName: {\r\n      name: \"katalogName\",\r\n      description: \"название каталога в ктором находится товар\"\r\n    },\r\n    flagShowQrKatlog: {\r\n      name: \"  flagShowQrKatlog\",\r\n      description: \"видимость Qr каталога\"\r\n    }\r\n  },\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ui/src/lib/card-product/card-product.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<CardProductComponent>",
+                "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        flagOpt: {\r\n            name: \"flagOpt\",\r\n            description: \"переключатель оптовая to рознечная цена\"\r\n          },\r\n          _onBack:{ action: 'clicked'},\r\n          _onQRCode:{action: 'clicked'},\r\n          addCart:{action: 'clicked', return:0},\r\n    },\r\n   \r\n\r\n\r\n}"
             },
             {
                 "name": "meta",
@@ -391,7 +391,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "data as Nomenclature"
+                    "defaultValue": "data as Product"
                 },
                 {
                     "name": "meta",
@@ -487,7 +487,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "data as Nomenclature"
+                    "defaultValue": "data as Product"
                 },
                 {
                     "name": "ImageSliderUI",
@@ -539,7 +539,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "katalog_data2 as Nomenclature[]"
+                    "defaultValue": "katalog_data2 as Product[]"
                 },
                 {
                     "name": "meta",
@@ -571,7 +571,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "katalog_data2 as Nomenclature[]"
+                    "defaultValue": "katalog_data2 as Product[]"
                 },
                 {
                     "name": "meta",

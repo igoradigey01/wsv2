@@ -14,7 +14,7 @@ import {
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 //import {katalog_data} from './data-fake'
 
-import { Nomenclature } from '@wsv2/app-common';
+import { Product } from '@wsv2/app-common';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +24,11 @@ export class DataPresentationService {
   private url = 'http://localhost:8080/api/Nomenclature/NomenclaturePKs/1?postavchikId=1'
   
   
-  private products$ = this.http.get<Nomenclature[]>(this.url).pipe(
+  private products$ = this.http.get<Product[]>(this.url).pipe(
     map((data: any) => {
         //  console.log(JSON.stringify(data))
         return data.map((f: any) => {
-          return <Nomenclature>{
+          return <Product>{
             id:f.id,
             guid:f.guid,
             name:f.name,
@@ -53,9 +53,9 @@ export class DataPresentationService {
   );
 
   // Expose signals from this service
-  products = toSignal<Nomenclature[], Nomenclature[]>(this.products$, {initialValue: []});
+  products = toSignal<Product[], Product[]>(this.products$, {initialValue: []});
 
-  selectedProduct = signal<Nomenclature| undefined>(undefined);
+  selectedProduct = signal<Product| undefined>(undefined);
   
   
 
@@ -64,11 +64,11 @@ export class DataPresentationService {
 
   productSelected(guid: string|undefined ,id:number|undefined) {
     if(guid){
-    const foundProduct = this.products().find((v:Nomenclature) => v.guid === guid);
+    const foundProduct = this.products().find((v:Product) => v.guid === guid);
     this.selectedProduct.set(foundProduct);
     }
    if(id){
-    const foundProduct = this.products().find((v:Nomenclature) => v.id === id);
+    const foundProduct = this.products().find((v:Product) => v.id === id);
     this.selectedProduct.set(foundProduct);
 
    }
