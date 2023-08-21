@@ -36,7 +36,7 @@
           -->
           <img class="img_block" src="{{ ImgObj(item) }}" />
           <div style="vertical-align: text-bottom; text-align: center">
-            <span *ngIf="flagOpt; else opt"> Ц:{{ item.cost_total }}р </span>
+            <span *ngIf="!flagOpt; else opt"> Ц:{{ item.cost_total }}р </span>
             <ng-template #opt> Ц:{{ item.price }} </ng-template>
           </div>
         </div>

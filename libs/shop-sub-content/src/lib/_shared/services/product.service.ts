@@ -36,6 +36,8 @@ export class ProductService {
       cost_total: undefined, inStock: undefined, katalogName: undefined
     });
 
+   
+
   constructor(
     private _http: HttpClient,
     private _url: ApiService,
@@ -75,7 +77,7 @@ export class ProductService {
             name: f.name,
             description: f.description,
 
-            cost_total: undefined,
+            cost_total: f.price * (f.markup / 100) + f.price,
             price: f.price,
             markup: f.markup,
 
@@ -135,7 +137,7 @@ export class ProductService {
           name: f.name,
           description: f.description,
 
-          cost_total: undefined,
+          cost_total: f.price * (f.markup / 100) + f.price,
           price: f.price,
           markup: f.markup,
 

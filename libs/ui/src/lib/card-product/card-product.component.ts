@@ -17,6 +17,7 @@ import { Product } from '@wsv2/app-common';
 import { ImageSliderComponent } from '../image-slider/image-slider.component'
 import { ISliderImage } from '@wsv2/app-common';
 
+
 @Component({
   selector: 'wsv2-card-product',
   standalone: true,
@@ -114,7 +115,8 @@ export class CardProductComponent  {
   }
 
   constructor(
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+  
     ) //private cd: ChangeDetectorRef
   { }
 

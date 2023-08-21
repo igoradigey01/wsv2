@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component,computed} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Router} from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout'
@@ -8,6 +8,8 @@ import { CompanyInformationService, MenyItemsService, IMenyItem } from '@wsv2/ap
 import { KatalogComponent,  AppHeaderLayoutComponent } from '@wsv2/ui'
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserRole } from '@wsv2/app-common'
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import {CartService} from '@wsv2/shop-cart'
 
 
 @Component({
@@ -26,7 +28,10 @@ import { UserRole } from '@wsv2/app-common'
 })
 export class IndexComponent {
 
-  private _cartItemsCount = 0; // haader
+
+
+   private _cartItemsCount = computed(() => this._repositoryCart.cartItems().reduce(
+    (acc, item) => acc + item.quantity, 0));
   
   _flagPanel = true; // sidenav 
   _flagSideBarHiden = false; //sidenav
@@ -51,19 +56,20 @@ export class IndexComponent {
 
 
   
-
+ 
   
 
   get CartItemsCount(): number {
-    return this._cartItemsCount;
+    return this._cartItemsCount();
   }
-  set CartItemsCount(item: number) {
-    this._cartItemsCount = item;
-  }
+  // set CartItemsCount(item: number) {
+  //   this._cartItemsCount = item;
+  // }
 
   constructor(
     private repositoryCompanyInformation: CompanyInformationService,
     private repositoryMenyItems: MenyItemsService,
+    private _repositoryCart:CartService,
     private router: Router
   ) {    
     this._srcLogo = repositoryCompanyInformation.company_logo;
@@ -73,6 +79,9 @@ export class IndexComponent {
     this._company_normalize_phone = repositoryCompanyInformation.company_normalize_phone;
     this._menuItems = repositoryMenyItems.shopMenyItems;
   }
+
+
+  
 
   public onClickCart(userRole:UserRole){
     this.router.navigate(['index/cart']);

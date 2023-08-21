@@ -59,7 +59,7 @@
     <li class="list-item"> <span class="name-item">Цвет :</span> {{productItem().colorName}} </li>
     <li class="list-item"><span class="name-item">Бренд :</span>{{productItem().brandName}}</li>
     <li class="list-item"> <span class="name-item">Цена : </span>
-      <span *ngIf="flagOpt; else opt"> Ц:{{ productItem().cost_total }}р </span>
+      <span *ngIf="!flagOpt; else opt"> Ц:{{ productItem().cost_total }}р </span>
             <ng-template #opt> Ц:{{ productItem().price }} </ng-template>
     </li>
   </ul>

@@ -58,7 +58,7 @@ export class SubCatalogComponent  implements OnInit{
   ChangeButton(idSubKatalog:IButton){
   //  this.router.navigate(['/heroes', { id: heroId }]);
   this.router.navigate(['/index/katalogs',this.idKatatlog,'products', idSubKatalog.id ]);
-    console.log("change sub catalog - " + idSubKatalog.id)
+   // console.log("change sub catalog - " + idSubKatalog.id)
 
   }
 }

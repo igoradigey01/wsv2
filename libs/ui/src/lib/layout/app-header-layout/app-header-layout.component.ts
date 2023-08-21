@@ -16,7 +16,8 @@ import {
 
 
 import { IMenyItem } from '@wsv2/app-config';
-import { UserRole } from '@wsv2/app-common'
+import { UserRole } from '@wsv2/app-common';
+
 
 
 
@@ -143,10 +144,15 @@ export class AppHeaderLayoutComponent {
   }
 
   constructor(
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+
   ) {
 
   }
+
+
+  
+
 
 
   public on_click_cart() {

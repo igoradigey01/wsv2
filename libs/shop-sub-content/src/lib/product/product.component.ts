@@ -1,9 +1,10 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute , Router } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../_shared/services/product.service';
 import { StateView, Product, } from '@wsv2/app-common';
+import {CartService } from '@wsv2/shop-cart'
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { KatalogImgComponent, CardProductComponent } from '@wsv2/ui';
 
@@ -18,7 +19,7 @@ import { KatalogImgComponent, CardProductComponent } from '@wsv2/ui';
 })
 export class ProductComponent {
 
-  products = this._repository.Products;
+  products = this._repositoryProduct.Products;
 
   itemProduct =
     signal<Product>({
@@ -33,7 +34,7 @@ export class ProductComponent {
   subkatalog_name = '';
   pageTitle = this.subkatalog_name;
   flagViewState: StateView = StateView.default;
-  serverUrl = this._repository.serverUrl;
+  serverUrl = this._repositoryProduct.serverUrl;
   private _subKatalogProductsUrl: string;
   private _subKatalogProductItemUrl='';
 
@@ -51,8 +52,10 @@ export class ProductComponent {
   }
 
   constructor(
-    private _repository: ProductService,
+    private _repositoryProduct: ProductService,
+    private _repositoryCart:CartService,
     private routeActvate: ActivatedRoute,
+    private router: Router
 
   ) {
     // debugger
@@ -63,7 +66,7 @@ export class ProductComponent {
     routeActvate.params.subscribe((params) => (this.idSubKatatlog = params['id']));
 
     if (this.idSubKatatlog) {
-      _repository.PoductsSet(this.idSubKatatlog)
+      _repositoryProduct.PoductsSet(this.idSubKatatlog)
     }
    
 
@@ -94,30 +97,22 @@ export class ProductComponent {
   }
 
   public addCart(item: Product) {
-    throw console.error("not implement addCart click");
+    //throw console.error("not implement addCart click");
+    this._repositoryCart.addToCart(item);
 
   }
 
 
 
   public onBackInNavBar() {
-    // //console.log(" onBackInNavBar")
-    //  if(this.sharedVar.IdCategoria!==-1)
-    // this.router.navigateByUrl('/content/categoria/'+this.sharedVar.IdCategoria);
-    // else{
-    //   if(this._nomenclatures.length>0)
-    //   this.repository.KatalogN(this._nomenclatures[0].katalogId).subscribe(
-    //     d=>{
+    //debugger
+    //this.router.navigate(['/index/katalogs',this.products()[0].katalogId]);
 
-    //       this.router.navigateByUrl('/content/categoria/'+d.categoriaId);
-
-    //     }
-    //   )
-
-
-
-
-
+    const url=this._subKatalogProductsUrl;
+   const arr=url.split("/",6).slice(-3)
+   const new_url= arr.join('/')
+  // console.log(JSON.stringify(arr))
+   this.router.navigate([new_url]);
 
   }
 
@@ -125,8 +120,8 @@ export class ProductComponent {
    // debugger
     if(idProduct){
       this._subKatalogProductItemUrl='';
-    this._repository.PoductsItemSet(idProduct);
-    this.itemProduct=this._repository.ProductItem;
+    this._repositoryProduct.PoductsItemSet(idProduct);
+    this.itemProduct=this._repositoryProduct.ProductItem;
    this._subKatalogProductItemUrl=this._subKatalogProductsUrl;
 
       this.flagViewState=StateView.itemView;
