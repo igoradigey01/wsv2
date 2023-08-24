@@ -6,12 +6,9 @@ import { CartItemComponent } from "../cart-item/cart-item.component";
 
 @Component({
   selector: 'wsv2-cart-list',
-  standalone: true,
-  template: `
-  <div *ngFor="let item of cartItems()">
-     <wsv2-cart-item [item]='item'></wsv2-cart-item>
-  </div>
-  `,
+  standalone: true,  
+  templateUrl: 'cart-list.component.html', 
+  styleUrls: ['./cart-list.component.scss'],
   imports: [NgFor, CartItemComponent]
 })
 export class CartListComponent {

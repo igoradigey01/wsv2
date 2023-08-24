@@ -1,47 +1,35 @@
-<div class="card border-primary"
-     *ngIf='cartItem()'>
-
-  <div class='card-header text-primary'>
-    <div class="row">
-      <div class="col-md-4">Name:</div>
-      <div class="col-md-6  fw-bold">{{cartItem(). product.name}}</div>
-      <div class="col-md-2">
-        <button type="button"
-                class="btn-close"
-                aria-label="Close"
-                (click)="onRemove()"></button>
+<!--   -------------------------------------------------->
+<div *ngIf="cartItem()">
+  <div class="conteiner">
+    <div class="itemBlock">
+      <div class="imageBlock">
+        <img
+          class="img"
+          src="{{ ServerUrl }}images/S{{ cartItem().product.guid }}.webp"
+        />
+      </div>
+      <div class="informationBlock">
+        <div>
+          {{ cartItem().product.name }} {{ cartItem().product.articleName }}
+          {{ cartItem().product.colorName }} {{ cartItem().product.brandName }}
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class='card-body'>
-    <div class="row">
-      <div class="col-md-4">Price (credits):</div>
-      <div class="col-md-6">{{cartItem(). product.cost_total | number:'1.2-2'}}</div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">Class:</div>
-      <div class="col-md-6">{{cartItem(). product.colorName}}</div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4">Quantity:</div>
-      <div class="col-md-6">
-        <select class="form-select"
-                aria-label="Quantity list"
-                style="margin-bottom: 10px;"
-                [ngModel]="cartItem().quantity"
-                (change)="onQuantitySelected($any($event.target).value)">
-          <option disabled
-                  value="">--Select a quantity--</option>
-          <option *ngFor="let q of qtyArr()">{{ q }}</option>
-        </select>
+    <div class="selectionBlock">
+      <div class="actionBlock">
+        <button mat-butto (click)="onRemove() "><mat-icon>close</mat-icon></button>
+        {{ cartItem().quantity }}
+        <button mat-button (click)="onAdd()"><mat-icon>add</mat-icon></button>
       </div>
-    </div>
+      <div class="productPriceBlock">
+        <div>Ц:{{ cartItem().product.cost_total | number : '1.2-2' }}</div>
 
-    <div class="row">
-      <div class="col-md-4">Cost:</div>
-      <div class="col-md-6">{{exPrice() | number:'1.2-2'}}</div>
+        <div>
+          <div>Итого:</div>
+          <div>{{ exPrice() | number : '1.2-2' }}</div>
+        </div>
+      </div>
+      <div class="checkBoxBlock"></div>
     </div>
   </div>
 </div>

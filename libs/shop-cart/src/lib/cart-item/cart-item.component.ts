@@ -1,4 +1,7 @@
 import { Component, Input, computed, signal } from '@angular/core';
+
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -8,8 +11,9 @@ import { CartService } from '../_shared/services/cart.service';
 @Component({
   selector: 'wsv2-cart-item',
   standalone: true,
-  imports: [DecimalPipe, FormsModule, NgFor, NgIf],
-  templateUrl: './cart-item.component.html'
+  imports: [DecimalPipe, FormsModule, NgFor, NgIf,MatButtonModule,MatIconModule],
+  templateUrl: './cart-item.component.html', 
+  styleUrls: ['./cart-item.component.scss'],
 })
 export class CartItemComponent {
 
@@ -35,14 +39,21 @@ export class CartItemComponent {
   exPrice = computed(() =>
     this.cartItem().quantity * Number(this.cartItem().product.cost_total));
 
-  constructor(private cartService: CartService) { }
+  constructor(private _repositoryCart: CartService) { }
 
-  onQuantitySelected(quantity: number): void {
-    // Update the quantity in the item
-    this.cartService.updateInCart(this.cartItem(), Number(quantity));
+  
+
+  onRemove( ): void {
+    this._repositoryCart.putInCart(this.cartItem());
+  }
+  onAdd():void{
+   // this.cartItem.mutate((item) => item.quantity = item.quantity+1);
+    this._repositoryCart.addToCart(this.cartItem().product);
   }
 
-  onRemove(): void {
-    this.cartService.removeFromCart(this.cartItem());
+  public get ServerUrl(): string {
+
+    return `${this._repositoryCart.ServerUrl}`
   }
+
 }

@@ -1,0 +1,101 @@
+.conteiner {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    //background: #fff;
+    border-radius: 24px;
+    padding: 16px 0;
+    word-break: break-word;
+}
+.itemBlock {
+    display: flex;
+    max-width: 500px;
+}
+
+.SnowShoppingcartProductList_ProductImage__background__121tf {
+    background-color: #222;
+    bottom: 0;
+    content: "";
+    left: 0;
+    opacity: .08;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.imageBlock {
+    width: 60px;
+    height: 60px;
+    min-height: unset;
+
+}
+.img{
+    height: 60px;
+}
+
+.informationBlock {
+    margin-left: 12px;
+}
+
+.selectionBlock {
+    display: flex;
+    align-self: flex-start;
+    flex-shrink: 0;
+    margin-left: 12px;
+}
+.actionBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    min-width: 120px;
+    height: 40px;
+    padding: 10px 0;
+    border: 2px solid #e4e4e4;
+    border-radius: 20px;
+}
+
+
+.productPriceBlock {
+    max-width:  80px;
+    //margin-right: 12px;
+    margin-left: 12px;
+}
+.checkBoxBlock {
+    width: 24px;
+    height: 24px;
+    margin-left: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    border: 2px solid rgba(34,34,34,.24);
+    border-radius: 8px;
+    box-shadow: none;
+    display: inline-block;
+    height: 20px;
+    padding: 2px;
+    position: relative;
+    text-align: left;
+    vertical-align: top;
+   // width: 20px;
+}
+
+@media (min-width: 1280px){
+.imageBlock {
+    width: 120px;
+    height: 120px;
+    min-height: unset;
+
+}
+.img{
+    height: 120px;
+}
+
+
+}
