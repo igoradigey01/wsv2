@@ -28,9 +28,7 @@ export class CartItemComponent {
     this.cartItem.set(item);
   }
 
-  // Hard-coded quantity
-  // These could instead come from an inventory system
-  qtyArr = signal([1, 2, 3, 4, 5, 6, 7, 8]);
+  
 
   // Cart item signal
   cartItem = signal(this.item);
@@ -44,7 +42,16 @@ export class CartItemComponent {
   
 
   onRemove( ): void {
+    //debugger
     this._repositoryCart.putInCart(this.cartItem());
+    this.cartItem.mutate(
+      d=>{
+        if(d.quantity>1){
+          d.quantity=d.quantity-1;
+        }
+      }
+    )      
+    
   }
   onAdd():void{
    // this.cartItem.mutate((item) => item.quantity = item.quantity+1);

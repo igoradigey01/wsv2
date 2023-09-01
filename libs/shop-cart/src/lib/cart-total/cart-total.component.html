@@ -1,24 +1,22 @@
-<div class="card border-secondary"
-     *ngIf='cartItems().length; else noItems'>
+<mat-card>
+  
+    
+  
+  <mat-card-header>
+    <mat-card-subtitle class="hiden">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </mat-card-subtitle>
+    <mat-card-title>
+      Оформите заказ
+    </mat-card-title>
+  </mat-card-header>
+  
 
-  <div class='card-header text-secondary fw-bold'>
-    <div class="row">
-      <div class="col-md-12">Cart Total</div>
-    </div>
-  </div>
-
-  <div class='card-body'>
+  <mat-card-actions>
+    <button mat-raised-button color="warn"> К Оформлению  >  <b>Итого:</b>  <b>{{totalPrice() | number:'1.2-2'}}</b></button>
    
-   
+  </mat-card-actions>
+  
 
-    <div class="row">
-      <div class="col-md-4"><b>Total:</b></div>
-      <div class="col-md-4"
-           style='text-align:right'><b>{{totalPrice() | number:'1.2-2'}}</b></div>
-    </div>
-  </div>
-</div>
+</mat-card>
 
-<ng-template #noItems>
-  No items in cart
-</ng-template>

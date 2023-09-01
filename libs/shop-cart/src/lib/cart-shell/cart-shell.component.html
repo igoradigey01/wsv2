@@ -1,10 +1,35 @@
-<div class="conteinsr-cart">
-<div class='container'>
-    <div class="child-products-table" >
+<div class="container-cart">
+  <div *ngIf="cartItems().length; else noItems">
+    <div class="container">
+      <div class="child-products-table">
         <wsv2-cart-list></wsv2-cart-list>
-    </div>
-    <div class="child-changed ">
+      </div>
+      <div class="child-changed">
         <wsv2-cart-total></wsv2-cart-total>
+      </div>
     </div>
   </div>
+
+  <ng-template #noItems>
+    <mat-card class="not-items">
+      <mat-card-header>
+        <svg
+          fill="currentColor"
+          
+          viewBox="0 0 32 32"
+         
+        >
+          <path
+            fill-rule="evenodd"
+            d="M28.28 17.77l1.5-9.62a1 1 0 00-1-1.15H7.6l-.48-3.29a2 2 0 00-2-1.71H3a1 1 0 000 2h2.14l2.81 19.29a2 2 0 002 1.71h5.51a7.5 7.5 0 007.06 5h.5c.176 0 .352-.028.52-.08a7.49 7.49 0 004.74-12.15zM27.67 9l-1.12 7.19A7.488 7.488 0 0015.87 19h-6.5L7.91 9h19.76zM9.93 23l-.29-2h5.51c-.1.494-.151.996-.15 1.5v.5H9.93zm15 4.44a5.41 5.41 0 01-3.89.35A5.47 5.47 0 0117.61 25a5.39 5.39 0 01-.58-2 4.089 4.089 0 010-.5 5.72 5.72 0 01.21-1.5 5.5 5.5 0 019-2.57 5.57 5.57 0 011.48 2.24c.213.587.321 1.206.32 1.83a5.5 5.5 0 01-3.13 4.94h.02zM12 30a2 2 0 100-4 2 2 0 000 4zm11.5-8.5H25a1 1 0 011 1 1 1 0 01-.15.5 1 1 0 01-.85.5h-1.5V25a1 1 0 01-2 0v-1.5H20a1 1 0 01-.84-.5 1 1 0 01-.16-.5 1 1 0 011-1h1.5V20a1 1 0 012 0v1.5z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        <mat-card-title> Ой, пусто! </mat-card-title></mat-card-header
+      >
+      <mat-card-content>
+        <p>в корзине нет товаров</p>
+      </mat-card-content>
+    </mat-card>
+  </ng-template>
 </div>

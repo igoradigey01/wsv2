@@ -1,0 +1,15 @@
+.not-items{
+    min-height: 80px;
+    width: 300px;
+   display: block;
+   margin: 4px auto 4px auto;
+ //  justify-content: center;
+}
+.hiden{
+  display: block;
+}
+@media (min-width: 760px)  {
+  .hiden{
+    display: none;
+  }
+}
