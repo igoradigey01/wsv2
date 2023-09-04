@@ -88,13 +88,6 @@
                   "01app-ui-lib",
                   "type:01-lib"
                 ]
-              },
-              {
-                "sourceTag": "01app-cart-lib",
-                "onlyDependOnLibsWithTags": [
-                  "01app-cart-lib",
-                  "type:01-lib"
-                ]
               }
               ,
               {
@@ -109,6 +102,14 @@
                 "sourceTag": "01app-shop-orders-lib",
                 "onlyDependOnLibsWithTags": [
                   "01app-shop-orders-lib",
+                  "type:01-lib"
+                ]
+              }
+              ,
+              {
+                "sourceTag": "01app-shop-cart-lib",
+                "onlyDependOnLibsWithTags": [
+                  "01app-shop-cart-lib",
                   "type:01-lib"
                 ]
               }

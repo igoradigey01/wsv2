@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+/* eslint-disable @nx/enforce-module-boundaries */
+import { Component,inject } from '@angular/core';
 import { DecimalPipe, NgIf } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {Router} from '@angular/router';
 
 import { CartService } from '../_shared/services/cart.service';
+//import {} from '@wsv2/shop-cart/'
+import {OrderService,OrderItem} from '@wsv2/shop-orders'
+
+
 
 @Component({
   selector: 'wsv2-cart-total',
@@ -15,16 +21,18 @@ import { CartService } from '../_shared/services/cart.service';
 })
 export class CartTotalComponent {
 
-  cartItems = this.cartService.cartItems;
+  repozitoryOrder= inject( OrderService);
+  repositoryCart=inject(CartService)
 
- /*  subTotal = this.cartService.subTotal;
-
-  deliveryFee = this.cartService.deliveryFee;
-
-  tax = this.cartService.tax;
- */
+  cartItems =   this.repositoryCart.cartItems; 
+  totalPrice = this.repositoryCart.totalPrice;
+  constructor(
+    private router: Router
+  ){}
   
-  totalPrice = this.cartService.totalPrice;
+  public createOrder(){
+    this.repozitoryOrder.CreateOrder(this.cartItems() as OrderItem[],this.totalPrice())
+    this.router.navigate(['index/order']);
+  }
   
-  constructor(private cartService: CartService) { }
 }

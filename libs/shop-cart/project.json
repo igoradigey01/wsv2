@@ -47,5 +47,8 @@
       }
     }
   },
-  "tags": ["01app-cart-lib", "type:01-lib"]
+  "tags": [
+    "01app-shop-cart-lib",
+    "type:01-lib"
+  ]
 }

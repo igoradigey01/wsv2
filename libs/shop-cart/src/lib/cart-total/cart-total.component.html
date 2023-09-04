@@ -13,7 +13,7 @@
   
 
   <mat-card-actions>
-    <button mat-raised-button color="warn"> К Оформлению  >  <b>Итого:</b>  <b>{{totalPrice() | number:'1.2-2'}}</b></button>
+    <button mat-raised-button color="warn" (click)="createOrder()" > К Оформлению  >  <b>Итого:</b>  <b>{{totalPrice() | number:'1.2-2'}}</b></button>
    
   </mat-card-actions>
   
