@@ -30,7 +30,7 @@ export const appRoutes: Route[] = [
         {
           path: 'order',              
           loadComponent: () =>
-            import('@wsv2/shop-orders').then((m) => m.OrdersShellComponent)
+            import('@wsv2/shop-order').then((m) => m.OrdersShellComponent)
         },
     
     
