@@ -31,7 +31,9 @@ export class CartTotalComponent {
   ){}
   
   public createOrder(){
-    this.repozitoryOrder.CreateOrder(this.cartItems() as OrderItem[],this.totalPrice())
+    const orderItems=this.cartItems().map(d=><OrderItem>{product:d.product,quantity:d.quantity} )
+    
+    this.repozitoryOrder.CreateOrder(orderItems,this.totalPrice())
     this.router.navigate(['index/order']);
   }
   

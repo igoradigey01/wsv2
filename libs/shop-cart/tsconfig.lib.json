@@ -13,5 +13,5 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts", "../app-common/src/lib/_shared/interfaces/nomenclature.model.ts"]
+  "include": ["src/**/*.ts"]
 }
