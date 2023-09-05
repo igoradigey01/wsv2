@@ -2,11 +2,16 @@ import { Injectable, computed, signal } from '@angular/core';
 import { Product } from '@wsv2/app-common';
 import { CartItem } from '../interfaces/cart-item.model';
 import { ApiService } from '@wsv2/app-config';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+//import {OrderService} from '@wsv2/shop-orders'
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CartService {
+
+
+  //repozitoryOrder= inject( OrderService);
   // Manage state with signals
   cartItems = signal<CartItem[]>([]);
 
@@ -22,18 +27,12 @@ export class CartService {
     return this._repositoryApi.ServerUri;
   }
 
-  constructor(private _repositoryApi: ApiService) {}
+  constructor(
+    private _repositoryApi: ApiService,
+  //  private _repozitoryOrder:OrderService
+    ) {}
 
-  /*  // налог , доставка - включить в итоговую стомость
-     // Delivery is free if spending more than 100,000 credits
-     deliveryFee = computed(() => this.subTotal() < 100000 ? 999 : 0);
-   
-     // Tax could be based on shipping address zip code
-     tax = computed(() => Math.round(this.subTotal() * 10.75) / 100);
-   
-     // Total price
-     totalPrice = computed(() => this.subTotal() + this.deliveryFee() + this.tax()); 
-     */
+  
 
   addToCart(product: Product): void {
     // debugger

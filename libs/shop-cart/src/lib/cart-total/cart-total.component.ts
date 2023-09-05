@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 
 import { CartService } from '../_shared/services/cart.service';
 //import {} from '@wsv2/shop-cart/'
-import {OrderService,OrderItem} from '@wsv2/shop-orders'
+import {OrderService,OrderItem} from '@wsv2/shop-order'
 
 
 
@@ -26,8 +26,11 @@ export class CartTotalComponent {
 
   cartItems =   this.repositoryCart.cartItems; 
   totalPrice = this.repositoryCart.totalPrice;
+
+
   constructor(
-    private router: Router
+    private router: Router,
+    
   ){}
   
   public createOrder(){

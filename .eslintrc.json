@@ -107,6 +107,14 @@
               }
               ,
               {
+                "sourceTag": "01app-shop-order-lib",
+                "onlyDependOnLibsWithTags": [
+                  "01app-shop-order-lib",
+                  "type:01-lib"
+                ]
+              }
+              ,
+              {
                 "sourceTag": "01app-shop-cart-lib",
                 "onlyDependOnLibsWithTags": [
                   "01app-shop-cart-lib",
