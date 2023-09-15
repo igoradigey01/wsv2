@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Product } from '@wsv2/app-common';
 
-import { OrderItem } from '../interfaces/order-item.model';
+import { OrderItem } from '../interfaces/order-details.model';
 import { Order } from '../interfaces/order.model';
 import { ApiService } from '@wsv2/app-config';
 

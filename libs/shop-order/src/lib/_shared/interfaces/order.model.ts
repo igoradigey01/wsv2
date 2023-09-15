@@ -1,16 +1,29 @@
-import {OrderItem} from './order-item.model'
+import {OrderDetails} from './order-details.model'
 
 export interface Order {
-    id:number
-    guid:number |undefined
+    id:number    
     orderNumber:number|undefined
-    date:string // дата   
-    adress:string 
-    isСompleted:boolean  // true - накладная выписана ,заказ скомплектован
-    
-    phone:string|undefined
-    mail:string|undefined
-    orderItems: OrderItem[]
-    total:number //Итого
+    ownerId:string
+    ownerPhone:string
+    createdAt:Date|undefined // дата создания generate on mysql as default value
+    closedAt:Date|undefined  
+    orderAdress:string |undefined
+    orderPickup:boolean //самовывоз ?
+    orderNote:string|undefined
+
+    customerFullName:string
+    customerId :string|undefined // id for IdentityUser
+    customerPhone:string|undefined
+    customerMail:string|undefined
+
+    payment_total:number // получено денег за заказ
+    total:number  // Общая стоимость заказа // Итого:
+  
+    paymentStateId:number
+
+    orderStateId:number
+   
+    orderItems: OrderDetails[]
+   
   }
   
