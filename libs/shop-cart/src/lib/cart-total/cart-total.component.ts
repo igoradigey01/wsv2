@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 
 import { CartService } from '../_shared/services/cart.service';
 //import {} from '@wsv2/shop-cart/'
-import {OrderService,OrderItem} from '@wsv2/shop-order'
+import {OrderService,OrderDetail} from '@wsv2/shop-order'
 
 
 
@@ -34,7 +34,14 @@ export class CartTotalComponent {
   ){}
   
   public createOrder(){
-    const orderItems=this.cartItems().map(d=><OrderItem>{product:d.product,quantity:d.quantity} )
+    let i=0;
+    const orderItems=this.cartItems().map(d=><OrderDetail>{
+      id:i++,
+      nomenclatureGuid:d.product.guid,
+      nomenclatureId:d.product.id,
+      nomenclatureName:d.product.title,
+      nomenclaturePrace:d.product.cost_total,
+      nomenclatureQuantity:d.quantity} )
     
     this.repozitoryOrder.CreateOrder(orderItems,this.totalPrice())
     this.router.navigate(['index/order']);

@@ -1,6 +1,6 @@
 
 
-export interface OrderDetails{
+export interface OrderDetail{
     id: number;
     orderId: number;
     nomenclatureId:number;

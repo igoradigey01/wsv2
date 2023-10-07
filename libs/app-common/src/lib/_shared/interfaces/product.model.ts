@@ -1,20 +1,15 @@
 export interface Product {
   id: number;
   guid: string | undefined;
-  img_guids:string[]|undefined;
-  name: string;
-  description: string | undefined;
- 
-  cost_total: number | undefined; // полная стоимость
-  price:number;
-  markup:number|undefined; //наценка
+  img_guids:string[]|undefined; // from Photos table
+  hidden:boolean;
+  ownerId:string;
+  product_typeId :number;
+  title: string;
 
 
-  inStock: boolean | undefined; //есть  на складе ?
-  sale:boolean |undefined;
-
-  katalogId:number;
-  katalogName:string |undefined;
+  subCatalogId:number;
+  subCatalogName:string |undefined;
 
   colorId:number; 
   colorName: string | undefined;
@@ -24,10 +19,31 @@ export interface Product {
 
   articleId:number;
   articleName: string | undefined;
-
-  hidden:boolean;
   
-  postavchik: string | undefined;
+  position:number;
+  
+
+  inStock: boolean | undefined; //есть  на складе ?
+  sale:boolean |undefined; 
+  
+  price:number;
+  markup:number; //наценка        
+  // not in db                         
+  cost_total: number | undefined; // полная стоимость for orders 
+
+
+  description: string | undefined;
+  descriptionSeo:string | undefined;
+ 
+  
+
+  
+
+ 
+
+  
+  
+
 
 
 }
