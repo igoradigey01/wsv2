@@ -6,7 +6,7 @@ export abstract class RouteApiAbstract {
   private _serverUri= '';
   private _controller = '';
   private _action: string | null = null;
-  private _id: number | null = null;
+  private _id: number |string| null = null;
   private _clientId: string | undefined;
   private _clientUrl:string  | undefined;
   private _postavchikIds:string[] |undefined;
@@ -28,7 +28,7 @@ export abstract class RouteApiAbstract {
     this._action = name;
   }
 
-  public set ID(id: number | null) {
+  public set ID(id: number |string | null) {
     this._id = id;
   }
 
@@ -91,7 +91,7 @@ export abstract class RouteApiAbstract {
     envAddress: string,
     controller: string,
     action: string | null,
-    id: number | null
+    id: number |string| null
   ) => {
     //debugger;
     if (id) return `${envAddress}api/${controller}/${action}/${id}`;

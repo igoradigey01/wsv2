@@ -14,7 +14,7 @@ export interface Product {
   colorId:number; 
   colorName: string | undefined;
 
-  brandid:number;
+  brandId:number;
   brandName: string | undefined;
 
   articleId:number;
@@ -23,27 +23,15 @@ export interface Product {
   position:number;
   
 
-  inStock: boolean | undefined; //есть  на складе ?
-  sale:boolean |undefined; 
+  inStock: boolean ; //есть  на складе ?
+  sale:boolean; 
   
   price:number;
   markup:number; //наценка        
   // not in db                         
   cost_total: number | undefined; // полная стоимость for orders 
 
-
   description: string | undefined;
   descriptionSeo:string | undefined;
- 
-  
-
-  
-
- 
-
-  
-  
-
-
 
 }

@@ -12,7 +12,7 @@ import {SubKatalog} from "@wsv2/app-common"
 })
 export class SubKatalogService {
   
-  SubKatalog = signal<SubKatalog[]>([]);
+  SubCatalog = signal<SubKatalog[]>([]);
  
   constructor(
     private _http: HttpClient,
@@ -33,7 +33,7 @@ export class SubKatalogService {
 
      this._http.get<SubKatalog[]>(this._url.Url, { headers })
      .pipe(
-      tap((data) => this.SubKatalog.set(data)),
+      tap((data) => this.SubCatalog.set(data)),
       takeUntilDestroyed(),
       catchError(() => of([] as SubKatalog[])) //  on any error, just return an empty array
     )

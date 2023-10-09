@@ -38,21 +38,34 @@ import { ISliderImage } from '@wsv2/app-common';
 export class CardProductComponent  {
 
   private _product = <Product>{
-    id: -1,
-    guid: '',
-    img_guids: <string[]>[],
-    name: '',
-    description: '',
-    price: -1,
-    markup: -1,
-    cost_total: -1,
+    id: 0,
+    guid: undefined,
+    img_guids: undefined,
+    hidden: false,
+    ownerId: '',
+    product_typeId: 0,
+    title: '',
+    subCatalogId: 0,
+    subCatalogName:undefined,
+
+    colorId: 0,
+    colorName:undefined,
+    brandId: 0,
+    brandName:undefined,
+    articleId: 0,
+    articleName:undefined,
+    
+
+    position: 0,
     inStock: false,
-    katalogId: -1,
-    katalogName: '',
-    colorName: '',
-    brandName: '',
-    articleName: '',
-    postavchik: '',
+    sale: false,
+    price: 0,
+    markup: 0,
+    cost_total: undefined,
+    description: undefined,
+    
+    descriptionSeo:undefined
+
   };
 
   @Input() public katalog_name: string | undefined;
@@ -100,7 +113,7 @@ export class CardProductComponent  {
     let article:string|undefined;
     let color:string|undefined;
     let brand:string|undefined;
-    name=this.productItem().name?this.productItem().name:'';
+    name=this.productItem().title?this.productItem().title:'';
     if(this.productItem().articleName){
     article=this.productItem().articleName==='none'?'':this.productItem().articleName;
     }

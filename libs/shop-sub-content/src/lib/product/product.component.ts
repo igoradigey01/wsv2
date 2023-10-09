@@ -23,11 +23,34 @@ export class ProductComponent {
 
   itemProduct =
     signal<Product>({
-      id: -1, name: '', price: -1, katalogId: -1,
-      colorId: -1, brandid: -1, hidden: false, guid: undefined, img_guids: undefined,
-      description: undefined, sale: undefined, brandName: undefined, colorName: undefined,
-      articleId: -1, articleName: undefined, postavchik: undefined, markup: undefined,
-      cost_total: undefined, inStock: undefined, katalogName: undefined
+      id: 0,
+      guid: undefined,
+      img_guids: undefined,
+      hidden: false,
+      ownerId: '',
+      product_typeId: 0,
+      title: '',
+      subCatalogId: 0,
+      subCatalogName:undefined,
+
+      colorId: 0,
+      colorName:undefined,
+      brandId: 0,
+      brandName:undefined,
+      articleId: 0,
+      articleName:undefined,
+      
+
+      position: 0,
+      inStock: false,
+      sale: false,
+      price: 0,
+      markup: 0,
+      cost_total: undefined,
+      description: undefined,
+      
+      descriptionSeo:undefined
+
     });
 
   idSubKatatlog: string | undefined;

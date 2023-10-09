@@ -1,12 +1,12 @@
-import {OrderDetails} from './order-details.model'
+import {OrderDetail} from './order-detail.model'
 
 export interface Order {
     id:number    
-    orderNumber:number|undefined
+    orderNO:string|undefined
     ownerId:string
     ownerPhone:string
-    createdAt:Date|undefined // дата создания generate on mysql as default value
-    closedAt:Date|undefined  
+    createdAt:Date // дата создания generate on api
+    closedAt:Date  //0001-01-01T00:00:00 minValue
     orderAdress:string |undefined
     orderPickup:boolean //самовывоз ?
     orderNote:string|undefined
@@ -23,7 +23,7 @@ export interface Order {
 
     orderStateId:number
    
-    orderItems: OrderDetails[]
+    orderItems: OrderDetail[]
    
   }
   
