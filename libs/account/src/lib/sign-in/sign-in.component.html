@@ -46,27 +46,25 @@
         class="form-signin"
         #authForm="ngForm"
         novalidate
-        (ngSubmit)="submitForm(authForm)"
+        (ngSubmit)="submitForm()"
       >
         <div class="item-form">
           <mat-form-field class="input-field" appearance="fill">
-            <mat-label>Email</mat-label>
+            <mat-label>Email or Phone</mat-label>
             <input
               matInput
-              type="email"
-              name="email"
-              [(ngModel)]="email"
-              #mail="ngModel"
+           
+              [(ngModel)]="login"
+              name="login"
+              #log="ngModel"
               class="form-control"
               required
-              email
+             
             />
-            <mat-error *ngIf="mail.hasError('required')"
-              >Email is required</mat-error
+            <mat-error *ngIf="log.hasError('required')"
+              >Login is required</mat-error
             >
-            <mat-error *ngIf="mail.hasError('email')"
-              >Please enter a valid email address</mat-error
-            >
+          
           </mat-form-field>
         </div>
 
