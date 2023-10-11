@@ -4,6 +4,8 @@
 
 - !!! https://blog.ninja-squad.com/2023/04/26/angular-signals/
 
+-  https://angdev.ru/angular/signals/
+
 - https://github.com/angular/angular/discussions/49682
 
 - https://www.youtube.com/watch?v=oqYQG7QMdzw !!!

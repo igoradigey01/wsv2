@@ -1,11 +1,9 @@
 
 export interface Katalog {
   id: number;
-  name: string;
-  flag_link:boolean;
-  flag_href:boolean;
-  link:string|undefined;
+  ownerId:string;
+  name: string; 
   hidden:boolean;
   decriptSEO: string;
-  postavchikId:number
+
 }

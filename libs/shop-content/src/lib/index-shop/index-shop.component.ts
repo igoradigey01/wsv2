@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy} from '@angular/core';
+import { Component, ChangeDetectionStrategy,effect,EffectRef, signal} from '@angular/core';
 import { Router  } from '@angular/router';
 //import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { KatalogComponent } from '@wsv2/ui';
 import {Katalog,IButton} from '@wsv2/app-common'
 import { KatlogService } from '../_shared/services/katalog.servise'
+
 
 
 
@@ -20,15 +21,34 @@ import { KatlogService } from '../_shared/services/katalog.servise'
 export class IndexShopComponent  {
  
 
-  katalogs = this._repository.Katalogs
+      
+  katalogs =  signal<Katalog[]>([]);
 
-  _categoriaNs:Katalog[]=[];
+  efRef:EffectRef=effect(
+    ()=>{
+      if(this._repository.Katalogs().length>0){
+        this.katalogs.set(this._repository.Katalogs().filter(f=>f.hidden==false));
+       // console.log("effect -------------")
+      }
+    },
+    { allowSignalWrites: true }
+  )
+
   constructor(
     private _repository: KatlogService,
     private router: Router
-    ) { }
+    ) {
+         
+      
+      // если Katalogs().length===1 то перейти сразу в subCatalog
+      _repository.indicatorSubject.subscribe(d=>{
+      if(d)  this.router.navigate(['/index/katalogs', _repository.Katalogs()[0].id ]);
+    
+      }
+      );
+     }
 
- 
+   
 
   ChangeButton(katalog:IButton){
 
