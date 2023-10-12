@@ -79,6 +79,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         provider: user.provider,
         idToken: user.idToken,
         idUser: user.id,
+        isSpa:this.repozitory.ClientId
       };
 
       if (user.provider == 'GOOGLE') {
@@ -125,6 +126,7 @@ export class SignInComponent implements OnInit, OnDestroy {
           provider: user.provider,
           idToken: user.authToken,
           idUser: user.id,
+          isSpa:this.repozitory.ClientId
         };
         // credentials.idToken=user.idToken ;
         // credentials.idToken=user.authToken

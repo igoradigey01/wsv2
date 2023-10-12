@@ -54,7 +54,7 @@ private authChangeSub = new Subject<boolean>();
 
   /** Client subscribe() for _invalidLogin chenged; !! ngOnDestroy()-- unsubscribe !!  */
   public get InvalidOptShopper$(): BehaviorSubject<boolean> {
-    let opt = this.optShopperStorage.Get;
+    const opt = this.optShopperStorage.Get;
     if (opt) {
       if (opt === 'opt-1') {
         this._invalidOptShopper$.next(false);
@@ -84,7 +84,7 @@ private authChangeSub = new Subject<boolean>();
     this._invalidLogin$.next(i);
     if (!i) {
       this.accessTokenStorage.Set = token;
-      let delta = this.getTokenDeltaTime(token);
+     const delta = this.getTokenDeltaTime(token);
       setTimeout(this.setInvalidLoginIsTrue, delta);
     } else {
       this.accessTokenStorage.remove();
@@ -92,9 +92,9 @@ private authChangeSub = new Subject<boolean>();
   }
   /**get role User or null */
   public get RoleUser(): string | null {
-    let token = this.accessTokenStorage.Get;
+    const token = this.accessTokenStorage.Get;
     if (token) {
-      let role = this._jwtHelper.decodeToken(token);
+      const role = this._jwtHelper.decodeToken(token);
       return role ? role.role : null;
     }
     return null;
@@ -127,13 +127,13 @@ private authChangeSub = new Subject<boolean>();
   /** сколько секунд живет */
   private getTokenDeltaTime(token: string | null): number {
     if (token) {
-      let dataExpiration = this._jwtHelper.getTokenExpirationDate(token);
-      let data = new Date();
+      const dataExpiration = this._jwtHelper.getTokenExpirationDate(token);
+      const data = new Date();
 
       // Date() valueOf()  возвращает примитивное значение объекта Date в виде числового типа данных — количества миллисекунд,
       //  прошедших с полуночи 01 января 1970 по UTC
       if (dataExpiration) {
-        let delta = dataExpiration.valueOf() - data.valueOf();
+        const delta = dataExpiration.valueOf() - data.valueOf();
         return delta;
       }
       return 0;

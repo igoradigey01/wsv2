@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {UserVkDto} from '../_interfaces/user-vkDto.model'
 import { ApiService } from '@wsv2/app-config';

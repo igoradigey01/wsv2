@@ -2,13 +2,14 @@ import { Component, OnInit , OnDestroy} from '@angular/core';
 import { Router ,ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserManagerService } from '@wsv2/account-service';
+import {EnvironmentService} from '@wsv2/app-config'
 import {HttpUrlEncodingCodec ,HttpErrorResponse} from '@angular/common/http'
 import {VkLoginWidgetService} from '../_shared/services/vk-login-widger.service'
 import {UserVkDto} from '../_shared/_interfaces/user-vkDto.model'
 
 
 @Component({
-  selector: 'x01-v1-auth-callback-vk',
+  selector: '@wsv2-app-auth-callback-vk',
   templateUrl: './auth-callback-vk.component.html',
   styleUrls: ['./auth-callback-vk.component.scss'],
 })
@@ -25,6 +26,7 @@ export class AuthCallbackVkComponent implements OnInit , OnDestroy {
     private _userManager: UserManagerService,
     private route: ActivatedRoute,
     private router: Router,
+    private envir:EnvironmentService
 
   ) {
    // ---response identity server -----
@@ -53,12 +55,13 @@ export class AuthCallbackVkComponent implements OnInit , OnDestroy {
     this.user.idApp=this.repozitory.IdAPP;
     this.user.first_name = this._codec.decodeValue( this.route.snapshot.queryParams['first_name']);
     this.user.last_name=this._codec.decodeValue( this.route.snapshot.queryParams['last_name']);  
-    let photo_rec= this._codec.decodeValue( this.route.snapshot.queryParams['photo_rec']);
+    const photo_rec= this._codec.decodeValue( this.route.snapshot.queryParams['photo_rec']);
     this.user.photo_rec_url=photo_rec?photo_rec:"";
     this.user.hash=this.route.snapshot.queryParams['hash'];
+    this.user.spaId=this.envir.clientId;
 
 
-    var subLogin=  this.repozitory.CheckUser(this.user).subscribe(
+    const subLogin=  this.repozitory.CheckUser(this.user).subscribe(
       {
         next: (d:any) => {
         
@@ -68,7 +71,7 @@ export class AuthCallbackVkComponent implements OnInit , OnDestroy {
           this.router.navigateByUrl('');
         },
         error:(err: HttpErrorResponse) => {
-          let body: string;
+       
           this._userManager.setInvalidLogin$(true, null);
            
            if(err.status === 401){
@@ -87,10 +90,9 @@ export class AuthCallbackVkComponent implements OnInit , OnDestroy {
           }
   
   
-          body =
-            'Ошибка соединения с сервером -Сообщиете Администаратору Pесурса';
+         
   
-          this._errorMgs.push(body);
+          this._errorMgs.push('Ошибка соединения с сервером -Сообщиете Администаратору Pесурса');
         }
        
       }
