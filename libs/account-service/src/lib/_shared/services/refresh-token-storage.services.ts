@@ -1,38 +1,36 @@
 import { Injectable } from '@angular/core';
-import {Storage} from '../_class/storage.class';
-import { authSorageKey } from './access-token-storage.services';
 
 
+const refreshSorageKey:{[key:string]:string}={
+   
+    refreshToken:'refresh_token',
+   
+}
 
 
 @Injectable({
     providedIn: 'root'
 }
 )
-export class RefreshTokenStorage implements Storage{
+export class RefreshTokenStorage {
 
-    constructor() {}
-    /** clear all obj in storage */
-    public clear():void{
-        localStorage.clear();
 
-    }
     /**get access token */
     public   get Get():string|null{
         
-        return  localStorage.getItem(authSorageKey["refreshToken"]);;
+        return  localStorage.getItem(refreshSorageKey["refreshToken"]);;
      }
 
      /**set access token */
     public set Set(refresh_token:string|null){
         if(refresh_token)
-        localStorage.setItem(authSorageKey["refreshToken"],refresh_token);
+        localStorage.setItem(refreshSorageKey["refreshToken"],refresh_token);
         
 
 
      }
     public remove():void{
-        localStorage.removeItem(authSorageKey["accessToken"]);
+        localStorage.removeItem(refreshSorageKey["accessToken"]);
 
     }
 

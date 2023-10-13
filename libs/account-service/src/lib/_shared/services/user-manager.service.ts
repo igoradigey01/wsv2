@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AccessTokenStorage } from './access-token-storage.services';
 import { RefreshTokenStorage } from './refresh-token-storage.services';
-import { OptShopperStorage } from './opt-shopper-storage.services';
-import { BehaviorSubject, timeout } from 'rxjs';
-import { JwtHelper } from '../_class/jwt-helper.class';
 
-import { CarStorage } from '../services/car-strorage.services';
+import { BehaviorSubject } from 'rxjs';
+import { JwtHelper } from '../_class/jwt-helper.class';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserManagerService {
-
-/* sample state Obj$
+  /* sample state Obj$
 private authChangeSub = new Subject<boolean>();
   private extAuthChangeSub = new Subject<SocialUser>();
   //Оператор asObservable можно использовать для преобразования Subject в наблюдаемый объект. 
@@ -24,55 +21,27 @@ private authChangeSub = new Subject<boolean>();
 
 */
 
-  //BehaviorSubject повторно выдают только последнее сгенерированное значение 
+  //BehaviorSubject повторно выдают только последнее сгенерированное значение
   //или значение по умолчанию, если ранее не было сгенерировано никакого значения
   private _invalidLogin$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(true);
 
-  private _invalidOptShopper$: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(true);
-
   private _jwtHelper = new JwtHelper();
 
-  public get AdmiRole():string{
-    return "admin"
+  public get AdmiRole(): string {
+    return 'admin';
   }
-  public get ManagerRole():string{
-    return "manager"
+  public get ManagerRole(): string {
+    return 'manager';
   }
-  public get ShoperRole():string{
-    return "shopper"
+  public get ShoperRole(): string {
+    return 'shopper';
   }
 
   constructor(
     private accessTokenStorage: AccessTokenStorage,
-    private refreshTokenStorage: RefreshTokenStorage,
-    private optShopperStorage: OptShopperStorage,
-
-    private carShop: CarStorage
+    private refreshTokenStorage: RefreshTokenStorage
   ) {}
-
-  /** Client subscribe() for _invalidLogin chenged; !! ngOnDestroy()-- unsubscribe !!  */
-  public get InvalidOptShopper$(): BehaviorSubject<boolean> {
-    const opt = this.optShopperStorage.Get;
-    if (opt) {
-      if (opt === 'opt-1') {
-        this._invalidOptShopper$.next(false);
-      }
-    }
-    return this._invalidOptShopper$;
-  }
-
-  /** set value for  _invalidLogin ; defauld -- true */
-  public setInvalidOptShopper$(i: boolean, opt: string | null) {
-    //
-    this._invalidOptShopper$.next(i);
-    if (!i) {
-      this.optShopperStorage.Set = opt;
-    } else {
-      this.optShopperStorage.remove();
-    }
-  }
 
   /** Client subscribe() for _invalidLogin chenged; !! ngOnDestroy()-- unsubscribe !!  */
   public get InvalidLogin$(): BehaviorSubject<boolean> {
@@ -84,7 +53,7 @@ private authChangeSub = new Subject<boolean>();
     this._invalidLogin$.next(i);
     if (!i) {
       this.accessTokenStorage.Set = token;
-     const delta = this.getTokenDeltaTime(token);
+      const delta = this.getTokenDeltaTime(token);
       setTimeout(this.setInvalidLoginIsTrue, delta);
     } else {
       this.accessTokenStorage.remove();
@@ -99,7 +68,7 @@ private authChangeSub = new Subject<boolean>();
     }
     return null;
   }
-      /**get access Token */
+  /**get access Token */
   public get AccessToken(): string | null {
     return this.accessTokenStorage.Get;
   }
@@ -107,8 +76,8 @@ private authChangeSub = new Subject<boolean>();
   public accessTokenRemove() {
     this.accessTokenStorage.remove();
   }
-  
-      /**get Refresh Token */
+
+  /**get Refresh Token */
   public get RefreshToken(): string | null {
     return this.refreshTokenStorage.Get;
   }
