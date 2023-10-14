@@ -12,8 +12,7 @@ assets/company_information/company_information.json
 ```
 
 
-## opt 
- - http://localhost:4200/index/opt?user=opt-1
+
 
 
 ## About
