@@ -3,7 +3,10 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shop-opt/src",
   "prefix": "wsv2",
-  "tags": [],
+  "tags": [
+    "scope:01app-shop-op-lib",
+    "type:01-lib"
+ ],
   "projectType": "library",
   "targets": {
     "build": {

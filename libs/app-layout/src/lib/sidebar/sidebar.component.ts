@@ -1,8 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-//import { MenuService } from './../shared/services/menu.service';
+
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {IMenyItem} from '@wsv2/app-config'
 
 import { Subscription } from 'rxjs';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserManagerService } from '@wsv2/account-service';
 
 @Component({
@@ -23,7 +25,7 @@ export class SidebarComponent implements OnInit {
   private _subscriptions: Subscription[] = [];
 
   public MenuItems = (): IMenyItem[] => {
-    let m = this.menuItems;
+    const m = this.menuItems;
   //  console.log(m);
 
     return m;
@@ -43,11 +45,9 @@ export class SidebarComponent implements OnInit {
      // console.log('menu conctructor -- userManager.InvalidLogin$--' + d);
     });
 
-   const sub2 = this.userManager.InvalidOptShopper$.subscribe((d) => {
-      this._isOptovik = d;
-    });
+   
     this._subscriptions.push(sub1);
-    this._subscriptions.push(sub2);
+   
   }
 
   ngOnDestroy() {

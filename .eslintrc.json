@@ -153,6 +153,14 @@
                   "type:01-lib"
                 ]
               }
+              ,
+              {
+                "sourceTag": "scope:01app-shop-op-lib",
+                "onlyDependOnLibsWithTags": [
+                  "scope:01app-shop-op-lib",
+                  "type:01-lib"
+                ]
+              }
             ]
           }
         ]

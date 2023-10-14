@@ -3,8 +3,8 @@
 - https://angular.io/guide/signals
 
 - !!! https://blog.ninja-squad.com/2023/04/26/angular-signals/
-
--  https://angdev.ru/angular/signals/
+- ! https://christianlydemann.com/the-best-way-to-use-signals-in-angular-apps/
+-   https://angdev.ru/angular/signals/
 
 - https://github.com/angular/angular/discussions/49682
 
