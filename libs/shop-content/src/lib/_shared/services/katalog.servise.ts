@@ -40,7 +40,7 @@ export class KatlogService {
       .get<Katalog[]>(this.url.Url, { headers: this.headers })
       .pipe(
         tap((data) => {
-           this.Katalogs.set(data);
+           this.Katalogs.update(()=> data);
            if( data.length===1)
            this.indicatorSubject.next(true);
             console.log("Catalogs.Length :"+data.length)
@@ -50,7 +50,10 @@ export class KatlogService {
       )
       .subscribe();
   }
-
+  
+  public ReLoadKatalogs(){
+    this.LoadKatlogs();
+  }
   
 
 }

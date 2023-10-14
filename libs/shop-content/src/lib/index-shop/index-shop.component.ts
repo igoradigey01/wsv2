@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy,effect,EffectRef, signal} from '@angular/core';
+import { Component, ChangeDetectionStrategy,effect,EffectRef, signal,OnInit,computed} from '@angular/core';
 import { Router  } from '@angular/router';
 //import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -18,26 +18,28 @@ import { KatlogService } from '../_shared/services/katalog.servise'
   templateUrl: './index-shop.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./index-shop.component.scss'],
+
 })
-export class IndexShopComponent  {
+export class IndexShopComponent implements OnInit {
  
 
       
-  katalogs =  signal<Katalog[]>([]);
+  katalogs = computed(()=>this.repositoryCatalog.Katalogs().filter(f=>f.hidden==false)) // signal<Katalog[]>([]);
 
-  efRef:EffectRef=effect(
-    ()=>{
-      if(this.repositoryCatalog.Katalogs().length>0){
-        this.katalogs.set(this.repositoryCatalog.Katalogs().filter(f=>f.hidden==false));
-       // console.log("effect -------------")
-      }
-    },
-    { allowSignalWrites: true }
-  )
+  // efRef:EffectRef=effect(
+  //   ()=>{
+  //     if(this.repositoryCatalog.Katalogs().length>0){
+  //       this.katalogs.set(this.repositoryCatalog.Katalogs().filter(f=>f.hidden==false));
+  //      // console.log("effect -------------")
+  //     }
+  //   },
+  //   { allowSignalWrites: true }
+  // )
 
   constructor(
-    private repositoryCatalog: KatlogService,
     private repositoryOpt:OptManagerService,
+    private repositoryCatalog: KatlogService,
+   
     private router: Router
     ) {
      // debugger
@@ -51,7 +53,9 @@ export class IndexShopComponent  {
       );
      }
 
-   
+   ngOnInit(): void {
+       this.repositoryOpt.checkFlag();
+   }
 
   ChangeButton(katalog:IButton){
 
