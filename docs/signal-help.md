@@ -10,6 +10,27 @@
 
 - https://www.youtube.com/watch?v=oqYQG7QMdzw !!!
 
+## Signal managerState
+  - ! https://christianlydemann.com/the-best-way-to-use-signals-in-angular-apps/
+  - Object.assign()
+   - this.state.update((state) =>Object.assign ({ ...state, todoItems: newTodoList,state:"test-2" }));
+  - https://learn.javascript.ru/object-copy
+  -  https://dev.to/sagar/three-dots---in-javascript-26ci
+  ```
+        export interface TodoItem {
+           id: string;
+           name: string;
+           isCompleted: boolean;
+           }
+
+        export interface TodoListState {
+                todoItems: TodoItem[];
+                state: string;
+                }
+  ```
+   
+
+
 ## Angular Update for 16 vertion
 - https://update.angular.io
 - https://drive.google.com/file/d/1Dk3DFp7jEFEUT_j4xyydha_lDIusXuvt/view
