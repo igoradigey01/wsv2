@@ -55,10 +55,10 @@ export class IndexShopComponent implements OnInit {
     //https://runebook.dev/ru/docs/angular/errors/ng0100
     this.repositoryOpt.checkFlag(); // ok Error: NG0100 - this not error
 
-     this.repositoryCatalog.fetchTodoItems();
-     console.log("fetchTodoItems" + JSON.stringify( this.repositoryCatalog.todoItems()));
-     this.repositoryCatalog.deleteTodo('2');
-     console.log("deleteItem" + JSON.stringify( this.repositoryCatalog.todoItems()));
+    //  this.repositoryCatalog.fetchTodoItems();
+    //  console.log("fetchTodoItems" + JSON.stringify( this.repositoryCatalog.todoItems()));
+    //  this.repositoryCatalog.deleteTodo('2');
+    //  console.log("deleteItem" + JSON.stringify( this.repositoryCatalog.todoItems()));
   }
 
   ChangeButton(katalog: IButton) {
