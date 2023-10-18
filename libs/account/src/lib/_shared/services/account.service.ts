@@ -56,7 +56,7 @@ export class AccountService {
     this.url.Action = 'GoogleExternalLogin';
     this.url.ID = null;
 
-     console.log('login-credentials = '+credentials);
+     console.log('login-credentials = '+JSON.stringify(credentials));
     return this.http.post<AuthResponseDto>(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

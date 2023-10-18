@@ -64,7 +64,8 @@ export class ResetPasswordFromMailComponent implements OnInit {
     this._authService.resetPassword( resetPassDto)
     .subscribe({
       next:(_) => {
-      this._userManager.setInvalidLogin$(true,null);
+    //  this._userManager.setInvalidLogin$(true,null);
+    this._userManager.SetAccessToken(undefined);
       this.showSuccess = true;
     },
    error: (err: HttpErrorResponse) => {

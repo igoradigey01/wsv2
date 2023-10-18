@@ -3,6 +3,7 @@ import { Injectable, signal, computed, effect, EffectRef } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { ApiService} from '@wsv2/app-config';
+import {UserManagerService} from '@wsv2/account-service'
 import { Katalog } from '@wsv2/app-common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, of, tap, BehaviorSubject, Observable } from 'rxjs';
@@ -73,10 +74,11 @@ export class KatlogService {
   constructor(
     private _http: HttpClient,
     private url: ApiService,
+    private userManager:UserManagerService
   //  private repozitory: EnvironmentService
   ) {
     if(this.state().state===Status.empty){
-    this.LoadKatlogs();
+    this.LoadCatlaogs();
     }
   }
 
@@ -118,11 +120,11 @@ export class KatlogService {
       next: (res) => {
         console.log(res);       
         this.state.update((d)=>({...d,catalogItems: [...d.catalogItems, item],state:Status.modify}))
-        this.message.update((m)=>({...m,message:"The status was updated successfully!"})) ;
+        this.message.update((m)=>({...m,message:"The status was create successfully!"})) ;
       },
       error: (err: HttpErrorResponse) =>{
         console.error(err);
-        this.state.update((d)=>({...d,catalogItems: [...d.catalogItems, item],queryUpdate:[...d.catalogItems, item],state:Status.modify}));
+        this.state.update((d)=>({...d,catalogItems: [...d.catalogItems, item],queryAdd:[...d.queryAdd, item],state:Status.modify}));
         this.message.update((m)=>({...m,error:true})) ;
         if (err.status === 401) {         
           this.message.update((m)=>({...m,message:'пользователь не авторизован,войдите на сайт'})) ;
@@ -137,10 +139,6 @@ export class KatlogService {
         return;
       } 
      } );
-
-
-      
-
   }
 
  private Create$ = (item: Katalog): Observable<any> => {
@@ -152,7 +150,7 @@ export class KatlogService {
     item.ownerId=this.url.ClientId
     const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
-      Authorization: 'Bearer ' + this.url.AccessToken,
+      Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
 
    
@@ -164,7 +162,36 @@ export class KatlogService {
     });
   }
 
-  //-----------------------------------
+  public Update = (item: Katalog)=>{
+   // new Error("Протестировать правильность работы метода")
+   this.Update$(item)
+   .subscribe({
+      
+      next: (res) => {
+        console.log(res);       
+        this.state.update((d)=>({...d,catalogItems: [...d.catalogItems],state:Status.modify}))
+        this.message.update((m)=>({...m,message:"The status was updated successfully!"})) ;
+      },
+      error: (err: HttpErrorResponse) =>{
+        console.error(err);
+        this.state.update((d)=>({...d,catalogItems: [...d.catalogItems],queryUpdate:[...d.queryUpdate, item],state:Status.modify}));
+        this.message.update((m)=>({...m,error:true})) ;
+        if (err.status === 401) {         
+          this.message.update((m)=>({...m,message:'пользователь не авторизован,войдите на сайт'})) ;
+          return;
+        }
+        if (err.status == 400) {
+          this.message.update((m)=>({...m,message:err.error})) ;
+          return;
+        }
+        
+        this.message.update((m)=>({...m,message: 'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса'})) ;
+        return;
+      } 
+     });
+
+
+  }  
 
  private Update$ = (item: Katalog): Observable<any> => {
    // throw new Error("not implemint exeption");
@@ -175,7 +202,7 @@ export class KatlogService {
  //  debugger
     const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
-      Authorization: 'Bearer ' + this.url.AccessToken,
+      Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
   
 
@@ -185,7 +212,44 @@ export class KatlogService {
       headers,
     });
   }
-  //-------------------
+
+  public Delete = (id: number)=>{
+
+    const newCatlogsList = this.state().catalogItems.filter(
+      (todo) => todo.id !== id
+    );
+
+    const delItems = this.state().catalogItems.find(
+      (todo) => todo.id === id
+    );
+
+
+    this.Delete$(id).subscribe({    
+        
+      next: (res) => {
+        console.log(res);       
+        this.state.update((d)=>({...d,catalogItems: newCatlogsList,state:Status.modify}))
+        this.message.update((m)=>({...m,message:"The status was updated successfully!"})) ;
+      },
+      error: (err: HttpErrorResponse) =>{
+        console.error(err);
+        if(delItems)
+        this.state.update((d)=>({...d,catalogItems: newCatlogsList,queryDelete:[...d.queryDelete, delItems],state:Status.modify}));
+        this.message.update((m)=>({...m,error:true})) ;
+        if (err.status === 401) {         
+          this.message.update((m)=>({...m,message:'пользователь не авторизован,войдите на сайт'})) ;
+          return;
+        }
+        if (err.status == 400) {
+          this.message.update((m)=>({...m,message:err.error})) ;
+          return;
+        }
+        
+        this.message.update((m)=>({...m,message: 'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса'})) ;
+        return;
+      } 
+
+    })}
 
   private Delete$ = (id: number): Observable<any> => {
     this.url.Controller = 'Catalog';
@@ -195,7 +259,7 @@ export class KatlogService {
 
     const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
-      Authorization: 'Bearer ' + this.url.AccessToken,
+      Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
    // let url: string = this._url.Url+'/'+id;
     return this._http.delete(this.url.Url,{

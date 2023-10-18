@@ -6,13 +6,14 @@ import {IMenyItem} from '@wsv2/app-config'
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserManagerService } from '@wsv2/account-service';
+import {UserRole} from '@wsv2/app-common'
 
 @Component({
   selector: 'wsv2-x01-v1-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   @Output()
   _onToggleSideBar = new EventEmitter();
 
@@ -21,7 +22,7 @@ export class SidebarComponent implements OnInit {
   private _invalidLogin = false;
 
   private _isOptovik = false;
-  private _userRole: string | null = null;
+ // private _userRole: UserRole;
   private _subscriptions: Subscription[] = [];
 
   public MenuItems = (): IMenyItem[] => {
@@ -36,19 +37,19 @@ export class SidebarComponent implements OnInit {
     private userManager: UserManagerService
   ) {}
 
-  ngOnInit(): void {
-    //this.repozitory.setMenuFromJSON(this.jsonMenuURL);
-    const sub1 = this.userManager.InvalidLogin$.subscribe((d) => {
-      this._invalidLogin = d;
-      this._userRole = this.userManager.RoleUser;
+  // ngOnInit(): void { 16.10.23
+  //   //this.repozitory.setMenuFromJSON(this.jsonMenuURL);
+  //   // const sub1 = this.userManager.InvalidLogin$.subscribe((d) => {
+  //   //   this._invalidLogin = d;
+  //   //   this._userRole = this.userManager.RoleUser;
 
-     // console.log('menu conctructor -- userManager.InvalidLogin$--' + d);
-    });
+  //   //  // console.log('menu conctructor -- userManager.InvalidLogin$--' + d);
+  //   // });
 
    
-    this._subscriptions.push(sub1);
+  //   this._subscriptions.push(sub1);
    
-  }
+  // }
 
   ngOnDestroy() {
     this._subscriptions.forEach((s) => s.unsubscribe());
@@ -56,7 +57,7 @@ export class SidebarComponent implements OnInit {
 
   public get IsAdmin(): boolean {
     //  return true;
-    if (this._userRole === this.userManager.AdmiRole && !this._invalidLogin) {
+    if (UserRole.admin === this.userManager.Role() ) {
       return true;
     }
     return false;
@@ -65,14 +66,14 @@ export class SidebarComponent implements OnInit {
 
 
     // return true;
-    if (this._userRole ===this.userManager.ManagerRole && !this._invalidLogin) {
+    if (UserRole.manager ===this.userManager.Role()) {
       return true;
     }
     return false;
   }
   public get IsShopper(): boolean {
     // return true;
-    if (this._userRole === this.userManager.ShoperRole && !this._invalidLogin) {
+    if (UserRole.shoper === this.userManager.Role()) {
       return true;
     }
     return false;

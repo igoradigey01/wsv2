@@ -12,9 +12,10 @@ import {
 } from '@abacritt/angularx-social-login';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
+
 import { UserManagerService } from '@wsv2/account-service';
 import { AccountService } from '../_shared/services/account.service';
+
 import { Subscription } from 'rxjs';
 import { ExternalAuthSocialDto } from '../_shared/_interfaces/ExternalAuthSocialDto.model';
 
@@ -87,13 +88,16 @@ export class SignInComponent implements OnInit, OnDestroy {
           .googleLogin(credentialsGoogle)
           .subscribe({
             next: (d) => {
-              this.userManager.setInvalidLogin$(false, d.access_token);
+            // this.userManager.setInvalidLogin$(false, d.access_token);
+            this.userManager.SetAccessToken(d.access_token)
+            
                // console.log("login_in-"+d.access_token)
               this.router.navigate([this.returnUrl]);
             },
             error: (err: HttpErrorResponse) => {
               let body = '';
-              this.userManager.setInvalidLogin$(true, null);
+             // this.userManager.setInvalidLogin$(true, null);
+             this.userManager.SetAccessToken(undefined)
 
               if (err.status === 401) {
                 this._errorMgs.push(
@@ -135,13 +139,15 @@ export class SignInComponent implements OnInit, OnDestroy {
 
         const subApiVK = this.repozitory.vkLogin(credentialsVK).subscribe({
           next: (d) => {
-            this.userManager.setInvalidLogin$(false, d.access_token);
+           // this.userManager.setInvalidLogin$(false, d.access_token);
+           this.userManager.SetAccessToken(d.access_token)
             //  console.log("login_in-"+d.access_token)
             this.router.navigate([this.returnUrl]);
           },
           error: (err: HttpErrorResponse) => {
             let body = '';
-            this.userManager.setInvalidLogin$(true, null);
+            //this.userManager.setInvalidLogin$(true, null);
+            this.userManager.SetAccessToken(undefined)
 
             if (err.status === 401) {
               this._errorMgs.push(
@@ -170,14 +176,16 @@ export class SignInComponent implements OnInit, OnDestroy {
       //  console.log(user)
     });
 
-    const subLogin = this.userManager.InvalidLogin$.subscribe((d) => {
-      this._isUserInvalid = d;
-      if (!d) {
-        this.router.navigate([this.returnUrl]);
-      }
-    });
+    // const subLogin = this.userManager.InvalidLogin$.subscribe((d) => {
+    //   this._isUserInvalid = d;
+    //   if (!d) {
+    //     this.router.navigate([this.returnUrl]);
+    //   }
+    // });
+
+    
     this._subscriptions.push(subGoogle);
-    this._subscriptions.push(subLogin);
+   // this._subscriptions.push(subLogin);
   }
 
   ngOnDestroy() {
@@ -222,13 +230,15 @@ export class SignInComponent implements OnInit, OnDestroy {
 
     const subLogin2 = this.repozitory.login(credentials).subscribe({
       next: (d) => {
-        this.userManager.setInvalidLogin$(false, d.access_token);
-        console.log("login_in-"+d.access_token)
+         // this.userManager.setInvalidLogin$(false, d.access_token);
+         this.userManager.SetAccessToken(d.access_token)
+       // console.log("login_in-"+d.access_token)
         this.router.navigate([this.returnUrl]);
       },
       error: (err: HttpErrorResponse) => {
         let body = '';
-        this.userManager.setInvalidLogin$(true, null);
+       // this.userManager.setInvalidLogin$(true, null);
+       this.userManager.SetAccessToken(undefined)
         console.error(err);
         if (err.status === 401) {
           this._errorMgs.push('пользователь не авторизован,войдите на сайт');
@@ -279,7 +289,8 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.repozitory.googleLogin(externalAuth).subscribe({
       next: (d: any) => {
         // localStorage.setItem("token", d.token);
-        this.userManager.setInvalidLogin$(false, d.access_token);
+       // this.userManager.setInvalidLogin$(false, d.access_token);
+        this.userManager.SetAccessToken(d.access_token)
 
         // this.repozitory.sendAuthStateChangeNotification(d.isAuthSuccessful);
         this.router.navigate([this.returnUrl]);

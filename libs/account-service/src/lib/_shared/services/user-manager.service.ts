@@ -1,113 +1,134 @@
-import { Injectable } from '@angular/core';
-import { AccessTokenStorage } from './access-token-storage.services';
-import { RefreshTokenStorage } from './refresh-token-storage.services';
+import { Injectable, signal, computed } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
-import { JwtHelper } from '../_class/jwt-helper.class';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {  Observable } from 'rxjs';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { ApiService} from '@wsv2/app-config';
+
+
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { UserRole } from '@wsv2/app-common';
+
+interface UserManagerStore {
+  accessToken: string;
+  //  refreshToken:string; хранится в cookies  - httpOnly 17.10.23
+  userRole: UserRole;
+  opt: boolean;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserManagerService {
-  /* sample state Obj$
-private authChangeSub = new Subject<boolean>();
-  private extAuthChangeSub = new Subject<SocialUser>();
-  //Оператор asObservable можно использовать для преобразования Subject в наблюдаемый объект. 
-  //Это может быть полезно, если вы хотите предоставить данные из субъекта, 
-  //но в то же время предотвратить непреднамеренное попадание данных в субъект:
-  //authChanged не поддерживает next, error и complete.
-  public authChanged = this.authChangeSub.asObservable();
-  public extAuthChanged = this.extAuthChangeSub.asObservable();
+  private state = signal<UserManagerStore>({
+    accessToken: '',
+    userRole: UserRole.default,
+    opt: false,
+  });
 
-*/
+  public Role = computed(() => this.state().userRole);
 
-  //BehaviorSubject повторно выдают только последнее сгенерированное значение
-  //или значение по умолчанию, если ранее не было сгенерировано никакого значения
-  private _invalidLogin$: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(true);
+  public AccessToken = computed(() => this.state().accessToken);
 
-  private _jwtHelper = new JwtHelper();
-
-  public get AdmiRole(): string {
-    return 'admin';
-  }
-  public get ManagerRole(): string {
-    return 'manager';
-  }
-  public get ShoperRole(): string {
-    return 'shopper';
-  }
 
   constructor(
-    private accessTokenStorage: AccessTokenStorage,
-    private refreshTokenStorage: RefreshTokenStorage
-  ) {}
-
-  /** Client subscribe() for _invalidLogin chenged; !! ngOnDestroy()-- unsubscribe !!  */
-  public get InvalidLogin$(): BehaviorSubject<boolean> {
-    return this._invalidLogin$;
-  }
-  /** set value for  _invalidLogin ; defauld -- true */
-  public setInvalidLogin$(i: boolean, token: string | null) {
-    //
-    this._invalidLogin$.next(i);
-    if (!i) {
-      this.accessTokenStorage.Set = token;
-      const delta = this.getTokenDeltaTime(token);
-      setTimeout(this.setInvalidLoginIsTrue, delta);
-    } else {
-      this.accessTokenStorage.remove();
-    }
-  }
-  /**get role User or null */
-  public get RoleUser(): string | null {
-    const token = this.accessTokenStorage.Get;
-    if (token) {
-      const role = this._jwtHelper.decodeToken(token);
-      return role ? role.role : null;
-    }
-    return null;
-  }
-  /**get access Token */
-  public get AccessToken(): string | null {
-    return this.accessTokenStorage.Get;
+    private http: HttpClient,
+    private url: ApiService,
+  //  private repozitory: EnvironmentService
+  ) {
+    // if(this.state().state===Status.empty){
+    // this.LoadCatlaogs();
+   // }
   }
 
-  public accessTokenRemove() {
-    this.accessTokenStorage.remove();
-  }
-
-  /**get Refresh Token */
-  public get RefreshToken(): string | null {
-    return this.refreshTokenStorage.Get;
-  }
-
-  public set RefreshToken(refresh_token: string | null) {
-    this.refreshTokenStorage.Set = refresh_token;
-  }
-
-  public refreshTokenRemove() {
-    this.refreshTokenStorage.remove();
-  }
-  private setInvalidLoginIsTrue() {
-    this._invalidLogin$.next(true);
-  }
-
-  /** сколько секунд живет */
-  private getTokenDeltaTime(token: string | null): number {
-    if (token) {
-      const dataExpiration = this._jwtHelper.getTokenExpirationDate(token);
+  public SetAccessToken(accessToken: string | undefined) {
+    if (accessToken) {
       const data = new Date();
+      const jwtbody = JSON.parse(atob(accessToken.split('.')[1]));
+      const exp = jwtbody.exp;
+      const role = jwtbody.role;
+      if (role === 'Shopper' && this.state().opt)
+        this.state.update((d) => ({
+          ...d,
+          accessToken: accessToken,
+          userRole: UserRole.shoperOpt,
+        }));
+      if (role === 'Shopper')
+        this.state.update((d) => ({
+          ...d,
+          accessToken: accessToken,
+          userRole: UserRole.shoper,
+        }));
+      if (role === 'Manager')
+        this.state.update((d) => ({
+          ...d,
+          accessToken: accessToken,
+          userRole: UserRole.manager,
+        }));
+      if (role === 'Admin')
+        this.state.update((d) => ({
+          ...d,
+          accessToken: accessToken,
+          userRole: UserRole.admin,
+        }));
 
-      // Date() valueOf()  возвращает примитивное значение объекта Date в виде числового типа данных — количества миллисекунд,
-      //  прошедших с полуночи 01 января 1970 по UTC
-      if (dataExpiration) {
-        const delta = dataExpiration.valueOf() - data.valueOf();
-        return delta;
-      }
-      return 0;
+      const expiry = JSON.parse(atob(accessToken.split('.')[1])).exp;
+      const delta = expiry - data.getTime() / 1000; // delta is sec 14399
+      console.log('expiry--' + delta); //is good (in server 240 min or 4ч)
+      console.log('exp--' + exp + '' + 'role:' + role);
+      setTimeout(() => {
+        this.loadRefreshToken(accessToken);
+        console.log('-----this.loadRefreshToken(accessToken);---');
+      }, 5000);
+      
+    } else {
+      if (this.state().opt)
+        this.state.update((d) => ({
+          ...d,
+          accessToken: '',
+          userRole: UserRole.opt,
+        }));
+      this.state.update((d) => ({
+        ...d,
+        accessToken: '',
+        userRole: UserRole.default,
+      }));
     }
+  }
 
-    return 0;
+  private loadRefreshToken=(accessToken: string)=>{
+    this.refreshToken$(accessToken).subscribe({
+      next: (d) => { this.SetAccessToken(d.accessToken)
+        },
+      error: (err: HttpErrorResponse) =>{
+        console.error(err);
+      }
+  })
+  
+  }
+
+  private refreshToken$= (accessToken: string): Observable<any> => {
+
+    this.url.Controller = 'Account';
+    this.url.Action = 'refresh-token';
+    this.url.ID=null;
+
+  const  credentials = `{
+      "access_token": "${accessToken}"
+    }`;
+  
+    return this.http.post(this.url.AuthUrl, credentials, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    });
+
+
+  }
+
+
+  private tokenExpired(token: string) {
+    const expiry = JSON.parse(atob(token.split('.')[1])).exp;
+    return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
 }

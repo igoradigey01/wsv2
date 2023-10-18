@@ -43,7 +43,8 @@ export class UserProfileDeleteComponent implements OnInit {
 
     this.repozitory.Delete(this.User.email).subscribe({
       next: (data) => {
-        this.userManager.setInvalidLogin$(true, null);
+      //  this.userManager.setInvalidLogin$(true, null);
+      this.userManager.SetAccessToken( undefined);
         this.router.navigateByUrl('');
       },
       error: (err: HttpErrorResponse) => {

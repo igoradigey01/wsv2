@@ -39,14 +39,15 @@ export class AuthCallbackTelegramComponent implements OnInit , OnDestroy {
       {
         next: (d:any) => {
         
-          this._userManager.setInvalidLogin$(false, d.access_token);
+          this._userManager.SetAccessToken( d.access_token);
         //  console.log("login_in-"+d.access_token)
          
           this.router.navigateByUrl('');
         },
         error:(err: HttpErrorResponse) => {
           let body="";
-          this._userManager.setInvalidLogin$(true, null);
+          //this._userManager.setInvalidLogin$(true, null);
+          this._userManager.SetAccessToken( undefined);
            console.error(err);  
            if(err.status === 401){
             this._errorMgs.push("пользователь не авторизован,войдите на сайт");

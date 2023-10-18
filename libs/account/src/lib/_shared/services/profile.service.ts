@@ -38,7 +38,7 @@ export class ProfileService {
 
   const headers = new HttpHeaders({
       Accept: 'application/json',
-      Authorization: 'Bearer ' + this.userManager.AccessToken,
+      Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
 
     return this.http.get<UserProfileDto>(this.url.AuthUrl, {

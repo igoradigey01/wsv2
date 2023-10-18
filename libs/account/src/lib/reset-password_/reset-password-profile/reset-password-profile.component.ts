@@ -54,7 +54,8 @@ export class ResetPasswordProfileComponent implements OnInit {
      console.log("resetPasswordForm--"+JSON.stringify(this.resetPassDto))
     this.repozitory.ResetPassword(this.resetPassDto).subscribe({
       next: (_) => {
-        this.userManager.setInvalidLogin$(true, null);
+        //this.userManager.setInvalidLogin$(true, null);
+        this.userManager.SetAccessToken( undefined);
         this.showSuccess = true;
       },
       error: (err: HttpErrorResponse) => {
