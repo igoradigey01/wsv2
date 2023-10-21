@@ -45,7 +45,7 @@ export class AccountService {
     return this.http.post(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      }),
+      }), withCredentials: true   // использовать  cookie для refreshToken
     });
   };
 
@@ -60,7 +60,7 @@ export class AccountService {
     return this.http.post<AuthResponseDto>(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      }),
+      }), withCredentials: true   // использовать  cookie
     });
   };
 
@@ -76,7 +76,7 @@ export class AccountService {
     return this.http.post<AuthResponseDto>(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      }),
+      }), withCredentials: true   // использовать  cookie
     });
   };
 

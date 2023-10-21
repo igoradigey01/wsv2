@@ -1,9 +1,11 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed,EffectRef,effect } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import {  Observable } from 'rxjs';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { ApiService} from '@wsv2/app-config';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { OptManagerService } from '@wsv2/shop-opt';
 
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -30,56 +32,87 @@ export class UserManagerService {
 
   public AccessToken = computed(() => this.state().accessToken);
 
+  
+  eff=effect(
+    ()=>{
+      console.log("opt is- "+this.state().opt)
+      console.log("UserRole is- "+this.state().userRole)
+      console.log("accessToken is- "+this.state().accessToken)
+    }
+  )
 
   constructor(
     private http: HttpClient,
     private url: ApiService,
+    private repositoryOpt: OptManagerService,
   //  private repozitory: EnvironmentService
   ) {
-    // if(this.state().state===Status.empty){
-    // this.LoadCatlaogs();
-   // }
+    this.checkFlagOpt();
+  }
+
+  private checkFlagOpt(){
+    this.repositoryOpt.checkFlag();
+    this.state.update((d) => ({
+      ...d,
+      opt:this.repositoryOpt.flagOpt()
+     
+    })); 
+  }
+
+  public checkRole(){
+    this.SetAccessToken(this.state().accessToken);
   }
 
   public SetAccessToken(accessToken: string | undefined) {
+
+    
+    //debugger
     if (accessToken) {
       const data = new Date();
       const jwtbody = JSON.parse(atob(accessToken.split('.')[1]));
-      const exp = jwtbody.exp;
-      const role = jwtbody.role;
-      if (role === 'Shopper' && this.state().opt)
-        this.state.update((d) => ({
-          ...d,
-          accessToken: accessToken,
-          userRole: UserRole.shoperOpt,
-        }));
-      if (role === 'Shopper')
+     // const exp = jwtbody.exp;
+      const role = jwtbody.role.trim();
+     switch(role){
+      case 'Shopper':
+        if ( this.state().opt){
+          this.state.update((d) => ({
+            ...d,
+            accessToken: accessToken,
+            userRole: UserRole.shoperOpt,
+          }));
+        } else
         this.state.update((d) => ({
           ...d,
           accessToken: accessToken,
           userRole: UserRole.shoper,
         }));
-      if (role === 'Manager')
-        this.state.update((d) => ({
-          ...d,
-          accessToken: accessToken,
-          userRole: UserRole.manager,
-        }));
-      if (role === 'Admin')
-        this.state.update((d) => ({
-          ...d,
-          accessToken: accessToken,
-          userRole: UserRole.admin,
-        }));
+        break;
+        case 'Manager':
+          this.state.update((d) => ({
+            ...d,
+            accessToken: accessToken,
+            userRole: UserRole.manager,
+          }));
+        break; 
+        case 'Admin':
+          this.state.update((d) => ({
+            ...d,
+            accessToken: accessToken,
+            userRole: UserRole.admin,
+          }));
+        break; 
+       
+     }
 
-      const expiry = JSON.parse(atob(accessToken.split('.')[1])).exp;
+      
+
+      const expiry = jwtbody.exp;
       const delta = expiry - data.getTime() / 1000; // delta is sec 14399
-      console.log('expiry--' + delta); //is good (in server 240 min or 4ч)
-      console.log('exp--' + exp + '' + 'role:' + role);
+     
       setTimeout(() => {
         this.loadRefreshToken(accessToken);
-        console.log('-----this.loadRefreshToken(accessToken);---');
-      }, 5000);
+       // console.log('-----this.loadRefreshToken(accessToken);---'+accessToken);
+      }, delta*1000);
       
     } else {
       if (this.state().opt)
@@ -120,7 +153,8 @@ export class UserManagerService {
     return this.http.post(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-      }),
+       
+      }),withCredentials: true,
     });
 
 

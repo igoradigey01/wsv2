@@ -1,4 +1,4 @@
-import { Component, OnInit,Output, EventEmitter,Input,} from '@angular/core';
+import { Component, Output, EventEmitter,Input,} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material/icon';
 
@@ -23,11 +23,12 @@ const THUMBUP_ICON = `
 `;
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })
-export class UserProfileComponent implements OnInit {  
+export class UserProfileComponent {  
 
   _errorMgs: string[] = [];
 
@@ -39,9 +40,10 @@ export class UserProfileComponent implements OnInit {
     email: '',
   };
 
-  @Input()   public Massages: number = 0; // not reliz
+  @Input()   public Massages = 0; // not reliz
 
   @Output()
+     // eslint-disable-next-line @angular-eslint/no-output-on-prefix
      onToggleViewState:EventEmitter<StateView> = new EventEmitter()
   
   constructor(
@@ -56,9 +58,7 @@ export class UserProfileComponent implements OnInit {
     iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
   }
 
-  ngOnInit(): void {
-    
-  }
+
 
   onChangePassword(){
     this.onToggleViewState.next(StateView.resetPassword);

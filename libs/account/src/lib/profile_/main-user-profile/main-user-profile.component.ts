@@ -4,7 +4,8 @@ import { UserProfileDto } from '../../_shared/_interfaces/user-profileDto.model'
 import { UserManagerService } from '@wsv2/account-service';
 import { ProfileService } from '../../_shared/services/profile.service';
 
-@Component({
+@Component({  
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'x01-v1-main-user-profile',
   templateUrl: './main-user-profile.component.html',
   styleUrls: ['./main-user-profile.component.scss'],

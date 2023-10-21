@@ -4,6 +4,7 @@ import { UserManagerService } from '@wsv2/account-service';
 import {SocialAuthService} from '@abacritt/angularx-social-login'
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-log-off',
   templateUrl: './log-off.component.html',
   styleUrls: ['./log-off.component.scss'],

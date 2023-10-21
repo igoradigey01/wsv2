@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed ,OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout';
@@ -11,7 +11,7 @@ import {
 } from '@wsv2/app-config';
 import { KatalogComponent, AppHeaderLayoutComponent } from '@wsv2/ui';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { OptManagerService } from '@wsv2/shop-opt';
+import {UserManagerService} from '@wsv2/account-service'
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserRole } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -31,7 +31,7 @@ import { CartService } from '@wsv2/shop-cart';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss'],
 })
-export class IndexComponent {
+export class IndexComponent implements OnInit{
 
 
   private _cartItemsCount = computed(() =>
@@ -48,9 +48,11 @@ export class IndexComponent {
    public userRole=computed(
    
     ()=>{
-      if(this.repositoryOpt.flagOpt()){
-        return UserRole.opt
-      }else return UserRole.default
+      // if(this.repositoryOpt.flagOpt()){
+      //   return UserRole.opt
+      // }else return UserRole.default
+     
+    return   this.userManager.Role()
     }
    )
 
@@ -75,7 +77,7 @@ export class IndexComponent {
     private repositoryCompanyInformation: CompanyInformationService,
     private repositoryMenyItems: MenyItemsService,
     private repositoryCart: CartService,
-    private repositoryOpt: OptManagerService,
+    private userManager:UserManagerService,
     private router: Router
   ) {
     this._srcLogo = repositoryCompanyInformation.company_logo;
@@ -85,7 +87,12 @@ export class IndexComponent {
     this._company_normalize_phone =
       repositoryCompanyInformation.company_normalize_phone;
     this._menuItems = repositoryMenyItems.shopMenyItems;
+   
     
+  }
+
+  ngOnInit(): void {
+      this.userManager.checkRole();
   }
 
   public onClickCart(userRole: UserRole) {
@@ -97,7 +104,7 @@ export class IndexComponent {
 
   public onClickLogof(userRole: UserRole) {
     // debugger
-    this.router.navigate(['index/account/sing-off']);
+    this.router.navigate(['/index/account/user-profile']);
   }
   public onClickOrder(userRole: UserRole) {
     this.router.navigate(['index/order']);

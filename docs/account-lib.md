@@ -24,3 +24,6 @@ diogram_account.drawio
 ```
 смотри app-config.md
 ```
+## add opt categoria for client
+1. generate opt client : go to link 
+ - http://localhost:4200/index/opt?user=opt1
