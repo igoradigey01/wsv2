@@ -4,13 +4,13 @@ import {
   OnInit,
   computed,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router ,ActivatedRoute} from '@angular/router';
 //import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { KatalogComponent } from '@wsv2/ui';
-import { IButton } from '@wsv2/app-common';
-
+import { IButton ,UserRole} from '@wsv2/app-common';
+import {UserManagerService} from '@wsv2/account-service'
 
 import { KatlogService } from '../_shared/services/katalog.servise';
 
@@ -23,8 +23,14 @@ import { KatlogService } from '../_shared/services/katalog.servise';
   styleUrls: ['./index-shop.component.scss'],
 })
 export class IndexShopComponent implements OnInit {
-  katalogs = computed(() =>
-    this.repositoryCatalog.Katalogs().filter((f) => f.hidden == false)
+  
+  katalogs = computed(() =>{
+ const catlogs=   this.repositoryCatalog.Katalogs().filter((f) => f.hidden == false)
+    console.log("computed -------------")
+    console.log(JSON.stringify(catlogs));
+    return catlogs;
+    
+  }
   );
 
   /*  efRef:EffectRef=effect(
@@ -40,11 +46,28 @@ export class IndexShopComponent implements OnInit {
   constructor(
    
     private repositoryCatalog: KatlogService,
-  
+    private userManager:UserManagerService,
+    private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe(
+      (queryParam: any) => {
+          const opt = queryParam['opt'];
+          if(opt){
+            this.userManager.SetCustomerOpt(true);
+
+            if(this.userManager.Role()== UserRole.default){
+              this.userManager.SetRole( UserRole.opt);
+            }
+
+          }
+         
+      }
+  );
+
     // если Katalogs().length===1 то перейти сразу в subCatalog
     this.repositoryCatalog.indicatorSubject.subscribe((d) => {
       if (d)

@@ -27,3 +27,6 @@ diogram_account.drawio
 ## add opt categoria for client
 1. generate opt client : go to link 
  - http://localhost:4200/index/opt?user=opt1
+
+## new новые требования к accessToken and refrestToken
+ - https://angularindepth.com/posts/1382/localstorage-vs-cookies 

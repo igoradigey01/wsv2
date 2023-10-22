@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { OptManagerService } from '../_shared/services/opt-manager.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -29,6 +30,6 @@ export class OptSignInComponent implements OnInit {
   private redirect() {
     //  debugger
 
-    this.router.navigate(['/']);
+    this.router.navigate(['/'],{queryParams:{'opt':true}});
   }
 }

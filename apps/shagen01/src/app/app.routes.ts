@@ -18,22 +18,37 @@ export const appRoutes: Route[] = [
           import('@wsv2/shop-content').then((m) => m.IndexShopComponent)
         },
         {
+          path: 'katalogs/:id',
+          loadComponent: () =>
+            import('@wsv2/shop-sub-content').then((m) => m.SubCatalogComponent),
+        },
+        {
+          path: 'katalogs/:id/products/:id',
+          loadComponent: () =>
+            import('@wsv2/shop-sub-content').then((m) => m.ProductComponent),
+        },
+        {
           path: 'account',              
           loadChildren: () =>
             import('@wsv2/account').then((m) => m.AccountModule)
         },
-        // {
-        //   path: 'cart',              
-        //   loadComponent: () =>
-        //     import('@wsv2/shop-cart').then((m) => m.ShopShellComponent)
-        // },
+        {
+          path: 'cart',
+          loadComponent: () =>
+            import('@wsv2/shop-cart').then((m) => m.CartShellComponent),
+        },
         {
           path: 'order',              
           loadComponent: () =>
             import('@wsv2/shop-order').then((m) => m.OrdersShellComponent)
         },
     
-    
+        {
+          path: 'opt',
+          loadComponent: () =>
+            import('@wsv2/shop-opt').then((m) => m.OptSignInComponent),
+        },
+  
     
         {
           path: 'menu',
@@ -43,18 +58,7 @@ export const appRoutes: Route[] = [
             ),
         } ,
 
-        // {
-        //   path:'test',
-        //   loadComponent: () =>
-        //   import('@wsv2/ui').then((m) => m.KatalogComponent)
-        // },
-        // {
-        //   path: 'content',
-        //   loadChildren: () =>
-        //     import('@x01-v1/xl01/content-section').then(
-        //       (module) => module.Xl01ContentSectionModule
-        //     ),
-        // },
+       
         {
           path: '**',
         loadComponent: () =>

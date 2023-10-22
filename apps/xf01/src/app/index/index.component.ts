@@ -1,4 +1,4 @@
-import { Component, computed ,OnInit} from '@angular/core';
+import { Component, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout';
@@ -11,7 +11,9 @@ import {
 } from '@wsv2/app-config';
 import { KatalogComponent, AppHeaderLayoutComponent } from '@wsv2/ui';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import {UserManagerService} from '@wsv2/account-service'
+import { UserManagerService } from '@wsv2/account-service';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { OptManagerService } from '@wsv2/shop-opt';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserRole } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -31,30 +33,20 @@ import { CartService } from '@wsv2/shop-cart';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss'],
 })
-export class IndexComponent implements OnInit{
-
-
+export class IndexComponent implements OnInit {
+  
   private _cartItemsCount = computed(() =>
     this.repositoryCart
       .cartItems()
       .reduce((acc, item) => acc + item.quantity, 0)
   );
 
-  
-
   _flagPanel = true; // sidenav
   _flagSideBarHiden = false; //sidenav
 
-   public userRole=computed(
-   
-    ()=>{
-      // if(this.repositoryOpt.flagOpt()){
-      //   return UserRole.opt
-      // }else return UserRole.default
-     
-    return   this.userManager.Role()
-    }
-   )
+  public userRole = computed(() => {
+    return this.userManager.Role();
+  });
 
   title = ''; // not relize
   public _srcLogo = '';
@@ -64,7 +56,7 @@ export class IndexComponent implements OnInit{
   public _company_phone = '';
   public _company_normalize_phone = '';
   public is_shop = true;
- // public roleUser: UserRole = UserRole.default;
+  // public roleUser: UserRole = UserRole.default;
 
   get CartItemsCount(): number {
     return this._cartItemsCount();
@@ -77,7 +69,8 @@ export class IndexComponent implements OnInit{
     private repositoryCompanyInformation: CompanyInformationService,
     private repositoryMenyItems: MenyItemsService,
     private repositoryCart: CartService,
-    private userManager:UserManagerService,
+    private userManager: UserManagerService,
+    private repositoryOpt: OptManagerService,
     private router: Router
   ) {
     this._srcLogo = repositoryCompanyInformation.company_logo;
@@ -87,12 +80,16 @@ export class IndexComponent implements OnInit{
     this._company_normalize_phone =
       repositoryCompanyInformation.company_normalize_phone;
     this._menuItems = repositoryMenyItems.shopMenyItems;
-   
-    
   }
 
   ngOnInit(): void {
-      this.userManager.checkRole();
+    if (
+      this.repositoryOpt.flagOpt() &&
+      this.userManager.Role() == UserRole.default
+    ) {
+      this.userManager.SetRole(UserRole.opt);
+    }
+    //  this.userManager.checkRole();
   }
 
   public onClickCart(userRole: UserRole) {

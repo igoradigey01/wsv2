@@ -22,6 +22,8 @@ interface UserManagerStore {
   providedIn: 'root',
 })
 export class UserManagerService {
+
+  // BehaviorSubject<boolean>(true);
   private state = signal<UserManagerStore>({
     accessToken: '',
     userRole: UserRole.default,
@@ -59,14 +61,26 @@ export class UserManagerService {
     })); 
   }
 
-  public checkRole(){
-    this.SetAccessToken(this.state().accessToken);
+  public SetRole(role:UserRole){
+    this.state.update((d) => ({
+      ...d,      
+      userRole: role,
+    }));
+  }
+
+  public SetCustomerOpt(opt:boolean){
+
+    this.state.update((d) => ({
+      ...d,      
+     opt: opt,
+    }));
+
   }
 
   public SetAccessToken(accessToken: string | undefined) {
 
     
-    //debugger
+    debugger
     if (accessToken) {
       const data = new Date();
       const jwtbody = JSON.parse(atob(accessToken.split('.')[1]));

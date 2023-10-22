@@ -53,18 +53,7 @@ export const appRoutes: Route[] = [
           import('@wsv2/shop-information').then((m) => m.ShopInformationModule),
       },
 
-      // {
-      //   path:'test',
-      //   loadComponent: () =>
-      //   import('@wsv2/ui').then((m) => m.KatalogComponent)
-      // },
-      // {
-      //   path: 'content',
-      //   loadChildren: () =>
-      //     import('@x01-v1/xl01/content-section').then(
-      //       (module) => module.Xl01ContentSectionModule
-      //     ),
-      // },
+     
       {
         path: '**',
         loadComponent: () =>

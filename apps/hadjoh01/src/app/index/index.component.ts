@@ -1,12 +1,18 @@
-import { Component, Signal, signal } from '@angular/core';
+import { Component, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout'
 import { MaterialModule } from '../material.module'
 import { RouterModule } from "@angular/router";
 import { CompanyInformationService, MenyItemsService, IMenyItem } from '@wsv2/app-config'
-import { KatalogComponent, IButton, AppHeaderLayoutComponent } from '@wsv2/ui'
-import { UserRole } from '@wsv2/app-common'
+import { KatalogComponent, AppHeaderLayoutComponent } from '@wsv2/ui'
+import { UserManagerService } from '@wsv2/account-service';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { OptManagerService } from '@wsv2/shop-opt';
+
+import { UserRole } from '@wsv2/app-common';
+
+import { CartService } from '@wsv2/shop-cart';
 
 
 @Component({
@@ -23,20 +29,22 @@ import { UserRole } from '@wsv2/app-common'
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss'],
 })
-export class IndexComponent {
+export class IndexComponent implements OnInit {
 
-  private _cartItemsCount = 0; // haader
+
 
   _flagPanel = true; // sidenav
   _flagSideBarHiden = false; //sidenav
 
+  private _cartItemsCount = computed(() =>
+    this.repositoryCart
+      .cartItems()
+      .reduce((acc, item) => acc + item.quantity, 0)
+  );
 
-
-
-
-
-
-
+  public userRole = computed(() => {
+    return this.userManager.Role();
+  });
 
   title = ''; // not relize
   public _srcLogo = '';
@@ -46,23 +54,18 @@ export class IndexComponent {
   public _company_phone = '';
   public _company_normalize_phone = '';
   public is_shop = true;
-  public roleUser: UserRole = UserRole.default;
+  
 
-
-
-
-
-
-  get CartItemsCount(): number {
-    return this._cartItemsCount;
-  }
-  set CartItemsCount(item: number) {
-    this._cartItemsCount = item;
+ get CartItemsCount(): number {
+    return this._cartItemsCount();
   }
 
   constructor(
     private repositoryCompanyInformation: CompanyInformationService,
     private repositoryMenyItems: MenyItemsService,
+    private repositoryCart: CartService,
+    private userManager: UserManagerService,
+    private repositoryOpt: OptManagerService,
     private router: Router
   ) {
     this._srcLogo = repositoryCompanyInformation.company_logo;
@@ -73,42 +76,53 @@ export class IndexComponent {
     this._menuItems = repositoryMenyItems.shopMenyItems;
   }
 
-  public onClickCart(userRole:UserRole){
+  ngOnInit(): void {
+    if (
+      this.repositoryOpt.flagOpt() &&
+      this.userManager.Role() == UserRole.default
+    ) {
+      this.userManager.SetRole(UserRole.opt);
+    }
+
+  }
+
+
+  public onClickCart(userRole: UserRole) {
     this.router.navigate(['index/cart']);
 
   }
-   public onClickLogin(userRole:UserRole){
+  public onClickLogin(userRole: UserRole) {
     this.router.navigate(['index/account']);
 
   }
 
-  public onClickLogof(userRole:UserRole){
-   // debugger
+  public onClickLogof(userRole: UserRole) {
+    // debugger
     this.router.navigate(['index/account/sing-off']);
 
   }
-  public onClickOrder(userRole:UserRole){
+  public onClickOrder(userRole: UserRole) {
     this.router.navigate(['index/order']);
 
   }
-  public  onClickOptPrice(userRole:UserRole){
+  public onClickOptPrice(userRole: UserRole) {
     this.router.navigate([`index/katalog/opt/${this.id_katalog}`]);
 
   }
-   private id_katalog=0;
-  onClickNotOptPrice(userRole:UserRole){
+  private id_katalog = 0;
+  onClickNotOptPrice(userRole: UserRole) {
     this.router.navigate([`index/katalog/${this.id_katalog}`]);
 
   }
-  onClickManager(userRole:UserRole){
+  onClickManager(userRole: UserRole) {
     this.router.navigate(['manager']);
 
   }
-  onClickAdmin(userRole:UserRole){
+  onClickAdmin(userRole: UserRole) {
     this.router.navigate(['admin']);
 
   }
-  onClickGoAppShop(userRole:UserRole){
+  onClickGoAppShop(userRole: UserRole) {
     this.router.navigate(['index']);
 
   }
