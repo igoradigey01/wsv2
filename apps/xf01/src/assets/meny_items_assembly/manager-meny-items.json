@@ -5,5 +5,5 @@
   { "id": 4, "name": "ЦВЕТ", "url": "/manager/color-n" },
   { "id": 5, "name": "АРТИКУЛ ", "url": "/manager/article-n" },
   { "id": 6, "name": "НОМЕНКЛАТУРА", "url": "/manager/katalog-n" },
-  { "id": 6, "name": "info", "url": "/manager/nomenclature" }
+  { "id": 7, "name": "info", "url": "/manager/info" }
 ]

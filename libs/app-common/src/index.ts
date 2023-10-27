@@ -20,3 +20,4 @@ export * from './lib/_shared/services/theme-scss.services';
 
 
 export * from './lib/page-not-found/page-not-found.component';
+export * from './lib/version-info/version-info.component';

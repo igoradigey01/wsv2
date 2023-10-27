@@ -1,4 +1,4 @@
-import { Injectable, signal, computed,EffectRef,effect } from '@angular/core';
+import { Injectable, signal, computed,effect } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import {  Observable } from 'rxjs';
@@ -80,7 +80,7 @@ export class UserManagerService {
   public SetAccessToken(accessToken: string | undefined) {
 
     
-    debugger
+   // debugger
     if (accessToken) {
       const data = new Date();
       const jwtbody = JSON.parse(atob(accessToken.split('.')[1]));

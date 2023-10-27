@@ -201,8 +201,8 @@ export class ThemeScssServices {
 
     private saveOldTheme() {
 
-        let bodyStyles = window.getComputedStyle(document.body);
-        let  tertiary_color= bodyStyles.getPropertyValue('--tertiary-color'); //ge
+       const bodyStyles = window.getComputedStyle(document.body);
+       const  tertiary_color= bodyStyles.getPropertyValue('--tertiary-color'); //ge
         console.log("saveOldTheme-tertiary_color--"+tertiary_color); 
         this.var_scc = <IThemeScss>{
             primary_color: bodyStyles.getPropertyValue("--primary-color"),

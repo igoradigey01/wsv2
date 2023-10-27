@@ -1,0 +1,44 @@
+.conteiner {
+    min-height: 400px;
+    
+   
+}
+.img-container{
+    width: 98vw; 
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.fullBg {
+    height: 100vh;
+    width: 98vw;
+   
+}
+@media (min-width: 768px) {
+    .img-container{
+        width: 767px; 
+       
+    
+    }
+    
+    .fullBg {
+       
+        width: 767px;
+       
+    }
+}
+
+@media (min-width: 1200px) {
+    .img-container{
+        width: 1000px; 
+       
+    
+    }
+    
+    .fullBg {
+       
+        width: 1000px;
+       
+    }
+}

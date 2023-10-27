@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule ,Router} from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { AppHeaderLayoutComponent } from '@wsv2/ui'
 import { MaterialModule } from '../material.module'
 import { CompanyInformationService, MenyItemsService, IMenyItem } from '@wsv2/app-config';
@@ -23,7 +24,7 @@ import { UserRole } from '@wsv2/app-common'
   styleUrls: ['./index.component.scss'],
   providers:[ThemeScssServices]
 })
-export class IndexComponent implements OnInit, OnDestroy {
+export class IndexComponent implements  OnDestroy {
 
   private _theme_css: IThemeScss = <IThemeScss>{
     primary_color: "#a26c00", //primary50
@@ -44,15 +45,15 @@ export class IndexComponent implements OnInit, OnDestroy {
   public _company_name_1: string | undefined;
   
 
-  public _company_phone: string = '';
-  public _company_normalize_phone: string = '';
+  public _company_phone = '';
+  public _company_normalize_phone = '';
   public _roleUser="Менеджер"
   public roleUser: UserRole = UserRole.manager;
 
 
   public _test_property = ''
 
-  _flagPanel: boolean = true;
+  _flagPanel = true;
   // _flagPanel2: boolean = false;
   _flagSideBarHiden = false;
 
@@ -74,9 +75,7 @@ export class IndexComponent implements OnInit, OnDestroy {
  
   }
 
-  ngOnInit(): void {
  
-   }
 
   
   ngOnDestroy(): void {

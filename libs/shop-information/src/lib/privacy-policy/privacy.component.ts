@@ -1,44 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import {CompanyInformationService,EnvironmentService} from '@wsv2/app-config'
+import { Component } from '@angular/core';
+import { CompanyInformationService, EnvironmentService } from '@wsv2/app-config'
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-privacy',
   templateUrl: './privacy.component.html',
   styleUrls: ['./privacy.component.scss'],
 })
-export class PrivacyComponent implements OnInit {
+export class PrivacyComponent {
 
 
-  public  Operator: string ;//'XL-01';
+  public Operator: string;//'XL-01';
 
-  public  Act: string =
+  public Act =
     ' Федеральный закон от 30.12.2020 № 519-ФЗ <<О внесении изменений в Федеральный закон <<О персональных данных>>   >>';
 
-  public  Web_Site: string ;// 'XL-01.ru';
+  public Web_Site: string;// 'XL-01.ru';
 
-  public  Email: string ;
+  public Email: string;
 
-  public  Link_Policy: string ; //this.Web_Site + '/menu/privacy';
-   
+  public Link_Policy: string; //this.Web_Site + '/menu/privacy';
+
 
   constructor(
 
-    private repositoryCompany:CompanyInformationService,
-    private repositoryApi:EnvironmentService
+    private repositoryCompany: CompanyInformationService,
+    private repositoryApi: EnvironmentService
   ) {
 
-    if(repositoryCompany.company_email_for_privacy_police){
-      this.Email=repositoryCompany.company_email_for_privacy_police;
-    }else{
-      this.Email='admin@x-01.ru'
+    if (repositoryCompany.company_email_for_privacy_police) {
+      this.Email = repositoryCompany.company_email_for_privacy_police;
+    } else {
+      this.Email = 'admin@x-01.ru'
     }
-    this.Web_Site=repositoryApi.clientUri;
-    this.Link_Policy= this.Web_Site + '/menu/privacy';
-    this.Operator=repositoryCompany.company_name;
+    this.Web_Site = repositoryApi.clientUri;
+    this.Link_Policy = this.Web_Site + '/menu/privacy';
+    this.Operator = repositoryCompany.company_name;
 
   }
 
-  ngOnInit(): void {
 
-  }
 }

@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {VersionInfoComponent} from '@wsv2/app-common'
+
+
 
 
 @Component({
-  selector: 'app-info',
+  selector: '@wsv2-manager-info',
   templateUrl: './info.component.html',
-  styleUrls: ['./info.component.scss']
+  styleUrls: ['./info.component.scss'],
+  standalone: true,
+  imports: [CommonModule,VersionInfoComponent],
 })
 
-export class InfoComponent implements OnInit {
+export class InfoComponent  {
 
-   versionServer:string|undefined;
-   versionClint:string|undefined;
+   
 
-  constructor(
+  
 
-  ) { }
-
-  ngOnInit(): void {
-
-  }
+  
 
 }

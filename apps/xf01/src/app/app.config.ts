@@ -10,7 +10,7 @@ import {
 } from '@wsv2/app-config';
 import { tap } from 'rxjs/operators';
 import { environment } from '../environments/environment';
-import { AppConfigModule, IEnvironment } from '@wsv2/app-config';
+import {  IEnvironment } from '@wsv2/app-config';
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
