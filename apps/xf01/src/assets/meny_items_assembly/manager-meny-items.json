@@ -1,9 +1,12 @@
 [
-  { "id": 1, "name": "КАТЕГОРИЯ", "url": "/manager/categoria-n" },
-  { "id": 2, "name": "КАТАЛОГ", "url": "/manager/katalog-n" },
-  { "id": 3, "name": "БРЕНД", "url": "/manager/brand-n" },
-  { "id": 4, "name": "ЦВЕТ", "url": "/manager/color-n" },
-  { "id": 5, "name": "АРТИКУЛ ", "url": "/manager/article-n" },
-  { "id": 6, "name": "НОМЕНКЛАТУРА", "url": "/manager/katalog-n" },
-  { "id": 7, "name": "info", "url": "/manager/info" }
+  { "id": 1, "name": "каталог", "url": "/manager/сatalog" ,"meny":1,"meny_name":"none"},
+  { "id": 2, "name": "подкаталог", "url": "/manager/sub-catalog","meny":1,"meny_name":"none" },
+  { "id": 3, "name": "бренд", "url": "/manager/brand","meny":2,"meny_name":"товар-атрибуты" },
+  { "id": 4, "name": "цвет", "url": "/manager/color","meny":2,"meny_name":"товар-атрибуты" },
+  { "id": 5, "name": "артикул", "url": "/manager/article","meny":2,"meny_name":"товар-атрибуты" },
+  { "id": 6, "name": "товар", "url": "/manager/product" ,"meny":3,"meny_name":"товар-card" },
+  { "id": 7, "name": "состав-товара", "url": "/manager/product-nomenclature" ,"meny":3,"meny_name":"товар-card"},
+  { "id": 8, "name": "фото-товара", "url": "/manager/product-photo" ,"meny":3,"meny_name":"товар-card" },
+  { "id": 9, "name": "тип-товара", "url": "/manager/product-photo" ,"meny":1,"meny_name":"none"},
+  { "id": 10, "name": "info", "url": "/manager/info","meny":1,"meny_name":"none" }
 ]

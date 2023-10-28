@@ -1,4 +1,4 @@
-//  ::ng-deep  body {
+/*  ::ng-deep  body { 
 //     --primary-color: #ffb94f;
 //     --primary-lighter-color: #ffeaca;
 //     --primary-darker-color: #ffa236;
@@ -24,6 +24,7 @@
 // tertiary_container_color:"#b8cea1",
 // on_tertiary_color: "#ffffff",
 // on_tertiary_container_color:"#243516"
+*/
 :root{
     --md-source: #F8EDE3;
     /* primary */
@@ -129,3 +130,63 @@
     --md-ref-palette-error99: #fffbff;
     --md-ref-palette-error100: #ffffff;
 }
+
+.menu-lg {
+  
+  
+    span {
+     // margin-left: 0.2rem;
+     
+    }
+  }
+
+  
+.nav_link {
+  
+   // margin-top: 8px;
+   font-weight: 300; 
+  // text-transform: capitalize;
+    color: var(--on-primary-color);
+    text-decoration: none; // test host!!!
+    // background-color: s.$primary-color;
+  
+    &:hover {
+      color: var(--primary-lighter-color);
+     
+    }
+  }
+
+  .item-meny-svg{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 48px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+   
+   }
+   .item-meny-icon-svg{
+     background-position: 50%;
+       background-repeat: no-repeat;
+       display: inline-block;
+       flex-shrink: 0;
+       position: relative;
+       vertical-align: middle;
+       height: 24px;
+       width: 24px;
+       margin: 0;
+       padding: 0;
+   }
+   .item-meny-lable-svg{
+     font-family:   Inter, Roboto,Open Sans,sans-serif;
+       font-style: normal;
+       font-weight: 200;
+       margin: 0;
+       padding: 0;
+       text-decoration: none;
+       display: block;
+       height: 24px;
+       font-size: 14px;
+   }
+   

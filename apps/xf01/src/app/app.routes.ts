@@ -77,6 +77,13 @@ export const appRoutes: Route[] = [
         loadComponent: () =>
           import('@wsv2/manage-page').then((m) => m.InfoComponent ),
       },
+
+      
+      {
+        path: '**',
+        loadComponent: () =>
+          import('@wsv2/app-common').then((c) => c.PageNotFoundComponent),
+      },
     ]
   },
 

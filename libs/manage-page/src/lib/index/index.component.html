@@ -1,38 +1,87 @@
-
 <div class="theme-manager-section">
-  <wsv2-app-header-layout
-  [UserRole]="roleUser"
+  <mat-toolbar color="primary">
+    <a class="nav_link" routerLink="/manager">
+      <mat-icon>
+        <span class="material-symbols-outlined"> record_voice_over </span>
+      </mat-icon>
+    </a>
+    <span class="menu-lg">
+      <span *ngFor="let item of menu().parent">
+        <span *ngIf="item.meny && item.meny_name">
+          <span [ngSwitch]="item.meny">
+            <span *ngSwitchCase="1">
+              <span *ngIf="item.name !== 'info'; else info_content">
+                <button mat-stroked-button routerLink="{{ item.url }}">
+                  {{ item.name }}
+                </button>
+              </span>
+              <ng-template #info_content>
+                <a class="nav_link" routerLink="{{ item.url }}">
+                  <mat-icon>
+                    <span class="material-symbols-outlined"> info </span>
+                  </mat-icon>
+                </a>
+              </ng-template>
+            </span>
+            <span *ngSwitchCase="2" >
+               
+              <button mat-button [matMenuTriggerFor]="menuShopInformation">
+                <div class="item-meny-svg">
+                  <div class="item-meny-icon-svg">
+                    <mat-icon>more_vert</mat-icon>
+                  </div>
+                  <div class="item-meny-lable-svg">{{item.meny_name}}</div>
+                </div>
+              </button>
+              <mat-menu #menuShopInformation="matMenu" xPosition="before">
+                <div *ngFor="let item of menu().child1 ">
+                  <button mat-menu-item routerLink="{{ item.url }}">
+                    {{ item.name }}
+                  </button>
+                </div>
+              </mat-menu>
+              
+              <ng-template #add_meny>
+                <button mat-stroked-button>{{ item.meny_name }}</button>
+              </ng-template>
+           
+            </span>
+            <span *ngSwitchCase="3">
 
-  [isShopHeader]="false"
-  [company_name_1]="_company_name_1"
-  [company_name_2]="_company_name_2"
+              <button mat-button [matMenuTriggerFor]="menuShopInformation">
+                <div class="item-meny-svg">
+                  <div class="item-meny-icon-svg">
+                    <mat-icon>more_vert</mat-icon>
+                  </div>
+                  <div class="item-meny-lable-svg">{{item.meny_name}}</div>
+                </div>
+              </button>
+              <mat-menu #menuShopInformation="matMenu" xPosition="before">
+                <div *ngFor="let item of menu().child2 ">
+                  <button mat-menu-item routerLink="{{ item.url }}">
+                    {{ item.name }}
+                  </button>
+                </div>
+              </mat-menu>
+              
+              <ng-template #add_meny>
+                <button mat-stroked-button>{{ item.meny_name }}</button>
+              </ng-template>
 
+              
+            </span>
+            <span *ngSwitchDefault> error meny json</span>
+          </span>
+        </span>
+      </span>
+    </span>
+  </mat-toolbar>
 
-  [menuItems]="_menuItems"
-  (_onClickCart)="onClickCart($event)"
-  (_onClickLogin)="onClickLogin($event)"
-  (_onClickLogof)="onClickLogof($event)"
-  (_onClickOrder)="onClickOrder($event)"
-  (_onClickOptPrice)="onClickOptPrice($event)"
-  (_onClickNotOptPrice)="onClickNotOptPrice($event)"
-  (_onClickManager)="onClickManager($event)"
-  (_onClickAdmin)="onClickAdmin($event)"
-  (_onClickGoAppShop)="onClickGoAppShop($event)"
-  (_onToggleSideBar)="onSideBarVisible()"
-></wsv2-app-header-layout>
-
-  <div class="conteiner  mat-typography" >
-    
-  
-      
+  <div class="conteiner mat-typography">
     <router-outlet></router-outlet>
+  </div>
 
-
-    </div>
-
-    <!----------------- create end-->
+  <!----------------- create end-->
 
   <x01-v1-footer></x01-v1-footer>
-
-
-  </div>
+</div>
