@@ -15,7 +15,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '@wsv2/app-common';
 import { ImageSliderComponent } from '../image-slider/image-slider.component'
-import { ISliderImage } from '@wsv2/app-common';
+import { ISliderImage } from '@wsv2/app-config';
 
 
 @Component({

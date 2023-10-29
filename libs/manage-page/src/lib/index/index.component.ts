@@ -16,12 +16,13 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { IThemeScss, ThemeScssServices } from '@wsv2/app-common';
 import { UserRole } from '@wsv2/app-common';
-import { state } from '@angular/animations';
+
 
   interface IMeny{
     parent:IMenyItem[];
     child1:IMenyItem[];
     child2:IMenyItem[];
+    childmdmeny:IMenyItem[];
   }
 
 @Component({
@@ -56,7 +57,7 @@ export class IndexComponent implements OnDestroy {
     on_tertiary_container_color: '#243516',
   };
 
-  private menuItems: IMeny = {parent:[],child1:[],child2:[]};
+  private menuItems: IMeny = {parent:[],child1:[],child2:[],childmdmeny:[]};
 
   public menu=signal(this.menuItems);
 
@@ -77,25 +78,29 @@ export class IndexComponent implements OnDestroy {
     const parent:IMenyItem[]=[];
     const child_1:IMenyItem[]=[];
     const child_2:IMenyItem[]=[];
+    const childmdmeny:IMenyItem[]=[];
     old_meny.map(item=>{
       if(item.meny){
         if(item.meny==1){
         if(item.name==='тип-товара') {
           parent.push({id:11,meny:2,meny_name:"атр",name:"атр",url:""});
           parent.push({id:11,meny:3,meny_name:"товар",name:"товар",url:""});
+          const info=old_meny.find(d=>d.name==='info')
+          childmdmeny.push(item);
+        if(info) childmdmeny.push(info);
         } 
         parent.push(item);
         }
         if(item.meny==2){
           child_1.push(item);
         }
-        if(item.meny==2){
+        if(item.meny==3){
           child_2.push(item);
         }
       }
 
       //this.menuItems.parent=parent;
-      this.menu.update((state)=>({...state,parent:parent,child1:child_1,child2:child_2}))
+      this.menu.update((state)=>({...state,parent:parent,child1:child_1,child2:child_2,childmdmeny:childmdmeny}))
     
     
     })

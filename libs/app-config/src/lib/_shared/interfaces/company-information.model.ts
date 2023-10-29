@@ -1,4 +1,5 @@
-import { ISliderImage,IPhone} from '@wsv2/app-common'
+import { ISliderImage} from './slider-image.model'
+import {IPhone} from './phone.model'
 
 export interface IGeoPoint{
     x:string;

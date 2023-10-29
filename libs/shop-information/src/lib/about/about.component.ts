@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CompanyInformationService } from '@wsv2/app-config'
-import { ISliderImage} from '@wsv2/app-common'
+import { ISliderImage} from '@wsv2/app-config'
 //import {ImageSliderComponent} from '@wsv2/ui'
 
 

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {ICompanyInformation,IGeoPoint,IWorkTime} from '../interfaces/company-information.model'
-import { ISliderImage ,IPhone} from "@wsv2/app-common";
+import { ISliderImage} from '../interfaces/slider-image.model'
+import {IPhone} from '../interfaces/phone.model'
+
+
 
 @Injectable({
   providedIn: 'root',

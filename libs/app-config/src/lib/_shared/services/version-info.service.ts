@@ -5,9 +5,9 @@ import { catchError, of, tap, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { VersionInfo } from '../interfaces/vertion-info.model';
-import { ApiService } from '@wsv2/app-config';
+import { ApiService } from '../services/route-api.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { EnvironmentService } from '@wsv2/app-config';
+import { EnvironmentService } from '../services/environment.service';
 
 export interface Version {
   server: VersionInfo;

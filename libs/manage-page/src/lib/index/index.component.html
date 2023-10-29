@@ -5,27 +5,69 @@
         <span class="material-symbols-outlined"> record_voice_over </span>
       </mat-icon>
     </a>
-    <span class="menu-lg">
+    <span class="menu">
       <span *ngFor="let item of menu().parent">
         <span *ngIf="item.meny && item.meny_name">
           <span [ngSwitch]="item.meny">
             <span *ngSwitchCase="1">
-              <span *ngIf="item.name !== 'info'; else info_content">
-                <button mat-stroked-button routerLink="{{ item.url }}">
-                  {{ item.name }}
-                </button>
-              </span>
+                 <span class="menu-md">
+                  <span *ngIf="item.name !== 'тип-товара'">
+
+                    <span *ngIf="item.name !== 'info'; else info_content">
+                      <button mat-stroked-button routerLink="{{ item.url }}">
+                        {{ item.name }}
+                      </button>
+                    </span>
+
+                  </span>
+
+                 </span>
+
+                 <span class="menu-lg" >
+
+                  <span *ngIf="item.name !== 'info'; else info_content">
+                    <button mat-stroked-button routerLink="{{ item.url }}">
+                      {{ item.name }}
+                    </button>
+                  </span>
+
+
+                 </span>
+
+             
               <ng-template #info_content>
+                <span class="menu-lg">
                 <a class="nav_link" routerLink="{{ item.url }}">
                   <mat-icon>
                     <span class="material-symbols-outlined"> info </span>
                   </mat-icon>
                 </a>
+              </span>
+              <span class="menu-md" >
+   
+                <button mat-button [matMenuTriggerFor]="menuInfoInformation">
+                  <div class="item-meny-svg">
+                    <div class="item-meny-icon-svg">
+                      <mat-icon>more_vert</mat-icon>
+                    </div>
+                    <div class="item-meny-lable-svg">info</div>
+                  </div>
+                </button>
+                <mat-menu #menuInfoInformation="matMenu" xPosition="before">
+                  <div *ngFor="let item of menu().childmdmeny ">
+                    <button mat-menu-item routerLink="{{ item.url }}">
+                      {{ item.name }}
+                    </button>
+                  </div>
+                </mat-menu>
+
+
+              </span>
               </ng-template>
             </span>
             <span *ngSwitchCase="2" >
                
-              <button mat-button [matMenuTriggerFor]="menuShopInformation">
+              <button mat-button [matMenuTriggerFor]="menuChild1Information">
                 <div class="item-meny-svg">
                   <div class="item-meny-icon-svg">
                     <mat-icon>more_vert</mat-icon>
@@ -33,7 +75,7 @@
                   <div class="item-meny-lable-svg">{{item.meny_name}}</div>
                 </div>
               </button>
-              <mat-menu #menuShopInformation="matMenu" xPosition="before">
+              <mat-menu #menuChild1Information="matMenu" xPosition="before">
                 <div *ngFor="let item of menu().child1 ">
                   <button mat-menu-item routerLink="{{ item.url }}">
                     {{ item.name }}
@@ -48,7 +90,7 @@
             </span>
             <span *ngSwitchCase="3">
 
-              <button mat-button [matMenuTriggerFor]="menuShopInformation">
+              <button mat-button [matMenuTriggerFor]="menuChild2Information">
                 <div class="item-meny-svg">
                   <div class="item-meny-icon-svg">
                     <mat-icon>more_vert</mat-icon>
@@ -56,7 +98,7 @@
                   <div class="item-meny-lable-svg">{{item.meny_name}}</div>
                 </div>
               </button>
-              <mat-menu #menuShopInformation="matMenu" xPosition="before">
+              <mat-menu #menuChild2Information="matMenu" xPosition="before">
                 <div *ngFor="let item of menu().child2 ">
                   <button mat-menu-item routerLink="{{ item.url }}">
                     {{ item.name }}

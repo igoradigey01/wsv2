@@ -1,6 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 
-import { ISliderImage } from '@wsv2/app-common';
+import { ISliderImage } from '@wsv2/app-config';
 
 
 import { CommonModule } from '@angular/common';
