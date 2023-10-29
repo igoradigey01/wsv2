@@ -61,11 +61,7 @@ export class IndexComponent implements OnDestroy {
 
   public menu=signal(this.menuItems);
 
-  public roleUser: UserRole = UserRole.manager;
-
-  _flagPanel = true;
-  // _flagPanel2: boolean = false;
-  _flagSideBarHiden = false;
+ 
 
   constructor(
     //  private repositoryCompanyInformation: CompanyInformationService,
@@ -114,18 +110,12 @@ export class IndexComponent implements OnDestroy {
     this.repositoryThemeCss.destroyThemeComponent();
   }
 
-  onClickManager(userRole: UserRole) {
-    this.router.navigate(['manager']);
+ 
+  onClickOptPrice(opt:string) {
+   if(opt==='opt'){
+    new Error("not impliment exeption");
+    console.error("not impliment exeption");
+   }
   }
-  onClickAdmin(userRole: UserRole) {
-    this.router.navigate(['admin']);
-  }
-  onClickGoAppShop(userRole: UserRole) {
-    this.router.navigate(['index']);
-  }
-  onSideBarVisible() {
-    this._flagPanel = !this._flagPanel;
-    //  this._flagPanel2 = !this._flagPanel2;
-    this._flagSideBarHiden = !this._flagSideBarHiden;
-  }
+
 }
