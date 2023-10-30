@@ -7,6 +7,6 @@
   { "id": 6, "name": "товар", "url": "/manager/product" ,"meny":3,"meny_name":"товар-card" },
   { "id": 7, "name": "состав-товара", "url": "/manager/product-nomenclature" ,"meny":3,"meny_name":"товар-card"},
   { "id": 8, "name": "фото-товара", "url": "/manager/product-photo" ,"meny":3,"meny_name":"товар-card" },
-  { "id": 9, "name": "тип-товара", "url": "/manager/product-photo" ,"meny":1,"meny_name":"none"},
+  { "id": 9, "name": "тип-товара", "url": "/manager/product-type" ,"meny":1,"meny_name":"none"},
   { "id": 10, "name": "info", "url": "/manager/info","meny":1,"meny_name":"none" }
 ]

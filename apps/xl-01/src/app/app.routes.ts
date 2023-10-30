@@ -65,12 +65,30 @@ export const appRoutes: Route[] = [
     ],
 
   },
-
-
+  
   {
     path: 'manager',
     loadComponent: () =>
-      import('@wsv2/manage-page').then((m) => m.IndexComponent)
+      import('@wsv2/manage-page').then((m) => m.IndexComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('@wsv2/manage-page').then((m) => m.IndexInfoComponent),
+      },
+      {
+        path: 'info',
+        loadComponent: () =>
+          import('@wsv2/manage-page').then((m) => m.InfoComponent ),
+      },
+
+      
+      {
+        path: '**',
+        loadComponent: () =>
+          import('@wsv2/app-common').then((c) => c.PageNotFoundComponent),
+      },
+    ]
   },
 
   {
