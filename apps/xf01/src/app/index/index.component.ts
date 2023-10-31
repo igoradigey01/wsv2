@@ -45,7 +45,7 @@ export class IndexComponent implements OnInit {
   _flagSideBarHiden = false; //sidenav
 
   public userRole = computed(() => {
-    return this.userManager.Role();
+    return     this.userManager.Role(); //30-10-23 test for sidebar
   });
 
   title = ''; // not relize

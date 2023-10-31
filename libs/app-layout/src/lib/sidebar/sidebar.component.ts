@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input ,signal} from '@angular/core';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import {IMenyItem} from '@wsv2/app-config'
@@ -6,6 +6,7 @@ import {IMenyItem} from '@wsv2/app-config'
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserManagerService } from '@wsv2/account-service';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {UserRole} from '@wsv2/app-common'
 
 @Component({
@@ -14,10 +15,25 @@ import {UserRole} from '@wsv2/app-common'
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
+
+  private _userRole: UserRole = UserRole.default;
+
+  public stateRole=signal(this._userRole);
+
   @Output()
   _onToggleSideBar = new EventEmitter();
 
   @Input() public menuItems:IMenyItem[]=[];
+
+  @Input() public set UserRole(role: UserRole) {
+    
+
+    console.log("user-role sidebar--"+role)
+
+    this.stateRole.update(() => (role));
+    
+
+  }
 
   private _invalidLogin = false;
 
@@ -37,53 +53,45 @@ export class SidebarComponent {
     private userManager: UserManagerService
   ) {}
 
-  // ngOnInit(): void { 16.10.23
-  //   //this.repozitory.setMenuFromJSON(this.jsonMenuURL);
-  //   // const sub1 = this.userManager.InvalidLogin$.subscribe((d) => {
-  //   //   this._invalidLogin = d;
-  //   //   this._userRole = this.userManager.RoleUser;
-
-  //   //  // console.log('menu conctructor -- userManager.InvalidLogin$--' + d);
-  //   // });
-
-   
-  //   this._subscriptions.push(sub1);
-   
-  // }
-
+ 
   ngOnDestroy() {
     this._subscriptions.forEach((s) => s.unsubscribe());
   }
 
+/*  
+
   public get IsAdmin(): boolean {
-    //  return true;
-    if (UserRole.admin === this.userManager.Role() ) {
+    if (this.stateRole() === UserRole.admin) {
       return true;
     }
     return false;
   }
-  public get IsManager(): boolean {   
-
-
+  public get IsManager(): boolean {
     // return true;
-    if (UserRole.manager ===this.userManager.Role()) {
+    if (
+      this.stateRole() === UserRole.manager) {
       return true;
     }
     return false;
   }
   public get IsShopper(): boolean {
-    // return true;
-    if (UserRole.shoper === this.userManager.Role()) {
+
+    if (this.stateRole() === UserRole.shoper || this.stateRole() == UserRole.shoperOpt) {
       return true;
     }
     return false;
   }
-  public get IsShopperOpt(): boolean {
-    return this._isOptovik;
-  }
+  public get IsOpt(): boolean {
 
+    if (this.stateRole() === UserRole.shoperOpt || this.stateRole() == UserRole.opt) {
+      return true;
+    }
+    return false;
+  }
+  */
   public get InvalidLogin(): boolean {
-    return this._invalidLogin;
+    if(this.stateRole()===UserRole.default ||this.stateRole()===UserRole.opt) return true
+    return false;
   }
 
   public onSideBarVisible(): void {

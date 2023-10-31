@@ -38,6 +38,7 @@
     </div>
 
        <wsv2-x01-v1-sidebar
+       [UserRole]="userRole()"
        [menuItems]="_menuItems"
        (onToggleSideBar)="onSideBarVisible()"
        >

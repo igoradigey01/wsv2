@@ -10,6 +10,7 @@ import { UserManagerService } from '@wsv2/account-service';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { OptManagerService } from '@wsv2/shop-opt';
 
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserRole } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { CartService } from '@wsv2/shop-cart';
