@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable ,signal} from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ManagerServiceModule } from './maneger-service.module';
@@ -16,6 +16,8 @@ import {ResetPasswordProfileDto} from '../_interfaces/reset-password-profileDto.
   providedIn: ManagerServiceModule
 })
 export class ProfileService {
+
+
   
   
   
@@ -30,6 +32,7 @@ export class ProfileService {
   }
 
   public GetUser=(): Observable<UserProfileDto>=>{
+    //debugger
     this.url.Controller='Profile';
     this.url.Action = 'GetUser';
     this.url.ID=null;
@@ -40,8 +43,10 @@ export class ProfileService {
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
+ //   console.log("Profile getUser tocken"+this.userManager.AccessToken());
+  //  console.log("Profile getUser url---" +this.url.Url);
 
-    return this.http.get<UserProfileDto>(this.url.AuthUrl, {
+    return this.http.get<UserProfileDto>(this.url.Url, {
       headers
     }); 
   }
@@ -53,7 +58,7 @@ export class ProfileService {
     this.url.ID=null;
     const headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.userManager.AccessToken,
+      'Authorization': 'Bearer ' + this.userManager.AccessToken(),
     });
     return this.http.post(this.url.AuthUrl, credentials, { headers });
   }
@@ -76,7 +81,7 @@ export class ProfileService {
     this.url.ID=null;
     const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
-      Authorization: 'Bearer ' + this.userManager.AccessToken,
+      Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
    const url = this.url.AuthUrl + '/' + id;
     console.log("url delete profile-"+url);

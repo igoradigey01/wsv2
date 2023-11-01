@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component,  Output, EventEmitter, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,13 +9,14 @@ import { ProfileService } from '../../_shared/services/profile.service';
 import { StateView } from '../../_shared/_interfaces/state-view';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-user-profile-edit',
   templateUrl: './user-profile-edit.component.html',
   styleUrls: ['./user-profile-edit.component.scss'],
 })
-export class UserProfileEditComponent implements OnInit {
+export class UserProfileEditComponent  {
   _errorMgs: string[] = [];
-  public showSuccess: boolean = false;
+  public showSuccess = false;
 
   @Input() public User: UserProfileDto = <UserProfileDto>{
     firstName: '',
@@ -26,6 +27,7 @@ export class UserProfileEditComponent implements OnInit {
   };
 
   @Output()
+  // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   onToggleViewState: EventEmitter<StateView> = new EventEmitter();
 
   constructor(
@@ -34,7 +36,7 @@ export class UserProfileEditComponent implements OnInit {
     private profileServece: ProfileService
   ) {}
 
-  ngOnInit(): void {}
+
 
   submitForm(registerForm: NgForm) {
     this._errorMgs = [];

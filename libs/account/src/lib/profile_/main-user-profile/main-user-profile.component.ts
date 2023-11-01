@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StateView } from '../../_shared/_interfaces/state-view';
 import { UserProfileDto } from '../../_shared/_interfaces/user-profileDto.model';
-import { UserManagerService } from '@wsv2/account-service';
+
 import { ProfileService } from '../../_shared/services/profile.service';
 
 @Component({  
@@ -26,14 +26,18 @@ export class MainUserProfileComponent implements OnInit {
   constructor(private profileServece: ProfileService) {}
 
   ngOnInit(): void {
+    /*
     this.profileServece.GetUser().subscribe({
       next: (data: UserProfileDto) => {
         this.user = data;
+        console.log("profile ---"+JSON.stringify(data))
       },
       error: (err) => {
+       // debugger
         console.error(err);
       },
     });
+    */
   }
 
   public onChangeViewState(event: StateView) {
