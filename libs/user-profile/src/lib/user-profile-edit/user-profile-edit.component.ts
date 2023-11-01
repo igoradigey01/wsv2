@@ -60,7 +60,7 @@ export class UserProfileEditComponent  {
     const credentials = JSON.stringify(registerForm.value);
 
     this.profileServece.Update(credentials).subscribe({
-      next: (data) => {
+      next: () => {
         this.showSuccess=true;
         this.onToggleViewState.next(StateView.default);
       },

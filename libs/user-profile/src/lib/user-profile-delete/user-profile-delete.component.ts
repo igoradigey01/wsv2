@@ -6,7 +6,7 @@ import {MatIconModule} from '@angular/material/icon';
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router  } from '@angular/router';
-import { NgForm } from '@angular/forms';
+
 import { UserProfileDto } from '../_shared/interfaces/user-profileDto.model';
 import { UserManagerService } from '@wsv2/account-service';
 import { ProfileService } from '../_shared/services/profile.service';
@@ -54,7 +54,7 @@ export class UserProfileDeleteComponent  {
    
 
     this.repozitory.Delete(this.User.email).subscribe({
-      next: (data) => {
+      next: () => {
       //  this.userManager.setInvalidLogin$(true, null);
       this.userManager.SetAccessToken( undefined);
         this.router.navigateByUrl('');

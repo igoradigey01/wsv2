@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { NgForm } from '@angular/forms';
+
 
 import { HttpErrorResponse } from '@angular/common/http';
 import {StateView} from '@wsv2/app-common'
@@ -64,7 +64,7 @@ export class ResetPasswordProfileComponent implements OnInit {
     
   }
 
-  public submitForm = (resetPasswordForm: NgForm) => {
+  public submitForm = () => {
     
     this._errorMgs = [];
 
@@ -74,7 +74,7 @@ export class ResetPasswordProfileComponent implements OnInit {
 
      console.log("resetPasswordForm--"+JSON.stringify(this.resetPassDto))
     this.repozitory.ResetPassword(this.resetPassDto).subscribe({
-      next: (_) => {
+      next: () => {
         //this.userManager.setInvalidLogin$(true, null);
         this.userManager.SetAccessToken( undefined);
         this.showSuccess = true;
