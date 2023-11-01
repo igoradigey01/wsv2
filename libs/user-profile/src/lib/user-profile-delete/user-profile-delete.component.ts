@@ -1,5 +1,9 @@
 import { Component,Output, EventEmitter,Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router  } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -13,6 +17,9 @@ import {StateView} from '@wsv2/app-common'
   standalone: true,
   imports: [
     CommonModule,
+    MatCardModule,
+    FormsModule,
+    MatIconModule
   ],
   templateUrl: './user-profile-delete.component.html',
   styleUrls: ['./user-profile-delete.component.scss'],

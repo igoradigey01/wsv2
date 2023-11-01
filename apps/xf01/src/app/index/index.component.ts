@@ -101,7 +101,7 @@ export class IndexComponent implements OnInit {
 
   public onClickLogof(userRole: UserRole) {
     // debugger
-    this.router.navigate(['/index/account/user-profile']);
+    this.router.navigate(['/index/user-profile']);
   }
   public onClickOrder(userRole: UserRole) {
     this.router.navigate(['index/order']);

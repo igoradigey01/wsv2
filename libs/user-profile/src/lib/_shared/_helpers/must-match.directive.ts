@@ -6,7 +6,7 @@ import Validation from './must-match.validator';
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[appMatchPassword]',
- 
+  standalone: true,
   providers: [{ provide: NG_VALIDATORS, useExisting: MatchPasswordDirective, multi: true }]
 })
 export class MatchPasswordDirective implements Validator {

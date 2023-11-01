@@ -4,6 +4,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+
 import { UserProfileDto } from '../_shared/interfaces/user-profileDto.model';
 import { UserManagerService } from '@wsv2/account-service';
 import { ProfileService } from '../_shared/services/profile.service';
@@ -15,6 +20,10 @@ import { StateView } from '@wsv2/app-common';
   standalone: true,
   imports: [
     CommonModule,
+    MatCardModule,
+    FormsModule,
+    MatIconModule,
+    MatInputModule
   ],
   templateUrl: './user-profile-edit.component.html',
   styleUrls: ['./user-profile-edit.component.scss'],

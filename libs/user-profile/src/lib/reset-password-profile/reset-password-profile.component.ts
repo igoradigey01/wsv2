@@ -1,5 +1,8 @@
 import { Component, OnInit,Input,Output, EventEmitter, ChangeDetectionStrategy, } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 
 import { HttpErrorResponse } from '@angular/common/http';
@@ -8,6 +11,9 @@ import {StateView} from '@wsv2/app-common'
 import { ProfileService} from '../_shared/services/profile.service';
 import { ResetPasswordProfileDto } from '../_shared/interfaces/reset-password-profileDto.model';
 import { UserManagerService } from '@wsv2/account-service';
+import { MatCardModule } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
+import { MatchPasswordDirective } from '../_shared/_helpers/must-match.directive';
 
 @Component({
   
@@ -15,6 +21,13 @@ import { UserManagerService } from '@wsv2/account-service';
   standalone: true,
   imports: [
     CommonModule,
+    MatCardModule,
+    MatIconModule,
+    MatInputModule,
+    FormsModule, 
+    RouterModule,
+    MatchPasswordDirective
+   
   ],
   templateUrl: './reset-password-profile.component.html',
   styleUrls: ['./reset-password-profile.component.scss'],

@@ -1,5 +1,11 @@
 import { Component, Output, EventEmitter,Input, ChangeDetectionStrategy,} from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { MatCardModule } from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
+
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material/icon';
 
@@ -29,6 +35,10 @@ const THUMBUP_ICON = `
   standalone: true,
   imports: [
     CommonModule,
+    MatCardModule,
+    MatIconModule,
+    MatDividerModule,
+    MatListModule
   ],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],

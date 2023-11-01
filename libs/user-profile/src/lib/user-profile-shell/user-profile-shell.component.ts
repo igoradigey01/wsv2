@@ -7,6 +7,7 @@ import { ResetPasswordProfileComponent } from '../reset-password-profile/reset-p
 import {UserProfileComponent} from '../user-profile/user-profile.component'
 import {UserProfileEditComponent} from '../user-profile-edit/user-profile-edit.component'
 import {UserProfileDeleteComponent} from '../user-profile-delete/user-profile-delete.component'
+import {UserOrderShellComponent} from '@wsv2/user-order'
 
 import { StateView } from '@wsv2/app-common';
 import { UserProfileDto } from '../_shared/interfaces/user-profileDto.model';
@@ -24,7 +25,8 @@ import { ProfileService } from '../_shared/services/profile.service';
      ResetPasswordProfileComponent,
      UserProfileComponent,
      UserProfileEditComponent,
-     UserProfileDeleteComponent
+     UserProfileDeleteComponent,
+     UserOrderShellComponent
     ],
   templateUrl: './user-profile-shell.component.html',
   styleUrls: ['./user-profile-shell.component.scss'],
