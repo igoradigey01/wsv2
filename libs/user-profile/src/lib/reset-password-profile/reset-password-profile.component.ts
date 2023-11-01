@@ -1,17 +1,24 @@
-import { Component, OnInit,Input,Output, EventEmitter, } from '@angular/core';
+import { Component, OnInit,Input,Output, EventEmitter, ChangeDetectionStrategy, } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { NgForm } from '@angular/forms';
 
 import { HttpErrorResponse } from '@angular/common/http';
-import {StateView} from '../../_shared/_interfaces/state-view'
+import {StateView} from '@wsv2/app-common'
 
-import { ProfileService} from '../../_shared/services/profile.service';
-import { ResetPasswordProfileDto } from '../../_shared/_interfaces/reset-password-profileDto.model';
+import { ProfileService} from '../_shared/services/profile.service';
+import { ResetPasswordProfileDto } from '../_shared/interfaces/reset-password-profileDto.model';
 import { UserManagerService } from '@wsv2/account-service';
 
 @Component({
-  selector: 'x01-v1-reset-password-profile',
+  
+  selector: 'wsv2-reset-password-profile',
+  standalone: true,
+  imports: [
+    CommonModule,
+  ],
   templateUrl: './reset-password-profile.component.html',
   styleUrls: ['./reset-password-profile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResetPasswordProfileComponent implements OnInit {
  
@@ -24,12 +31,13 @@ export class ResetPasswordProfileComponent implements OnInit {
     email: ''
   };
 
-  public showSuccess: boolean = false;
+  public showSuccess = false;
 
   _errorMgs: string[] = [];
 
   @Input() public Email: string |undefined;
   @Output()
+     // eslint-disable-next-line @angular-eslint/no-output-on-prefix
      onToggleViewState:EventEmitter<StateView> = new EventEmitter()
 
   constructor(

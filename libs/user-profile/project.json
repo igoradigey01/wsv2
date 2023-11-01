@@ -1,0 +1,53 @@
+{
+  "name": "user-profile",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/user-profile/src",
+  "prefix": "wsv2",
+  "tags": [
+    "scope:01app-user-profile-lib",
+    "type:01-lib"
+  ],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/user-profile/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/user-profile/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/user-profile/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/user-profile/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/user-profile/**/*.ts",
+          "libs/user-profile/**/*.html"
+        ]
+      }
+    }
+  }
+}

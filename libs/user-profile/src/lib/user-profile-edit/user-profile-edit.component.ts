@@ -1,18 +1,24 @@
-import { Component,  Output, EventEmitter, Input } from '@angular/core';
+import { Component,  Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { UserProfileDto } from '../../_shared/_interfaces/user-profileDto.model';
+import { UserProfileDto } from '../_shared/interfaces/user-profileDto.model';
 import { UserManagerService } from '@wsv2/account-service';
-import { ProfileService } from '../../_shared/services/profile.service';
-import { StateView } from '../../_shared/_interfaces/state-view';
+import { ProfileService } from '../_shared/services/profile.service';
+import { StateView } from '@wsv2/app-common';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'app-user-profile-edit',
+  selector: 'wsv2-user-profile-edit',
+  standalone: true,
+  imports: [
+    CommonModule,
+  ],
   templateUrl: './user-profile-edit.component.html',
   styleUrls: ['./user-profile-edit.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileEditComponent  {
   _errorMgs: string[] = [];

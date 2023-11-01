@@ -1,13 +1,14 @@
-import { Component, Output, EventEmitter,Input,} from '@angular/core';
+import { Component, Output, EventEmitter,Input, ChangeDetectionStrategy,} from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material/icon';
 
-import {StateView} from '../../_shared/_interfaces/state-view'
+import {StateView} from '@wsv2/app-common'
 
 
 
 import { Router } from '@angular/router';
-import { UserProfileDto } from '../../_shared/_interfaces/user-profileDto.model';
+import { UserProfileDto } from '../_shared/interfaces/user-profileDto.model';
 
 
 const THUMBUP_ICON = `
@@ -24,9 +25,14 @@ const THUMBUP_ICON = `
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'app-user-profile',
+  selector: 'wsv2-user-profile',
+  standalone: true,
+  imports: [
+    CommonModule,
+  ],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileComponent {  
 

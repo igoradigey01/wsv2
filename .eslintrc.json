@@ -161,6 +161,22 @@
                   "type:01-lib"
                 ]
               }
+              ,
+              {
+                "sourceTag": "scope:01app-user-order-lib",
+                "onlyDependOnLibsWithTags": [
+                  "scope:01app-user-order-lib",
+                  "type:01-lib"
+                ]
+              }
+              ,
+              {
+                "sourceTag": "scope:01app-user-profile-lib",
+                "onlyDependOnLibsWithTags": [
+                  "scope:01app-user-profile-lib",
+                  "type:01-lib"
+                ]
+              }
             ]
           }
         ]

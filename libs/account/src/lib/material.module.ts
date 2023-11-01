@@ -6,7 +6,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatTabsModule} from '@angular/material/tabs';
+
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 
@@ -20,7 +20,7 @@ const material = [
   MatInputModule,
   MatFormFieldModule,
   MatCheckboxModule,
-  MatTabsModule,
+  
   MatDividerModule,
   MatListModule
 

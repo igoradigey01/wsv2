@@ -32,7 +32,9 @@
       "@wsv2/shop-order": ["libs/shop-order/src/index.ts"],
       "@wsv2/shop-services": ["libs/shop-services/src/index.ts"],
       "@wsv2/shop-sub-content": ["libs/shop-sub-content/src/index.ts"],
-      "@wsv2/ui": ["libs/ui/src/index.ts"]
+      "@wsv2/ui": ["libs/ui/src/index.ts"],
+      "@wsv2/user-order": ["libs/user-order/src/index.ts"],
+      "@wsv2/user-profile": ["libs/user-profile/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

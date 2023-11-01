@@ -5,11 +5,11 @@
         <mat-card-content>
           <mat-tab-group mat-align-tabs="center">
             <mat-tab label="Профиль">
-              <app-user-profile
+              <wsv2-user-profile
               [User]="user"
               (onToggleViewState)="onChangeViewState($event)"
               
-              ></app-user-profile>
+              ></wsv2-user-profile>
              </mat-tab>
             <mat-tab label="Заказы">
              <x01-v1-user-orders-main></x01-v1-user-orders-main>
@@ -24,24 +24,24 @@
 
   <!--  Edit -Delete template -->
   <ng-template name="Edit" ngSwitchCase="4">
-    <app-user-profile-edit
+    <wsv2-user-profile-edit
     [User]="user"
     (onToggleViewState)="onChangeViewState($event)"
-    ></app-user-profile-edit>
+    ></wsv2-user-profile-edit>
   </ng-template>
   <ng-template name="ResetPassword" ngSwitchCase="10">
-  <x01-v1-reset-password-profile
+  <wsv2-reset-password-profile
    [Email]="user.email"
    (onToggleViewState)="onChangeViewState($event)"
   >
 
-  </x01-v1-reset-password-profile>
+  </wsv2-reset-password-profile>
   </ng-template>
   <ng-template name="delete" ngSwitchCase="7">
-    <app-user-profile-delete
+    <wsv2-user-profile-delete
     [User]="user"
     (onToggleViewState)="onChangeViewState($event)"
-    ></app-user-profile-delete>
+    ></wsv2-user-profile-delete>
   </ng-template>
 </div>
 

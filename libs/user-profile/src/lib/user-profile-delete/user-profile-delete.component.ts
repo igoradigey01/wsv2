@@ -1,22 +1,29 @@
-import { Component, OnInit ,Output, EventEmitter,Input } from '@angular/core';
+import { Component,Output, EventEmitter,Input, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router  } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { UserProfileDto } from '../../_shared/_interfaces/user-profileDto.model';
+import { UserProfileDto } from '../_shared/interfaces/user-profileDto.model';
 import { UserManagerService } from '@wsv2/account-service';
-import { ProfileService } from '../../_shared/services/profile.service';
-import {StateView} from '../../_shared/_interfaces/state-view'
+import { ProfileService } from '../_shared/services/profile.service';
+import {StateView} from '@wsv2/app-common'
 
 @Component({
-  selector: 'app-user-profile-delete',
+  selector: 'wsv2-user-profile-delete',
+  standalone: true,
+  imports: [
+    CommonModule,
+  ],
   templateUrl: './user-profile-delete.component.html',
-  styleUrls: ['./user-profile-delete.component.scss']
+  styleUrls: ['./user-profile-delete.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserProfileDeleteComponent implements OnInit {
+export class UserProfileDeleteComponent  {
 
   _errorMgs: string[] = [];
 
   @Output()
+  // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   onToggleViewState:EventEmitter<StateView> = new EventEmitter()
 
   @Input() public User: UserProfileDto = <UserProfileDto>{
@@ -33,8 +40,6 @@ export class UserProfileDeleteComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-  }
 
   submitForm() {
     this._errorMgs = [];

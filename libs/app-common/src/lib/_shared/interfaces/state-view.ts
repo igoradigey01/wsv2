@@ -6,5 +6,6 @@ export enum StateView {
   edit=4,
   create=5,
   wait=6, // ожидание
-  delete=7
+  delete=7,
+  resetPassword=10
 }
