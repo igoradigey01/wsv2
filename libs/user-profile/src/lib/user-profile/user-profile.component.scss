@@ -1,4 +1,4 @@
-@use "../../../style.scss" as st;
+@use "../../style.scss" as st;
 
 .container {
   min-height: 400px;
@@ -25,20 +25,11 @@
   border-radius: 50%;
  } 
 
- .profileUserInfo{
-  display: flex;
-  margin-left: 0.5rem;
-  align-items: center;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #e8e8e8;
+ .list-wrapping{
+  max-width: 500px;
  }
- .profileUserInfo_personDetail{
-  width: 100%;
-  display: block;
-  text-align: left;
-  margin-left: 0.5rem;
-    
- }
+
+ 
 
  
 
@@ -54,17 +45,11 @@
  }
 
  .profileUserInfo_personData{
-  display: block;
+  display: inline;
+  color: var(--tertiary-color);
  }
 
- .user_adresss{
-  margin-left: 2rem;
-  width: 80%;
-  text-align: left;
- }
- .mat-subheader{
-  margin-left: 1rem;
- }
+ 
  .icon_aderss_svg{
   margin-left: 1rem;
 
@@ -78,15 +63,15 @@
  
 
  .profileUserInfo_messages{
-  color: st.$accent-color;
+  color: var(--accent-color);
   font-size: 14px;
     line-height: 20px;
   display: block;
  }
  .profileUserInfo_messages_count{
-  color: st.$primary-color;
-  
+  color:  var(--primary-color); 
  }
+
 // .input-field {
 //   width: 90%;
 //   // background-color: st.$accent-lighter-color ;
@@ -95,7 +80,7 @@
 // }
 
 .error {
-  color: st.$warn-color;
+  color: var(--warn-color);
 
  // background-color: st.$warn-color;
 }

@@ -19,57 +19,38 @@
         </ul>
       </div>
 
-      <div class="profileUserInfo">
-        <div class="profileUserInfo_avatar">
-          <button mat-mini-fab disabled color="primary">
-          <mat-icon><span class="material-symbols-outlined">
-            account_circle
-            </span></mat-icon>
-          </button>
-        </div>
-        <div class="profileUserInfo_personDetail">
-          <div class="profileUserInfo_personData">
-            <span style="margin-right: 0.5rem">{{ User.firstName }}</span>
-            <span>{{ User.lastName }}</span>
-          </div>
-          <div class="profileUserInfo_messages">
-            <svg
-              width="22"
-              height="18"
-              viewBox="0 0 44 36"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              class="ProfileUserInfo_UnreadMessagesCounter__icon__zmhe5"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M26 20.8284L23.4142 23.4142C22.6332 24.1953 21.3668 24.1953 20.5858 23.4142L18 20.8284L6.822 32.0064L37.1718 32.0002L26 20.8284ZM40.0001 6.82834L28.8284 18L39.9995 29.171L40.0001 6.82834ZM15.1716 18L4.00053 6.82895L3.99991 29.1717L15.1716 18ZM22 19.2376L37.187 3.99357L6.81917 3.99978L22 19.2376ZM4.00181 0H39.9982C42.2083 0 44 1.78525 44 3.99018V32.0098C44 34.2135 42.2069 36 39.9982 36H4.00181C1.79167 36 0 34.2148 0 32.0098V3.99018C0 1.78646 1.79309 0 4.00181 0Z"
-                fill="currentColor"
-              ></path>
-            </svg>
-            <span> Непрочитанные сообщения </span> :
-            <span class="profileUserInfo_messages_count">{{ Massages }}</span>
-          </div>
-        </div>
-      </div>
+    
 
-      <mat-list>
-        <div class="mat-subheader" mat-subheader>Телефон:</div>
+      <mat-list class="list-wrapping">
+
+        <mat-list-item lines="3">
+          <span matListItemTitle><mat-icon>
+            account_circle
+            </mat-icon></span> <br>
+          <div style="width: 300px;height:100px !important ; margin-left: auto;margin-right: auto;white-space: normal;text-align: left;">
+            <span>Имя :</span> <span class="profileUserInfo_personData">{{ User.firstName }}</span> <br>
+          <span>Отчество :</span><span class="profileUserInfo_personData">{{ User.lastName }} </span></div>
+        </mat-list-item>
+       
         <mat-list-item>
-          <mat-icon  mat-list-icon>
+          
+        <span> <mat-icon  mat-list-icon>
             phone
-            </mat-icon>
-          <div mat-line>{{ User.phone }}</div>
+            </mat-icon> </span> :
+          <span class="profileUserInfo_personData"> {{ User.phone }} </span>
         </mat-list-item>
         <mat-divider></mat-divider>
-        <div class="mat-subheader" mat-subheader>Еmail</div>
+       
         <mat-list-item>
-          <mat-icon mat-list-icon>email</mat-icon>
-          <div mat-line>{{ User.email }}</div>
+          <span >
+          <mat-icon mat-list-icon>email</mat-icon>:
+        </span>
+          <span class="profileUserInfo_personData" > {{ User.email }}</span>
         </mat-list-item>
         <mat-divider></mat-divider>
-        <div class="mat-subheader" mat-subheader>
+        <mat-list-item lines="5">
+          <span matListItemTitle>Title
+        
           Адрес доставки
           <mat-icon
             class="icon_aderss_svg"
@@ -78,12 +59,20 @@
             aria-label="adress SVG icon"
             mat-list-icon
           ></mat-icon>
-        </div>
-      </mat-list>
-      <div class="user_adresss">
+       
+      </span>
+      <address >
+      <div style="height: 100px !important;white-space: normal;text-align: start;margin-left: 0.2rem;"> 
+       
         {{ User.address }}
       </div>
+        
+        </address>
+     
+     
+        </mat-list-item>
       <mat-divider></mat-divider>
+    </mat-list>
 
       <div>
         <button

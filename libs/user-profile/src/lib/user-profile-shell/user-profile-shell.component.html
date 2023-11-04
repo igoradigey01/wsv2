@@ -6,7 +6,7 @@
           <mat-tab-group mat-align-tabs="center">
             <mat-tab label="Профиль">
               <wsv2-user-profile
-              [User]="user"
+              [User]="user()"
               (onToggleViewState)="onChangeViewState($event)"
               
               ></wsv2-user-profile>
@@ -25,13 +25,13 @@
   <!--  Edit -Delete template -->
   <ng-template name="Edit" ngSwitchCase="4">
     <wsv2-user-profile-edit
-    [User]="user"
+    [User]="user()"
     (onToggleViewState)="onChangeViewState($event)"
     ></wsv2-user-profile-edit>
   </ng-template>
   <ng-template name="ResetPassword" ngSwitchCase="10">
   <wsv2-reset-password-profile
-   [Email]="user.email"
+   [Email]="user().email"
    (onToggleViewState)="onChangeViewState($event)"
   >
 
@@ -39,7 +39,7 @@
   </ng-template>
   <ng-template name="delete" ngSwitchCase="7">
     <wsv2-user-profile-delete
-    [User]="user"
+    [User]="user()"
     (onToggleViewState)="onChangeViewState($event)"
     ></wsv2-user-profile-delete>
   </ng-template>

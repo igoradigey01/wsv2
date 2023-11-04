@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router  } from '@angular/router';
@@ -19,7 +20,8 @@ import {StateView} from '@wsv2/app-common'
     CommonModule,
     MatCardModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   templateUrl: './user-profile-delete.component.html',
   styleUrls: ['./user-profile-delete.component.scss'],
@@ -51,8 +53,8 @@ export class UserProfileDeleteComponent  {
   submitForm() {
     this._errorMgs = [];
 
-   
-
+   if(this.User.email)
+  
     this.repozitory.Delete(this.User.email).subscribe({
       next: () => {
       //  this.userManager.setInvalidLogin$(true, null);

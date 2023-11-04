@@ -32,6 +32,11 @@ export const appRoutes: Route[] = [
           import('@wsv2/account').then((m) => m.AccountModule)
       },
       {
+        path: 'user-profile',
+        loadComponent: () =>
+          import('@wsv2/user-profile').then((m) => m.UserProfileShellComponent),
+      },
+      {
         path: 'cart',
         loadComponent: () =>
           import('@wsv2/shop-cart').then((m) => m.CartShellComponent),

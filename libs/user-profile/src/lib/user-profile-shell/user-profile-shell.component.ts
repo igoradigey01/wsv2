@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
@@ -32,33 +32,18 @@ import { ProfileService } from '../_shared/services/profile.service';
   styleUrls: ['./user-profile-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserProfileShellComponent implements OnInit {
+export class UserProfileShellComponent  {
   public _flagViewState: StateView = StateView.default;
 
-  public user: UserProfileDto = <UserProfileDto>{
-    firstName: '',
-    lastName: '',
-    phone: '',
-    address: '',
-    email: '',
-  };
+ 
+  user = computed(() =>this.repositoryProfile.UserProfile()
+     );
 
-  constructor(private profileServece: ProfileService) {}
+  constructor(
+    private repositoryProfile:ProfileService,    
+   ) {}
 
-  ngOnInit(): void {
-    /*
-    this.profileServece.GetUser().subscribe({
-      next: (data: UserProfileDto) => {
-        this.user = data;
-        console.log("profile ---"+JSON.stringify(data))
-      },
-      error: (err) => {
-       // debugger
-        console.error(err);
-      },
-    });
-    */
-  }
+  
 
   public onChangeViewState(event: StateView) {
     this._flagViewState = event;

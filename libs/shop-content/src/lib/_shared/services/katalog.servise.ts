@@ -52,6 +52,7 @@ enum Status {
   providedIn: 'root',
 })
 export class KatlogService {
+
   private headers = new HttpHeaders({
     Accept: 'application/json',
     //  Authorization: 'Bearer ' + token,
@@ -67,7 +68,9 @@ export class KatlogService {
 
   public  Katalogs = computed(() => this.state().catalogItems);
 
-  public message =signal<Message>({message:undefined,error:false})
+  private error_state =signal<Message>({message:undefined,error:false});
+
+  public  message =computed(()=>this.error_state());
 
   public indicatorSubject = new BehaviorSubject<boolean>(false);
 
@@ -120,22 +123,22 @@ export class KatlogService {
       next: (res) => {
         console.log(res);       
         this.state.update((d)=>({...d,catalogItems: [...d.catalogItems, item],state:Status.modify}))
-        this.message.update((m)=>({...m,message:"The status was create successfully!"})) ;
+        this.error_state.update((m)=>({...m,message:"The status was create successfully!"})) ;
       },
       error: (err: HttpErrorResponse) =>{
         console.error(err);
         this.state.update((d)=>({...d,catalogItems: [...d.catalogItems, item],queryAdd:[...d.queryAdd, item],state:Status.modify}));
-        this.message.update((m)=>({...m,error:true})) ;
+        this.error_state.update((m)=>({...m,error:true})) ;
         if (err.status === 401) {         
-          this.message.update((m)=>({...m,message:'пользователь не авторизован,войдите на сайт'})) ;
+          this.error_state.update((m)=>({...m,message:'пользователь не авторизован,войдите на сайт'})) ;
           return;
         }
         if (err.status == 400) {
-          this.message.update((m)=>({...m,message:err.error})) ;
+          this.error_state.update((m)=>({...m,message:err.error})) ;
           return;
         }
         
-        this.message.update((m)=>({...m,message: 'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса'})) ;
+        this.error_state.update((m)=>({...m,message: 'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса'})) ;
         return;
       } 
      } );
@@ -170,22 +173,22 @@ export class KatlogService {
       next: (res) => {
         console.log(res);       
         this.state.update((d)=>({...d,catalogItems: [...d.catalogItems],state:Status.modify}))
-        this.message.update((m)=>({...m,message:"The status was updated successfully!"})) ;
+        this.error_state.update((m)=>({...m,message:"The status was updated successfully!"})) ;
       },
       error: (err: HttpErrorResponse) =>{
         console.error(err);
         this.state.update((d)=>({...d,catalogItems: [...d.catalogItems],queryUpdate:[...d.queryUpdate, item],state:Status.modify}));
-        this.message.update((m)=>({...m,error:true})) ;
+        this.error_state.update((m)=>({...m,error:true})) ;
         if (err.status === 401) {         
-          this.message.update((m)=>({...m,message:'пользователь не авторизован,войдите на сайт'})) ;
+          this.error_state.update((m)=>({...m,message:'пользователь не авторизован,войдите на сайт'})) ;
           return;
         }
         if (err.status == 400) {
-          this.message.update((m)=>({...m,message:err.error})) ;
+          this.error_state.update((m)=>({...m,message:err.error})) ;
           return;
         }
         
-        this.message.update((m)=>({...m,message: 'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса'})) ;
+        this.error_state.update((m)=>({...m,message: 'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса'})) ;
         return;
       } 
      });
@@ -229,23 +232,23 @@ export class KatlogService {
       next: (res) => {
         console.log(res);       
         this.state.update((d)=>({...d,catalogItems: newCatlogsList,state:Status.modify}))
-        this.message.update((m)=>({...m,message:"The status was updated successfully!"})) ;
+        this.error_state.update((m)=>({...m,message:"The status was updated successfully!"})) ;
       },
       error: (err: HttpErrorResponse) =>{
         console.error(err);
         if(delItems)
         this.state.update((d)=>({...d,catalogItems: newCatlogsList,queryDelete:[...d.queryDelete, delItems],state:Status.modify}));
-        this.message.update((m)=>({...m,error:true})) ;
+        this.error_state.update((m)=>({...m,error:true})) ;
         if (err.status === 401) {         
-          this.message.update((m)=>({...m,message:'пользователь не авторизован,войдите на сайт'})) ;
+          this.error_state.update((m)=>({...m,message:'пользователь не авторизован,войдите на сайт'})) ;
           return;
         }
         if (err.status == 400) {
-          this.message.update((m)=>({...m,message:err.error})) ;
+          this.error_state.update((m)=>({...m,message:err.error})) ;
           return;
         }
         
-        this.message.update((m)=>({...m,message: 'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса'})) ;
+        this.error_state.update((m)=>({...m,message: 'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса'})) ;
         return;
       } 
 
