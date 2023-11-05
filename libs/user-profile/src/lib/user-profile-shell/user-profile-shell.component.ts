@@ -46,6 +46,7 @@ export class UserProfileShellComponent  {
   
 
   public onChangeViewState(event: StateView) {
+    
     this._flagViewState = event;
   }
 }

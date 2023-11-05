@@ -3,7 +3,7 @@
     <mat-card-header class="title">
       <div class="card-header mat-h3">Редактировать профиль</div>
       <div>
-        <button mat-button (click)="onBack()">
+        <button mat-mini-fab   color="accent" (click)="onBack()">
           <mat-icon>keyboard_backspace</mat-icon>
         </button>
       </div>
@@ -12,25 +12,21 @@
     <mat-card-content>
       <!--Error messages Server output start-->
 
-      <div class="error" *ngIf="_errorMgs?.length">
-        <ul>
-          <li *ngFor="let error of _errorMgs">
-            {{ error }}
-          </li>
-        </ul>
+      <div class="error" *ngIf="errMessage().error">
+        <p>{{errMessage().message}}</p>
       </div>
 
       <!--Error messages Server output end-->
 
-      <div *ngIf="showSuccess"  role="alert">
+      <div *ngIf="!errMessage().error"  role="alert">
         Данные Пользователя Обновлены !!
       </div>
-      <div *ngIf="!showSuccess">
+      <div *ngIf="flag">
       <form
         class="form-signin"
         #registerForm="ngForm"
         novalidate
-        (ngSubmit)="submitForm(registerForm)"
+        (ngSubmit)="submitForm()"
       >
         <div class="item-form">
           <mat-form-field class="input-field" appearance="fill">
@@ -146,7 +142,7 @@
         <div>
           <button
             mat-raised-button
-            color="accent"
+            color="primary"
             type="submit"
             [disabled]="!registerForm.valid"
           
