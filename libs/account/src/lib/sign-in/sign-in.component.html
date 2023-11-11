@@ -33,12 +33,10 @@
     <mat-card-content>
       <!--Error messages Server output start-->
 
-      <div class="error" role="alert" *ngIf="_errorMgs?.length">
-        <ul>
-          <li *ngFor="let error of _errorMgs">
-            {{ error }}
-          </li>
-        </ul>
+      <div class="error" role="alert" >
+        <p>
+          {{Massages().message}}
+        </p>
       </div>
 
       <!--Error messages Server output end-->

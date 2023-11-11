@@ -2,13 +2,14 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  ChangeDetectionStrategy,
+  //ChangeDetectionStrategy,
+  signal,
+  computed,
+  //effect,EffectRef
 } from '@angular/core';
 import {
   SocialAuthService,
-  // VKLoginProvider,
-  // GoogleLoginProvider,
-  SocialUser,
+
 } from '@abacritt/angularx-social-login';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -29,27 +30,31 @@ import { VkLoginWidgetService } from '../_shared/services/vk-login-widger.servic
 //
 //https://github.com/abacritt/angularx-social-login
 
+
+export interface Message {
+  message: string ;
+  error: boolean;
+}
+
 @Component({
   selector: '@wsv2-app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
   providers: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+ // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInComponent implements OnInit, OnDestroy {
   private _subscriptions: Subscription[] = [];
 
-  socialUser!: SocialUser;
-  isLoggedin?: boolean;
+ 
 
-  _errorMgs: string[] = [];
-  _isUserInvalid = false;
-
-  // parser file on load
+  private error_state = signal<Message>({ message: "", error: false });
+  //_isUserInvalid = false;
+  public Massages=computed(() => this.error_state());
+  
   public login = '';
   public password = '';
- // private email = '';
-  //private phone = '';
+ 
   public rememberme = true;
   public returnUrl = '/';
   //http://jsonip.com/
@@ -60,6 +65,14 @@ export class SignInComponent implements OnInit, OnDestroy {
     return this.repozitory.ClientUri + 'account/auth-callback-vk';
   }
 
+ /*   efRef:EffectRef=effect(
+    ()=>{
+    
+       console.log("effect -------------"+this.Massages().message +"error-"+this.Massages().error)
+    },
+    { allowSignalWrites: true }
+  )
+ */
   constructor(
     private repozitory: AccountService,
     private userManager: UserManagerService,
@@ -97,30 +110,7 @@ export class SignInComponent implements OnInit, OnDestroy {
               this.router.navigate([this.returnUrl]);
             },
             error: (err: HttpErrorResponse) => {
-              let body = '';
-             // this.userManager.setInvalidLogin$(true, null);
-             this.userManager.SetAccessToken(undefined)
-
-              if (err.status === 401) {
-                this._errorMgs.push(
-                  'пользователь не авторизован,войдите на сайт'
-                );
-                this._errorMgs.push(err.error);
-                return;
-              }
-              if (err.status == 400) {
-                this._errorMgs.push(' 400 Bad Request');
-                this._errorMgs.push(err.error);
-
-                return;
-
-                //  body = 'Не верный логин или пароль';
-              }
-
-              body =
-                'Ошибка соединения с сервером -Сообщиете Администаратору Pесурса';
-
-              this._errorMgs.push(body);
+              this.httpError(err);
             },
           });
         this._subscriptions.push(subApiGoogle);
@@ -134,43 +124,17 @@ export class SignInComponent implements OnInit, OnDestroy {
           idUser: user.id,
           idSpa:this.repozitory.ClientId
         };
-        // credentials.idToken=user.idToken ;
-        // credentials.idToken=user.authToken
-        // credentials.provider="VK";
-        // credentials.idUser=user.id;
+       
 
         const subApiVK = this.repozitory.vkLogin(credentialsVK).subscribe({
           next: (d) => {
-           // this.userManager.setInvalidLogin$(false, d.access_token);
+          
            this.userManager.SetAccessToken(d.access_token)
-            //  console.log("login_in-"+d.access_token)
+            
             this.router.navigate([this.returnUrl]);
           },
           error: (err: HttpErrorResponse) => {
-            let body = '';
-            //this.userManager.setInvalidLogin$(true, null);
-            this.userManager.SetAccessToken(undefined)
-
-            if (err.status === 401) {
-              this._errorMgs.push(
-                'пользователь не авторизован,войдите на сайт'
-              );
-              this._errorMgs.push(err.error);
-              return;
-            }
-            if (err.status == 400) {
-              this._errorMgs.push(' 400 Bad Request');
-              this._errorMgs.push(err.error);
-
-              return;
-
-              //  body = 'Не верный логин или пароль';
-            }
-
-            body =
-              'Ошибка соединения с сервером -Сообщиете Администаратору Pесурса';
-
-            this._errorMgs.push(body);
+            this.httpError(err);
           },
         });
         this._subscriptions.push(subApiVK);
@@ -178,12 +142,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       //  console.log(user)
     });
 
-    // const subLogin = this.userManager.InvalidLogin$.subscribe((d) => {
-    //   this._isUserInvalid = d;
-    //   if (!d) {
-    //     this.router.navigate([this.returnUrl]);
-    //   }
-    // });
+    
 
     
     this._subscriptions.push(subGoogle);
@@ -195,17 +154,21 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   signInWithVK(): void {
-    // три способа афторизации
+    /* // три способа афторизации VK
     //socialAuthServic.signIn(VKLoginProvider.PROVIDER_ID) https://api.vk.com/method/users.get
     //https://dev.vk.com/widgets/auth
     //https://dev.vk.com/vk-sdk/vkid/auth/main#По%20кнопке%20One%20Tap%20Sign%20In
     //debugger
-    // this.socialAuthService.signIn(VKLoginProvider.PROVIDER_ID);
+    // this.socialAuthService.signIn(VKLoginProvider.PROVIDER_ID); */
     this.repozitoryVK.loadWidgetScript();
   }
 
   submitForm() {
-    this._errorMgs = [];
+    // this.error_state.update((m) => ({
+    //   ...m,
+    //   error: false,
+    //   message: undefined,
+    // }));
 
     let credentials: string; //= JSON.stringify(loginForm.value);
 
@@ -238,28 +201,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         this.router.navigate([this.returnUrl]);
       },
       error: (err: HttpErrorResponse) => {
-        let body = '';
-       // this.userManager.setInvalidLogin$(true, null);
-       this.userManager.SetAccessToken(undefined)
-        console.error(err);
-        if (err.status === 401) {
-          this._errorMgs.push('пользователь не авторизован,войдите на сайт');
-          this._errorMgs.push(err.error);
-          return;
-        }
-        if (err.status == 400) {
-          this._errorMgs.push(' 400 Bad Request');
-          this._errorMgs.push(err.error);
-
-          return;
-
-          //  body = 'Не верный логин или пароль';
-        }
-
-        body =
-          'Ошибка соединения с сервером -Сообщиете Администаратору Pесурса';
-
-        this._errorMgs.push(body);
+        this.httpError(err);
       },
     });
     this._subscriptions.push(subLogin2);
@@ -287,20 +229,41 @@ export class SignInComponent implements OnInit, OnDestroy {
     };
   }
 
-  /* private validateExternalAuth(externalAuth: ExternalAuthSocialDto) {
-    this.repozitory.googleLogin(externalAuth).subscribe({
-      next: (d: any) => {
-       
-        this.userManager.SetAccessToken(d.access_token)
+  private httpError = (err: HttpErrorResponse) => {
+    console.error(err);
+// debugger
+    if (err.status === 401) {
+      this.error_state.update((m) => ({
+        ...m,
+        error: true,
+        message: 'пользователь не авторизован,войдите на сайт',
+      }));
 
-       
-        this.router.navigate([this.returnUrl]);
-      },
-      error: (err: HttpErrorResponse) => {
-        this._errorMgs.push(err.message);
+      return;
+    }
+    if (err.status === 400) {
+      this.error_state.update((m) => ({
+        ...m,
+        error: true,
+        message: '400 Bad Request',
+      }));
 
-        this.socialAuthService.signOut();
-      },
-    });
-  } */
+      return;
+    }
+    if (err.status === 404) {
+
+      this.error_state.update((m) => ({ ...m, error: true, message: "404 not Found" }));;
+      
+
+
+      return;
+    }
+    this.error_state.update((m) => ({
+      ...m,
+      error: true,
+      message:
+        'Ошибка соединения с сервером -Сообщиете Администаратору ресурса',
+    }));
+    console.log("this.error_state.massage"+this.error_state().message)
+  };
 }
