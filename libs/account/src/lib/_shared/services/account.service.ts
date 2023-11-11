@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, } from 'rxjs';
 
-import { ManagerServiceModule } from './maneger-service.module';
+
 
 import { ApiService } from '@wsv2/app-config';
 import { RegistrationResponseDto } from '../_interfaces/registration-responseDto.model';
@@ -15,7 +15,7 @@ import { ExternalAuthSocialDto } from '../_interfaces/ExternalAuthSocialDto.mode
 import { AuthResponseDto } from '../_interfaces/AuthResponseDto.model';
 
 @Injectable({
-  providedIn: ManagerServiceModule,
+  providedIn: 'root',
 })
 export class AccountService {
 
@@ -56,7 +56,7 @@ export class AccountService {
     this.url.Action = 'GoogleExternalLogin';
     this.url.ID = null;
 
-     console.log('login-credentials = '+JSON.stringify(credentials));
+    // console.log('login-credentials = '+JSON.stringify(credentials));
     return this.http.post<AuthResponseDto>(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export class AccountService {
     //new Response(fd).text().then(console.log);
         
    //console.log('vkLogin-credentials = '+JSON.stringify( credentials) );
-   console.log('login-credentials = '+credentials);
+  // console.log('login-credentials = '+credentials);
     return this.http.post<AuthResponseDto>(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

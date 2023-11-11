@@ -80,10 +80,12 @@ export class SignInComponent implements OnInit, OnDestroy {
         provider: user.provider,
         idToken: user.idToken,
         idUser: user.id,
-        isSpa:this.repozitory.ClientId
+        idSpa:this.repozitory.ClientId
       };
 
       if (user.provider == 'GOOGLE') {
+       // debugger
+        console.log(JSON.stringify(credentialsGoogle));
         const subApiGoogle = this.repozitory
           .googleLogin(credentialsGoogle)
           .subscribe({
@@ -130,7 +132,7 @@ export class SignInComponent implements OnInit, OnDestroy {
           provider: user.provider,
           idToken: user.authToken,
           idUser: user.id,
-          isSpa:this.repozitory.ClientId
+          idSpa:this.repozitory.ClientId
         };
         // credentials.idToken=user.idToken ;
         // credentials.idToken=user.authToken
@@ -230,9 +232,9 @@ export class SignInComponent implements OnInit, OnDestroy {
 
     const subLogin2 = this.repozitory.login(credentials).subscribe({
       next: (d) => {
-         // this.userManager.setInvalidLogin$(false, d.access_token);
+        
          this.userManager.SetAccessToken(d.access_token)
-       // console.log("login_in-"+d.access_token)
+       
         this.router.navigate([this.returnUrl]);
       },
       error: (err: HttpErrorResponse) => {
@@ -285,14 +287,13 @@ export class SignInComponent implements OnInit, OnDestroy {
     };
   }
 
-  private validateExternalAuth(externalAuth: ExternalAuthSocialDto) {
+  /* private validateExternalAuth(externalAuth: ExternalAuthSocialDto) {
     this.repozitory.googleLogin(externalAuth).subscribe({
       next: (d: any) => {
-        // localStorage.setItem("token", d.token);
-       // this.userManager.setInvalidLogin$(false, d.access_token);
+       
         this.userManager.SetAccessToken(d.access_token)
 
-        // this.repozitory.sendAuthStateChangeNotification(d.isAuthSuccessful);
+       
         this.router.navigate([this.returnUrl]);
       },
       error: (err: HttpErrorResponse) => {
@@ -301,5 +302,5 @@ export class SignInComponent implements OnInit, OnDestroy {
         this.socialAuthService.signOut();
       },
     });
-  }
+  } */
 }

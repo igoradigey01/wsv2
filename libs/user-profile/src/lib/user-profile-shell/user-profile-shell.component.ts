@@ -10,7 +10,7 @@ import {UserProfileDeleteComponent} from '../user-profile-delete/user-profile-de
 import {UserOrderShellComponent} from '@wsv2/user-order'
 
 import { StateView } from '@wsv2/app-common';
-import { UserProfileDto } from '../_shared/interfaces/user-profileDto.model';
+import { Router } from '@angular/router';
 
 import { ProfileService } from '../_shared/services/profile.service';
 
@@ -26,8 +26,10 @@ import { ProfileService } from '../_shared/services/profile.service';
      UserProfileComponent,
      UserProfileEditComponent,
      UserProfileDeleteComponent,
-     UserOrderShellComponent
+     UserOrderShellComponent,
+   
     ],
+    providers:[ProfileService],
   templateUrl: './user-profile-shell.component.html',
   styleUrls: ['./user-profile-shell.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,12 +42,22 @@ export class UserProfileShellComponent  {
      );
 
   constructor(
-    private repositoryProfile:ProfileService,    
+    private repositoryProfile:ProfileService,
+    private router: Router   
    ) {}
 
   
 
   public onChangeViewState(event: StateView) {
+    //debugger
+
+    if(event===StateView.exit){
+     // routerLink="/index/account/sing-off"
+     
+     this.repositoryProfile.Exit();
+     this.router.navigate(["/index/account/sing-off"]);
+    
+    }else
     
     this._flagViewState = event;
   }

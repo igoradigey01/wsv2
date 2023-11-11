@@ -6,7 +6,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonModule} from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+
 
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material/icon';
@@ -42,7 +42,7 @@ const THUMBUP_ICON = `
     MatDividerModule,
     MatListModule,
     MatButtonModule,
-    RouterModule
+   
   ],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
@@ -63,8 +63,10 @@ export class UserProfileComponent {
   @Input()   public Massages = 0; // not reliz
 
   @Output()
-     // eslint-disable-next-line @angular-eslint/no-output-on-prefix
-     onToggleViewState:EventEmitter<StateView> = new EventEmitter()
+     
+     toggleViewState:EventEmitter<StateView> = new EventEmitter()
+
+    
   
   constructor(
    
@@ -81,14 +83,20 @@ export class UserProfileComponent {
 
 
   onChangePassword(){
-    this.onToggleViewState.next(StateView.resetPassword);
+    this.toggleViewState.next(StateView.resetPassword);
   }
 
-  onEditButton() {
-    this.onToggleViewState.next(StateView.edit);
+  onEdit() {
+    this.toggleViewState.next(StateView.edit);
   }
 
-  onDeleteButton() {
-   this.onToggleViewState.next(StateView.delete);
+  onDelete() {
+   this.toggleViewState.next(StateView.delete);
+  }
+
+  onExit(){
+
+    this.toggleViewState.next(StateView.exit)
+
   }
 }

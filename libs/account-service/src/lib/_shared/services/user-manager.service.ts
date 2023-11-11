@@ -35,13 +35,13 @@ export class UserManagerService {
   public AccessToken = computed(() => this.state().accessToken);
 
   
-  eff=effect(
-    ()=>{
-      console.log("opt is- "+this.state().opt)
-      console.log("UserRole is- "+this.state().userRole)
-      console.log("accessToken is- "+this.state().accessToken)
-    }
-  )
+  // eff=effect(
+  //   ()=>{
+  //     console.log("opt is- "+this.state().opt)
+  //     console.log("UserRole is- "+this.state().userRole)
+  //     console.log("accessToken is- "+this.state().accessToken)
+  //   }
+  // )
 
   constructor(
     private http: HttpClient,
