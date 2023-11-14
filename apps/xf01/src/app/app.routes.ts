@@ -67,8 +67,7 @@ export const appRoutes: Route[] = [
     ],
   },
 
-  {
-    path: 'manager',
+  { path: 'manager',
     loadComponent: () =>
       import('@wsv2/manage-page').then((m) => m.IndexComponent),
     children: [
@@ -76,6 +75,11 @@ export const appRoutes: Route[] = [
         path: '',
         loadComponent: () =>
           import('@wsv2/manage-page').then((m) => m.IndexInfoComponent),
+      },
+      {
+        path: 'catalog',
+        loadComponent: () =>
+          import('@wsv2/manage-page').then((m) => m.CatalogShellComponent ),
       },
       {
         path: 'info',

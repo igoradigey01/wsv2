@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs';
 import { ExternalAuthSocialDto } from '../_shared/_interfaces/ExternalAuthSocialDto.model';
 
 import { VkLoginWidgetService } from '../_shared/services/vk-login-widger.service';
+import {Message} from '@wsv2/app-common'
 
 //https://code-maze.com/angular-security-with-asp-net-core-identity/
 //https://account.mail.ru/user/2-step-auth/passwords/
@@ -31,10 +32,7 @@ import { VkLoginWidgetService } from '../_shared/services/vk-login-widger.servic
 //https://github.com/abacritt/angularx-social-login
 
 
-export interface Message {
-  message: string ;
-  error: boolean;
-}
+
 
 @Component({
   selector: '@wsv2-app-sign-in',

@@ -1,0 +1,41 @@
+<p>catalog-list works!</p>
+<div class="container-fluid">
+  <h4>Каталог Позиции</h4>
+  <div class="grid-container">
+    <button (click)="changePosition("add",null)">Add</button>
+
+    <div *ngFor="let item of Katalogs()">
+      <div class="catalog-item">
+      <br /><span>{{ item.id }}</span> <span>{{ item }}</span>
+      <mat-button-toggle-group>
+        <mat-button-toggle
+          value="edit"
+          (change)="changePosition(toggleEdit.value, item)"
+          #toggleEdit
+          >Edit</mat-button-toggle
+        >
+        <mat-button-toggle
+          value="delete"
+          (change)="changePosition(toggleDel.value, item)"
+          #toggleDel
+        >
+          Del
+        </mat-button-toggle>
+        <mat-button-toggle value="mansoon">Mansoon</mat-button-toggle>
+      </mat-button-toggle-group>
+
+    </div>
+
+    </div>
+
+    <button
+      *ngFor="let item of Katalogs()"
+      class="btn"
+      style="text-align: justify; padding: 0px"
+      (click)="changePosition(item)"
+    >
+      <span class="badge-btn">{{ item.id }}</span>
+      <span style="padding: 1em"> {{ item.name }}</span>
+    </button>
+  </div>
+</div>

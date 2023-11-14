@@ -1,0 +1,45 @@
+<p>catalog-shell works!</p>
+<div class="_main-container">
+    
+   
+   
+   
+   
+   <!------------------->
+   <div [ngSwitch]="flag">
+     <ng-template ngSwitchDefault>
+
+      <wsv2-catalog-list
+      [Items]=" catalogs()"
+      (catalogChange)="onCatalogChange($event)"
+      ></wsv2-catalog-list>
+       
+     </ng-template>
+     <!--  Create template -->
+     <ng-template name="Create" ngSwitchCase="5">
+       <div class="edit-create">
+         <h4>Создать Позицию Категории</h4>
+   
+        <wsv2-catalog-item
+        [Item]="item"
+        [flag]="flag"
+        (catalogModified)="catalogModified($event)"
+        ></wsv2-catalog-item>
+       </div>
+     </ng-template>
+   
+     <!--  Edit -Delete template -->
+     <ng-template name="Edit" ngSwitchCase="4">
+       <div class="edit-create">
+         <h4>Редактировать Позицию Категории</h4>
+         <wsv2-catalog-item
+        [Item]="item"
+        [flag]="flag"
+        (catalogModified)="catalogModified($event)"
+        ></wsv2-catalog-item>
+       </div>
+     </ng-template>
+   </div>
+    
+   </div>
+   

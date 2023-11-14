@@ -1,0 +1,100 @@
+<p>catalog-item works!</p>
+
+
+
+<div class="_contaner">
+    
+      <!-- begin edit  card ------------------------------------->
+      <form #myForm="ngForm" >
+        <div class="item-form">
+          <div class="_input-group" *ngIf="Katalog().name">
+            <label for="nameKatalog">Название Каталога</label> <br />
+            <mat-form-field class="_input-name" appearance="fill">
+              <mat-label  >ID(  {{ Katalog().id }}) </mat-label>
+              <div>
+                <input
+                  matInput
+                  name="nameKatalog"
+                  #nameKatalog="ngModel"
+                  [(ngModel)]="Katalog().name"
+                  required
+                />
+                <mat-error *ngIf="nameKatalog.invalid"> </mat-error>
+              </div>
+            </mat-form-field>
+          </div>
+          <!-------------          SEO -->
+             <!-------------          SEO -->
+          <div class="item-form">
+            <div class="_input-group" *ngIf="Katalog().decriptSEO">
+              <label for="descriptionSEO">descriptionSEO </label> <br />
+              <mat-form-field   class="seo" appearance="fill">
+                <div>
+                  <input
+  
+                    matInput
+                    name="descriptionSEO"
+                    #descriptionSEO="ngModel"
+                    [(ngModel)]="Katalog().decriptSEO"
+  
+                  />
+                  <mat-error *ngIf="descriptionSEO.invalid"> </mat-error>
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+  
+          <!-------------- end SEO-->
+  
+          <div class="_input-group">
+            <label for="hiddenCategoria" class="_label"> Скрыть Позицию</label><br />
+            <mat-form-field  appearance="fill">
+              <div *ngIf="Katalog().hidden">
+                <mat-select
+                  name="hiddenCategoria"
+                  [(ngModel)]="Katalog().hidden"
+                  #hiddenCategoria="ngModel"
+                  required
+                >
+                  <mat-option [value]="false">Нет </mat-option>
+                  <mat-option [value]="true">Да </mat-option>
+                </mat-select>
+                <mat-error *ngIf="hiddenCategoria.invalid"> </mat-error>
+              </div>
+            </mat-form-field>
+          </div>
+  
+  
+  
+  
+  
+  
+  
+  
+          <!-----    ----------------- button gurop start           -->
+          <div class="btn-group" role="group">
+            <button
+              mat-flat-button
+              [disabled]="myForm.invalid "
+              color="primary"
+              (click)="save()"
+            >
+              Сохранить
+            </button>
+  
+           
+            <button
+              mat-flat-button
+              color="accent"
+              
+              (click)="cancel()"
+            >
+              Отмена
+            </button>
+          </div>
+        </div>
+      </form>
+    
+   
+  </div>
+  
