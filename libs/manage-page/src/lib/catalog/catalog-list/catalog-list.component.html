@@ -1,41 +1,40 @@
-<p>catalog-list works!</p>
-<div class="container-fluid">
-  <h4>Каталог Позиции</h4>
-  <div class="grid-container">
-    <button (click)="changePosition("add",null)">Add</button>
 
+<div class="container mat-typography">
+  <h2 class="title " > <span class="mat-h2">Каталог</span>     <button mat-mini-fab color="primary" (click)="addPosition()">
+    <mat-icon aria-hidden="false" aria-label="add icon" fontIcon="add"></mat-icon>
+    </button>
+  </h2>
+  <div class="grid-container">
+   
     <div *ngFor="let item of Katalogs()">
       <div class="catalog-item">
-      <br /><span>{{ item.id }}</span> <span>{{ item }}</span>
+     
       <mat-button-toggle-group>
+        <mat-button-toggle disabled class="catalog-id" >{{ item.id }}</mat-button-toggle>
+        <mat-button-toggle disabled class="catalog-name" > {{ item.name }}</mat-button-toggle>
         <mat-button-toggle
+        class="catalog-edit"
           value="edit"
+          
           (change)="changePosition(toggleEdit.value, item)"
           #toggleEdit
           >Edit</mat-button-toggle
         >
         <mat-button-toggle
+         class="catalog-del"
           value="delete"
           (change)="changePosition(toggleDel.value, item)"
           #toggleDel
         >
           Del
         </mat-button-toggle>
-        <mat-button-toggle value="mansoon">Mansoon</mat-button-toggle>
+        
       </mat-button-toggle-group>
 
     </div>
 
     </div>
 
-    <button
-      *ngFor="let item of Katalogs()"
-      class="btn"
-      style="text-align: justify; padding: 0px"
-      (click)="changePosition(item)"
-    >
-      <span class="badge-btn">{{ item.id }}</span>
-      <span style="padding: 1em"> {{ item.name }}</span>
-    </button>
+   
   </div>
 </div>

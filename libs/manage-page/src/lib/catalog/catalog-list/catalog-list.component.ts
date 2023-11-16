@@ -2,7 +2,8 @@ import { Component,signal,computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Input, Output, EventEmitter } from '@angular/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
+import { MatButtonModule } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 import { Katalog } from '@wsv2/app-common';
 import { StateView } from '@wsv2/app-common';
 import {EmitData} from '../catalog-shell/catalog-shell.component'
@@ -14,7 +15,9 @@ import {EmitData} from '../catalog-shell/catalog-shell.component'
   standalone: true,
   imports: [
     CommonModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatIconModule
    
   ],
   templateUrl: './catalog-list.component.html',
@@ -44,8 +47,14 @@ export class CatalogListComponent {
     this.catalogChange.emit(<EmitData>{catalog:item,stateView:StateView.edit});
     if(action==="delete")
     this.catalogChange.emit(<EmitData>{catalog:item,stateView:StateView.delete});
-    if(action==="add")
-    this.catalogChange.emit(<EmitData>{catalog:item,stateView:StateView.create});
+    
+   
+
+  
   }
+
+  addPosition(){
+    this.catalogChange.emit(<EmitData>{catalog:<Katalog>{id:0,name:'',hidden:false,decriptSEO:"",ownerId:"none"},stateView:StateView.create});
  
+}
 }

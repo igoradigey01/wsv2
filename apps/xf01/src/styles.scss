@@ -44,3 +44,7 @@ $my-theme: mat.define-light-theme(
 //@include mat.all-component-themes($my-theme);
 
 @include s.mixin-mat-component-themes ($my-theme);
+
+// include 	.mat-h1, .mat-headline ... //15.11.23
+$my-typography: mat.define-typography-config();
+@include mat.typography-hierarchy($my-typography);
