@@ -56,10 +56,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "shagen01:build:production"
+          "buildTarget": "shagen01:build:production"
         },
         "development": {
-          "browserTarget": "shagen01:build:development"
+          "buildTarget": "shagen01:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -67,11 +67,11 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "shagen01:build"
+        "buildTarget": "shagen01:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/shagen01/**/*.ts", "apps/shagen01/**/*.html"]

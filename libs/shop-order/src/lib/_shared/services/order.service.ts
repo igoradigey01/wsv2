@@ -1,8 +1,10 @@
 import { Injectable, signal } from '@angular/core';
-import { Product } from '@wsv2/app-common';
+
+//import { Product } from '@wsv2/app-common';
 
 import { OrderDetail } from '../interfaces/order-detail.model';
 import { Order } from '../interfaces/order.model';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ApiService ,CompanyInformationService} from '@wsv2/app-config';
 
 @Injectable({
@@ -46,11 +48,11 @@ private _order=<Order>{
     ) {}
 
   CreateOrder(orderItems: OrderDetail[], total: number): void {
-    this.order.mutate((d) => {
+    /* this.order.mutate((d) => {
      // d.date = new Date().toDateString();
       d.orderItems = orderItems;
       d.total = total;
-    });
+    }); */
     // debugger
   }
 }

@@ -1,22 +1,18 @@
+### server
+- yarn nx run x01:serve
+- yarn nx run xf01:serve
+
+
 ## Update to the latest Nx version
-```
-https://nx.dev/core-features/automate-updating-dependencies
 
-nx migrate latest 
-nx migrate --run-migrations
-delete migrations.json and commit
-```
+ * https://nx.dev/core-features/automate-updating-dependencies
 
-## npm не туда устанавливает пакеты и выдает ошибку?
-```
-Прислали решение, кому интересно:
-npm get prefix
-выводит:
-C:\users\your_user\AppData\Roaming\npm
+- nx migrate latest 
+ - nx migrate --run-migrations
+- delete migrations.json and commit
 
-Соответственно помогло:
-npm config set prefix="C:\Users\nka20\AppData\Roaming\npm"
-```
+
+
 ## nx reset
 ```
 https://nx.dev/packages/nx/documents/reset

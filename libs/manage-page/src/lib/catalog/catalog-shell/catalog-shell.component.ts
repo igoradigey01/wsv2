@@ -27,12 +27,18 @@ export class CatalogShellComponent {
   public flag=StateView.default;
 
   public catalogs = this.repository.Katalogs; 
+
+  public message=this.repository.Message;
+   
   public item=<Katalog>{id:0,name:"none",ownerId:"none",decriptSEO:'',hidden:false};
   
 
   constructor(
     private repository: KatlogService
-    ) {}
+    ) {
+
+      repository.ClearMessage();
+    }
 
  
 
@@ -45,14 +51,24 @@ export class CatalogShellComponent {
   }
 
   public catalogModified(event: EmitData) {
+   // debugger
     if(event.stateView===StateView.create){
       this.repository.Create(event.catalog)
+      this.flag=StateView.default
     }
    if(event.stateView===StateView.edit){
     this.repository.Update(event.catalog)
+    this.flag=StateView.default
    }
    if(event.stateView===StateView.exit){
     this.flag=StateView.default
+    
+   }
+   if(event.stateView===StateView.delete){
+    this.repository.Delete(event.catalog)
+    this.flag=StateView.default
+    
+    
    }
    
     

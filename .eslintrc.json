@@ -80,96 +80,78 @@
                   "01app-shop-information-lib",
                   "type:01-lib"
                 ]
-              }
-              ,
+              },
               {
                 "sourceTag": "01app-ui-lib",
-                "onlyDependOnLibsWithTags": [
-                  "01app-ui-lib",
-                  "type:01-lib"
-                ]
-              }
-              ,
+                "onlyDependOnLibsWithTags": ["01app-ui-lib", "type:01-lib"]
+              },
               {
                 "sourceTag": "01app-shop-content-lib",
                 "onlyDependOnLibsWithTags": [
                   "01app-shop-content-lib",
                   "type:01-lib"
                 ]
-              }
-              ,
+              },
               {
                 "sourceTag": "01app-shop-orders-lib",
                 "onlyDependOnLibsWithTags": [
                   "01app-shop-orders-lib",
                   "type:01-lib"
                 ]
-              }
-              ,
+              },
               {
                 "sourceTag": "01app-shop-order-lib",
                 "onlyDependOnLibsWithTags": [
                   "01app-shop-order-lib",
                   "type:01-lib"
                 ]
-              }
-              ,
+              },
               {
                 "sourceTag": "01app-shop-cart-lib",
                 "onlyDependOnLibsWithTags": [
                   "01app-shop-cart-lib",
                   "type:01-lib"
                 ]
-              }
-              ,
+              },
               {
                 "sourceTag": "01app-js-pdf-lib",
-                "onlyDependOnLibsWithTags": [
-                  "01app-js-pdf-lib",
-                  "type:01-lib"
-                ]
-              }
-              ,
+                "onlyDependOnLibsWithTags": ["01app-js-pdf-lib", "type:01-lib"]
+              },
               {
                 "sourceTag": "01app-shop-sub-content-lib",
                 "onlyDependOnLibsWithTags": [
                   "01app-shop-sub-content-lib",
                   "type:01-lib"
                 ]
-              }
-              ,
+              },
               {
-                "sourceTag":"scope:01app-admin-page-lib",
+                "sourceTag": "scope:01app-admin-page-lib",
                 "onlyDependOnLibsWithTags": [
                   "scope:01app-admin-page-lib",
                   "type:01-lib"
                 ]
-              }
-              ,
+              },
               {
                 "sourceTag": "scope:01app-manage-page-lib",
                 "onlyDependOnLibsWithTags": [
                   "scope:01app-manage-page-lib",
                   "type:01-lib"
                 ]
-              }
-              ,
+              },
               {
                 "sourceTag": "scope:01app-shop-op-lib",
                 "onlyDependOnLibsWithTags": [
                   "scope:01app-shop-op-lib",
                   "type:01-lib"
                 ]
-              }
-              ,
+              },
               {
                 "sourceTag": "scope:01app-user-order-lib",
                 "onlyDependOnLibsWithTags": [
                   "scope:01app-user-order-lib",
                   "type:01-lib"
                 ]
-              }
-              ,
+              },
               {
                 "sourceTag": "scope:01app-user-profile-lib",
                 "onlyDependOnLibsWithTags": [

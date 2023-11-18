@@ -3,17 +3,15 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/user-profile/src",
   "prefix": "wsv2",
-  "tags": [
-    "scope:01app-user-profile-lib",
-    "type:01-lib"
-  ],
+  "tags": ["scope:01app-user-profile-lib", "type:01-lib"],
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/user-profile/ng-package.json"
+        "project": "libs/user-profile/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
@@ -40,7 +38,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [

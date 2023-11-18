@@ -44,14 +44,14 @@ export class CartItemComponent {
   onRemove( ): void {
     //debugger
     this._repositoryCart.putInCart(this.cartItem());
-    this.cartItem.mutate(
+  /*   this.cartItem.mutate(
       d=>{
         if(d.quantity>1){
           d.quantity=d.quantity-1;
         }
       }
     )      
-    
+     */
   }
   onAdd():void{
    // this.cartItem.mutate((item) => item.quantity = item.quantity+1);

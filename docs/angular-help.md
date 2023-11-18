@@ -45,3 +45,46 @@
  * . -------------------------------------------------------------------------  
    ### Edit error 
     - yarn add  angular8-yandex-maps
+
+  ## Angular Update for 17 vertion
+  - https://update.angular.io/?v=16.0-17.0
+  - 
+
+ 1. node -v 
+ 2. tsc -v //TypeScript version  
+   - https://metanit.com/web/typescript/1.2.php
+   - yarn  add typescript@latest
+   - yarn upgrade typescript //?
+   - Version 3.8.3
+ 3. npm list zone.js // zone version
+    - yarn  add zone.js  
+    - zone.js@0.14.2
+  4. nx migrate latest 
+   //  NX   Command failed: npm install @nx/jest@17.1.2  
+  - yarn  add @nx/jest@17.1.2 
+  -  nx migrate latest  
+  //  NX   Command failed: npm install @angular/material@~17.0.0
+  -  yarn  add @angular/material@~17.0.0
+    -  nx migrate latest  
+  5. yarn nx migrate --run-migrations  
+   //error An unexpected error occurred: "EPERM: operation not permitted, unlink 'D:\\NXWs_v2\\wsv2\\node_modules\\@nx\\nx-win32-x64-msvc\\nx.win32-x64-msvc.node'".
+   - yarn  add @angular/core@17 @angular/cli@17
+   // error 
+   - yarn global add @angular/core@17
+   - yarn global add  @angular/cli@17
+    // error
+   6. run vs as admin - это ошибочно 
+    - yarn nx migrate --run-migrations 
+     // error 
+    - yarn install
+    - npx nx@latest init
+   7. 
+      // https://stackoverflow.com/questions/47778492/npm-install-error-eperm-operation-not-permitted
+      - delete package-locket.json 
+       - yarn install
+      - yarn nx migrate --run-migrations 
+      - yarn add  @angular/cdk
+
+   ## Yarn update
+      - yarn set version latest
+     

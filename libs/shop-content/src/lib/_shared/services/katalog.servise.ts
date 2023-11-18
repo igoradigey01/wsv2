@@ -66,11 +66,15 @@ export class KatlogService {
     state: Status.empty,
   });
 
-  public  Katalogs = computed(() => this.state().catalogItems);
+  readonly  Katalogs = computed(() => this.state().catalogItems);
+  readonly  Message =computed(()=>this.error_state());
+
+
+ 
 
   private error_state =signal<Message>({message:undefined,error:false});
 
-  public  message =computed(()=>this.error_state());
+ 
 
   public indicatorSubject = new BehaviorSubject<boolean>(false);
 
@@ -216,18 +220,18 @@ export class KatlogService {
     });
   }
 
-  public Delete = (id: number)=>{
+  public Delete = (item: Katalog)=>{
 
     const newCatlogsList = this.state().catalogItems.filter(
-      (todo) => todo.id !== id
+      (todo) => todo.id !== item.id
     );
 
     const delItems = this.state().catalogItems.find(
-      (todo) => todo.id === id
+      (todo) => todo.id === item.id
     );
 
 
-    this.Delete$(id).subscribe({    
+    this.Delete$(item.id).subscribe({    
         
       next: (res) => {
         console.log(res);       
@@ -269,6 +273,10 @@ export class KatlogService {
       
       headers,
     });
+  }
+
+  public ClearMessage(){
+    this.error_state.update((m)=>({...m,message:'',error:false}))
   }
 
 

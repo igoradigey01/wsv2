@@ -38,8 +38,8 @@ export class CartService {
     // debugger
 
     let index = -1;
-    this.cartItems.mutate((d) => {
-      d.map((item, i) => {
+   /*  this.cartItems.mutate((d: any[]) => {
+      d.map((item: { product: { id: number; }; }, i: number) => {
         if (item.product.id === product.id) {
           index = i;
         }
@@ -56,7 +56,7 @@ export class CartService {
         (items: CartItem[]) =>
           (items[index] = { product, quantity: items[index].quantity + 1 })
       );
-    }
+    } */
   }
 
   removeFromCart(cartItem: CartItem): void {
@@ -64,15 +64,21 @@ export class CartService {
     // all but the filtered out deleted item
 
     let index = -1;
-    this.cartItems.mutate((d) => {
-      d.map((item, i) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   /*  this.cartItems.mutate((d: CartItem[]) => {
+      d.map((item: { product: { id: number; }; }, i: number) => {
         if (item.product.id === cartItem.product.id) {
           index = i;
         }
       });
       if(index!==-1)
       delete d[index]
-    });
+    }); */
+
+    this.cartItems.update(d=>[...d,])
+    //users.update(usersArray => [...usersArray, newUser]);
+
+    //this.cartItems.update((errors: any) => ([...errors, error]))
 
   
   }
@@ -81,8 +87,8 @@ export class CartService {
     // Update the cart with a new array containing
     // the updated item and all other original items
     let index = -1;
-    this.cartItems.mutate((d) => {
-      d.map((item, i) => {
+   /*  this.cartItems.mutate((d: any[]) => {
+      d.map((item: { product: { id: number; }; }, i: number) => {
         if (item.product.id === cartItem.product.id) {
           index = i;
         }
@@ -91,6 +97,6 @@ export class CartService {
       if(d[index].quantity>1)
        d[index].quantity=d[index].quantity-1
       else delete d[index]
-    });
+    }); */
   }
 }
