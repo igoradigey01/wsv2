@@ -51,7 +51,7 @@ export class CatalogItemComponent {
 
   //--------------------------------
   public save(): void {
-    //debugger
+    debugger
     this.catalogModified.emit(<EmitData>{
       catalog: this.Katalog(),
       stateView: this._falg,

@@ -6,14 +6,12 @@ import { ApiService } from '@wsv2/app-config';
 //import {OrderService} from '@wsv2/shop-orders'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
+  private state = signal<CartItem[]>([]);
 
-
-  //repozitoryOrder= inject( OrderService);
-  // Manage state with signals
-  cartItems = signal<CartItem[]>([]);
+  cartItems = computed(() => this.state());
 
   // Total up the extended price for each item
   totalPrice = computed(() =>
@@ -28,75 +26,58 @@ export class CartService {
   }
 
   constructor(
-    private _repositoryApi: ApiService,
-  //  private _repozitoryOrder:OrderService
-    ) {}
-
-  
+    private _repositoryApi: ApiService
+  ) //  private _repozitoryOrder:OrderService
+  {}
 
   addToCart(product: Product): void {
     // debugger
 
     let index = -1;
-   /*  this.cartItems.mutate((d: any[]) => {
-      d.map((item: { product: { id: number; }; }, i: number) => {
-        if (item.product.id === product.id) {
-          index = i;
-        }
-      });
+    const updatedTodoList = this.state().map((item, i: number) => {
+      if (item.product.id === product.id) {
+        index = i;
+        return (item.quantity = item.quantity + 1);
+      }else
+      return item;
     });
 
     if (index === -1) {
-      this.cartItems.mutate((items: CartItem[]) =>
-        items.push({ product, quantity: 1 })
-      );
-    } else {
-      // Already in the cart, so increase the quantity by 1
-      this.cartItems.mutate(
-        (items: CartItem[]) =>
-          (items[index] = { product, quantity: items[index].quantity + 1 })
-      );
-    } */
+      this.state.update((d) => [...d, { product, quantity: 1 }]);
+    } else this.state.update(() => [...(updatedTodoList as CartItem[])]);
   }
 
   removeFromCart(cartItem: CartItem): void {
     // Update the cart with a new array containing
     // all but the filtered out deleted item
 
-    let index = -1;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   /*  this.cartItems.mutate((d: CartItem[]) => {
-      d.map((item: { product: { id: number; }; }, i: number) => {
-        if (item.product.id === cartItem.product.id) {
-          index = i;
-        }
-      });
-      if(index!==-1)
-      delete d[index]
-    }); */
+    //let index = -1;
 
-    this.cartItems.update(d=>[...d,])
-    //users.update(usersArray => [...usersArray, newUser]);
+    const updatedTodoList = this.state().map((item) => {
+      if (item.product.id === cartItem.product.id) return;
+       // index = i;
+        //return item.quantity=item.quantity+1;
+        
+      return item;
+    });
 
-    //this.cartItems.update((errors: any) => ([...errors, error]))
-
-  
+    this.state.update(() => [...(updatedTodoList as CartItem[])]);
   }
-   //убрать
+  //убрать
   putInCart(cartItem: CartItem) {
-    // Update the cart with a new array containing
-    // the updated item and all other original items
-    let index = -1;
-   /*  this.cartItems.mutate((d: any[]) => {
-      d.map((item: { product: { id: number; }; }, i: number) => {
-        if (item.product.id === cartItem.product.id) {
-          index = i;
-        }
-      });
-      if(index!==-1)
-      if(d[index].quantity>1)
-       d[index].quantity=d[index].quantity-1
-      else delete d[index]
-    }); */
+    
+    //let index = -1;
+
+
+    const updatedTodoList = this.state().map((item) => {
+      if (item.product.id === cartItem.product.id) {
+        //index = i;
+        if(item.quantity>1)
+        return (item.quantity = item.quantity - 1);
+        else return;          //ничего не возвращаем
+      }else
+      return item;
+    });
+    this.state.update(() => [...(updatedTodoList as CartItem[])]);
   }
 }

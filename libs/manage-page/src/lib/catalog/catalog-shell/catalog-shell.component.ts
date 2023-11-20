@@ -1,4 +1,4 @@
-import { Component ,computed,signal} from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StateView } from '@wsv2/app-common';
 import { Katalog } from '@wsv2/app-common';

@@ -148,6 +148,8 @@ export class KatlogService {
      } );
   }
 
+ 
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
  private Create$ = (item: Katalog): Observable<any> => {
 
     this.url.Controller = 'Catalog';
@@ -162,7 +164,8 @@ export class KatlogService {
 
    
 
-    return this._http.post(this.url.Url, item,{
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return this._http.post<any>(this.url.Url, item,{
       reportProgress: true,
       observe: 'events',
       headers,
@@ -199,7 +202,7 @@ export class KatlogService {
 
 
   }  
-
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
  private Update$ = (item: Katalog): Observable<any> => {
    // throw new Error("not implemint exeption");
    this.url.Controller = 'Catalog';
@@ -214,7 +217,8 @@ export class KatlogService {
   
 
     //new Response(fd).text().then(console.log);
-    return this._http.put(this.url.Url, item,{
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return this._http.put<any>(this.url.Url, item,{
      
       headers,
     });
@@ -258,6 +262,7 @@ export class KatlogService {
 
     })}
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private Delete$ = (id: number): Observable<any> => {
     this.url.Controller = 'Catalog';
     this.url.Action = 'Delete';

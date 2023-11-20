@@ -54,5 +54,6 @@ private _order=<Order>{
       d.total = total;
     }); */
     // debugger
+    this.order.update(d=>({...d,date:new Date().toDateString(),orderItems:orderItems,total:total}));
   }
 }

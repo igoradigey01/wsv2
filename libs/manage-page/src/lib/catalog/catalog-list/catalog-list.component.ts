@@ -43,6 +43,7 @@ export class CatalogListComponent {
 
 
    changePosition(action:string, item: Katalog) {
+   // debugger
     if(action==="edit")    
     this.catalogChange.emit(<EmitData>{catalog:item,stateView:StateView.edit});
     if(action==="delete")
@@ -54,6 +55,7 @@ export class CatalogListComponent {
   }
 
   addPosition(){
+   // debugger
     this.catalogChange.emit(<EmitData>{catalog:<Katalog>{id:0,name:'',hidden:false,decriptSEO:"",ownerId:"none"},stateView:StateView.create});
  
 }

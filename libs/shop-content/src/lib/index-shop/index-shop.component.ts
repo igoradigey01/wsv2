@@ -54,6 +54,7 @@ export class IndexShopComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.queryParams.subscribe(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (queryParam: any) => {
           const opt = queryParam['opt'];
           if(opt){
