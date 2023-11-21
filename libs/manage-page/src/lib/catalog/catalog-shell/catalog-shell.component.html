@@ -4,29 +4,33 @@
   <div class="error">  {{message().message}}</div>
   </div>
   <!------------------->
-  <div [ngSwitch]="flag">
-    <ng-template ngSwitchDefault>
+  
+    @switch (flag) {
+    
+      @default {
       <wsv2-catalog-list
         [Items]="catalogs()"
         (catalogChange)="onCatalogChange($event)"
       ></wsv2-catalog-list>
-    </ng-template>
+    }
     <!--  Create template -->
-    <ng-template name="Create" ngSwitchCase="5">
+   
+      @case (5) {
       <div class="item-show">
         <h4>Создать Позицию Каталога</h4>
-  <!--
+  
         <wsv2-catalog-item
           [Item]="item"
           [flag]="flag"
           (catalogModified)="catalogModified($event)"
         ></wsv2-catalog-item>
-    -->    
+      
       </div>
-    </ng-template>
+    }
 
     <!--  Edit  template -->
-    <ng-template name="Edit" ngSwitchCase="4">
+    
+      @case (4) {
       <div class="item-show">
         <h4>Редактировать Позицию Каталога</h4>
         <wsv2-catalog-item
@@ -35,10 +39,10 @@
           (catalogModified)="catalogModified($event)"
         ></wsv2-catalog-item>
       </div>
-    </ng-template>
-
+     }
     <!-- Delete template -->
-    <ng-template name="Del" ngSwitchCase="7">
+    
+      @case (7) {
       <div class="item-show">
         <h4 class="delete">Удалить Позицию Каталога</h4>
         <wsv2-catalog-item
@@ -47,6 +51,6 @@
           (catalogModified)="catalogModified($event)"
         ></wsv2-catalog-item>
       </div>
-    </ng-template>
-  </div>
+     }
+  }
 </div>

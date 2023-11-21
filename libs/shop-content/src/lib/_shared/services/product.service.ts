@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+
 
 
 import { ApiService } from '@wsv2/app-config';

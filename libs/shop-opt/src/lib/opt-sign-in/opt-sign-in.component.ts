@@ -19,6 +19,7 @@ export class OptSignInComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.route.queryParams.subscribe((queryParam: any) => {
       const param = queryParam['user'];
       if (param && param === 'opt1') {

@@ -26,8 +26,8 @@ export class IndexShopComponent implements OnInit {
   
   katalogs = computed(() =>{
  const catlogs=   this.repositoryCatalog.Katalogs().filter((f) => f.hidden == false)
-    console.log("computed -------------")
-    console.log(JSON.stringify(catlogs));
+    // console.log("computed -------------")
+    // console.log(JSON.stringify(catlogs));
     return catlogs;
     
   }
