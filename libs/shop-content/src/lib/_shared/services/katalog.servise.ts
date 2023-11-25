@@ -8,7 +8,7 @@ import {
 
 import { ApiService } from '@wsv2/app-config';
 import { UserManagerService } from '@wsv2/account-service';
-import { Katalog } from '@wsv2/app-common';
+import { Katalog ,Message,Status} from '@wsv2/app-common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   catchError,
@@ -19,23 +19,7 @@ import {
   shareReplay,
 } from 'rxjs';
 
-/*
-export interface TodoItem {
-  id: string;
-  name: string;
-  isCompleted: boolean;
-}
 
-export interface TodoListState {
-  todoItems: TodoItem[];
-  
-  queryAdd:TodoItem[];
-  queryUpdate:TodoItem[];
-  queryDelete:TodoItem[];
-
-  state: Status;
-}
-*/
 
 interface CatalogListState {
   catalogItems: Katalog[];
@@ -47,16 +31,9 @@ interface CatalogListState {
   state: Status;
 }
 
-export interface Message {
-  message: string | undefined;
-  error: boolean;
-}
 
-enum Status {
-  empty = 0,
-  load = 1,
-  modify = 2,
-}
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -75,10 +52,12 @@ export class KatlogService {
     state: Status.empty,
   });
 
+  private error_state = signal<Message>({ message: undefined, error: false });
+
   readonly Katalogs = computed(() => this.state().catalogItems);
   readonly Message = computed(() => this.error_state());
 
-  private error_state = signal<Message>({ message: undefined, error: false });
+  
 
   public indicatorSubject = new BehaviorSubject<boolean>(false);
 
@@ -115,6 +94,7 @@ export class KatlogService {
           if (data.length === 1) this.indicatorSubject.next(true);
           //   console.log("Catalogs.Length :"+data.length)
         }),
+        //https://angularindepth.com/posts/1518/takeuntildestroy-in-angular-v16
         takeUntilDestroyed(),
         catchError(() => of([] as Katalog[])) //  on any error, just return an empty array
       )

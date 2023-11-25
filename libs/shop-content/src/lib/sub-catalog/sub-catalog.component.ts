@@ -5,6 +5,7 @@ import { Router ,ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { KatalogComponent } from '@wsv2/ui';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {IButton} from '@wsv2/app-common'
 import { SubKatalogService } from '../_shared/services/sub-katalog.service'
 

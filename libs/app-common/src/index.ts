@@ -6,6 +6,7 @@ export * from './lib/lib.routes';
 export * from './lib/_shared/interfaces/user-role.model';
 export * from './lib/_shared/interfaces/state-view';
 export * from './lib/_shared/interfaces/message.model';
+export * from './lib/_shared/interfaces/status-state.model';
 
 export * from './lib/_shared/interfaces/phone.model';
 export * from './lib/_shared/interfaces/theme-scss.model';
