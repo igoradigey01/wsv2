@@ -30,7 +30,7 @@ export class CatalogShellComponent {
 
   public message=this.repository.Message;
    
-  public item=<Katalog>{id:0,name:"none",ownerId:"none",decriptSEO:'',hidden:false};
+  public item=<Katalog>{id:0,name:"none",ownerId:"none", decriptSeo:'',hidden:false};
   
 
   constructor(

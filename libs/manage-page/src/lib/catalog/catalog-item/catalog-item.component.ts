@@ -31,7 +31,7 @@ export class CatalogItemComponent {
   private state = signal<Katalog>(<Katalog>{
     id: 0,
     hidden: false,
-    decriptSEO: '',
+     decriptSeo: '',
     name: 'none',
     ownerId: 'none',
   });

@@ -4,6 +4,6 @@ export interface Katalog {
   ownerId:string;
   name: string; 
   hidden:boolean;
-  decriptSEO: string;
+  decriptSeo: string;
 
 }

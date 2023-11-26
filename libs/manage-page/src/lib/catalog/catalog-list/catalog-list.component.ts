@@ -56,7 +56,7 @@ export class CatalogListComponent {
 
   addPosition(){
    // debugger
-    this.catalogChange.emit(<EmitData>{catalog:<Katalog>{id:0,name:'',hidden:false,decriptSEO:"",ownerId:"none"},stateView:StateView.create});
+    this.catalogChange.emit(<EmitData>{catalog:<Katalog>{id:0,name:'',hidden:false, decriptSeo:"",ownerId:"none"},stateView:StateView.create});
  
 }
 }
