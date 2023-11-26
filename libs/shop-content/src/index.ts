@@ -6,3 +6,4 @@ export * from './lib/sub-catalog/sub-catalog.component';
 export * from './lib/product/product.component';
 
 export * from './lib/_shared/services/katalog.servise';
+export * from './lib/_shared/services/sub-katalog.service';

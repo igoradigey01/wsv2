@@ -153,59 +153,6 @@ export class KatlogService {
       });
   };
 
-  /*  public Create = (item: Katalog) => {
-    this.Create$(item).pipe(
-      shareReplay(1)
-    )    
-    .subscribe({
-      next: (res) => {
-        console.log('(res)' + JSON.stringify(res));
-
-        this.state.update((d) => ({
-          ...d,
-          catalogItems: [...d.catalogItems, res],
-          state: Status.modify,
-        }));
-        console.log(
-          'public Create = (item: Katalog)-- /n' +
-            JSON.stringify(this.state().catalogItems)
-        );
-        this.error_state.update((m) => ({
-          ...m,
-          message: 'The status was create successfully!',
-        }));
-      },
-      error: (err: HttpErrorResponse) => {
-        console.error(err);
-        this.state.update((d) => ({
-          ...d,
-          catalogItems: [...d.catalogItems],
-          queryAdd: [...d.queryAdd, item],
-          state: Status.modify,
-        }));
-        this.error_state.update((m) => ({ ...m, error: true }));
-        if (err.status === 401) {
-          this.error_state.update((m) => ({
-            ...m,
-            message: 'пользователь не авторизован,войдите на сайт',
-          }));
-          return;
-        }
-        if (err.status == 400) {
-          this.error_state.update((m) => ({ ...m, message: err.error }));
-          return;
-        }
-
-        this.error_state.update((m) => ({
-          ...m,
-          message:
-            'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса',
-        }));
-        return;
-      },
-    });
-  }; */
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private Create$ = (item: Katalog): Observable<any> => {
     this.url.Controller = 'Catalog';
@@ -233,7 +180,7 @@ export class KatlogService {
         console.log(res);
         this.state.update((d) => ({
           ...d,
-          catalogItems: [...d.catalogItems],
+       //   catalogItems: [...d.catalogItems],
           state: Status.modify,
         }));
         this.error_state.update((m) => ({
@@ -245,7 +192,7 @@ export class KatlogService {
         console.error(err);
         this.state.update((d) => ({
           ...d,
-          catalogItems: [...d.catalogItems],
+         // catalogItems: [...d.catalogItems],
           queryUpdate: [...d.queryUpdate, item],
           state: Status.modify,
         }));
@@ -296,9 +243,9 @@ export class KatlogService {
       (todo) => todo.id !== item.id
     );
 
-    const delItems = this.state().catalogItems.find(
-      (todo) => todo.id === item.id
-    );
+    // const delItems = this.state().catalogItems.find(
+    //   (todo) => todo.id === item.id
+    // );
 
     this.Delete$(item.id).subscribe({
       next: (res) => {
@@ -315,11 +262,11 @@ export class KatlogService {
       },
       error: (err: HttpErrorResponse) => {
         console.error(err);
-        if (delItems)
+        
           this.state.update((d) => ({
             ...d,
             catalogItems: newCatlogsList,
-            queryDelete: [...d.queryDelete, delItems],
+            queryDelete: [...d.queryDelete, item],
             state: Status.modify,
           }));
         this.error_state.update((m) => ({ ...m, error: true }));
@@ -365,73 +312,4 @@ export class KatlogService {
     this.error_state.update((m) => ({ ...m, message: '', error: false }));
   }
 
-  /*
-  state = signal<TodoListState>({ todoItems: [], state: Status.empty });
-
-  todoItems = computed(() => this.state().todoItems);
-
-  deleteTodo(todoItemId: string) {
-    // debugger
-    const newTodoList = this.state().todoItems.filter(
-      (todo) => todo.id !== todoItemId
-    );
-   // https://dev.to/sagar/three-dots---in-javascript-26ci
-   //Object.assign
-   //https://learn.javascript.ru/object-copy
-    this.state.update((state) =>Object.assign ({ ...state, todoItems: newTodoList,state:"test-2" }));
-   // this.state.update((old)=>Object.assign({...old,state:"test"}))
-   
-  }
-
-  fetchTodoItems() {
-    this.state.update((state) => ({
-      ...state,
-      todoItems: [
-        {
-          id: '1',
-          name: 'Create YT video',
-          isCompleted: false,
-        } as TodoItem,
-        {
-          id: '2',
-          name: 'Go to the gym',
-          isCompleted: false,
-        } as TodoItem,
-        {
-          id: '3',
-          name: 'Buy flowers',
-          isCompleted: false,
-        } as TodoItem,
-      ],
-    }));
-  }
-
-  saveTodo(todoItemToSave: TodoItem) {
-    if (todoItemToSave.id) {
-      // update
-
-      const updatedTodoList = this.state().todoItems.map((todoItem) => {
-        if (todoItem.id === todoItemToSave.id) {
-          return todoItemToSave;
-        }
-        return todoItem;
-      });
-
-      this.state.update((state) => ({
-        ...state,
-        todoItems: [...updatedTodoList],
-      }));
-    } else {
-      // create
-      const newTodoItem = {
-        ...todoItemToSave,
-        id: crypto.randomUUID(),
-      } as TodoItem;
-      this.state.update((state) => ({
-        ...state,
-        todoItems: [...state.todoItems, newTodoItem],
-      }));
-    }
-  }
-  */
 }
