@@ -10,10 +10,10 @@
       @switch (flag) {
       
         @default {
-        <wsv2-catalog-list
-          [Items]="catalogs()"
+        <wsv2-sub-catalog-list
+          [Items]="subCatalogs()"
           (catalogChange)="onCatalogChange($event)"
-        ></wsv2-catalog-list>
+        ></wsv2-sub-catalog-list>
       }
       <!--  Create template -->
      
@@ -21,11 +21,11 @@
         <div class="item-show">
           <h4>Создать Позицию Каталога</h4>
     
-          <wsv2-catalog-item
+          <wsv2-sub-catalog-item
             [Item]="item"
             [flag]="flag"
             (catalogModified)="catalogModified($event)"
-          ></wsv2-catalog-item>
+          ></wsv2-sub-catalog-item>
         
         </div>
       }
@@ -35,11 +35,11 @@
         @case (4) {
         <div class="item-show">
           <h4>Редактировать Позицию Каталога</h4>
-          <wsv2-catalog-item
+          <wsv2-sub-catalog-item
             [Item]="item"
             [flag]="flag"
             (catalogModified)="catalogModified($event)"
-          ></wsv2-catalog-item>
+          ></wsv2-sub-catalog-item>
         </div>
        }
       <!-- Delete template -->
@@ -47,11 +47,11 @@
         @case (7) {
         <div class="item-show">
           <h4 class="delete">Удалить Позицию Каталога</h4>
-          <wsv2-catalog-item
+          <wsv2-sub-catalog-item
             [Item]="item"
             [flag]="flag"
             (catalogModified)="catalogModified($event)"
-          ></wsv2-catalog-item>
+          ></wsv2-sub-catalog-item>
         </div>
        }
     }

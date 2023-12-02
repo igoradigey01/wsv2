@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { IThemeScss, ThemeScssServices } from '@wsv2/app-common';
-import { UserRole } from '@wsv2/app-common';
+//import { UserRole } from '@wsv2/app-common';
 
 
   interface IMeny{

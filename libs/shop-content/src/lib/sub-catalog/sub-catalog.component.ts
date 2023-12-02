@@ -22,7 +22,7 @@ export class SubCatalogComponent  implements OnInit{
 
  
 
-  subkatalogs = this._repository.SubCatalog;
+  subkatalogs = this._repository.SubCatalogs;
     idKatatlog:string|undefined;
 
 

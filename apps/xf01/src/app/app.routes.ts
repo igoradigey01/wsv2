@@ -82,6 +82,12 @@ export const appRoutes: Route[] = [
           import('@wsv2/manage-page').then((m) => m.CatalogShellComponent ),
       },
       {
+        path: 'sub-catalog',
+        loadComponent: () =>
+          import('@wsv2/manage-page').then((m) => m.SubCatalogShellComponent ),
+      }
+      ,
+      {
         path: 'info',
         loadComponent: () =>
           import('@wsv2/manage-page').then((m) => m.InfoComponent ),

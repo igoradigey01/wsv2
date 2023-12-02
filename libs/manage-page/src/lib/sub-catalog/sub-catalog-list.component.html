@@ -1,1 +1,44 @@
 <p>sub-catalog-list works!</p>
+<div class="container mat-typography">
+    <h2 class="title">
+      <span class="mat-h2 tatle-name">Каталог</span>
+      <button mat-mini-fab color="warn" (click)="addPosition()">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="add icon"
+          fontIcon="add"
+        ></mat-icon>
+      </button>
+    </h2>
+    <div class="grid-container">
+      <div *ngFor="let item of Katalogs()">
+        <div class="catalog-item">
+          <mat-button-toggle-group>
+            <mat-button-toggle disabled class="catalog-id">
+         {{ item.id }}
+              </mat-button-toggle
+            >
+            <mat-button-toggle disabled class="catalog-name">
+              {{ item.name }}</mat-button-toggle
+            >
+            <mat-button-toggle
+              class="catalog-edit"
+              value="edit"
+              (change)="changePosition(toggleEdit.value, item)"
+              #toggleEdit
+              >Edit</mat-button-toggle
+            >
+            <mat-button-toggle
+              class="catalog-del"
+              value="delete"
+              (change)="changePosition(toggleDel.value, item)"
+              #toggleDel
+            >
+              Del
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+    </div>
+  </div>
+  

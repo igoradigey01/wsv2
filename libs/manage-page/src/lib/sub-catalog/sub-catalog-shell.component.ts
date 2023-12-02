@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 //import { StateView } from '@wsv2/app-common';
 import { SubKatalog,Katalog } from '@wsv2/app-common';
 import {KatlogService,SubKatalogService } from '@wsv2/shop-content';
+import {SubCatalogItemComponent} from './sub-catalog-item.component';
+import {SubCatalogListComponent } from './sub-catalog-list.component'
 
 export enum StateView {
   default=0, 
@@ -28,7 +30,11 @@ export interface EmitData{
 @Component({
   selector: 'wsv2-sub-catalog-shell',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    SubCatalogItemComponent,
+    SubCatalogListComponent
+  ],
   templateUrl: './sub-catalog-shell.component.html',
   styleUrls: ['./sub-catalog-shell.component.scss'],
 })
@@ -38,7 +44,7 @@ export class SubCatalogShellComponent {
   public flag=StateView.default;
 
   public catalogs = this.repositoryCatalog.Katalogs;
-  public subCatalog=computed(() => this.repositorySubCatalog.SubCatalogs());
+  public subCatalogs=computed(() => this.repositorySubCatalog.SubCatalogs());
 
   public message=this.repositorySubCatalog.Message;
    
@@ -57,7 +63,7 @@ export class SubCatalogShellComponent {
 
 
     public  onCatalogChange(event:EmitData){
-      this.subCatalog=computed(()=>this.repositorySubCatalog.SubCatalogs().filter(d=>d.catalogId===event.catalog.id))
+      this.subCatalogs=computed(()=>this.repositorySubCatalog.SubCatalogs().filter(d=>d.catalogId===event.catalog.id))
      
       this.flag=event.stateView;
     

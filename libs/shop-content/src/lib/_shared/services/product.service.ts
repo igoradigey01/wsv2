@@ -109,7 +109,7 @@ export class ProductService {
             sale: f.sale,
 
             katalogId: f.katalogId,
-            katalogName: this._subKatalogService.SubCatalog().find(d => d.id === f.katalogId)?.name,
+            katalogName: this._subKatalogService.SubCatalogs().find(d => d.id === f.katalogId)?.name,
 
             colorId: f.colorId,
             colorName: this.Color().length > 0 ? this.Color().find(d => d.id === f.colorId)?.name : undefined,
@@ -164,7 +164,7 @@ export class ProductService {
           title: f.title,
 
           subCatalogId: f.katalogId,
-          subCatalogName: this._subKatalogService.SubCatalog().find(d => d.id === f.katalogId)?.name,
+          subCatalogName: this._subKatalogService.SubCatalogs().find(d => d.id === f.katalogId)?.name,
 
           colorId: f.colorId,
           colorName: this.Color().length > 0 ? this.Color().find(d => d.id === f.colorId)?.name : undefined,
