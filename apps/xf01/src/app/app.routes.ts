@@ -74,7 +74,7 @@ export const appRoutes: Route[] = [
       {
         path: '',
         loadComponent: () =>
-          import('@wsv2/manage-page').then((m) => m.IndexInfoComponent),
+          import('@wsv2/manage-page').then((m) => m.DbInfoComponent),
       },
       {
         path: 'catalog',

@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ApiService} from '@wsv2/app-config';
 
 @Component({
-  selector: 'wsv2-index-info',
+  selector: 'wsv2-db-info',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './index-info.component.html',
-  styleUrls: ['./index-info.component.scss'],
+  templateUrl: './db-info.component.html',
+  styleUrls: ['./db-info.component.scss'],
 })
-export class IndexInfoComponent {
+export class DbInfoComponent {
 
 
     img_bg=''
