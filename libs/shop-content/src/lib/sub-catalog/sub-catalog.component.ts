@@ -36,7 +36,7 @@ export class SubCatalogComponent  implements OnInit{
       routeActvate.params.subscribe(params=>this.idKatatlog= params['id']);
       if(this.idKatatlog){
       
-        this._repository.SubKatalogsSet(this.idKatatlog);
+        this._repository.SubKatalogsSet(+this.idKatatlog);
       }
 
      }

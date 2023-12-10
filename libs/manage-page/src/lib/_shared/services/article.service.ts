@@ -1,27 +1,32 @@
 import { Injectable, signal, computed } from '@angular/core';
+
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
 
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Observable, catchError, of, shareReplay, tap } from 'rxjs';
-
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { ApiService } from '@wsv2/app-config';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { SubKatalog, Message, Status } from '@wsv2/app-common';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserManagerService } from '@wsv2/account-service';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { Article, Message, Status } from '@wsv2/app-common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  catchError,
+  of,
+  tap, 
+  Observable,
+  shareReplay,
+} from 'rxjs';
 
-interface SubCatalogListState {
-  allItems: SubKatalog[];
-  subCatalogItems: SubKatalog[];
-  idCatalog: number;
-  queryAdd: SubKatalog[];
-  queryUpdate: SubKatalog[];
-  queryDelete: SubKatalog[];
+interface ArticleListState {
+  articleItems: Article[];
+
+  queryAdd: Article[];
+  queryUpdate: Article[];
+  queryDelete: Article[];
 
   state: Status;
 }
@@ -29,126 +34,86 @@ interface SubCatalogListState {
 @Injectable({
   providedIn: 'root',
 })
-export class SubKatalogService {
-  private state = signal<SubCatalogListState>({
-    allItems: [],
-    subCatalogItems: [],
-    idCatalog: 0,
+export class ArticleService {
+  private headers = new HttpHeaders({
+    Accept: 'application/json',
+    //  Authorization: 'Bearer ' + token,
+  });
+
+  private state = signal<ArticleListState>({
+    articleItems: [],
     queryAdd: [],
     queryUpdate: [],
     queryDelete: [],
     state: Status.empty,
   });
+
   private error_state = signal<Message>({ message: undefined, error: false });
 
-  readonly SubCatalogs = computed(() => this.state().subCatalogItems);
+  readonly Articles = computed(() => this.state().articleItems);
   readonly Message = computed(() => this.error_state());
+
 
   constructor(
     private _http: HttpClient,
     private url: ApiService,
-    private userManager: UserManagerService
+    private userManager: UserManagerService //  private repozitory: EnvironmentService
   ) {
-
-    // console.log("subCatalog-load:"+JSON.stringify(this.state().allItems));
     if (this.state().state === Status.empty) {
-      this.LoadSubCatlaogs();
-      console.log("subCatalog-load:" + JSON.stringify(this.state().allItems));
+      this.LoadArticles();
     }
-
   }
 
-
-  private SubKatalogs$ = () => {
-    //debugger
-    this.url.Controller = 'SubCatalog';
+ 
+  private LoadArticles() {
+    this.url.Controller = 'Article';
     this.url.Action = 'GetAll';
-    this.url.ID = this.url.ClientId;
-
-    const headers: HttpHeaders = new HttpHeaders({
-      Accept: 'application/json',
-      //  Authorization: 'Bearer ' + this._token.AccessToken,
-    });
-
+    this.url.ID = this.url.ClientId; 
     this._http
-      .get<SubKatalog[]>(this.url.Url, { headers })
+      .get<Article[]>(this.url.Url, { headers: this.headers })
       .pipe(
         tap((data) => {
-          if (data) {
-            const _data = data as SubKatalog[];
-            this.state.update((state) => ({
-              ...state,
-              allItems: _data,
-              subCatalogItems: [],
-              state: Status.load,
-            }));
-            // console.log("subCatalog-load:"+JSON.stringify(data) );
-          }
-        }
-        ),
+          //  this.state.update(() => data);
+          this.state.update((state) => ({
+            ...state,
+            articleItems: data,
+            state: Status.load,
+          }));
+        
+        }),
         //https://angularindepth.com/posts/1518/takeuntildestroy-in-angular-v16
         takeUntilDestroyed(),
-        catchError(() => of([] as SubKatalog[])) //  on any error, just return an empty array
+        catchError(() => of([] as Article[])) //  on any error, just return an empty array
       )
-      .subscribe(
-        {
-          next:()=>{this.error_state.update((m) => ({ ...m, error: false}));},
-          error: (err: HttpErrorResponse) => {
-            console.error(err);
-
-            this.error_state.update((m) => ({
-              ...m,
-              message:
-                'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса',
-              error:true
-            }));
-            return;
-          },
-        });
-
+      .subscribe();
   }
 
-  private LoadSubCatlaogs() {
-
-    this.SubKatalogs$();
+  public ReLoadArticles() {
+    this.LoadArticles();
   }
 
-  public ReLoadSubCatalogs() {
-    this.LoadSubCatlaogs();
-  }
-
-  public Create = (item: SubKatalog) => {
-
+  public Create = (item:Article) => {
     this.Create$(item)
       .pipe(
-        shareReplay(1),// последнее для всех (один раз!!! )item довавить в state
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        tap((data: any) => {
-          //console.log('(data-tap -sub-catalog-1 data' +JSON.stringify(data));
-          if (data) {
-
-            const subCatalog = data as SubKatalog
+        shareReplay(1), // последнее для всех (один раз!!! )item довавить в state
+        tap((data) => {
+          if (data.body) {
             this.state.update((state) => ({
               ...state,
-              allItems: [...state.allItems, subCatalog],
-              subCatalogItems: [...state.allItems, subCatalog],
+              articleItems: [...state.articleItems, data.body as Article],
               state: Status.load,
             }));
-           
 
-            
-
-            // console.log('(data-tap -sub-catalog-1 : subCatalog)' + JSON.stringify(subCatalog));
+            //  console.log('(data-tap -article-1)' + JSON.stringify(data.body));
           }
         })
       )
       .subscribe({
-        next:()=>{this.error_state.update((m) => ({ ...m, error: false}));},
         error: (err: HttpErrorResponse) => {
           console.error(err);
           this.state.update((d) => ({
             ...d,
-            allItems: [...d.allItems],
+            articleItems: [...d.articleItems],
             queryAdd: [...d.queryAdd, item],
             state: Status.modify,
           }));
@@ -175,14 +140,13 @@ export class SubKatalogService {
       });
   };
 
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Create$ = (item: SubKatalog): Observable<any> => {
-    this.url.Controller = 'SubCatalog';
+  private Create$ = (item: Article): Observable<any> => {
+    this.url.Controller = 'Article';
     this.url.Action = 'Create';
-    this.url.ID = null;
+    this.url.ID = this.url.ClientId;
 
-    item.ownerId = this.url.ClientId;
+    
     const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken(),
@@ -190,33 +154,31 @@ export class SubKatalogService {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this._http.post<any>(this.url.Url, item, {
-
+      reportProgress: true,
+      observe: 'events',
       headers,
     });
   };
 
-  public Update = (item: SubKatalog) => {
-    //debugger
+  public Update = (item: Article) => {
     // new Error("Протестировать правильность работы метода")
     this.Update$(item).subscribe({
-      next: () => {
-       // console.log(res);
+      next: (res) => {
+        console.log(res);
         this.state.update((d) => ({
           ...d,
-          // allItems: [...d.allItems],
-          state: Status.load,
+         
+          state: Status.modify,
         }));
         this.error_state.update((m) => ({
           ...m,
           message: 'The status was updated successfully!',
-          error:false
         }));
       },
       error: (err: HttpErrorResponse) => {
         console.error(err);
         this.state.update((d) => ({
-          ...d,
-          //  catalogItems: [...d.catalogItems],
+          ...d,          
           queryUpdate: [...d.queryUpdate, item],
           state: Status.modify,
         }));
@@ -243,9 +205,9 @@ export class SubKatalogService {
     });
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Update$ = (item: SubKatalog): Observable<any> => {
+  private Update$ = (item: Article): Observable<any> => {
     // throw new Error("not implemint exeption");
-    this.url.Controller = 'SubCatalog';
+    this.url.Controller = 'Article';
     this.url.Action = 'Update';
     this.url.ID = item.id;
     item.ownerId = this.url.ClientId;
@@ -262,39 +224,22 @@ export class SubKatalogService {
     });
   };
 
-
-
-  public Delete = (item: SubKatalog) => {
-
-    const newCatlogsList = this.state().allItems.filter(
+  public Delete = (item: Article) => {
+    const newCatlogsList = this.state().articleItems.filter(
       (d) => d.id !== item.id
     );
-
- 
 
     this.Delete$(item.id).subscribe({
       next: (res) => {
         console.log(res);
-        const del_item=res as SubKatalog;
-      const   newSubCatalogItems = this.state().subCatalogItems.filter(
-        (d) => d.id !==del_item.id
-      );
-
-       const new_sub_allItems=this.state().allItems.filter(
-        (d) => d.id !==del_item.id
-      );
-
-
         this.state.update((d) => ({
           ...d,
-          allItems:new_sub_allItems,
-          catalogItems: newSubCatalogItems,
+          articleItems: newCatlogsList,
           state: Status.modify,
         }));
         this.error_state.update((m) => ({
           ...m,
           message: 'The status was updated successfully!',
-          error:false
         }));
       },
       error: (err: HttpErrorResponse) => {
@@ -302,7 +247,7 @@ export class SubKatalogService {
 
         this.state.update((d) => ({
           ...d,
-          catalogItems: newCatlogsList,
+          articleItems: newCatlogsList,
           queryDelete: [...d.queryDelete, item],
           state: Status.modify,
         }));
@@ -331,7 +276,7 @@ export class SubKatalogService {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private Delete$ = (id: number): Observable<any> => {
-    this.url.Controller = 'SubCatalog';
+    this.url.Controller = 'Article';
     this.url.Action = 'Delete';
     this.url.ID = id;
 
@@ -348,18 +293,4 @@ export class SubKatalogService {
   public ClearMessage() {
     this.error_state.update((m) => ({ ...m, message: '', error: false }));
   }
-
-  SubKatalogsSet = (idKatalog: number): void => {
-    // console.log("subCatalog-load:"+JSON.stringify(this.state().allItems));
-
-    // const id=+idKatalog;
-    const data = this.state().allItems.filter(d => d.catalogId === idKatalog)
-
-    this.state.update((state) => ({
-      ...state,
-      subCatalogItems: data,
-      idCatalog: idKatalog
-    }))
-
-  };
 }

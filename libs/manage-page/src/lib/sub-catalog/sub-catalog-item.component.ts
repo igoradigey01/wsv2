@@ -1,4 +1,4 @@
-import { Component , signal, computed} from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -6,10 +6,10 @@ import { MatInputModule } from '@angular/material/input';
 
 import { FormsModule } from '@angular/forms';
 
-import { SubKatalog,Katalog } from '@wsv2/app-common';
-import { EmitData ,StateView} from './sub-catalog-shell.component';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { SubKatalog, Katalog } from '@wsv2/app-common';
+import { EmitData, StateView } from './sub-catalog-shell.component';
 import { Input, Output, EventEmitter } from '@angular/core';
-
 
 @Component({
   selector: 'wsv2-sub-catalog-item',
@@ -26,22 +26,21 @@ import { Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./sub-catalog-item.component.scss'],
 })
 export class SubCatalogItemComponent {
-
-  private catalog=<Katalog>{
+  private catalog = <Katalog>{
     id: 0,
     hidden: false,
-     decriptSeo: '',
+    decriptSeo: '',
     name: 'none',
     ownerId: 'none',
   };
 
   private state = signal<SubKatalog>(<SubKatalog>{
     id: 0,
-    catalogId:0,
-    GoogleTypeId:'',
+    catalogId: 0,
+    GoogleTypeId: '',
     hidden: false,
- 
-    decriptSeo:'',
+
+    decriptSeo: '',
     name: 'none',
     ownerId: 'none',
   });
@@ -54,9 +53,8 @@ export class SubCatalogItemComponent {
   }
 
   @Input() set Catalog(item: Katalog) {
-    this.catalog=item;
+    this.catalog = item;
   }
-
 
   @Input({ required: true }) set flag(stateView: StateView) {
     this._falg = stateView;
@@ -66,10 +64,11 @@ export class SubCatalogItemComponent {
 
   //--------------------------------
   public save(): void {
-    //debugger
+   //
     this.catalogModified.emit(<EmitData>{
       catalog: this.catalog,
-      subCatalog:this.SubKatalog(),
+      subCatalog: this.SubKatalog(),
+     
       stateView: this._falg,
     });
   }
@@ -78,9 +77,8 @@ export class SubCatalogItemComponent {
     // debugger
     this.catalogModified.emit(<EmitData>{
       catalog: this.catalog,
-      subCatalog:this.SubKatalog(),
+      subCatalog: this.SubKatalog(),
       stateView: StateView.exit,
     });
   }
-
 }

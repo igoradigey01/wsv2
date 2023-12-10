@@ -55,7 +55,7 @@ export class KatalogComponent implements OnInit, OnDestroy {
   @Input() public timer = 10000;
 
   private i = 0;
-  private timerId: any;
+ // private timerId: any;  4.11.23
 
   subscription_timer: Subscription | undefined;
 
@@ -92,7 +92,7 @@ export class KatalogComponent implements OnInit, OnDestroy {
     if (this.urlBackgroundImgs && this.urlBackgroundImgs.length > 1) {
       const source = interval(this.timer);
       //output: 0,1,2,3,4,5....
-      this.subscription_timer = source.subscribe((val) => {
+      this.subscription_timer = source.subscribe(() => {
         //console.log("--i time-interval --" + this.i);
         this.slideStyleObj;
         this.cd.detectChanges(); // проверить измениения в компоненте

@@ -6,9 +6,12 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ApiService } from '@wsv2/app-config';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserManagerService } from '@wsv2/account-service';
-import { Katalog ,Message,Status} from '@wsv2/app-common';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { Katalog, Message, Status } from '@wsv2/app-common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   catchError,
@@ -19,8 +22,6 @@ import {
   shareReplay,
 } from 'rxjs';
 
-
-
 interface CatalogListState {
   catalogItems: Katalog[];
 
@@ -30,10 +31,6 @@ interface CatalogListState {
 
   state: Status;
 }
-
-
-
-
 
 @Injectable({
   providedIn: 'root',
@@ -56,8 +53,6 @@ export class KatlogService {
 
   readonly Katalogs = computed(() => this.state().catalogItems);
   readonly Message = computed(() => this.error_state());
-
-  
 
   public indicatorSubject = new BehaviorSubject<boolean>(false);
 
@@ -108,7 +103,7 @@ export class KatlogService {
   public Create = (item: Katalog) => {
     this.Create$(item)
       .pipe(
-        shareReplay(1),// последнее для всех (один раз!!! )item довавить в state
+        shareReplay(1), // последнее для всех (один раз!!! )item довавить в state
         tap((data) => {
           if (data.body) {
             this.state.update((state) => ({
@@ -180,7 +175,7 @@ export class KatlogService {
         console.log(res);
         this.state.update((d) => ({
           ...d,
-       //   catalogItems: [...d.catalogItems],
+          //   catalogItems: [...d.catalogItems],
           state: Status.modify,
         }));
         this.error_state.update((m) => ({
@@ -192,7 +187,7 @@ export class KatlogService {
         console.error(err);
         this.state.update((d) => ({
           ...d,
-         // catalogItems: [...d.catalogItems],
+          // catalogItems: [...d.catalogItems],
           queryUpdate: [...d.queryUpdate, item],
           state: Status.modify,
         }));
@@ -240,12 +235,8 @@ export class KatlogService {
 
   public Delete = (item: Katalog) => {
     const newCatlogsList = this.state().catalogItems.filter(
-      (todo) => todo.id !== item.id
+      (d) => d.id !== item.id
     );
-
-    // const delItems = this.state().catalogItems.find(
-    //   (todo) => todo.id === item.id
-    // );
 
     this.Delete$(item.id).subscribe({
       next: (res) => {
@@ -262,13 +253,13 @@ export class KatlogService {
       },
       error: (err: HttpErrorResponse) => {
         console.error(err);
-        
-          this.state.update((d) => ({
-            ...d,
-            catalogItems: newCatlogsList,
-            queryDelete: [...d.queryDelete, item],
-            state: Status.modify,
-          }));
+
+        this.state.update((d) => ({
+          ...d,
+          catalogItems: newCatlogsList,
+          queryDelete: [...d.queryDelete, item],
+          state: Status.modify,
+        }));
         this.error_state.update((m) => ({ ...m, error: true }));
         if (err.status === 401) {
           this.error_state.update((m) => ({
@@ -311,5 +302,4 @@ export class KatlogService {
   public ClearMessage() {
     this.error_state.update((m) => ({ ...m, message: '', error: false }));
   }
-
 }

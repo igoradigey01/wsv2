@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { StateView } from '@wsv2/app-common';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { Katalog } from '@wsv2/app-common';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {KatlogService } from '@wsv2/shop-content';
 import {CatalogListComponent} from '../catalog-list/catalog-list.component'
 import {CatalogItemComponent} from '../catalog-item/catalog-item.component'

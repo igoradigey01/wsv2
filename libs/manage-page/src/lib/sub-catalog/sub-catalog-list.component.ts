@@ -24,7 +24,7 @@ export class SubCatalogListComponent {
   @Output() public catalogChange = new EventEmitter<EmitData>();
 
   private state = signal<SubKatalog[]>([]);
-  private _catalog=<Katalog>{
+  private catalog=<Katalog>{
     id: 0,
     hidden: false,
      decriptSeo: '',
@@ -40,20 +40,21 @@ export class SubCatalogListComponent {
    }
 
    @Input() set Catalog(item: Katalog) {
-    this._catalog=item;
+    //debugger
+    this.catalog=item;
   }
  
    
-   public  Katalogs = computed(() => this.state());
+   public SubKatalogs = computed(() => this.state());
    
 
 
    changePosition(action:string, item: SubKatalog) {
    // debugger
     if(action==="edit")    
-    this.catalogChange.emit(<EmitData>{subCatalog:item,catalog:this._catalog, stateView:StateView.edit});
+    this.catalogChange.emit(<EmitData>{subCatalog:item,catalog:this.catalog, stateView:StateView.edit});
     if(action==="delete")
-    this.catalogChange.emit(<EmitData>{subCatalog:item,catalog:this._catalog,stateView:StateView.delete});
+    this.catalogChange.emit(<EmitData>{subCatalog:item,catalog:this.catalog,stateView:StateView.delete});
     
    
 
@@ -62,7 +63,15 @@ export class SubCatalogListComponent {
 
   addPosition(){
    // debugger
-    this.catalogChange.emit(<EmitData>{subCatalog:<SubKatalog>{id:0,catalogId:this._catalog.id,GoogleTypeId:'' ,name:'',hidden:false, decriptSeo:'',ownerId:this._catalog.ownerId},stateView:StateView.create});
+    this.catalogChange.emit(<EmitData>{
+      subCatalog:<SubKatalog>{ 
+        id:0,
+        catalogId: this.catalog.id,
+        hidden: false,
+        name: '',
+        ownerId: this.catalog.ownerId,
+        decriptSeo: '',
+        GoogleTypeId: '',},stateView:StateView.create});
  
 }
 }

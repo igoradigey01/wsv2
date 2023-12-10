@@ -1,4 +1,4 @@
-<p>sub-catalog-item works!</p>
+
 
 
 
@@ -21,6 +21,23 @@
                 required
               />
               <mat-error *ngIf="nameKatalog.invalid"> </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+
+        <div class="_input-group">
+          <label for="nameKatalog">GoogleTypeId</label> <br />
+          <mat-form-field class="_input-name" appearance="fill">
+            <mat-label  >ID(  {{ SubKatalog().id }}) </mat-label>
+            <div>
+              <input
+                matInput
+                name="googleTypeId"
+                #googleTypeId="ngModel"
+                [(ngModel)]="SubKatalog().GoogleTypeId"
+              
+              />
+              <mat-error *ngIf="googleTypeId.invalid"> </mat-error>
             </div>
           </mat-form-field>
         </div>
@@ -83,7 +100,7 @@
             color="primary"
             (click)="save()"
           >
-            Сохранить
+            Оk
           </button>
 
          

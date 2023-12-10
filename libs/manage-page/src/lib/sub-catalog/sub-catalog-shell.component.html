@@ -1,58 +1,77 @@
-<p>sub-catalog-shell works!</p>
+
 
 <div class="_main-container">
-
-    <div *ngIf="message().error">
-    <div class="error">  {{message().message}}</div>
-    </div>
-    <!------------------->
-    
-      @switch (flag) {
-      
-        @default {
-        <wsv2-sub-catalog-list
-          [Items]="subCatalogs()"
-          (catalogChange)="onCatalogChange($event)"
-        ></wsv2-sub-catalog-list>
-      }
-      <!--  Create template -->
-     
-        @case (5) {
-        <div class="item-show">
-          <h4>Создать Позицию Каталога</h4>
-    
-          <wsv2-sub-catalog-item
-            [Item]="item"
-            [flag]="flag"
-            (catalogModified)="catalogModified($event)"
-          ></wsv2-sub-catalog-item>
-        
-        </div>
-      }
-  
-      <!--  Edit  template -->
-      
-        @case (4) {
-        <div class="item-show">
-          <h4>Редактировать Позицию Каталога</h4>
-          <wsv2-sub-catalog-item
-            [Item]="item"
-            [flag]="flag"
-            (catalogModified)="catalogModified($event)"
-          ></wsv2-sub-catalog-item>
-        </div>
-       }
-      <!-- Delete template -->
-      
-        @case (7) {
-        <div class="item-show">
-          <h4 class="delete">Удалить Позицию Каталога</h4>
-          <wsv2-sub-catalog-item
-            [Item]="item"
-            [flag]="flag"
-            (catalogModified)="catalogModified($event)"
-          ></wsv2-sub-catalog-item>
-        </div>
-       }
-    }
+  <div *ngIf="message().error">
+    <div class="error">{{ message().message }}</div>
   </div>
+  <!------------------->
+
+  @switch (flag) { @default {
+
+  <wsv2-katalog-button
+    [items]="catalogs()"
+    [componetVisible]="true"
+    [flagButtonId]="true"
+    [flagButtonOpacity]="false"
+    [flagBackgroundImg]="false"
+    [timer]="10000"
+    (_onSelectButton)="onCatalogChange($event)"
+  ></wsv2-katalog-button>
+
+  }
+  <!--  Create template -->
+
+  @case (2) {
+    <div  class="back-button"> 
+       <button mat-mini-fab  color="primary" (click)="backToCatalog()"> 
+        <mat-icon aria-hidden="false"  fontIcon="arrow_back"></mat-icon>
+      
+      
+      </button> </div>
+
+  <wsv2-sub-catalog-list
+    [Items]="subCatalogs()"
+    [Catalog]="parent"
+    (catalogChange)="onSubCatalogChange($event)"
+  ></wsv2-sub-catalog-list>
+
+  } @case (5) {
+  <div class="item-show">
+    <h4 class="action-name">Создать Позицию Каталога</h4>
+
+    <wsv2-sub-catalog-item
+      [Item]="item"
+      [Catalog]="parent"
+      [flag]="flag"
+      (catalogModified)="catalogModified($event)"
+    ></wsv2-sub-catalog-item>
+  </div>
+  }
+
+  <!--  Edit  template -->
+
+  @case (4) {
+  <div class="item-show">
+    <h4 class="action-name" >Редактировать Позицию Каталога</h4>
+    <wsv2-sub-catalog-item
+      [Item]="item"
+      [Catalog]="parent"
+      [flag]="flag"
+      (catalogModified)="catalogModified($event)"
+    ></wsv2-sub-catalog-item>
+  </div>
+  }
+  <!-- Delete template -->
+
+  @case (7) {
+  <div class="item-show">
+    <h4 class="action-name">Удалить Позицию Каталога</h4>
+    <wsv2-sub-catalog-item
+      [Item]="item"
+      [Catalog]="parent"
+      [flag]="flag"
+      (catalogModified)="catalogModified($event)"
+    ></wsv2-sub-catalog-item>
+  </div>
+  } }
+</div>
