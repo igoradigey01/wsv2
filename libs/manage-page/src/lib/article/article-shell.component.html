@@ -1,1 +1,62 @@
 <p>article-shell works!</p>
+
+<div class="_main-container">
+
+    <div *ngIf="message().error">
+    <div class="error">  {{message().message}}</div>
+    </div>
+    <!------------------->
+    
+      @switch (flag) {
+      
+        @default {
+        <wsv2-article-list
+          [Items]="articles"
+          (articleChange)="onArticleChange($event)"
+        ></wsv2-article-list>
+      }
+      <!--  Create template -->
+     
+        @case (5) {
+        <div class="item-show">
+          <h4 class="action-name">Создать Позицию  Артикула</h4>
+    
+          <wsv2-article-item
+            [Item]="item"
+            [product_typeIds]="product_typeIds"
+            [flag]="flag"
+            (catalogModified)="articleModified($event)"
+          ></wsv2-article-item>
+        
+        </div>
+      }
+  
+      <!--  Edit  template -->
+      
+        @case (4) {
+        <div class="item-show">
+          <h4 class="action-name">Редактировать Позицию  Артикула</h4>
+          <wsv2-article-item
+            [Item]="item"
+            [product_typeIds]="product_typeIds"
+            [flag]="flag"
+            (catalogModified)="articleModified($event)"
+          ></wsv2-article-item>
+        </div>
+       }
+      <!-- Delete template -->
+      
+        @case (7) {
+        <div class="item-show">
+          <h4 class="action-name">Удалить Позицию  Артикула</h4>
+          <wsv2-article-item
+            [Item]="item"
+            [product_typeIds]="product_typeIds"
+            [flag]="flag"
+            (catalogModified)="articleModified($event)"
+          ></wsv2-article-item>
+        </div>
+       }
+    }
+  </div>
+  

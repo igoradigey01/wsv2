@@ -1,1 +1,99 @@
 <p>article-item works!</p>
+<div class="_contaner">
+    
+    <!-- begin edit  card ------------------------------------->
+    <form #myForm="ngForm" >
+      <div class="item-form">
+        <div class="_input-group">
+          <label for="nameArticle">Название Артикула</label> <br />
+          <mat-form-field class="_input-name" appearance="fill">
+            <mat-label  >ID(  {{ Article().id }}) </mat-label>
+            <div>
+              <input
+                matInput
+                name="nameArticle"
+                #nameArticle="ngModel"
+                [(ngModel)]="Article().name"
+                required
+              />
+              <mat-error *ngIf="nameArticle.invalid"> </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+      
+
+        <div class="_input-group">
+          <label for="hiddenArticle" class="_label"> Скрыть</label><br />
+          <mat-form-field  appearance="fill">
+            <div >
+              <mat-select
+                name="hiddenArticle"
+                [(ngModel)]="Article().hidden"
+               
+                #hiddenArticle="ngModel"
+                required
+              >
+                <mat-option [value]="false">Нет </mat-option>
+                <mat-option [value]="true">Да </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hiddenArticle.invalid"> </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        
+          <!--   product_typeId       -->
+          <div class="_input-group">
+            <label for="product_typeIdArticle" class="_label"> product_typeId</label><br />
+            <mat-form-field  appearance="fill">
+              <div >
+                <mat-select
+                  name="product_typeIdArticle"
+                  [(ngModel)]="Article().product_typeId"
+                 
+                  #product_typeIdArticle="ngModel"
+                  required
+                >
+                @for (item of _product_typeIds; track item) {
+                    <mat-option [value]="item.id">{{item.name}}</mat-option>
+                  }
+                </mat-select>
+                
+              </div>
+            </mat-form-field>
+          </div>
+        
+
+
+
+
+
+
+
+
+        <!-----    ----------------- button gurop start           -->
+        <div class="btn-group" role="group">
+          <button
+            mat-flat-button
+            [disabled]="myForm.invalid "
+            color="primary"
+            (click)="save()"
+          >
+            Сохранить
+          </button>
+
+         
+          <button
+            mat-flat-button
+            color="accent"
+            
+            (click)="cancel()"
+          >
+            Отмена
+          </button>
+        </div>
+      </div>
+    </form>
+  
+ 
+</div>
+

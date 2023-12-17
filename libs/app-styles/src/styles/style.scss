@@ -175,6 +175,7 @@ $mat-warn: (
 @include mat.list-theme($my-theme);
 @include mat.divider-theme($my-theme);
 @include mat.button-toggle-theme($my-theme);
+@include mat.table-theme($my-theme)
 
 
 }

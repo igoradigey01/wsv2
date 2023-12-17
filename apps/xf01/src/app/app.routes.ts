@@ -85,14 +85,27 @@ export const appRoutes: Route[] = [
         path: 'sub-catalog',
         loadComponent: () =>
           import('@wsv2/manage-page').then((m) => m.SubCatalogShellComponent ),
+      },
+      {
+        path: 'article',
+        loadComponent: () =>
+          import('@wsv2/manage-page').then((m) => m.ArticleShellComponent ),
       }
       ,
+      {
+        path: 'product-type',
+        loadComponent: () =>
+          import('@wsv2/manage-page').then((m) => m.ProductTypeShellComponent ),
+      },
       {
         path: 'info',
         loadComponent: () =>
           import('@wsv2/manage-page').then((m) => m.InfoComponent ),
       },
+      
 
+
+    
       
       {
         path: '**',

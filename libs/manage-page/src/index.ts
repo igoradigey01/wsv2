@@ -1,11 +1,12 @@
-export * from './lib/manage-page.module';
 
-export * from './lib/lib.routes';
-export * from './lib/index/index.component';
-export * from './lib/db-info/db-info.component';
-export * from './lib/info/info.component';
-export {CatalogShellComponent} from './lib/catalog/catalog-shell/catalog-shell.component';
+export {IndexComponent} from './lib/index/index.component';
+export {DbInfoComponent} from './lib/db-info/db-info.component';
+export {InfoComponent} from './lib/info/info.component';
 
-export {SubCatalogShellComponent} from './lib/sub-catalog/sub-catalog-shell.component';
+export { CatalogShellComponent } from './lib/catalog/catalog-shell/catalog-shell.component';
+export { SubCatalogShellComponent } from './lib/sub-catalog/sub-catalog-shell.component';
 
+export {ArticleShellComponent} from './lib/article/article-shell.component'
+
+export {ProductTypeShellComponent} from './lib/product-type/product-type-shell.component'
 

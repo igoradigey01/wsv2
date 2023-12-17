@@ -13,13 +13,7 @@ import { UserManagerService } from '@wsv2/account-service';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { Article, Message, Status } from '@wsv2/app-common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {
-  catchError,
-  of,
-  tap, 
-  Observable,
-  shareReplay,
-} from 'rxjs';
+import { catchError, of, tap, Observable, shareReplay } from 'rxjs';
 
 interface ArticleListState {
   articleItems: Article[];
@@ -53,7 +47,6 @@ export class ArticleService {
   readonly Articles = computed(() => this.state().articleItems);
   readonly Message = computed(() => this.error_state());
 
-
   constructor(
     private _http: HttpClient,
     private url: ApiService,
@@ -64,11 +57,10 @@ export class ArticleService {
     }
   }
 
- 
   private LoadArticles() {
     this.url.Controller = 'Article';
     this.url.Action = 'GetAll';
-    this.url.ID = this.url.ClientId; 
+    this.url.ID = this.url.ClientId;
     this._http
       .get<Article[]>(this.url.Url, { headers: this.headers })
       .pipe(
@@ -79,7 +71,6 @@ export class ArticleService {
             articleItems: data,
             state: Status.load,
           }));
-        
         }),
         //https://angularindepth.com/posts/1518/takeuntildestroy-in-angular-v16
         takeUntilDestroyed(),
@@ -92,7 +83,7 @@ export class ArticleService {
     this.LoadArticles();
   }
 
-  public Create = (item:Article) => {
+  public Create = (item: Article) => {
     this.Create$(item)
       .pipe(
         shareReplay(1), // последнее для всех (один раз!!! )item довавить в state
@@ -146,7 +137,6 @@ export class ArticleService {
     this.url.Action = 'Create';
     this.url.ID = this.url.ClientId;
 
-    
     const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken(),
@@ -167,7 +157,7 @@ export class ArticleService {
         console.log(res);
         this.state.update((d) => ({
           ...d,
-         
+
           state: Status.modify,
         }));
         this.error_state.update((m) => ({
@@ -178,7 +168,7 @@ export class ArticleService {
       error: (err: HttpErrorResponse) => {
         console.error(err);
         this.state.update((d) => ({
-          ...d,          
+          ...d,
           queryUpdate: [...d.queryUpdate, item],
           state: Status.modify,
         }));
