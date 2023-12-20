@@ -1,4 +1,4 @@
-<p>article-list works!</p>
+
 
 <div class="container mat-typography">
   <h2 class="title">
@@ -12,7 +12,8 @@
     </button>
   </h2>
   <div class="grid-container">
-    @for ( item of Articles(); track item.id) {
+  
+    @for ( item of Articles(); track item) {
 
     <div class="article-item">
       <mat-button-toggle-group>
@@ -21,6 +22,9 @@
         </mat-button-toggle>
         <mat-button-toggle disabled class="article-name">
           {{ item.name }}</mat-button-toggle
+        >
+        <mat-button-toggle disabled class="article-name">
+          {{ item.product_typeId }}</mat-button-toggle
         >
         <mat-button-toggle
           #toggleEdit

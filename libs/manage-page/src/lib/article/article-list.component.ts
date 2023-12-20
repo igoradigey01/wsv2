@@ -1,4 +1,4 @@
-import { Component,signal,computed } from '@angular/core';
+import { Component,computed,signal, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Input, Output, EventEmitter } from '@angular/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -29,17 +29,17 @@ export class ArticleListComponent {
     
   @Output() public articleChange = new EventEmitter<EmitData>();
 
-  private state = signal<Article[]>([]);
-
+  private state:Signal<Article[]> = signal<Article[]>([]);
+  
    
   
-   @Input() set Items(items: Article[]) {
+   @Input({required:true}) set Items(items:Signal< Article[]>) {
     
-     this.state.update(()=>items);
+     this.state=items;
    }
  
    
-   public  Articles = computed(() => this.state());
+   public  Articles =  computed(()=>  this.state());
    
 
 

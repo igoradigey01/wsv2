@@ -34,17 +34,18 @@ export class ArticleItemComponent {
   private state = signal<Article>(<Article>{
     id: 0,
     ownerId: 'none',
-    name: 'none',
+    name: '',
     product_typeId:2,
     hidden: false, 
   });
   private _falg = StateView.edit;
 
-  public _product_typeIds?:Signal< ProductType[]>;
+  private _product_typeIds:Signal< ProductType[]>=signal<ProductType[]>([]);;
 
   @Output() public catalogModified = new EventEmitter<EmitData>();
 
-  @Input() set Item(item: Article) {
+  @Input({required:true}) set Item(item: Article) {
+ 
     this.state.update(() => item);
   }
 
@@ -58,6 +59,7 @@ export class ArticleItemComponent {
 
 
   public Article = computed(() => this.state());
+  public ProductTypes=computed(()=>this._product_typeIds());
 
   //--------------------------------
   public save(): void {

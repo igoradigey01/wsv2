@@ -1,3 +1,4 @@
+/* eslint-disable @nx/enforce-module-boundaries */
 import { Route } from '@angular/router';
 
 import { IndexComponent } from './index/index.component';
@@ -13,6 +14,7 @@ export const appRoutes: Route[] = [
       {
         path: '',
         loadComponent: () =>
+          // eslint-disable-next-line @nx/enforce-module-boundaries
           import('@wsv2/shop-content').then((m) => m.IndexShopComponent),
       },
       {
@@ -58,7 +60,6 @@ export const appRoutes: Route[] = [
           import('@wsv2/shop-information').then((m) => m.ShopInformationModule),
       },
 
-     
       {
         path: '**',
         loadComponent: () =>
@@ -67,7 +68,8 @@ export const appRoutes: Route[] = [
     ],
   },
 
-  { path: 'manager',
+  {
+    path: 'manager',
     loadComponent: () =>
       import('@wsv2/manage-page').then((m) => m.IndexComponent),
     children: [
@@ -79,40 +81,36 @@ export const appRoutes: Route[] = [
       {
         path: 'catalog',
         loadComponent: () =>
-          import('@wsv2/manage-page').then((m) => m.CatalogShellComponent ),
+          import('@wsv2/manage-page').then((m) => m.CatalogShellComponent),
       },
       {
         path: 'sub-catalog',
         loadComponent: () =>
-          import('@wsv2/manage-page').then((m) => m.SubCatalogShellComponent ),
+          import('@wsv2/manage-page').then((m) => m.SubCatalogShellComponent),
       },
       {
         path: 'article',
         loadComponent: () =>
-          import('@wsv2/manage-page').then((m) => m.ArticleShellComponent ),
-      }
-      ,
+          import('@wsv2/manage-page').then((m) => m.ArticleShellComponent),
+          data:{type_product: 4 }
+      },
       {
         path: 'product-type',
         loadComponent: () =>
-          import('@wsv2/manage-page').then((m) => m.ProductTypeShellComponent ),
+          import('@wsv2/manage-page').then((m) => m.ProductTypeShellComponent),
       },
       {
         path: 'info',
         loadComponent: () =>
-          import('@wsv2/manage-page').then((m) => m.InfoComponent ),
+          import('@wsv2/manage-page').then((m) => m.InfoComponent),
       },
-      
 
-
-    
-      
       {
         path: '**',
         loadComponent: () =>
           import('@wsv2/app-common').then((c) => c.PageNotFoundComponent),
       },
-    ]
+    ],
   },
 
   {

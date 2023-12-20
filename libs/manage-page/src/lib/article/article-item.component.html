@@ -1,4 +1,4 @@
-<p>article-item works!</p>
+
 <div class="_contaner">
     
     <!-- begin edit  card ------------------------------------->
@@ -53,7 +53,7 @@
                   #product_typeIdArticle="ngModel"
                   required
                 >
-                @for (item of _product_typeIds; track item) {
+                @for (item of ProductTypes(); track item) {
                     <mat-option [value]="item.id">{{item.name}}</mat-option>
                   }
                 </mat-select>

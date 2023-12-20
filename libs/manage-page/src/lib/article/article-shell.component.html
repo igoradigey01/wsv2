@@ -1,4 +1,4 @@
-<p>article-shell works!</p>
+
 
 <div class="_main-container">
 
@@ -7,9 +7,22 @@
     </div>
     <!------------------->
     
+    
       @switch (flag) {
       
         @default {
+
+          <div class="select">
+            <mat-form-field>
+              <mat-label>выберите тип </mat-label>
+              <mat-select (selectionChange)="doSomething($event)" [(value)]="selected_product_typeId">
+                @for (item of product_typeIds(); track item.id) {
+                  <mat-option [value]="item.id">{{item.name}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+          </div>
         <wsv2-article-list
           [Items]="articles"
           (articleChange)="onArticleChange($event)"

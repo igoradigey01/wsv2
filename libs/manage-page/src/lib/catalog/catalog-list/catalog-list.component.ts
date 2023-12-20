@@ -4,7 +4,9 @@ import { Input, Output, EventEmitter } from '@angular/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { Katalog } from '@wsv2/app-common';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { StateView } from '@wsv2/app-common';
 import {EmitData} from '../catalog-shell/catalog-shell.component'
 
@@ -32,7 +34,7 @@ export class CatalogListComponent {
 
    
   
-   @Input() set Items(item: Katalog[]) {
+   @Input({required:true}) set Items(item: Katalog[]) {
     
      this.state.update(()=>item);
    }
