@@ -34,9 +34,11 @@ export interface EmitData {
 export class ArticleShellComponent {
 
   private state_selected=signal(1);
+  public selected_product_typeId =1;
+  public product_type_of_clientId=1;
 
   public flag = StateView.default;
-  public selected_product_typeId = this.state_selected();
+  
    
   //public selected_product_type =computed(()=>this.selected_product_typeId)
 
@@ -65,11 +67,15 @@ export class ArticleShellComponent {
     private repositoryProductType: ProductTypeService
   ) {
     this.route.data.subscribe((v) => {
-      this.state_selected.update(()=>+v['type_product']) ;
+      const id=+v['type_product']
+      this.product_type_of_clientId=id;
+      this.selected_product_typeId=id;
+      this.state_selected.update(()=>id) ;
     }); 
-
+        
     //console.log (repositoryProductType.ProductTypes())
     repository.ClearMessage();
+    //console.log (JSON.stringify( repository.Articles()))
   }
 
   //----------------------

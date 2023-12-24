@@ -88,15 +88,16 @@ export class ArticleService {
       .pipe(
         shareReplay(1), // последнее для всех (один раз!!! )item довавить в state
         tap((data) => {
-          if (data.body) {
+          if (data) {
             this.state.update((state) => ({
               ...state,
-              articleItems: [...state.articleItems, data.body as Article],
+              articleItems: [...state.articleItems, data as Article],
               state: Status.load,
             }));
 
-            //  console.log('(data-tap -article-1)' + JSON.stringify(data.body));
+            ;
           }
+          console.log(' Create--(data-tap -article-1)' + JSON.stringify(data))
         })
       )
       .subscribe({
@@ -133,10 +134,11 @@ export class ArticleService {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private Create$ = (item: Article): Observable<any> => {
+   //debugger
     this.url.Controller = 'Article';
     this.url.Action = 'Create';
-    this.url.ID = this.url.ClientId;
-
+    this.url.ID = null;
+    item.ownerId = this.url.ClientId;
     const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken(),
@@ -144,8 +146,7 @@ export class ArticleService {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this._http.post<any>(this.url.Url, item, {
-      reportProgress: true,
-      observe: 'events',
+     
       headers,
     });
   };

@@ -31,12 +31,17 @@ export class ArticleListComponent {
 
   private state:Signal<Article[]> = signal<Article[]>([]);
   
-   
+  private _product_type_of_clientId=1; 
   
    @Input({required:true}) set Items(items:Signal< Article[]>) {
     
      this.state=items;
    }
+
+   @Input({required:true}) set product_type_of_clientId(items:number) {
+    
+    this._product_type_of_clientId=items;
+  }
  
    
    public  Articles =  computed(()=>  this.state());
@@ -57,7 +62,7 @@ export class ArticleListComponent {
 
   addPosition(){
    // debugger
-    this.articleChange.emit(<EmitData>{article:<Article>{id:0,name:"none",ownerId:"none", product_typeId:2,hidden:false},stateView:StateView.create});
+    this.articleChange.emit(<EmitData>{article:<Article>{id:0,name:"",ownerId:"none", product_typeId:this._product_type_of_clientId,hidden:false},stateView:StateView.create});
  
 }
     
