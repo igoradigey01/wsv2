@@ -1,0 +1,102 @@
+<p>brand-item works!</p>
+
+<div class="_contaner">
+    
+    <!-- begin edit  card ------------------------------------->
+    <form #myForm="ngForm" >
+      <div class="item-form">
+        <div class="_input-group">
+          <label for="nameBrand">Название Бренда</label> <br />
+          <mat-form-field class="_input-name" appearance="fill">
+            <mat-label  >ID(  {{ Brand().id }}) </mat-label>
+            <div>
+              <input
+                matInput
+                name="nameBrand"
+                #nameBrand="ngModel"
+                
+                [(ngModel)]="Brand().name"
+                required
+              />
+              <mat-error *ngIf="nameBrand.invalid"> </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+      
+
+        <div class="_input-group">
+          <label for="hiddenBrand" class="_label"> Скрыть</label><br />
+          <mat-form-field  appearance="fill">
+            <div >
+              <mat-select
+                name="hiddenBrand"
+                [(ngModel)]="Brand().hidden"
+               
+                #hiddenBrand="ngModel"
+                required
+              >
+                <mat-option [value]="false">Нет </mat-option>
+                <mat-option [value]="true">Да </mat-option>
+              </mat-select>
+              <mat-error *ngIf="hiddenBrand.invalid"> </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        
+          <!--   product_typeId       -->
+          <div class="_input-group">
+            <label for="product_typeIdBrand" class="_label"> product_typeId</label><br />
+            <mat-form-field  appearance="fill">
+              <div >
+                <mat-select
+                  name="product_typeIdBrand"
+                  [(ngModel)]="Brand().product_typeId"
+                 
+                  #product_typeIdBrand="ngModel"
+                  required
+                >
+                @for (item of ProductTypes(); track item) {
+                    <mat-option [value]="item.id">{{item.name}}</mat-option>
+                  }
+                </mat-select>
+                
+              </div>
+            </mat-form-field>
+          </div>
+        
+
+
+
+
+
+
+
+
+        <!-----    ----------------- button gurop start           -->
+        <div class="btn-group" role="group">
+          <button
+            mat-flat-button
+            [disabled]="myForm.invalid "
+            color="primary"
+            (click)="save()"
+          >
+            Сохранить
+          </button>
+
+         
+          <button
+            mat-flat-button
+            color="accent"
+            
+            (click)="cancel()"
+          >
+            Отмена
+          </button>
+        </div>
+      </div>
+    </form>
+  
+ 
+</div>
+
+

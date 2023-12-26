@@ -9,22 +9,22 @@
     margin-right: 1rem;
   }
 
-.catalog-item {
+.article-item {
   display: block;
   margin-bottom: 0.3rem;
 }
 
-.catalog-name {
+.article-name {
   min-width: 150px;
 }
-.catalog-del {
+.article-del {
   color: var(--warn-color);
 }
-.catalog-edit {
+.article-edit {
   color: var(--primary-color);
 }
 
-.catalog-id {
+.article-id {
   color: var(--on-primary-color);
   background-color: var(--primary-color);
 }

@@ -1,0 +1,77 @@
+<p>brand-shell works!</p>
+
+
+<div class="_main-container">
+
+    <div *ngIf="message().error">
+    <div class="error">  {{message().message}}</div>
+    </div>
+    <!------------------->
+    
+    
+      @switch (flag) {
+      
+        @default {
+
+          <div class="select">
+            <mat-form-field>
+              <mat-label>выберите тип </mat-label>
+              <mat-select (selectionChange)="doSomething($event)" [(value)]="selected_product_typeId">
+                @for (item of product_typeIds(); track item.id) {
+                  <mat-option [value]="item.id">{{item.name}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+        <wsv2-brand-list
+          [Items]="brands"
+          [product_type_of_clientId]="product_type_of_clientId"
+          (brandChange)="onBrandChange($event)"
+        ></wsv2-brand-list>
+      }
+      <!--  Create template -->
+     
+        @case (5) {
+        <div class="item-show">
+          <h4 class="action-name">Создать Позицию  Бренда</h4>
+    
+          <wsv2-brand-item
+            [Item]="item"
+            [product_typeIds]="product_typeIds"
+            [flag]="flag"
+            (catalogModified)="brandModified($event)"
+          ></wsv2-brand-item>
+        
+        </div>
+      }
+  
+      <!--  Edit  template -->
+      
+        @case (4) {
+        <div class="item-show">
+          <h4 class="action-name">Редактировать Позицию  Бренда</h4>
+          <wsv2-brand-item
+            [Item]="item"
+            [product_typeIds]="product_typeIds"
+            [flag]="flag"
+            (catalogModified)="brandModified($event)"
+          ></wsv2-brand-item>
+        </div>
+       }
+      <!-- Delete template -->
+      
+        @case (7) {
+        <div class="item-show">
+          <h4 class="action-name">Удалить Позицию  Бренда</h4>
+          <wsv2-brand-item
+            [Item]="item"
+            [product_typeIds]="product_typeIds"
+            [flag]="flag"
+            (catalogModified)="brandModified($event)"
+          ></wsv2-brand-item>
+        </div>
+       }
+    }
+  </div>
+  
