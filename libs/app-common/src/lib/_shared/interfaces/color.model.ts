@@ -2,7 +2,8 @@
 
 export interface Color {
   id: number;
+  ownerId: string;
   name: string;
-  hidden:boolean;
-  postavchikId:number;
+  product_typeId: number;
+  hidden: boolean;
 }

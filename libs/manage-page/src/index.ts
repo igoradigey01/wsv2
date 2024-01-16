@@ -9,4 +9,6 @@ export { ArticleShellComponent } from './lib/article/article-shell.component';
 
 export { ProductTypeShellComponent } from './lib/product-type/product-type-shell.component';
 
-export {BrandShellComponent} from './lib/brand/brand-shell.component';
+export { BrandShellComponent } from './lib/brand/brand-shell.component';
+
+export * from './lib/color/color-shell.component';

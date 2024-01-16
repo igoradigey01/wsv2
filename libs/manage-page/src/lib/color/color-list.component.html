@@ -1,0 +1,56 @@
+<p>color-list works!</p>
+
+
+
+<div class="container mat-typography">
+    <h2 class="title">
+      <span class="mat-h2 tatle-name">Бренд</span>
+      <button mat-mini-fab color="warn" (click)="addPosition()">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="add icon"
+          fontIcon="add"
+        ></mat-icon>
+      </button>
+    </h2>
+    <div class="grid-container">
+    
+      @for ( item of Colors(); track item) {
+  
+      <div class="brand-item">
+        <mat-button-toggle-group>
+          <mat-button-toggle disabled class="brand-id">
+            {{ item.id }}
+          </mat-button-toggle>
+          <mat-button-toggle disabled class="brand-name">
+            {{ item.name }}</mat-button-toggle
+          >
+          <mat-button-toggle disabled class="brand-name">
+            {{ item.product_typeId }}</mat-button-toggle
+          >
+          <mat-button-toggle
+            #toggleEdit
+            class="brand-edit"
+            value="edit"
+            (change)="changePosition(toggleEdit.value, item)"
+            
+            >Edit</mat-button-toggle
+          >
+          <mat-button-toggle
+            #toggleDel
+            class="brand-del"
+            value="delete"
+            (change)="changePosition(toggleDel.value, item)"
+           
+          >
+            Del
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      } @empty {
+      <p class="text-lg"> Элементы не найдены!</p>
+      }
+      <!---->
+    </div>
+  </div>
+  
