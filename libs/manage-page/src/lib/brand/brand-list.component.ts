@@ -43,7 +43,10 @@ export class BrandListComponent {
   }
  
    
-   public  Brands =  computed(()=>  this.state());
+   public  Brands =  computed(()=> {
+    //console.log ( 'repository.Brands--brand-list'+JSON.stringify( this.state()))
+    
+    return this.state()});
    
 
 

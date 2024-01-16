@@ -78,7 +78,7 @@ export class ProductTypeService {
               productTypeItems: data,
               state: Status.load,
             }));
-            console.log("LoadProductTypes--"+JSON.stringify(data))
+           // console.log("LoadProductTypes--"+JSON.stringify(data))
           }),
           //https://angularindepth.com/posts/1518/takeuntildestroy-in-angular-v16
           takeUntilDestroyed(),

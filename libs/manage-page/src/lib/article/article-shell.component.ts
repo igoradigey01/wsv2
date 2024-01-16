@@ -43,7 +43,7 @@ export class ArticleShellComponent {
   //public selected_product_type =computed(()=>this.selected_product_typeId)
 
   public articles = computed(() => {
-    console.log('selected_product_typeId---' + this.state_selected());
+  //  console.log('.repository .Articles()---' + JSON.stringify( this.repository.Articles()));
     return this.repository
       .Articles()
       .filter((f) => f.product_typeId === this.state_selected());
@@ -110,7 +110,7 @@ export class ArticleShellComponent {
 
   // console.log( evnt.value);
    this.state_selected.update(()=> evnt.value) 
-     console.log("this.articles--"+JSON.stringify(this.articles()))
+    // console.log("this.articles--"+JSON.stringify(this.articles()))
 
   }
 

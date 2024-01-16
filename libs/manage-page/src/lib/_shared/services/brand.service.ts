@@ -52,6 +52,7 @@ export class BrandService {
     private url: ApiService,
     private userManager: UserManagerService //  private repozitory: EnvironmentService
   ) {
+    
     if (this.state().state === Status.empty) {
       this.LoadBrands();
     }
@@ -66,6 +67,7 @@ export class BrandService {
       .pipe(
         tap((data) => {
           //  this.state.update(() => data);
+         // console.log("brand-tap-load"+JSON.stringify(data))
           this.state.update((state) => ({
             ...state,
             brandItems: data,
@@ -102,7 +104,7 @@ export class BrandService {
       )
       .subscribe({
         error: (err: HttpErrorResponse) => {
-          console.error(err);
+          console.error(err.message);
           this.state.update((d) => ({
             ...d,
             brandItems: [...d.brandItems],

@@ -33,6 +33,7 @@
     margin-left: 0;
     margin-right: 0;
     grid-template-columns: 1fr;
+    justify-items: center;
 }
 
 @media (min-width: 750px) {
@@ -42,7 +43,8 @@
         width: 100%;
         margin-left: auto;
         margin-right: auto;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr ;
+        justify-items: center;
     }
 }
 @media (min-width: 960px) {

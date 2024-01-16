@@ -31,8 +31,9 @@ export interface EmitData {
   styleUrls: ['./brand-shell.component.scss'],
 })
 export class BrandShellComponent {
-  private state_selected=signal(1);
+  
   public selected_product_typeId =1;
+  private state_selected=signal(this.selected_product_typeId);
   public product_type_of_clientId=1;
 
   public flag = StateView.default;
@@ -40,12 +41,14 @@ export class BrandShellComponent {
    
   //public selected_product_type =computed(()=>this.selected_product_typeId)
 
-  public brands = computed(() => {
-    console.log('selected_product_typeId---' + this.state_selected());
-    return this.repository
-      .Brands()
-      .filter((f) => f.product_typeId === this.state_selected());
-  });
+  public brands = computed(() => 
+  // console.log ( 'repository.Brands'+JSON.stringify( this.repository.Brands()))
+  {  
+     const list= this.repository.Brands()    
+      .filter((d) => d.product_typeId === this.selected_product_typeId)
+    return list;
+  }
+  );
 
   public product_typeIds = this.repositoryProductType.ProductTypes;
 
@@ -73,7 +76,7 @@ export class BrandShellComponent {
         
     //console.log (repositoryProductType.ProductTypes())
     repository.ClearMessage();
-    //console.log (JSON.stringify( repository.Brands()))
+   
   }
 
   //----------------------
@@ -108,7 +111,7 @@ export class BrandShellComponent {
 
   // console.log( evnt.value);
    this.state_selected.update(()=> evnt.value) 
-     console.log("this.Brands--"+JSON.stringify(this.brands()))
+  //   console.log("this.Brands--"+JSON.stringify(this.brands()))
 
   }
 
