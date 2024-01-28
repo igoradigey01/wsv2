@@ -44,7 +44,9 @@ export class ColorService {
 
   private error_state = signal<Message>({ message: undefined, error: false });
 
-  readonly Colors = computed(() => this.state().colorItems);
+  readonly Colors = computed(() => {
+   // console.log("Color-tap-computed update"+JSON.stringify(this.state().colorItems))
+    return this.state().colorItems});
   readonly Message = computed(() => this.error_state());
 
   constructor(
@@ -55,6 +57,7 @@ export class ColorService {
     
     if (this.state().state === Status.empty) {
       this.LoadColors();
+      
     }
   }
 
@@ -67,10 +70,10 @@ export class ColorService {
       .pipe(
         tap((data) => {
           //  this.state.update(() => data);
-         // console.log("Color-tap-load"+JSON.stringify(data))
+         //console.log("Color-tap-load"+JSON.stringify(data))
           this.state.update((state) => ({
             ...state,
-            ColorItems: data,
+            colorItems: data,
             state: Status.load,
           }));
         }),
@@ -93,7 +96,7 @@ export class ColorService {
           if (data) {
             this.state.update((state) => ({
               ...state,
-              ColorItems: [...state.colorItems, data as Color],
+              colorItems: [...state.colorItems, data as Color],
               state: Status.load,
             }));
 
@@ -107,7 +110,7 @@ export class ColorService {
           console.error(err.message);
           this.state.update((d) => ({
             ...d,
-            ColorItems: [...d.colorItems],
+            colorItems: [...d.colorItems],
             queryAdd: [...d.queryAdd, item],
             state: Status.modify,
           }));
@@ -227,7 +230,7 @@ export class ColorService {
         console.log(res);
         this.state.update((d) => ({
           ...d,
-          ColorItems: newCatlogsList,
+          colorItems: newCatlogsList,
           state: Status.modify,
         }));
         this.error_state.update((m) => ({
@@ -240,7 +243,7 @@ export class ColorService {
 
         this.state.update((d) => ({
           ...d,
-          ColorItems: newCatlogsList,
+          colorItems: newCatlogsList,
           queryDelete: [...d.queryDelete, item],
           state: Status.modify,
         }));

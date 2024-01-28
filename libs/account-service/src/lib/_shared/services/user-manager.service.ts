@@ -1,4 +1,4 @@
-import { Injectable, signal, computed,effect } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import {  Observable } from 'rxjs';
@@ -154,6 +154,7 @@ export class UserManagerService {
   
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private refreshToken$= (accessToken: string): Observable<any> => {
 
     this.url.Controller = 'Account';

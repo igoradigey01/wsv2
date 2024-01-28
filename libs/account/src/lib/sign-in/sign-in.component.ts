@@ -206,6 +206,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     // this.router.navigate(['/auth/sing-off']);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onFileInput(event: any) {
     const data = event.target.files[0];
 

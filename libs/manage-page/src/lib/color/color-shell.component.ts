@@ -43,8 +43,8 @@ export class ColorShellComponent {
   //public selected_product_type =computed(()=>this.selected_product_typeId)
 
   public colors = computed(() => 
-  // console.log ( 'repository.Colors'+JSON.stringify( this.repository.Colors()))
-  {  
+   {  
+    // console.log ( 'repository.Colors'+JSON.stringify( this.repository.Colors()))
      const list= this.repository.Colors()    
       .filter((d) => d.product_typeId === this.selected_product_typeId)
     return list;
@@ -74,7 +74,7 @@ export class ColorShellComponent {
       this.selected_product_typeId=id;
       this.state_selected.update(()=>id) ;
     }); 
-        
+          console.log ( 'repository.Colors'+JSON.stringify( this.repository.Colors()))
     //console.log (repositoryProductType.ProductTypes())
     repository.ClearMessage();
    
