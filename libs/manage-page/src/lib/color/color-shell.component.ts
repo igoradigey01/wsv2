@@ -42,13 +42,10 @@ export class ColorShellComponent {
    
   //public selected_product_type =computed(()=>this.selected_product_typeId)
 
-  public colors = computed(() => 
-   {  
-    // console.log ( 'repository.Colors'+JSON.stringify( this.repository.Colors()))
-     const list= this.repository.Colors()    
-      .filter((d) => d.product_typeId === this.selected_product_typeId)
-    return list;
-  }
+  public colors = computed(() => this.repository
+  .Colors()
+  .filter((f) => f.product_typeId === this.state_selected())
+  
   );
 
   public product_typeIds = this.repositoryProductType.ProductTypes;

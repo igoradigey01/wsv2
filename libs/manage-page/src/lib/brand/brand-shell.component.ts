@@ -43,11 +43,11 @@ export class BrandShellComponent {
 
   public brands = computed(() => 
   // console.log ( 'repository.Brands'+JSON.stringify( this.repository.Brands()))
-  {  
-     const list= this.repository.Brands()    
-      .filter((d) => d.product_typeId === this.selected_product_typeId)
-    return list;
-  }
+
+  this.repository
+      .Brands()
+      .filter((f) => f.product_typeId === this.state_selected())
+ 
   );
 
   public product_typeIds = this.repositoryProductType.ProductTypes;
