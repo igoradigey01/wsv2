@@ -23,11 +23,13 @@
 
   @case (2) {
     <div  class="back-button"> 
-       <button mat-mini-fab  color="primary" (click)="backToCatalog()"> 
-        <mat-icon aria-hidden="false"  fontIcon="arrow_back"></mat-icon>
-      
-      
-      </button> </div>
+       
+      <button mat-mini-fab color="primary" (click)="backToCatalog()">
+        <mat-icon fontIcon="arrow_back" >home</mat-icon>
+      </button>
+    
+    
+    </div>
 
   <wsv2-sub-catalog-list
     [Items]="subCatalogs()"
