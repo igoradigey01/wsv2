@@ -11,6 +11,6 @@ export { ProductTypeShellComponent } from './lib/product-type/product-type-shell
 
 export { BrandShellComponent } from './lib/brand/brand-shell.component';
 
-export * from './lib/color/color-shell.component';
+export {ColorShellComponent} from './lib/color/color-shell.component';
 
-export * from './lib/product/product-shell.component';
+export {ProductShellComponent} from './lib/product/product-shell.component';
