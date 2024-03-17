@@ -17,6 +17,7 @@ export * from './lib/_shared/interfaces/button.model';
 export * from './lib/_shared/interfaces/brand.model';
 export * from './lib/_shared/interfaces/article.model';
 export * from './lib/_shared/interfaces/color.model';
+export * from './lib/_shared/interfaces/product_type.model'
 
 export * from './lib/_shared/services/theme-scss.services';
 

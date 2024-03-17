@@ -1,8 +1,14 @@
 import { Injectable, signal, computed } from '@angular/core';
 
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams,HttpErrorResponse,
+ } from '@angular/common/http';
 
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ApiService } from '@wsv2/app-config';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { UserManagerService } from '@wsv2/account-service';
+
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { Product, Status, Message } from '@wsv2/app-common';
 //import {Brand, Color,} from '@wsv2/shop-content'
 import { SubKatalogService } from './sub-katalog.service';
@@ -10,8 +16,9 @@ import { ArticleService } from './article.service';
 import { BrandService } from './brand.service';
 import { ColorService } from './color.service';
 import { ProductTypeService } from './product_type.service';
+import {KatlogService} from './katalog.servise'
 
-import { catchError, of, tap, map } from 'rxjs';
+import { catchError, of, tap, map,Observable, shareReplay } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 interface ProductListState {
@@ -41,13 +48,16 @@ export class ProductService {
   readonly Articles = this.articleRepository.Articles;
   readonly Brands = this.brandRepository.Brands;
   readonly Colors = this.colorRepository.Colors;
+  readonly Catalog=this.katalogRepository.Katalogs;
+  readonly SubCatalog=this.subKatalogRepository.SubCatalogs;
 
   readonly TypeProducts = this.product_typeRepository.ProductTypes;
 
   readonly Products = computed(() => this.state().productItems);
   readonly Message = computed(() => this.error_state());
 
-  ProductItem = signal<Product>({
+
+ /*  ProductItem = signal<Product>({
     id: 0,
     guid: undefined,
     img_guids: undefined,
@@ -74,25 +84,29 @@ export class ProductService {
     description: undefined,
 
     descriptionSeo: undefined,
-  });
+  }); */
 
-  private LoadSubCatalogProduct(idSubCatlog: number) {
-    this.SubCatalogProduct$(idSubCatlog);
-  }
+ 
 
-  public ReLoadSubCatalogProduct(idSubCatlog: number) {
-    this.SubCatalogProduct$(idSubCatlog);
-  }
+  
 
   constructor(
     private _http: HttpClient,
     private url: ApiService,
+    private userManager: UserManagerService,
     private subKatalogRepository: SubKatalogService,
+    private katalogRepository:KatlogService,
     private articleRepository: ArticleService,
     private colorRepository: ColorService,
     private brandRepository: BrandService,
     private product_typeRepository: ProductTypeService
   ) {}
+
+
+
+  public LoadSubCatalogProduct(idSubCatlog: number) {
+    this.SubCatalogProduct$(idSubCatlog);
+  }
 
   private SubCatalogProduct$ = (idSubKatlog: number): void => {
     this.url.Controller = 'Product';
@@ -176,8 +190,215 @@ export class ProductService {
   }; 
 
 
+  public Create = (item: Product) => {
+    this.Create$(item)
+      .pipe(
+        shareReplay(1), // последнее для всех (один раз!!! )item довавить в state
+        tap((data) => {
+          if (data) {
+            this.state.update((state) => ({
+              ...state,
+              productItems: [...state.productItems, data as Product],
+              state: Status.load,
+            }));
 
- 
+            ;
+          }
+          console.log(' Create--(data-tap -Product-1)' + JSON.stringify(data))
+        })
+      )
+      .subscribe({
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this.state.update((d) => ({
+            ...d,
+            productItems: [...d.productItems],
+            queryAdd: [...d.queryAdd, item],
+            state: Status.modify,
+          }));
+          this.error_state.update((m) => ({ ...m, error: true }));
+          if (err.status === 401) {
+            this.error_state.update((m) => ({
+              ...m,
+              message: 'пользователь не авторизован,войдите на сайт',
+            }));
+            return;
+          }
+          if (err.status == 400) {
+            this.error_state.update((m) => ({ ...m, message: err.error }));
+            return;
+          }
 
- 
+          this.error_state.update((m) => ({
+            ...m,
+            message:
+              'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса',
+          }));
+          return;
+        },
+      });
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private Create$ = (item: Product): Observable<any> => {
+   //debugger
+    this.url.Controller = 'Product';
+    this.url.Action = 'Create';
+    this.url.ID = null;
+    item.ownerId = this.url.ClientId;
+    const headers: HttpHeaders = new HttpHeaders({
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + this.userManager.AccessToken(),
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return this._http.post<any>(this.url.Url, item, {
+     
+      headers,
+    });
+  };
+
+  public Update = (item: Product) => {
+    // new Error("Протестировать правильность работы метода")
+    this.Update$(item).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.state.update((d) => ({
+          ...d,
+
+          state: Status.modify,
+        }));
+        this.error_state.update((m) => ({
+          ...m,
+          message: 'The status was updated successfully!',
+        }));
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+        this.state.update((d) => ({
+          ...d,
+          queryUpdate: [...d.queryUpdate, item],
+          state: Status.modify,
+        }));
+        this.error_state.update((m) => ({ ...m, error: true }));
+        if (err.status === 401) {
+          this.error_state.update((m) => ({
+            ...m,
+            message: 'пользователь не авторизован,войдите на сайт',
+          }));
+          return;
+        }
+        if (err.status == 400) {
+          this.error_state.update((m) => ({ ...m, message: err.error }));
+          return;
+        }
+
+        this.error_state.update((m) => ({
+          ...m,
+          message:
+            'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса',
+        }));
+        return;
+      },
+    });
+  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private Update$ = (item: Product): Observable<any> => {
+    // throw new Error("not implemint exeption");
+    this.url.Controller = 'Product';
+    this.url.Action = 'Update';
+    this.url.ID = item.id;
+    item.ownerId = this.url.ClientId;
+    //  debugger
+    const headers: HttpHeaders = new HttpHeaders({
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + this.userManager.AccessToken(),
+    });
+
+    //new Response(fd).text().then(console.log);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return this._http.put<any>(this.url.Url, item, {
+      headers,
+    });
+  };
+
+  public UpdateIgnoreImg=(item:Product)=>{
+    console.log(' - UpdateIgnoreImg -Product-)' + JSON.stringify(item))
+    throw Error("NOt impiment Exeption")
+  }
+
+  public UpdateOnlyImg=(item:Product)=>{
+    console.log(' - UpdateOnlyImg -Product-)' + JSON.stringify(item))
+    throw Error("NOt impiment Exeption")
+  }
+
+  public Delete = (item: Product) => {
+    const newCatlogsList = this.state().productItems.filter(
+      (d) => d.id !== item.id
+    );
+
+    this.Delete$(item.id).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.state.update((d) => ({
+          ...d,
+          productItems: newCatlogsList,
+          state: Status.modify,
+        }));
+        this.error_state.update((m) => ({
+          ...m,
+          message: 'The status was updated successfully!',
+        }));
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+
+        this.state.update((d) => ({
+          ...d,
+          productItems: newCatlogsList,
+          queryDelete: [...d.queryDelete, item],
+          state: Status.modify,
+        }));
+        this.error_state.update((m) => ({ ...m, error: true }));
+        if (err.status === 401) {
+          this.error_state.update((m) => ({
+            ...m,
+            message: 'пользователь не авторизован,войдите на сайт',
+          }));
+          return;
+        }
+        if (err.status == 400) {
+          this.error_state.update((m) => ({ ...m, message: err.error }));
+          return;
+        }
+
+        this.error_state.update((m) => ({
+          ...m,
+          message:
+            'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса',
+        }));
+        return;
+      },
+    });
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private Delete$ = (id: number): Observable<any> => {
+    this.url.Controller = 'Product';
+    this.url.Action = 'Delete';
+    this.url.ID = id;
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + this.userManager.AccessToken(),
+    });
+    // let url: string = this._url.Url+'/'+id;
+    return this._http.delete(this.url.Url, {
+      headers,
+    });
+  };
+
+  public ClearMessage() {
+    this.error_state.update((m) => ({ ...m, message: '', error: false }));
+  } 
 }
