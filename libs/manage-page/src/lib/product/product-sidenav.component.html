@@ -1,5 +1,32 @@
-<p>product-sidenav works!</p>
-<mat-drawer-container class="example-container">
-    <mat-drawer mode="side" opened>Drawer content</mat-drawer>
-    <mat-drawer-content>Main content</mat-drawer-content>
+
+<mat-drawer-container class="container">
+    <mat-drawer mode="side" opened>
+   
+      Drawer content
+      <ul class=" list-catalog" >
+        @for (item of catalogs(); track item.id) {
+              <li
+              (click)="changeCagalog(item.id)"
+              >{{ item.name }}</li>
+        }
+    </ul>
+    
+    
+    
+    </mat-drawer>
+    <mat-drawer-content>
+  
+      <div class=" list-subCatalog">
+        @for (item of subCatalogsSelect(); track item.id) {
+          <button mat-stroked-button color="primary"
+          (click)="changeSubCagalog(item.id)"
+          >{{ item.name }}</button>
+
+    }
+      
+      </div>
+
+
+
+    </mat-drawer-content>
   </mat-drawer-container>

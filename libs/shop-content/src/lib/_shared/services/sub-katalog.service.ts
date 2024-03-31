@@ -16,9 +16,9 @@ import { SubKatalog, Message, Status } from '@wsv2/app-common';
 import { UserManagerService } from '@wsv2/account-service';
 
 interface SubCatalogListState {
-  allItems: SubKatalog[];
+  //allItems: SubKatalog[];
   subCatalogItems: SubKatalog[];
-  idCatalog: number;
+//  idCatalog: number;
   queryAdd: SubKatalog[];
   queryUpdate: SubKatalog[];
   queryDelete: SubKatalog[];
@@ -31,9 +31,9 @@ interface SubCatalogListState {
 })
 export class SubKatalogService {
   private state = signal<SubCatalogListState>({
-    allItems: [],
+   // allItems: [],
     subCatalogItems: [],
-    idCatalog: 0,
+ //   idCatalog: 0,
     queryAdd: [],
     queryUpdate: [],
     queryDelete: [],
@@ -41,7 +41,7 @@ export class SubKatalogService {
   });
   private error_state = signal<Message>({ message: undefined, error: false });
 
-  readonly SubCatalogs = computed(() => this.state().subCatalogItems);
+    SubCatalogs = computed(() =>{ return this.state().subCatalogItems});
   readonly Message = computed(() => this.error_state());
 
   constructor(
@@ -53,7 +53,7 @@ export class SubKatalogService {
     // console.log("subCatalog-load:"+JSON.stringify(this.state().allItems));
     if (this.state().state === Status.empty) {
       this.LoadSubCatlaogs();
-      console.log("subCatalog-load:" + JSON.stringify(this.state().allItems));
+      console.log("subCatalog-load:" + JSON.stringify(this.state().subCatalogItems));
     }
 
   }
@@ -78,11 +78,11 @@ export class SubKatalogService {
             const _data = data as SubKatalog[];
             this.state.update((state) => ({
               ...state,
-              allItems: _data,
-              subCatalogItems: [],
+             // allItems: _data,
+              subCatalogItems: _data,
               state: Status.load,
             }));
-            // console.log("subCatalog-load:"+JSON.stringify(data) );
+             console.log("subCatalog-load:"+JSON.stringify(data) );
           }
         }
         ),
@@ -130,8 +130,8 @@ export class SubKatalogService {
             const subCatalog = data as SubKatalog
             this.state.update((state) => ({
               ...state,
-              allItems: [...state.allItems, subCatalog],
-              subCatalogItems: [...state.allItems, subCatalog],
+             // allItems: [...state.subCatalogItems, subCatalog],
+              subCatalogItems: [...state.subCatalogItems, subCatalog],
               state: Status.load,
             }));
            
@@ -148,7 +148,7 @@ export class SubKatalogService {
           console.error(err);
           this.state.update((d) => ({
             ...d,
-            allItems: [...d.allItems],
+          //  allItems: [...d.allItems],
             queryAdd: [...d.queryAdd, item],
             state: Status.modify,
           }));
@@ -266,7 +266,7 @@ export class SubKatalogService {
 
   public Delete = (item: SubKatalog) => {
 
-    const newCatlogsList = this.state().allItems.filter(
+    const newCatlogsList = this.state().subCatalogItems.filter(
       (d) => d.id !== item.id
     );
 
@@ -280,7 +280,7 @@ export class SubKatalogService {
         (d) => d.id !==del_item.id
       );
 
-       const new_sub_allItems=this.state().allItems.filter(
+       const new_sub_allItems=this.state().subCatalogItems.filter(
         (d) => d.id !==del_item.id
       );
 
@@ -349,7 +349,7 @@ export class SubKatalogService {
     this.error_state.update((m) => ({ ...m, message: '', error: false }));
   }
 
-  SubKatalogsSet = (idKatalog: number): void => {
+/*   SubKatalogsSet = (idKatalog: number): void => {
     // console.log("subCatalog-load:"+JSON.stringify(this.state().allItems));
 
     // const id=+idKatalog;
@@ -361,5 +361,5 @@ export class SubKatalogService {
       idCatalog: idKatalog
     }))
 
-  };
+  }; */
 }

@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { Component ,OnInit, ChangeDetectionStrategy} from '@angular/core';
+import { Component ,OnInit, ChangeDetectionStrategy, computed} from '@angular/core';
 import { Router ,ActivatedRoute } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
@@ -22,8 +22,10 @@ export class SubCatalogComponent  implements OnInit{
 
  
 
-  subkatalogs = this._repository.SubCatalogs;
-    idKatatlog:string|undefined;
+    subkatalogsSelect = computed(() =>
+    this._repository.SubCatalogs().filter((f) => f.catalogId === +this.idKatatlog)
+  );;
+    idKatatlog=-1;
 
 
   constructor(
@@ -33,12 +35,12 @@ export class SubCatalogComponent  implements OnInit{
     ) {
    //   = this.route.snapshot.queryParams['id'];
    //  this.idKatatlog=this._repository.idKatatlog
-      routeActvate.params.subscribe(params=>this.idKatatlog= params['id']);
-      if(this.idKatatlog){
+      routeActvate.params.subscribe(params=>this.idKatatlog= +params['id']);
+     /*  if(this.idKatatlog){
       
         this._repository.SubKatalogsSet(+this.idKatatlog);
       }
-
+ */
      }
 
   ngOnInit(): void {

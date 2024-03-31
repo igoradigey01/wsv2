@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 //import {ProductType} from '../_shared/interfaces/product_type.model'
 import {MatTableModule} from '@angular/material/table';
-import {ProductTypeService} from '../_shared/services/product_type.service'
+import {ProductTypeService} from '@wsv2/shop-content'
 
 @Component({
   selector: 'wsv2-product-type-shell',

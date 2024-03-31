@@ -1,4 +1,4 @@
-<p>product-shell works!</p>
+
 
 
 <div class="_main-container">
@@ -9,72 +9,44 @@
   
     @switch (flag) { @default {
   
-    <wsv2-katalog-button
-      [items]="catalogs()"
-      [componetVisible]="true"
-      [flagButtonId]="true"
-      [flagButtonOpacity]="false"
-      [flagBackgroundImg]="false"
-      [timer]="10000"
-      (_onSelectButton)="onCatalogChange($event)"
-    ></wsv2-katalog-button>
+    <wsv2-product-sidenav
+      [Catalogs]="catalogs"
+      [SubCatalogs]="subCatalogs"
+      [EmitData]="emitData"
+      
+      (SubCatalogChange)="onSubCatalogChange($event)"
+    ></wsv2-product-sidenav>
   
     }
     <!--  Create template -->
   
     @case (2) {
-      <div  class="back-button"> 
-         
-        <button mat-mini-fab color="primary" (click)="backToCatalog()">
-          <mat-icon fontIcon="arrow_back" >home</mat-icon>
-        </button>
-      
-      
+      <div class="item-show">
+        <h4 class="action-name" >Создать Позицию Товара</h4>
+        
       </div>
-  
-    <wsv2-sub-catalog-list
-      [Items]="subCatalogs()"
-      [Catalog]="parent"
-      (catalogChange)="onSubCatalogChange($event)"
-    ></wsv2-sub-catalog-list>
-  
-    } @case (5) {
-    <div class="item-show">
-      <h4 class="action-name">Создать Позицию Каталога</h4>
-  
-      <wsv2-sub-catalog-item
-        [Item]="item"
-        [Catalog]="parent"
-        [flag]="flag"
-        (catalogModified)="catalogModified($event)"
-      ></wsv2-sub-catalog-item>
-    </div>
+      
     }
   
     <!--  Edit  template -->
   
     @case (4) {
     <div class="item-show">
-      <h4 class="action-name" >Редактировать Позицию Каталога</h4>
-      <wsv2-sub-catalog-item
-        [Item]="item"
-        [Catalog]="parent"
-        [flag]="flag"
-        (catalogModified)="catalogModified($event)"
-      ></wsv2-sub-catalog-item>
+      <h4 class="action-name" >Редактировать Позицию Товара</h4>
+      
     </div>
     }
-    <!-- Delete template -->
-  
+    @case (5) {
+      <div class="item-show">
+        <h4 class="action-name" >Создать Позицию Товара</h4>
+        
+      </div>
+      
+    }
     @case (7) {
     <div class="item-show">
-      <h4 class="action-name">Удалить Позицию Каталога</h4>
-      <wsv2-sub-catalog-item
-        [Item]="item"
-        [Catalog]="parent"
-        [flag]="flag"
-        (catalogModified)="catalogModified($event)"
-      ></wsv2-sub-catalog-item>
+      <h4 class="action-name">Удалить Позицию Товара</h4>
+     
     </div>
     } }
   </div>

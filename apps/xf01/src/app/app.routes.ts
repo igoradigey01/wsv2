@@ -115,6 +115,12 @@ export const appRoutes: Route[] = [
         loadComponent: () =>
           import('@wsv2/manage-page').then((m) => m.ProductTypeShellComponent),
       },
+      
+      {
+        path: 'product',
+        loadComponent: () =>
+          import('@wsv2/manage-page').then((m) => m.ProductShellComponent),
+      },
       {
         path: 'info',
         loadComponent: () =>

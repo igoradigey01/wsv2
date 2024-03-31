@@ -5,8 +5,8 @@ import { StateView } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { Article } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { ArticleService } from '../_shared/services/article.service';
-import { ProductTypeService } from '../_shared/services/product_type.service';
+import { ArticleService } from '@wsv2/shop-content';
+import { ProductTypeService } from '@wsv2/shop-content';
 import { ArticleListComponent } from './article-list.component';
 import { ArticleItemComponent } from './article-item.component';
 import { MatSelectModule } from '@angular/material/select';

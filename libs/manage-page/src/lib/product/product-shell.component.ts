@@ -1,8 +1,8 @@
-import { Component, computed } from '@angular/core';
+import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 //import { StateView } from '@wsv2/app-common';
-import { SubKatalog, Katalog, IButton } from '@wsv2/app-common';
-import { KatlogService, SubKatalogService } from '@wsv2/shop-content';
+import { SubKatalog, Katalog, Product } from '@wsv2/app-common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -10,22 +10,22 @@ import { KatalogComponent } from '@wsv2/ui';
 import { ProductItemComponent } from './product-item.component';
 import { ProductListComponent } from './product-list.component';
 import {ProductSidenavComponent} from './product-sidenav.component'
+import {ProductService} from '@wsv2/shop-content'
 
 export enum StateView {
-  default = 0, // catalogVeiw
-  // catalogVeiw=1,
-  subCatalogView = 2,
-  itemView = 3,
+  default = 0, // sidenav
+  listView = 2,
+ 
   edit = 4,
-  create = 5,
-  wait = 6, // ожидание
+  create = 5,  
   delete = 7,
-  exit = 8,
+  
 }
 
 export interface EmitData {
-  catalog: Katalog;
-  subCatalog: SubKatalog;
+  catalogId: number;
+  subCatalogId: number;
+  product:Product;
   stateView: StateView;
 }
 
@@ -40,6 +40,7 @@ export interface EmitData {
     KatalogComponent,
     MatButtonModule,
     MatIconModule,
+    
   ],
   templateUrl: './product-shell.component.html',
   styleUrls: ['./product-shell.component.scss'],
@@ -47,11 +48,16 @@ export interface EmitData {
 export class ProductShellComponent {
 
   public flag = StateView.default;
+  public emitData=<EmitData>{catalogId:0,subCatalogId:0,stateView:StateView.default}
 
-  public catalogs = this.repositoryCatalog.Katalogs;
-  public subCatalogs = computed(() => this.repositorySubCatalog.SubCatalogs());
+  public  readonly catalogs = this.repositoryProduct.Catalogs;
+  public readonly subCatalogs = this.repositoryProduct.SubCatalogs;
+   /* computed(() => this.repositoryProduct.SubCatalogs() 
+  .filter((f) => f.catalogId === this.emitData.catalogId)  
+  ); */
+   
 
-  public message = this.repositorySubCatalog.Message;
+  public readonly message = this.repositoryProduct.Message;
 
   public item = <SubKatalog>{
     id: 0,
@@ -71,50 +77,20 @@ export class ProductShellComponent {
   };
 
   constructor(
-    private repositoryCatalog: KatlogService,
-    private repositorySubCatalog: SubKatalogService
+    private repositoryProduct: ProductService,
+    
   ) {
-    repositorySubCatalog.ClearMessage();
-  }
-
-  public onCatalogChange(event: IButton) {
-    //debugger
-
-    this.repositorySubCatalog.SubKatalogsSet(event.id!);
-
-    this.parent = this.catalogs().find((c) => c.id == event.id) as Katalog ;
-
-    // console.log( "catalogs ---"+ JSON.stringify( this.catalogs()));
-    // console.log( "this.parent ---"+ JSON.stringify( this.parent));
-
-    this.flag = StateView.subCatalogView;
+    repositoryProduct.ClearMessage();
   }
 
   public onSubCatalogChange(event: EmitData) {
-    this.item = event.subCatalog;
-    this.flag = event.stateView;
+    //debugger
+    this.emitData=event;
+    this.flag=StateView.listView;
+    
   }
 
-  public catalogModified(event: EmitData) {
-    // debugger
-    if (event.stateView === StateView.create) {
-      //  debugger
-
-      this.repositorySubCatalog.Create(event.subCatalog);
-      this.flag = StateView.default;
-    }
-    if (event.stateView === StateView.edit) {
-      this.repositorySubCatalog.Update(event.subCatalog);
-      this.flag = StateView.default;
-    }
-    if (event.stateView === StateView.exit) {
-      this.flag = StateView.default;
-    }
-    if (event.stateView === StateView.delete) {
-      this.repositorySubCatalog.Delete(event.subCatalog);
-      this.flag = StateView.default;
-    }
-  }
+ 
 
   public backToCatalog() {
     this.flag = StateView.default;

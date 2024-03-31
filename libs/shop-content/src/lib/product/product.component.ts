@@ -89,7 +89,7 @@ export class ProductComponent {
     routeActvate.params.subscribe((params) => (this.idSubKatatlog = params['id']));
 
     if (this.idSubKatatlog) {
-      _repositoryProduct.PoductsSet(this.idSubKatatlog)
+     // _repositoryProduct.PoductsSet(this.idSubKatatlog)//17.03.25
     }
    
 
@@ -143,8 +143,8 @@ export class ProductComponent {
    // debugger
     if(idProduct){
       this._subKatalogProductItemUrl='';
-    this._repositoryProduct.PoductsItemSet(idProduct);
-    this.itemProduct=this._repositoryProduct.ProductItem;
+  //  this._repositoryProduct.PoductsItemSet(idProduct);//17.03.25
+   // this.itemProduct=this._repositoryProduct.ProductItem; //17.03.25
    this._subKatalogProductItemUrl=this._subKatalogProductsUrl;
 
       this.flagViewState=StateView.itemView;

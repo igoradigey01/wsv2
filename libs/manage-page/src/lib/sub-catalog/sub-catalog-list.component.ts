@@ -1,4 +1,4 @@
-import { Component ,signal,computed } from '@angular/core';
+import { Component ,signal,computed, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Input, Output, EventEmitter } from '@angular/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -23,7 +23,8 @@ export class SubCatalogListComponent {
 
   @Output() public catalogChange = new EventEmitter<EmitData>();
 
-  private state = signal<SubKatalog[]>([]);
+  private state:Signal<SubKatalog[]> = signal<SubKatalog[]>([]);
+ 
   private catalog=<Katalog>{
     id: 0,
     hidden: false,
@@ -34,9 +35,9 @@ export class SubCatalogListComponent {
 
    
   
-   @Input() set Items(item: SubKatalog[]) {
+   @Input({required:true}) set Items(items: Signal< SubKatalog[]> ) {
     
-     this.state.update(()=>item);
+     this.state=items;
    }
 
    @Input() set Catalog(item: Katalog) {

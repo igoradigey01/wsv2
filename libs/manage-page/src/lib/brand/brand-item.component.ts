@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { Brand } from '@wsv2/app-common';
-import {ProductType} from '../_shared/interfaces/product_type.model' 
+import {ProductType} from '@wsv2/app-common' 
 import { EmitData } from './brand-shell.component';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { StateView } from '@wsv2/app-common';

@@ -1,6 +1,20 @@
-.example-container {
-    width: 400px;
-    height: 200px;
+.container {
+    width: auto;
+    min-height: 500px;
     margin: 10px;
     border: 1px solid #555;
   }
+
+
+.list-catalog{
+    padding:0;
+    list-style: none;
+}
+.list-catalog li{
+  padding:1px;
+}
+
+.list-catalog li:hover {
+  color: var(--primary-color);
+  
+}    

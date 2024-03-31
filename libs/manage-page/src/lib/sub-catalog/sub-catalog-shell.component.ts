@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed} from '@angular/core';
 import { CommonModule } from '@angular/common';
 //import { StateView } from '@wsv2/app-common';
 import { SubKatalog, Katalog, IButton } from '@wsv2/app-common';
@@ -43,10 +43,13 @@ export interface EmitData {
   styleUrls: ['./sub-catalog-shell.component.scss'],
 })
 export class SubCatalogShellComponent {
+  private idCatalogAktive=-1;
+  //private state_Catalog=signal(this.idCatalogAktive); 
   public flag = StateView.default;
 
   public catalogs = this.repositoryCatalog.Katalogs;
-  public subCatalogs = computed(() => this.repositorySubCatalog.SubCatalogs());
+
+  public subCatalogs = computed(() => this.repositorySubCatalog.SubCatalogs().filter(s=>s.catalogId===this.idCatalogAktive));
 
   public message = this.repositorySubCatalog.Message;
 
@@ -77,7 +80,8 @@ export class SubCatalogShellComponent {
   public onCatalogChange(event: IButton) {
     //debugger
 
-    this.repositorySubCatalog.SubKatalogsSet(event.id!);
+  //  this.repositorySubCatalog.SubCatalogs              //SubKatalogsSet(event.id!);
+  this.idCatalogAktive= event.id!;
 
     this.parent = this.catalogs().find((c) => c.id == event.id) as Katalog ;
 

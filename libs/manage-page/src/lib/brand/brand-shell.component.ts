@@ -5,8 +5,8 @@ import { StateView } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { Brand } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { BrandService} from '../_shared/services/brand.service';
-import { ProductTypeService } from '../_shared/services/product_type.service';
+import { BrandService} from '@wsv2/shop-content';
+import { ProductTypeService } from '@wsv2/shop-content';
 import {BrandListComponent } from './brand-list.component';
 import { BrandItemComponent } from './brand-item.component';
 import { MatSelectModule } from '@angular/material/select';

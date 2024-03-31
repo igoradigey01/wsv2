@@ -1,6 +1,9 @@
 import { Injectable, signal, computed } from '@angular/core';
 
-import { HttpClient, HttpHeaders, HttpParams,HttpErrorResponse,
+import { HttpClient,
+   HttpHeaders, 
+ // HttpParams,
+  HttpErrorResponse,
  } from '@angular/common/http';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -18,8 +21,8 @@ import { ColorService } from './color.service';
 import { ProductTypeService } from './product_type.service';
 import {KatlogService} from './katalog.servise'
 
-import { catchError, of, tap, map,Observable, shareReplay } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { tap, Observable, shareReplay } from 'rxjs';
+//import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 interface ProductListState {
   productItems: Product[];
@@ -48,8 +51,9 @@ export class ProductService {
   readonly Articles = this.articleRepository.Articles;
   readonly Brands = this.brandRepository.Brands;
   readonly Colors = this.colorRepository.Colors;
-  readonly Catalog=this.katalogRepository.Katalogs;
-  readonly SubCatalog=this.subKatalogRepository.SubCatalogs;
+  readonly Catalogs=this.katalogRepository.Katalogs;
+  readonly SubCatalogs=this.subKatalogRepository.SubCatalogs;
+  readonly serverUrl=this.url.ServerUri;
 
   readonly TypeProducts = this.product_typeRepository.ProductTypes;
 
@@ -104,7 +108,7 @@ export class ProductService {
 
 
 
-  public LoadSubCatalogProduct(idSubCatlog: number) {
+ /*  public LoadSubCatalogProduct(idSubCatlog: number) {
     this.SubCatalogProduct$(idSubCatlog);
   }
 
@@ -187,7 +191,7 @@ export class ProductService {
       .subscribe();
 
     ///------------------------------------
-  }; 
+  };  */
 
 
   public Create = (item: Product) => {
