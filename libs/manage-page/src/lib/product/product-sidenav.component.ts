@@ -23,9 +23,9 @@ export class ProductSidenavComponent {
 
   public idCatalogActive = 0;
 
-  public readonly subCatalogsSelect = computed(() =>
-    this.stateSubCatalogs().filter((f) => f.catalogId === this.idCatalogActive)
-  );
+  // public readonly subCatalogsSelect = computed(() =>
+  //   this.stateSubCatalogs().filter((f) => f.catalogId === this.idCatalogActive)
+  // );
 
   @Input({ required: true }) set Catalogs(items: Signal<Katalog[]>) {
     this.stateCatalogs = items;
@@ -33,7 +33,7 @@ export class ProductSidenavComponent {
 
   @Input({ required: true }) set SubCatalogs(items: Signal<SubKatalog[]>) {
     this.stateSubCatalogs = items;
-    console.log(JSON.stringify(items))
+    //console.log( "Input product-sidebar"+  JSON.stringify(items))
   }
 
   @Input({ required: true }) set EmitData(item: EmitData) {
@@ -49,7 +49,7 @@ export class ProductSidenavComponent {
 
   changeCagalog(item: number) {
     this.idCatalogActive = item;
-    console.log(JSON.stringify(this.subCatalogsSelect))
+   // console.log(JSON.stringify(this.subCatalogsSelect))
   }
   changeSubCagalog(item:number){
     this.emitData.catalogId=this.idCatalogActive;

@@ -81,6 +81,7 @@ export class ProductShellComponent {
     
   ) {
     repositoryProduct.ClearMessage();
+   // console.log( "constructor product-shell"+  JSON.stringify(repositoryProduct.SubCatalogs))
   }
 
   public onSubCatalogChange(event: EmitData) {

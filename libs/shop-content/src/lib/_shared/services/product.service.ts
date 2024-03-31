@@ -104,7 +104,11 @@ export class ProductService {
     private colorRepository: ColorService,
     private brandRepository: BrandService,
     private product_typeRepository: ProductTypeService
-  ) {}
+  ) {
+
+    console.log( "Input product-service subCatalog"+  JSON.stringify(subKatalogRepository.SubCatalogs))
+    console.log( "Input product-service Catalog"+  JSON.stringify(katalogRepository.Katalogs))
+  }
 
 
 

@@ -41,7 +41,7 @@ export class SubKatalogService {
   });
   private error_state = signal<Message>({ message: undefined, error: false });
 
-    SubCatalogs = computed(() =>{ return this.state().subCatalogItems});
+    SubCatalogs = computed(() =>this.state().subCatalogItems);
   readonly Message = computed(() => this.error_state());
 
   constructor(
@@ -53,8 +53,9 @@ export class SubKatalogService {
     // console.log("subCatalog-load:"+JSON.stringify(this.state().allItems));
     if (this.state().state === Status.empty) {
       this.LoadSubCatlaogs();
-      console.log("subCatalog-load:" + JSON.stringify(this.state().subCatalogItems));
+    
     }
+    console.log("condtructor subCatalog-service:" + JSON.stringify(this.state().subCatalogItems));
 
   }
 
@@ -75,14 +76,14 @@ export class SubKatalogService {
       .pipe(
         tap((data) => {
           if (data) {
-            const _data = data as SubKatalog[];
+            //const _data = data as SubKatalog[];
             this.state.update((state) => ({
               ...state,
              // allItems: _data,
-              subCatalogItems: _data,
+              subCatalogItems: data,
               state: Status.load,
             }));
-             console.log("subCatalog-load:"+JSON.stringify(data) );
+           //  console.log("subCatalog-load:"+JSON.stringify(data) );
           }
         }
         ),
