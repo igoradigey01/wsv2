@@ -1,10 +1,8 @@
 import { Injectable, signal, computed } from '@angular/core';
 
-import { HttpClient,
-   HttpHeaders, 
- // HttpParams,
-  HttpErrorResponse,
- } from '@angular/common/http';
+import { HttpClient, HttpHeaders, 
+// HttpParams,
+HttpErrorResponse } from '@angular/common/http';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { ApiService } from '@wsv2/app-config';
@@ -106,8 +104,8 @@ export class ProductService {
     private product_typeRepository: ProductTypeService
   ) {
 
-    console.log( "Input product-service subCatalog"+  JSON.stringify(subKatalogRepository.SubCatalogs))
-    console.log( "Input product-service Catalog"+  JSON.stringify(katalogRepository.Katalogs))
+  //  console.log( "Input product-service subCatalog"+  JSON.stringify(subKatalogRepository.SubCatalogs))
+   // console.log( "Input product-service Catalog"+  JSON.stringify(katalogRepository.Katalogs))
   }
 
 
@@ -212,7 +210,7 @@ export class ProductService {
 
             ;
           }
-          console.log(' Create--(data-tap -Product-1)' + JSON.stringify(data))
+        //  console.log(' Create--(data-tap -Product-1)' + JSON.stringify(data))
         })
       )
       .subscribe({
@@ -269,8 +267,8 @@ export class ProductService {
   public Update = (item: Product) => {
     // new Error("Протестировать правильность работы метода")
     this.Update$(item).subscribe({
-      next: (res) => {
-        console.log(res);
+      next: () => {
+      //  console.log(res);
         this.state.update((d) => ({
           ...d,
 
@@ -346,8 +344,8 @@ export class ProductService {
     );
 
     this.Delete$(item.id).subscribe({
-      next: (res) => {
-        console.log(res);
+      next: () => {
+        //console.log(res);
         this.state.update((d) => ({
           ...d,
           productItems: newCatlogsList,
@@ -359,7 +357,7 @@ export class ProductService {
         }));
       },
       error: (err: HttpErrorResponse) => {
-        console.error(err);
+       // console.error(err);
 
         this.state.update((d) => ({
           ...d,

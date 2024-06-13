@@ -3,8 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shop-order/src",
   "prefix": "wsv2",
-  "tags": ["01app-shop-order-lib", "type:01-lib"],
   "projectType": "library",
+  "tags": ["01app-shop-order-lib", "type:01-lib"],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
@@ -38,14 +38,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/shop-order/**/*.ts",
-          "libs/shop-order/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   }
 }

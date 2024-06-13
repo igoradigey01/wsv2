@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/hadjoh01/src",
   "prefix": "wsv2",
+  "tags": ["scope:hadjoh01", "type:app"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -71,11 +72,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/hadjoh01/**/*.ts", "apps/hadjoh01/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -91,6 +88,5 @@
         }
       }
     }
-  },
-  "tags": ["scope:hadjoh01", "type:app"]
+  }
 }

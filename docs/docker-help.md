@@ -25,7 +25,7 @@
    //docker run _container 
    docker-compose up web
   ```
-
+ - sudo service docker start
 
 ## Install docker on Host vps (виртуальный сервер у провайдера)
 

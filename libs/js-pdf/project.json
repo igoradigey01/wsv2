@@ -4,6 +4,7 @@
   "sourceRoot": "libs/js-pdf/src",
   "prefix": "wsv2",
   "projectType": "library",
+  "tags": ["01app-js-pdf-lib", "type:01-lib"],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
@@ -37,12 +38,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/js-pdf/**/*.ts", "libs/js-pdf/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["01app-js-pdf-lib", "type:01-lib"]
+  }
 }

@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/app-common/src",
   "prefix": "wsv2",
+  "tags": ["scope:01common-lib", "type:01-lib"],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
@@ -37,15 +38,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/app-common/**/*.ts",
-          "libs/app-common/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["scope:01common-lib", "type:01-lib"]
+  }
 }

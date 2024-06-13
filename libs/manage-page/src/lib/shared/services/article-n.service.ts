@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 //import { environment } from 'apps/xf01/src/environments/environment';
 import { ManagerServiceModule } from './maneger-service.module';
 import {Article} from 'apps/xf01/src/app/_shared/_interfaces/article.model';

@@ -4,6 +4,7 @@
   "sourceRoot": "libs/shop-cart/src",
   "prefix": "wsv2",
   "projectType": "library",
+  "tags": ["01app-shop-cart-lib", "type:01-lib"],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
@@ -37,15 +38,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/shop-cart/**/*.ts",
-          "libs/shop-cart/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["01app-shop-cart-lib", "type:01-lib"]
+  }
 }

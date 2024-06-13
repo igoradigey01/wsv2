@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule} from '@angular/router';
 //import { accountRoutes } from './lib.routes';
-import { HttpClientModule , HttpClientJsonpModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport } from '@angular/common/http';
 import {MaterialModule} from './material.module'
 import {AccountServiceModule } from '@wsv2/account-service';
 
@@ -47,76 +47,58 @@ const vkLoginOptions = {
 }; // https://vk.com/dev/users.get
 
 
-@NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(accountRoutes),
-    CommonModule,   
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    HttpClientJsonpModule,
-    MaterialModule,
-    ManagerServiceModule,    
-    AccountServiceModule,
-    SocialLoginModule
-  ],  
-  declarations: [
-    SignInComponent,
-    SignUpComponent,
-    LogOffComponent,
-   
-    EmailConfirmationComponent,
-    ForgotPasswordComponent,
-    ResetPasswordFromMailComponent,
-    
-    MatchPasswordDirective,
-    
-    UserOrdersMainComponent,
-    UserOrdersTableComponent,
-    UserOrdersItemComponent,
-    TelegramLoginWidgetComponent,
-    AuthCallbackTelegramComponent,
-    AuthCallbackVkComponent,
-    VkLoginWidgetComponent,
-   
-   
-    
-    
-  ],
-  exports: [
-    SignInComponent,
-    SignUpComponent,
-    LogOffComponent,
-   
-    EmailConfirmationComponent,
-    ForgotPasswordComponent,
-    ResetPasswordFromMailComponent,
-  
-    
-  ],
-  providers:[
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('344759916833-h3r1fju9hj53jd86d142tn44vta9vnsa.apps.googleusercontent.com'),
-          },
-        //   {  not work in hosh !!! (server validete not !!!)02.04.23
-        //     id: VKLoginProvider.PROVIDER_ID,
-        //  // provider: new VKLoginProvider('51431968'),
-        //  // global var create in appComponets
-        //  provider: new VKLoginProvider((<any>window).vkId,vkLoginOptions),
-        //   },
-        ],
-      } as SocialAuthServiceConfig,
-    },
-   
-  ]
-})
+@NgModule({ declarations: [
+        SignInComponent,
+        SignUpComponent,
+        LogOffComponent,
+        EmailConfirmationComponent,
+        ForgotPasswordComponent,
+        ResetPasswordFromMailComponent,
+        MatchPasswordDirective,
+        UserOrdersMainComponent,
+        UserOrdersTableComponent,
+        UserOrdersItemComponent,
+        TelegramLoginWidgetComponent,
+        AuthCallbackTelegramComponent,
+        AuthCallbackVkComponent,
+        VkLoginWidgetComponent,
+    ],
+    exports: [
+        SignInComponent,
+        SignUpComponent,
+        LogOffComponent,
+        EmailConfirmationComponent,
+        ForgotPasswordComponent,
+        ResetPasswordFromMailComponent,
+    ], imports: [CommonModule,
+        RouterModule.forChild(accountRoutes),
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MaterialModule,
+        ManagerServiceModule,
+        AccountServiceModule,
+        SocialLoginModule], providers: [
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider('344759916833-h3r1fju9hj53jd86d142tn44vta9vnsa.apps.googleusercontent.com'),
+                    },
+                    //   {  not work in hosh !!! (server validete not !!!)02.04.23
+                    //     id: VKLoginProvider.PROVIDER_ID,
+                    //  // provider: new VKLoginProvider('51431968'),
+                    //  // global var create in appComponets
+                    //  provider: new VKLoginProvider((<any>window).vkId,vkLoginOptions),
+                    //   },
+                ],
+            } as SocialAuthServiceConfig,
+        },
+        provideHttpClient(withInterceptorsFromDi(), withJsonpSupport()),
+    ] })
 export class AccountModule {
 
   

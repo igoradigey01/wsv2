@@ -1,10 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { ApiService } from '@wsv2/app-config';

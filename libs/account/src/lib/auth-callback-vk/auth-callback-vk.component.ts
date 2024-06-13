@@ -3,7 +3,7 @@ import { Router ,ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserManagerService } from '@wsv2/account-service';
 import {EnvironmentService} from '@wsv2/app-config'
-import {HttpUrlEncodingCodec ,HttpErrorResponse} from '@angular/common/http'
+import { HttpUrlEncodingCodec, HttpErrorResponse } from '@angular/common/http'
 import {VkLoginWidgetService} from '../_shared/services/vk-login-widger.service'
 import {UserVkDto} from '../_shared/_interfaces/user-vkDto.model'
 

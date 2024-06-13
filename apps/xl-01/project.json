@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/xl-01/src",
   "prefix": "wsv2",
+  "tags": ["scope:xl01", "type:app"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -79,11 +80,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/xl-01/**/*.ts", "apps/xl-01/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -99,6 +96,5 @@
         }
       }
     }
-  },
-  "tags": ["scope:xl01", "type:app"]
+  }
 }

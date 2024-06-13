@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/account/src",
   "prefix": "wsv2",
+  "tags": ["scope:01account-lib", "type:01-lib"],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
@@ -37,12 +38,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/account/**/*.ts", "libs/account/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["scope:01account-lib", "type:01-lib"]
+  }
 }

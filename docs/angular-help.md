@@ -87,4 +87,13 @@
 
    ## Yarn update
       - yarn set version latest
+   ##   Migration w10 to ubuntu
+    -  node -v
+    -  tsc -v
+    -  sudo npm install -g yarn
+    -  yarn --v
+    ## tsc 
+    -  sudo npm uninstall -g typescript@5.4.5 
+    -  rm -rf ./node_modules/.cache/nx
+         
      

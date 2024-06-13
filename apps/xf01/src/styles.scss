@@ -25,18 +25,18 @@ Angular Material определяет mixin named core ,
  Включение основного миксина несколько раз приведет к дублированию CSS в вашем приложении.
 */
 
-$my-warn: mat.define-palette(s.$mat-warn, main, lighter, darker);
-$my-accent: mat.define-palette(s.$mat-accent, main, lighter, darker);
-$my-primary: mat.define-palette(s.$mat-primary, main, lighter, darker);
+$my-warn: mat.m2-define-palette(s.$mat-warn, main, lighter, darker);
+$my-accent: mat.m2-define-palette(s.$mat-accent, main, lighter, darker);
+$my-primary: mat.m2-define-palette(s.$mat-primary, main, lighter, darker);
 
-$my-theme: mat.define-light-theme(
+$my-theme: mat.m2-define-light-theme(
     (
         color: (
             primary: $my-primary,
             accent: $my-accent,
             warn: $my-warn,
         ),
-        typography: mat.define-typography-config(),
+        typography: mat.m2-define-typography-config(),
         density: 0,
     )
 );
@@ -46,5 +46,5 @@ $my-theme: mat.define-light-theme(
 @include s.mixin-mat-component-themes ($my-theme);
 
 // include 	.mat-h1, .mat-headline ... //15.11.23
-$my-typography: mat.define-typography-config();
+$my-typography: mat.m2-define-typography-config();
 @include mat.typography-hierarchy($my-typography);

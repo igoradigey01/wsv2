@@ -3,6 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/xl-01-e2e/src",
   "projectType": "application",
+  "tags": [],
+  "implicitDependencies": ["xl-01"],
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
@@ -18,13 +20,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/xl-01-e2e/**/*.{js,ts}"]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": [],
-  "implicitDependencies": ["xl-01"]
+  }
 }

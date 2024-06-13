@@ -4,6 +4,7 @@
   "sourceRoot": "libs/ui/src",
   "prefix": "wsv2",
   "projectType": "library",
+  "tags": ["01app-ui-lib", "type:01-lib"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -20,11 +21,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/ui/**/*.ts", "libs/ui/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
@@ -75,6 +72,5 @@
         }
       }
     }
-  },
-  "tags": ["01app-ui-lib", "type:01-lib"]
+  }
 }

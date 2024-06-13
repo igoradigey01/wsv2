@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/shagen01/src",
   "prefix": "wsv2",
+  "tags": ["scope:shagen01", "type:app"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -71,11 +72,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/shagen01/**/*.ts", "apps/shagen01/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -91,6 +88,5 @@
         }
       }
     }
-  },
-  "tags": ["scope:shagen01", "type:app"]
+  }
 }

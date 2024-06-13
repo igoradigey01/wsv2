@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/shop-content/src",
   "prefix": "wsv2",
+  "tags": ["01app-shop-content-lib", "type:01-lib"],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
@@ -37,15 +38,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/shop-content/**/*.ts",
-          "libs/shop-content/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["01app-shop-content-lib", "type:01-lib"]
+  }
 }

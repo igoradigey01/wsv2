@@ -1,9 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, catchError, of, shareReplay, tap } from 'rxjs';
@@ -55,7 +51,7 @@ export class SubKatalogService {
       this.LoadSubCatlaogs();
     
     }
-    console.log("condtructor subCatalog-service:" + JSON.stringify(this.state().subCatalogItems));
+   // console.log("condtructor subCatalog-service:" + JSON.stringify(this.state().subCatalogItems));
 
   }
 
@@ -275,7 +271,7 @@ export class SubKatalogService {
 
     this.Delete$(item.id).subscribe({
       next: (res) => {
-        console.log(res);
+      //  console.log(res);
         const del_item=res as SubKatalog;
       const   newSubCatalogItems = this.state().subCatalogItems.filter(
         (d) => d.id !==del_item.id

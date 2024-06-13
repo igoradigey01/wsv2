@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/manage-page/src",
   "prefix": "wsv2",
+  "tags": ["scope:01app-manage-page-lib", "type:01-lib"],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
@@ -37,15 +38,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/manage-page/**/*.ts",
-          "libs/manage-page/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["scope:01app-manage-page-lib", "type:01-lib"]
+  }
 }

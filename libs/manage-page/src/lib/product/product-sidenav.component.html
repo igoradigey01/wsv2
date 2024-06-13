@@ -17,12 +17,14 @@
     <mat-drawer-content>
   
       <div class=" list-subCatalog">
+        <div class="hiden">
         @for (item of subCatalogs(); track item.id) {
           <button mat-stroked-button color="primary"
           (click)="changeSubCagalog(item.id)"
           >{{ item.name }}</button>
 
     }
+  </div>
       
       </div>
 
