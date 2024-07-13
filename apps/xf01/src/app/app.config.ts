@@ -64,7 +64,7 @@ export const appConfig: ApplicationConfig = {
               .pipe(
                 tap((data: any) => {
                   menyItemsService.managerMenyItems = data;
-                  console.log('--promise is ok--');
+                //  console.log('--promise is ok--');
                   resolve(true);
                 })
               )
@@ -90,7 +90,7 @@ export const appConfig: ApplicationConfig = {
               .pipe(
                 tap((data: any) => {
                   menyItemsService.adminMenyItems = data;
-                  console.log('--promise is ok--');
+                  //console.log('--promise is ok--');
                   resolve(true);
                 })
               )

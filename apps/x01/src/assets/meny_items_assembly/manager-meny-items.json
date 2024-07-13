@@ -1,5 +1,5 @@
 [
-  { "id": 1, "name": "каталог", "url": "/manager/сatalog" ,"meny":1,"meny_name":"none"},
+  { "id": 1, "name": "каталог", "url": "/manager/catalog" ,"meny":1,"meny_name":"none"},
   { "id": 2, "name": "подкаталог", "url": "/manager/sub-catalog","meny":1,"meny_name":"none" },
   { "id": 3, "name": "бренд", "url": "/manager/brand","meny":2,"meny_name":"товар-атрибуты" },
   { "id": 4, "name": "цвет", "url": "/manager/color","meny":2,"meny_name":"товар-атрибуты" },

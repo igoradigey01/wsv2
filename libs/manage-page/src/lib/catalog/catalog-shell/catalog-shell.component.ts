@@ -39,7 +39,7 @@ export class CatalogShellComponent {
   constructor(
     private repository: KatlogService
     ) {
-
+      //debugger
       repository.ClearMessage();
     }
 

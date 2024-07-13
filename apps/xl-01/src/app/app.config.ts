@@ -1,6 +1,6 @@
 import { ApplicationConfig } from '@angular/core';
 import { APP_INITIALIZER, importProvidersFrom, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   MenyItemsService,
@@ -38,7 +38,7 @@ export const appConfig: ApplicationConfig = {
               .pipe(
                 tap((data: any) => {
                   menyItemsService.shopMenyItems = data;
-                  console.log('--promise is ok--');
+                 // console.log('--promise is ok--');
                   resolve(true);
                 })
               )
