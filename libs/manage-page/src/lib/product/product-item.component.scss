@@ -1,0 +1,52 @@
+//@import "./../../../../styles/manager-styles.scss";
+@import 'src/styles/manager-styles.scss';
+
+.mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+._label{
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 5rem;
+
+}
+._label_id{
+  color: var(--bs-pink);
+}
+._contaner{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+._input-group{
+  display: block;
+}
+
+._input-full-width {
+  width: 60%;
+}
+._input-name{
+  width: 90%;
+  margin-left: 1rem;
+
+}
+._input-price{
+  margin-left: 1rem;
+}
+.show_ButtonsPanel{
+  display: none;
+}
+
+#discription {
+  width: 100%;
+  padding-right: 2rem;
+}
+@media (min-width: 768px) {
+
+  ._contaner{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

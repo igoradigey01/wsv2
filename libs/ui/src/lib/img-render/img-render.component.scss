@@ -1,0 +1,92 @@
+@import 'src/styles/manager-styles.scss';
+
+::ng-deep .mat-tab-label-active {
+  background-color:#f0f0f0;
+  color: var(--bs-purple);
+}
+.size_show{
+  display: inline-block;
+  background-color:#f0f0f0;
+}
+
+.file_load_show{
+  color: var(--bs-white);
+  background-color:  var(--bs-purple);;
+
+}
+
+.error_show{
+  color: var(--bs-pink)
+}
+
+.messages-show{
+  text-align: center;
+  color: var(--bs-green)
+}
+
+.botton-zoom{
+  color: var(--bs-purple);
+
+}
+
+
+.botton_Ratio_true{
+  background-color: var(--bs-green)  !important;
+  color: #000000de;
+
+
+}
+.botton-Ratio{
+  background-color: hsl(47deg 100% 63%);
+  color: #000000de;
+
+}
+
+.botton-rotate{
+
+  color: var(--bs-purple);
+
+}
+
+
+.accent-btn{
+  background-color: hsl(47deg 100% 63%);
+  color: var(--bs-purple);
+
+}
+
+
+
+.toolbarImg{
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+
+}
+.toolbarImg-group ,.aspectRatio-group{
+  display:inline-block;
+  margin-left: 0.5rem;
+}
+
+.loader{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: white;
+
+}
+.img-disply{
+  max-height: 400px;
+}
+.toolbar-box {
+  min-height: 3rem;
+  margin: 0.5rem;
+  text-align: center;
+
+}

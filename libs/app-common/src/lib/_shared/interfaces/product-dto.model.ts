@@ -1,4 +1,4 @@
-export interface Product {
+export interface ProductDto{
     id: number;
     guid: string | undefined;
     

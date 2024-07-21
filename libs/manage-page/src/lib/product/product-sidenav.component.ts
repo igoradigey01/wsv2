@@ -21,7 +21,8 @@ export class ProductSidenavComponent {
 
   private emitData = <EmitData>{};
 
-  public idCatalogActive = 0;
+   //private idCatalogActive = 0;
+   private stateIdCatalogActive=signal(0);
 
   // public readonly subCatalogsSelect = computed(() =>
   //   this.stateSubCatalogs().filter((f) => f.catalogId === this.idCatalogActive)
@@ -33,7 +34,7 @@ export class ProductSidenavComponent {
 
   @Input({ required: true }) set SubCatalogs(items: Signal<SubKatalog[]>) {
     this.stateSubCatalogs = items;
-    //console.log( "Input product-sidebar"+  JSON.stringify(items))
+    console.log( "Input product-sidebar -SubCatalogs"+  JSON.stringify(items))
   }
 
   @Input({ required: true }) set EmitData(item: EmitData) {
@@ -43,18 +44,23 @@ export class ProductSidenavComponent {
   public catalogs = computed(() => {
     return this.stateCatalogs();
   });
+
   public subCatalogs = computed(() => {
-    return this.stateSubCatalogs();
+    const  i= this.stateSubCatalogs() .filter(s=>s.catalogId==this.stateIdCatalogActive());
+    console.log( "computed -SubCatalogs"+  JSON.stringify(i))
+    return i
   });
+ 
 
-  changeCagalog(item: number) {
-    this.idCatalogActive = item;
-   // console.log(JSON.stringify(this.subCatalogsSelect))
+  changeCatalog(item: number) {
+    
+   //this.idCatalogActive = item;
+   this.stateIdCatalogActive.set(item);
+    console.log("change catalog id" +item )
   }
-  changeSubCagalog(item:number){
-    this.emitData.catalogId=this.idCatalogActive;
-    this.emitData.subCatalogId=item;
+  changeSubCagalog(item: number) {
+    this.emitData.catalogId =this.stateIdCatalogActive();
+    this.emitData.subCatalogId = item;
     this.SubCatalogChange.emit(this.emitData);
-
   }
 }

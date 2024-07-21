@@ -11,3 +11,5 @@ export * from './lib/card-product/card-product.component';
 
 export * from './lib/layout/app-header-layout/app-header-layout.component';
 export * from './lib/image-slider/image-slider.component';
+export * from './lib/img-render/img-render.component'
+export * from './lib/img-render/img-manager.service'

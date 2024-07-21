@@ -1,7 +1,7 @@
 export interface Product {
   id: number;
   guid: string | undefined;
-  img_guids:string[]|undefined; // from Photos table
+  //img_guids:string[]|undefined; // from Photos table
   hidden:boolean;
   ownerId:string;
   product_typeId :number;
@@ -33,5 +33,9 @@ export interface Product {
 
   description: string | undefined;
   descriptionSeo:string | undefined;
+
+  imageWebp: Blob | undefined; // именованая ссылка на Blob  window.URL.createObjectURL(d)
+  wwwrootOK:boolean| undefined;                    // onChangeWebp?:boolean; // change  img on server (wwwroot/image)
+  wwwroot: string | undefined;  //url for  server-folder wwwroot/
 
 }

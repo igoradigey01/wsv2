@@ -1,7 +1,7 @@
 {
     "clientUri":"http://localhost:4200/",
-    "serverUri":"http://localhost:8080/",
-    "serverAuthUri":"http://localhost:8080/",
+    "serverUri":"http://shop:8080/",
+    "serverAuthUri":"http://shop:8080/",
     "clientId":"xf-01",
      "postavchikIds":["xf-01"],
     "vkId":"51431968",

@@ -4,6 +4,7 @@
     "outDir": "../../dist/out-tsc",
     "declaration": true,
     "declarationMap": true,
+    "composite": true,  //16-07-24
     "inlineSources": true,
     "types": []
   },

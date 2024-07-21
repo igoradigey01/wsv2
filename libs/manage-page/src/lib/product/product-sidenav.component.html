@@ -6,7 +6,7 @@
       <ul class=" list-catalog" >
         @for (item of catalogs(); track item.id) {
               <li
-              (click)="changeCagalog(item.id)"
+              (click)="changeCatalog(item.id)"
               >{{ item.name }}</li>
         }
     </ul>
@@ -17,9 +17,9 @@
     <mat-drawer-content>
   
       <div class=" list-subCatalog">
-        <div class="hiden">
+        <div >
         @for (item of subCatalogs(); track item.id) {
-          <button mat-stroked-button color="primary"
+          <button   class="sub-catalog" mat-stroked-button color="primary"
           (click)="changeSubCagalog(item.id)"
           >{{ item.name }}</button>
 
@@ -32,3 +32,5 @@
 
     </mat-drawer-content>
   </mat-drawer-container>
+
+ 

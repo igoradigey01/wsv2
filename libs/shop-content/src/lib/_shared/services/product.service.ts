@@ -1,8 +1,12 @@
 import { Injectable, signal, computed } from '@angular/core';
 
-import { HttpClient, HttpHeaders, 
-// HttpParams,
-HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  // HttpParams,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { ApiService } from '@wsv2/app-config';
@@ -17,9 +21,10 @@ import { ArticleService } from './article.service';
 import { BrandService } from './brand.service';
 import { ColorService } from './color.service';
 import { ProductTypeService } from './product_type.service';
-import {KatlogService} from './katalog.servise'
+import { KatlogService } from './katalog.servise';
 
-import { tap, Observable, shareReplay } from 'rxjs';
+import { tap, Observable, shareReplay, map, catchError, of } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 //import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 interface ProductListState {
@@ -36,6 +41,7 @@ interface ProductListState {
   providedIn: 'root',
 })
 export class ProductService {
+
   private state = signal<ProductListState>({
     productItems: [],
     queryAdd: [],
@@ -49,17 +55,22 @@ export class ProductService {
   readonly Articles = this.articleRepository.Articles;
   readonly Brands = this.brandRepository.Brands;
   readonly Colors = this.colorRepository.Colors;
-  readonly Catalogs=this.katalogRepository.Katalogs;
-  readonly SubCatalogs=this.subKatalogRepository.SubCatalogs;
-  readonly serverUrl=this.url.ServerUri;
+  readonly Catalogs = this.katalogRepository.Katalogs;
+  readonly SubCatalogs = this.subKatalogRepository.SubCatalogs;
+  readonly serverUrl = this.url.ServerUri;
 
   readonly TypeProducts = this.product_typeRepository.ProductTypes;
 
   readonly Products = computed(() => this.state().productItems);
   readonly Message = computed(() => this.error_state());
 
+  get WWWroot(): string {
+    // return this.http.get(src,{responseType: 'blob'});
 
- /*  ProductItem = signal<Product>({
+    return `${this.url.ServerUri}images/`; //environment.serverRoot + 'images/';
+  }
+
+  /*  ProductItem = signal<Product>({
     id: 0,
     guid: undefined,
     img_guids: undefined,
@@ -88,29 +99,24 @@ export class ProductService {
     descriptionSeo: undefined,
   }); */
 
- 
-
-  
-
   constructor(
     private _http: HttpClient,
     private url: ApiService,
     private userManager: UserManagerService,
     private subKatalogRepository: SubKatalogService,
-    private katalogRepository:KatlogService,
+    private katalogRepository: KatlogService,
     private articleRepository: ArticleService,
     private colorRepository: ColorService,
     private brandRepository: BrandService,
     private product_typeRepository: ProductTypeService
   ) {
-
-  //  console.log( "Input product-service subCatalog"+  JSON.stringify(subKatalogRepository.SubCatalogs))
-   // console.log( "Input product-service Catalog"+  JSON.stringify(katalogRepository.Katalogs))
+    //  console.log( "Input product-service subCatalog"+  JSON.stringify(subKatalogRepository.SubCatalogs))
+    // console.log( "Input product-service Catalog"+  JSON.stringify(katalogRepository.Katalogs))
   }
 
+  // GetForSubCatalog
 
-
- /*  public LoadSubCatalogProduct(idSubCatlog: number) {
+   public LoadSubCatalogProduct(idSubCatlog: number) {
     this.SubCatalogProduct$(idSubCatlog);
   }
 
@@ -137,44 +143,43 @@ export class ProductService {
           return data.map((f: any) => {
             return <Product>(<unknown>{
               id: f.id,
-              guid: f.guid,
-              img_guids: f.img_guids ? [...f.img_guids.push(f.guid)] : [f.guid],
-              name: f.name,
-              description: f.description,
+              guid: f.guid,             
+              hidden:f.hidden,              
+              ownerId:f.ownerId,
+              product_typeId:f.product_typeId,
+              title: f.title,
 
-              cost_total: f.price * (f.markup / 100) + f.price,
+              subCatalogId:f.subCatalogId,
+              subCatalogName:undefined,
+              colorId:f.colorId,
+              colorName: undefined,
+              brandId:f.brandId,
+              brandName: undefined,
+              articleId:f.articleId,
+              articleName:  undefined,
+
+              position:f.position,
+             
+
+              inStock: f.inStock,
+              sale: f.sale,
+              
               price: f.price,
               markup: f.markup,
+              cost_total: f.price * (f.markup / 100) + f.price,
 
-              inStock: undefined,
-              sale: f.sale,
+              description: f.description,
+              descriptionSeo:f.descriptionSeo,
 
-              katalogId: f.katalogId,
-              katalogName: this.subKatalogRepository
-                .SubCatalogs()
-                .find((d) => d.id === f.katalogId)?.name,
+              imageWebp:undefined,
+              wwwrootOK:undefined ,                   // onChangeWebp?:boolean; // change  img on server (wwwroot/image)
+               wwwroot:undefined
 
-              colorId: f.colorId,
-              colorName:
-                this.Colors().length > 0
-                  ? this.Colors().find((d) => d.id === f.colorId)?.name
-                  : undefined,
+              
 
-              brandId: f.brandId,
-              brandName:
-                this.Brands().length > 0
-                  ? this.Brands().find((d) => d.id === f.brandId)?.name
-                  : undefined,
+             
 
-              articleId: f.articleId,
-              articleName:
-                this.Articles().length > 0
-                  ? this.Articles().find((d) => d.id === f.articleId)?.name
-                  : undefined,
-
-              hidden: f.hidden,
-
-              postavchikId: f.postavchikId,
+              
             });
           });
         }),
@@ -193,9 +198,8 @@ export class ProductService {
       .subscribe();
 
     ///------------------------------------
-  };  */
-
-
+  };  
+ 
   public Create = (item: Product) => {
     this.Create$(item)
       .pipe(
@@ -207,10 +211,8 @@ export class ProductService {
               productItems: [...state.productItems, data as Product],
               state: Status.load,
             }));
-
-            ;
           }
-        //  console.log(' Create--(data-tap -Product-1)' + JSON.stringify(data))
+          //  console.log(' Create--(data-tap -Product-1)' + JSON.stringify(data))
         })
       )
       .subscribe({
@@ -247,7 +249,7 @@ export class ProductService {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private Create$ = (item: Product): Observable<any> => {
-   //debugger
+    //debugger
     this.url.Controller = 'Product';
     this.url.Action = 'Create';
     this.url.ID = null;
@@ -259,7 +261,6 @@ export class ProductService {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this._http.post<any>(this.url.Url, item, {
-     
       headers,
     });
   };
@@ -268,7 +269,7 @@ export class ProductService {
     // new Error("Протестировать правильность работы метода")
     this.Update$(item).subscribe({
       next: () => {
-      //  console.log(res);
+        //  console.log(res);
         this.state.update((d) => ({
           ...d,
 
@@ -328,15 +329,15 @@ export class ProductService {
     });
   };
 
-  public UpdateIgnoreImg=(item:Product)=>{
-    console.log(' - UpdateIgnoreImg -Product-)' + JSON.stringify(item))
-    throw Error("NOt impiment Exeption")
-  }
+  public UpdateIgnoreImg = (item: Product) => {
+    console.log(' - UpdateIgnoreImg -Product-)' + JSON.stringify(item));
+    throw Error('NOt impiment Exeption');
+  };
 
-  public UpdateOnlyImg=(item:Product)=>{
-    console.log(' - UpdateOnlyImg -Product-)' + JSON.stringify(item))
-    throw Error("NOt impiment Exeption")
-  }
+  public UpdateOnlyImg = (item: Product) => {
+    console.log(' - UpdateOnlyImg -Product-)' + JSON.stringify(item));
+    throw Error('NOt impiment Exeption');
+  };
 
   public Delete = (item: Product) => {
     const newCatlogsList = this.state().productItems.filter(
@@ -357,7 +358,7 @@ export class ProductService {
         }));
       },
       error: (err: HttpErrorResponse) => {
-       // console.error(err);
+        // console.error(err);
 
         this.state.update((d) => ({
           ...d,
@@ -406,5 +407,5 @@ export class ProductService {
 
   public ClearMessage() {
     this.error_state.update((m) => ({ ...m, message: '', error: false }));
-  } 
+  }
 }
