@@ -143,7 +143,8 @@ export class ProductService {
           return data.map((f: any) => {
             return <Product>(<unknown>{
               id: f.id,
-              guid: f.guid,             
+              guid: f.guid,      
+              img_guids: f.img_guids ? [...f.img_guids.push(f.guid)] : [f.guid],       
               hidden:f.hidden,              
               ownerId:f.ownerId,
               product_typeId:f.product_typeId,

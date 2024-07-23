@@ -15,8 +15,8 @@
           <mat-form-field id="katalog" appearance="outline">
             <mat-label>
               <span class="_label_id">
-                id( {{ _select_Nomenclature.katalogId }})</span
-              >&nbsp;{{ _select_Nomenclature.katalogName }}</mat-label
+                id( {{Product().subCatalogId }})</span
+              >&nbsp;  {{Product().subCatalogName}}</mat-label
             >
             <input matInput name="katalogName" disabled />
           </mat-form-field>
@@ -26,10 +26,10 @@
         <div class="_input-group">
           <label for="hiddenNomenclature" class="_label"> Скрыть </label>
           <mat-form-field id="hiddenNomenclature" appearance="fill">
-            <div *ngIf=" _select_Nomenclature">
+            <div *ngIf="Product()">
               <mat-select
                 name="hiddenNomenclature"
-                [(ngModel)]=" _select_Nomenclature.hidden"
+                [(ngModel)]="Product().hidden"
                 #hiddenNomenclature="ngModel"
                 required
               >
@@ -44,10 +44,10 @@
         <div class="_input-group">
           <label for="saleNomenclature" class="_label"> Распродажа</label>
           <mat-form-field id="saleNomenclature" appearance="fill">
-            <div *ngIf=" _select_Nomenclature">
+            <div *ngIf="Product()">
               <mat-select
                 name="saleNomenclature"
-                [(ngModel)]=" _select_Nomenclature.sale"
+                [(ngModel)]="Product().sale"
                 #saleNomenclature="ngModel"
                 required
               >
@@ -62,10 +62,10 @@
         <div class="_input-group">
           <label for="inStokcNomenclature" class="_label"> На складе </label>
           <mat-form-field id="saleNomenclature" appearance="fill">
-            <div *ngIf=" _select_Nomenclature">
+            <div *ngIf="Product()">
               <mat-select
                 name="inStokcNomenclature"
-                [(ngModel)]=" _select_Nomenclature.inStock"
+                [(ngModel)]="Product().inStock"
                 #inStokcNomenclature="ngModel"
                 required
               >
@@ -88,12 +88,12 @@
             <mat-select
               name="brand"
               (selectionChange)="onBrandChange($event)"
-              [(ngModel)]="_select_Nomenclature.brandId"
+              [(ngModel)]="Product().brandId"
               #brand="ngModel"
               required
             >
   
-              <mat-option *ngFor="let item of _brands"
+              <mat-option *NgFor="let item of _brands"
               [value]="item.id"
   
               >{{
@@ -113,7 +113,7 @@
             <mat-select
               name="color"
   
-              [(ngModel)]="_select_Nomenclature.colorId"
+              [(ngModel)]="Product().colorId"
               (selectionChange)="onColorChange($event)"
               #color="ngModel"
               required
@@ -132,7 +132,7 @@
             <mat-select
               name="article"
               (selectionChange)="onArticleChange($event)"
-              [(ngModel)]="_select_Nomenclature.articleId"
+              [(ngModel)]="Product().articleId"
               #article="ngModel"
               required
             >
@@ -153,23 +153,23 @@
           >
             <mat-label>Название </mat-label>
             <span matPrefix
-              >{{ _select_Nomenclature.katalogName }} &nbsp;
-              <span *ngIf=" _select_Nomenclature.brandName!=='none';else unbrand"  >
-                {{ _select_Nomenclature.brandName }}&nbsp;
+              >{{Product().subCatalogName}} &nbsp;
+              <span *ngIf="Product().brandName!=='none';else unbrand"  >
+                {{Product().brandName }}&nbsp;
               </span>
               <ng-template #unbrand>
                 <span></span>
               </ng-template>
   
-              <span *ngIf=" _select_Nomenclature.articleName!=='none';else unarticle"  >
-                {{_select_Nomenclature.articleName}}&nbsp;
+              <span *ngIf="Product().articleName!=='none';else unarticle"  >
+                {{Product().articleName}}&nbsp;
               </span>
               <ng-template #unarticle>
                 <span></span>
               </ng-template>
   
-              <span *ngIf=" _select_Nomenclature.colorName!=='none';else uncolor"  >
-                {{_select_Nomenclature.colorName}}&nbsp;
+              <span *ngIf="Product().colorName!=='none';else uncolor"  >
+                {{Product().colorName}}&nbsp;
               </span>
               <ng-template #uncolor>
                 <span></span>
@@ -181,7 +181,7 @@
               matInput
               name="productname"
               #nameNomenclature="ngModel"
-              [(ngModel)]="_select_Nomenclature.name"
+              [(ngModel)]="Product().title"
   
             />
             <mat-error *ngIf="nameNomenclature.invalid"> </mat-error>
@@ -193,7 +193,7 @@
           <input
             matInput
             name="position"
-            [(ngModel)]="_select_Nomenclature.position"
+            [(ngModel)]="Product().position"
             #position="ngModel"
             required
             pattern="[0-9]{1}"
@@ -207,7 +207,7 @@
           <input
             matInput
             name="pace_product"
-            [(ngModel)]="_select_Nomenclature.price"
+            [(ngModel)]="Product().price"
             #price="ngModel"
             required
             pattern="[0-9]{1,7}"
@@ -222,7 +222,7 @@
           <input
             matInput
             name="markup_product"
-            [(ngModel)]="_select_Nomenclature.markup"
+            [(ngModel)]="Product().markup"
             #markup="ngModel"
             required
             pattern="[0-9]{1,2}"
@@ -239,7 +239,7 @@
             <textarea
               name="description_product"
               matInput
-              [(ngModel)]="_select_Nomenclature.description"
+              [(ngModel)]="Product().description"
               rows="5"
             >
             </textarea>
@@ -248,12 +248,12 @@
   
         <!-----------img -render------------------------------------------>
   
-        <app-img-render
-          [_img_name]="_select_Nomenclature.guid"
-          [_rootSrc]="_select_Nomenclature.wwwroot"
+        <wsv2-img-render
+          [_img_name]="Product().guid"
+          [_rootSrc]="Product().wwwroot"
           (_onChangedDtoImage)="onChangedDtoImage($event)"
           (_onFlagShowSaveDataBar)="onFlagButtonPanel($event)"
-        ></app-img-render>
+        ></wsv2-img-render>
         <!---- error render 10.02.22 -->
         <div class="alert alert-danger" role="alert" *ngIf="_errorMgs?.length">
           <ul>

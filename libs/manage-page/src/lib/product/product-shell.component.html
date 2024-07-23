@@ -1,53 +1,44 @@
-
-
-
 <div class="_main-container">
-    <div *ngIf="message().error">
-      <div class="error">{{ message().message }}</div>
-    </div>
-    <!------------------->
-  
-    @switch (flag) { @default {
-  
-    <wsv2-product-sidenav
-      [Catalogs]="catalogs"
-      [SubCatalogs]="subCatalogs"
-      [EmitData]="emitData"
-      
-      (SubCatalogChange)="onSubCatalogChange($event)"
-    ></wsv2-product-sidenav>
-  
-    }
-    <!--  Create template -->
-  
-    @case (2) {
-      <div class="item-show">
-        <h4 class="action-name" >Создать Позицию Товара</h4>
-        
-      </div>
-      
-    }
-  
-    <!--  Edit  template -->
-  
-    @case (4) {
-    <div class="item-show">
-      <h4 class="action-name" >Редактировать Позицию Товара</h4>
-      
-    </div>
-    }
-    @case (5) {
-      <div class="item-show">
-        <h4 class="action-name" >Создать Позицию Товара</h4>
-        
-      </div>
-      
-    }
-    @case (7) {
-    <div class="item-show">
-      <h4 class="action-name">Удалить Позицию Товара</h4>
-     
-    </div>
-    } }
+  <div *ngIf="message().error">
+    <div class="error">{{ message().message }}</div>
   </div>
-  
+  <!------------------->
+
+  @switch (flag) { @default {
+
+  <wsv2-product-sidenav
+    [Catalogs]="catalogs"
+    [SubCatalogs]="subCatalogs"
+    [EmitData]="emitData"
+    (SubCatalogChange)="onSubCatalogChange($event)"
+  ></wsv2-product-sidenav>
+
+  }
+  <!--  Create template -->
+
+  @case (5) {
+  <div class="item-show">
+    <h4 class="action-name">Создать Позицию Товара</h4>
+    <wsv2-product-item
+      [_articles]="Articles()"
+      [_brands]="Brands()"
+      [_colors]="Colors()"
+      [flag]="flag"
+      [Item]="item "
+    ></wsv2-product-item>
+  </div>
+
+  }
+
+  <!--  Edit  template -->
+
+  @case (4) {
+  <div class="item-show">
+    <h4 class="action-name">Редактировать Позицию Товара</h4>
+  </div>
+  } @case (7) {
+  <div class="item-show">
+    <h4 class="action-name">Удалить Позицию Товара</h4>
+  </div>
+  } }
+</div>

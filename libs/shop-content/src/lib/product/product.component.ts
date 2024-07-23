@@ -25,7 +25,7 @@ export class ProductComponent {
     signal<Product>({
       id: 0,
       guid: undefined,
-      img_guids: undefined,
+     img_guids: undefined,
       hidden: false,
       ownerId: '',
       product_typeId: 0,
@@ -49,8 +49,10 @@ export class ProductComponent {
       cost_total: undefined,
       description: undefined,
       
-      descriptionSeo:undefined
-
+      descriptionSeo:undefined,
+      imageWebp:undefined,
+      wwwroot:undefined,
+      wwwrootOK:undefined
     });
 
   idSubKatatlog: string | undefined;

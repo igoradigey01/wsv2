@@ -1,11 +1,15 @@
 import { Component} from '@angular/core';
 //import { Product } from './../shared/_interfaces/product.model';
 import { EventEmitter, Input, Output } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon';
 import {
+  //CropperPosition,
   Dimensions,
   ImageCroppedEvent,
-  ImageTransform,
+  ImageCropperComponent,
+  ImageTransform
 } from 'ngx-image-cropper';
 
 import { ImgManagerService } from './img-manager.service';
@@ -19,6 +23,12 @@ export interface DtoImage {
 @Component({
   selector: 'wsv2-img-render',
   standalone: true,
+  imports: [
+    CommonModule,
+    MatTabsModule,
+    MatIconModule,
+    ImageCropperComponent
+  ],
   templateUrl: './img-render.component.html',
   styleUrls: ['./img-render.component.scss'],
 })

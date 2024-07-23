@@ -52,13 +52,18 @@ export class ProductShellComponent {
 
   public readonly catalogs = this.repositoryProduct.Catalogs;
   public readonly subCatalogs = this.repositoryProduct.SubCatalogs;
+
+  public readonly Articles=this.repositoryProduct.Articles;
+  public readonly Colors= this.repositoryProduct.Colors;
+  public readonly Brands=this.repositoryProduct.Brands
+
   /* computed(() => this.repositoryProduct.SubCatalogs() 
   .filter((f) => f.catalogId === this.emitData.catalogId)  
   ); */
 
   public readonly message = this.repositoryProduct.Message;
 
-  public item = <SubKatalog>{
+  public subCatalog = <SubKatalog>{
     id: 0,
     name: 'none',
     ownerId: 'none',
@@ -67,12 +72,47 @@ export class ProductShellComponent {
     decriptSeo: '',
     hidden: false,
   };
-  public parent = <Katalog>{
+  public catalog= <Katalog>{
     id: 0,
     name: 'none',
     ownerId: 'none',
     hidden: true,
     decriptSeo: '',
+  };
+public  item =
+  <Product>{
+    id: -1,
+    guid: '',
+   img_guids:undefined,
+    hidden:false,
+    ownerId:'',
+    product_typeId:-1,
+    title: '',
+
+    subCatalogId:-1,
+    subCatalogName:undefined,
+
+    colorId: -1,
+    colorName: undefined,
+    brandId: -1,
+    brandName: undefined,
+    articleId: -1,
+    articleName: undefined,
+
+    position: 0,
+    inStock:false,  //есть  на складе ?
+    sale:false,
+  
+   
+    price: -1,
+    markup: 25,
+    cost_total:undefined, 
+    description: undefined,
+    descriptionSeo:undefined,
+    imageWebp:undefined,
+    wwwroot:undefined,
+    wwwrootOK:undefined
+   
   };
 
   constructor(private repositoryProduct: ProductService) {

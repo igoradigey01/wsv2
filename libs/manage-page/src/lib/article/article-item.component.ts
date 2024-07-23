@@ -40,7 +40,7 @@ export class ArticleItemComponent {
   });
   private _falg = StateView.edit;
 
-  private _product_typeIds:Signal< ProductType[]>=signal<ProductType[]>([]);;
+  private _product_typeIds:Signal< ProductType[]>=signal<ProductType[]>([]);
 
   @Output() public catalogModified = new EventEmitter<EmitData>();
 

@@ -91,7 +91,7 @@ export class ArticleService {
               state: Status.load,
             }));
 
-            ;
+            
           }
         //  console.log(' Create--(data-tap -article-1)' + JSON.stringify(data))
         })

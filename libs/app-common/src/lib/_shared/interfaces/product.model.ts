@@ -1,7 +1,7 @@
 export interface Product {
   id: number;
   guid: string | undefined;
-  //img_guids:string[]|undefined; // from Photos table
+  img_guids:string[]|undefined; // from Photos table
   hidden:boolean;
   ownerId:string;
   product_typeId :number;
