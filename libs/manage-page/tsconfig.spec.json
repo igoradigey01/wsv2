@@ -2,7 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
+    "declaration": true ,
     "module": "commonjs",
+       "target": "es2016",
     "composite": true,
     "types": ["jest", "node"]
   },

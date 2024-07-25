@@ -1,5 +1,3 @@
-
-
 <div class="_main-container">
   <div *ngIf="message().error">
     <div class="error">{{ message().message }}</div>
@@ -22,14 +20,11 @@
   <!--  Create template -->
 
   @case (2) {
-    <div  class="back-button"> 
-       
-      <button mat-mini-fab color="primary" (click)="backToCatalog()">
-        <mat-icon fontIcon="arrow_back" >home</mat-icon>
-      </button>
-    
-    
-    </div>
+  <div class="back-button">
+    <button mat-mini-fab color="primary" (click)="backToCatalog()">
+      <mat-icon fontIcon="arrow_back">home</mat-icon>
+    </button>
+  </div>
 
   <wsv2-sub-catalog-list
     [Items]="subCatalogs"
@@ -37,7 +32,8 @@
     (catalogChange)="onSubCatalogChange($event)"
   ></wsv2-sub-catalog-list>
 
-  } @case (5) {
+  }
+   @case (5) {
   <div class="item-show">
     <h4 class="action-name">Создать Позицию Каталога</h4>
 
@@ -54,7 +50,7 @@
 
   @case (4) {
   <div class="item-show">
-    <h4 class="action-name" >Редактировать Позицию Каталога</h4>
+    <h4 class="action-name">Редактировать Позицию Каталога</h4>
     <wsv2-sub-catalog-item
       [Item]="item"
       [Catalog]="parent"

@@ -1,0 +1,53 @@
+
+
+<div class="container mat-typography">
+    <h2 class="title">
+      <span class="mat-h2 tatle-name">Товар</span>
+      <button mat-mini-fab color="warn" (click)="addPosition()">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="add icon"
+          fontIcon="add"
+        ></mat-icon>
+      </button>
+    </h2>
+    <div class="grid-container">
+    
+      @for ( item of Products(); track item) {
+  
+      <div class="article-item">
+        <mat-button-toggle-group>
+          <mat-button-toggle disabled class="article-id">
+            {{ item.id }}
+          </mat-button-toggle>
+          <mat-button-toggle disabled class="article-name">
+            {{ item.title }}</mat-button-toggle
+          >
+          <mat-button-toggle disabled class="article-name">
+            {{ item.product_typeId }}</mat-button-toggle
+          >
+          <mat-button-toggle
+            #toggleEdit
+            class="article-edit"
+            value="edit"
+            (change)="changePosition(toggleEdit.value, item)"
+            
+            >Edit</mat-button-toggle
+          >
+          <mat-button-toggle
+            #toggleDel
+            class="article-del"
+            value="delete"
+            (change)="changePosition(toggleDel.value, item)"
+           
+          >
+            Del
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      } @empty {
+      <p class="text-lg"> Элементы не найдены!</p>
+      }
+      <!---->
+    </div>
+  </div>

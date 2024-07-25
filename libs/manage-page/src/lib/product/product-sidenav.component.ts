@@ -1,10 +1,10 @@
 import { CommonModule } from "@angular/common";
 import { Component, Output, EventEmitter, Signal, signal, Input, computed } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
-import { MatButtonToggleModule } from "@angular/material/button-toggle";
+
 import { MatSidenavModule } from "@angular/material/sidenav";
-import { Katalog, SubKatalog, Product } from "@wsv2/app-common";
-import { EmitData, StateView } from "./product-shell.component";
+import { Katalog, SubKatalog } from "@wsv2/app-common";
+import { EmitData} from "./product-shell.component";
 
 
 @Component({
@@ -14,7 +14,7 @@ import { EmitData, StateView } from "./product-shell.component";
     CommonModule,
     MatSidenavModule,
     MatButtonModule,
-    MatButtonToggleModule,
+   
   ],
   templateUrl: './product-sidenav.component.html',
   styleUrls: ['./product-sidenav.component.scss'],
@@ -46,7 +46,7 @@ export class ProductSidenavComponent {
     this.emitData = item;
   }
 
-  @Output() public productChange = new EventEmitter<EmitData>();
+
 
   public catalogs = computed(() => {
     return this.stateCatalogs();
@@ -71,56 +71,4 @@ export class ProductSidenavComponent {
     this.SubCatalogChange.emit(this.emitData);
   }
 
-  changePosition(action: string, item: Product) {
-    // debugger
-    if (action === 'edit')
-      this.productChange.emit(<EmitData>{
-        product: item,
-        stateView: StateView.edit,
-      });
-    if (action === 'delete')
-      this.productChange.emit(<EmitData>{
-        product: item,
-        stateView: StateView.delete,
-      });
-  }
-
-  addPosition() {
-    // debugger
-    this.productChange.emit(<EmitData>{
-      product: <Product>{
-        id: -1,
-        guid: '',
-        img_guids: undefined,
-        hidden: false,
-        ownerId: '',
-        product_typeId: -1,
-        title: '',
-
-        subCatalogId: -1,
-        subCatalogName: undefined,
-
-        colorId: -1,
-        colorName: undefined,
-        brandId: -1,
-        brandName: undefined,
-        articleId: -1,
-        articleName: undefined,
-
-        position: 0,
-        inStock: false, //есть  на складе ?
-        sale: false,
-
-        price: -1,
-        markup: 25,
-        cost_total: undefined,
-        description: undefined,
-        descriptionSeo: undefined,
-        imageWebp: undefined,
-        wwwroot: undefined,
-        wwwrootOK: undefined,
-      },
-      stateView: StateView.create,
-    });
-  }
 }

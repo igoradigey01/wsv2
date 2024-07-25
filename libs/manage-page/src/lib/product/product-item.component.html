@@ -1,11 +1,14 @@
-<p>product-item works!</p>
+
+
+<div class="mat-typography"> 
+
 <div class="navigate">
-    <div class="navigate-route">категории>каталог>номенклатура</div>
+    
     <div>
       <a class="navigate-route-link" (click)="onBackInKatalog()">назад</a>
     </div>
   </div>
-  <h4>{{ TitleItem }}</h4>
+
   <div class="_contaner">
     <div *ngIf="!_flag_sendServerData; else elseSendData">
       <!-- begin edit  card ------------------------------------->
@@ -348,4 +351,5 @@
       </div>
     </ng-template>
   </div>
+</div>
   
