@@ -96,7 +96,7 @@ export class ColorService {
               state: Status.load,
             }));
 
-            ;
+            
           }
           console.log(' Create--(data-tap -Color-1)' + JSON.stringify(data))
         })

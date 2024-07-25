@@ -1,26 +1,15 @@
 //@import "./../../../../styles/manager-styles.scss";
 //@import 'src/styles/manager-styles.scss';
-.navigate{
-  display: flex;
-  justify-content: space-between;
 
-}
-
-.navigate-route-link{
-//  color: var(--bs-blue);
-  margin-right: 1rem;
-  text-decoration: underline;
-  cursor: pointer;
-}
 
 .mat-button-base {
   margin: 8px 8px 8px 0;
 }
 
 ._label{
-  margin-left: 1rem;
-  margin-right: 1rem;
-  width: 5rem;
+  display: inline-block;
+  text-align: left;
+  min-width: 7rem;
 
 }
 ._label_id{

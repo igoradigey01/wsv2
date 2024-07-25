@@ -71,7 +71,7 @@ export class BrandService {
           }));
         }),
         //https://angularindepth.com/posts/1518/takeuntildestroy-in-angular-v16
-        takeUntilDestroyed(),
+       takeUntilDestroyed(),
         catchError(() => of([] as Brand[])) //  on any error, just return an empty array
       )
       .subscribe();
@@ -93,9 +93,9 @@ export class BrandService {
               state: Status.load,
             }));
 
-            ;
+            
           }
-          console.log(' Create--(data-tap -Brand-1)' + JSON.stringify(data))
+        //  console.log(' Create--(data-tap -Brand-1)' + JSON.stringify(data))
         })
       )
       .subscribe({

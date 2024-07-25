@@ -10,7 +10,7 @@ import { KatalogComponent } from '@wsv2/ui';
 import { ProductItemComponent } from './product-item.component';
 
 import { ProductSidenavComponent } from './product-sidenav.component';
-import {ProductListComponent} from './product-list.component'
+import { ProductListComponent } from './product-list.component'
 
 import { ProductService } from '@wsv2/shop-content';
 
@@ -47,7 +47,7 @@ export interface EmitData {
 })
 export class ProductShellComponent {
 
-  private idCatalogAktive=-1;
+  private idCatalogAktive = -1;
 
   public flag = StateView.default;
   public emitData = <EmitData>{
@@ -60,12 +60,12 @@ export class ProductShellComponent {
   public readonly subCatalogs = this.repositoryProduct.SubCatalogs;
   public products = computed(() => {
 
-    this.repositoryProduct. LoadSubCatalogProduct(this.idCatalogAktive);
-    
-     return this.repositoryProduct.Products();
+    this.repositoryProduct.LoadSubCatalogProduct(this.idCatalogAktive);
+
+    return this.repositoryProduct.Products();
 
 
-   });
+  });
 
   public readonly Articles = this.repositoryProduct.Articles;
   public readonly Colors = this.repositoryProduct.Colors;
@@ -135,7 +135,7 @@ export class ProductShellComponent {
     //debugger
     this.emitData = event;
     this.flag = StateView.listView;
-    this.idCatalogAktive=event.subCatalogId;
+    this.idCatalogAktive = event.subCatalogId;
   }
 
 
@@ -148,7 +148,7 @@ export class ProductShellComponent {
     // debugger
     if (event.stateView === StateView.create) {
       //  debugger
-
+       console.debug(event.product)
       this.repositoryProduct.Create(event.product);
       this.flag = StateView.default;
     }
@@ -169,7 +169,7 @@ export class ProductShellComponent {
     this.flag = StateView.default;
   }
 
-  public backToList(){
-    this.flag=StateView.listView;
+  public backToList() {
+    this.flag = StateView.listView;
   }
 }

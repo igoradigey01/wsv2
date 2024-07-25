@@ -112,6 +112,11 @@ export class ProductItemComponent   {
   };
 
   @Input({required:true}) set Item(item: Product) {
+   console.log("start :  input Product  in product-item---------------------")
+    console.debug(this._brands)
+    console.debug(this._colors)
+    console.debug(this._articles)
+    console.log(" end : input Product  in product-item---------------------")
  
     this.state.update(() =>{ 
       

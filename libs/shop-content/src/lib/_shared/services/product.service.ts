@@ -193,7 +193,7 @@ export class ProductService {
           }));
         }),
         //https://angularindepth.com/posts/1518/takeuntildestroy-in-angular-v16
-        takeUntilDestroyed(),
+       // takeUntilDestroyed(), //26-07-24
         catchError(() => of([] as Product[])) //  on any error, just return an empty array
       )
       .subscribe();
