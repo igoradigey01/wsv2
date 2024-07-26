@@ -9,7 +9,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '@wsv2/shop-content';
 import { Product, ProductType} from '@wsv2/app-common';
-import {  SubKatalog } from '@wsv2/app-common';
+
 import { Color } from '@wsv2/app-common';
 import { Brand } from '@wsv2/app-common';
 import { Article } from '@wsv2/app-common';
@@ -95,41 +95,53 @@ export class ProductItemComponent   {
  
 
   private _product_typeIds:Signal< ProductType[]>=signal<ProductType[]>([]);
+  private _articls:Signal<Article[]>=signal<Article[]>([]);
+  private _colors:Signal<Color[]>=signal<Color[]>([]);
+  private _brands:Signal<Brand[]>=signal<Brand[]>([]);
 
   public Product= computed(() => this.state());
   public ProductTypes=computed(()=>this._product_typeIds());
+  public ArticleItmes=computed(()=>this._articls());
+  public ColorItmes=computed(()=>this._colors());
+
+  public BrandItmes=computed(()=>this._brands());
 
 
-  @Output() public ProductModified = new EventEmitter<EmitData>();
+
+  
   //@Input() public _select_Nomenclature: Product;
-  @Input({required:true}) public _articles: Article[] = [];
-  @Input({required:true}) public _brands: Brand[] = [];
-  @Input({required:true})  public _colors: Color[] = [];
-  @Input() public   subCatalog:SubKatalog = <SubKatalog>{
-    id: -1,
-    name: '',
-    hidden: false,
-  };
+  @Input({required:true}) public  set  Articles (items:  Signal<  Article[]>){
+     this._articls=items;
+    
+  }
+  @Input({required:true}) public  set Brands(items:  Signal<  Article[]>){
+    this._brands=items;
+   
+ }
+  @Input({required:true})  public  set Colors(items:  Signal<  Article[]>){
+    this._colors=items;
+   
+ }
+
+  
 
   @Input({required:true}) set Item(item: Product) {
-   console.log("start :  input Product  in product-item---------------------")
-    console.debug(this._brands)
-    console.debug(this._colors)
-    console.debug(this._articles)
-    console.log(" end : input Product  in product-item---------------------")
+  
  
     this.state.update(() =>{ 
-      
-      
-       item.brandName = this._brands.find(
+      /* console.log("color ------- product-item")
+        console.log(JSON.stringify(this.Brands))
+        console.log(JSON.stringify(this.Colors))
+       */
+       item.brandName = this.BrandItmes().find(
         (d) => d.id === item.brandId
       )?.name;
 
-      item.colorName = this._colors.find(
+      item.colorName = this.ColorItmes().find(
         (d) => d.id ===item.colorId
       )?.name;
 
-      item.articleName = this._articles.find(
+      item.articleName = this.ArticleItmes().find(
         (d) => d.id ===item.articleId
       )?.name;
 
@@ -147,20 +159,17 @@ export class ProductItemComponent   {
 
 
   
- // @Input() public _flagViewMode: StateView | undefined;
+
 
   @Output() public _onChangeStateView = new EventEmitter<StateView>();
- //  @Output() public _onNomenclatureChange = new EventEmitter<DtoNomenclature>();
+  @Output() public ProductModified = new EventEmitter<EmitData>();
+
 
   @ViewChild(ImgRenderComponent, { static: false })
   private _childComponent: ImgRenderComponent | undefined;
 
   public _flag_sendServerData= false;
-  public _select_article: Article = <Article>{
-    id: -1,
-    name: '',
-    hidden: false,
-  };
+  
 
   public _flagInvalid= false;
 
@@ -180,11 +189,7 @@ export class ProductItemComponent   {
     return this._flag == StateView.create ? true : false;
   }
 
-  public get TitleItem(): string {
-    return this.IsCreateView
-      ? 'Создать Позицию Номенклатуры'
-      : 'Редактировать Позицию Номенклатуры';
-  }
+
 
   constructor(
     private _repository: ProductService,
@@ -214,7 +219,7 @@ export class ProductItemComponent   {
 
     this.state.update((state) => ({
       ...state,
-      brandName : this._brands.find(
+      brandName : this.BrandItmes().find(
         (d) => d.id === this.state().brandId
       )?.name
     }));
@@ -225,7 +230,7 @@ export class ProductItemComponent   {
 
     this.state.update((state) => ({
       ...state,
-      colorName : this._colors.find(
+      colorName : this.ColorItmes().find(
         (d) => d.id === this.state().colorId
       )?.name
     }));    
@@ -236,7 +241,7 @@ export class ProductItemComponent   {
 
     this.state.update((state) => ({
       ...state,
-      articleName : this._articles.find(
+      articleName : this.ArticleItmes().find(
         (d) => d.id === this.state().articleId
       )?.name
     }));    

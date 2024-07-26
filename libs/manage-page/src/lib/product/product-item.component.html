@@ -74,14 +74,17 @@
           <mat-form-field id="brand" appearance="fill">
             <mat-select
               name="brand"
-              (selectionChange)="onBrandChange($event)"
               [(ngModel)]="Product().brandId"
+              (selectionChange)="onBrandChange($event)"
+            
               #brand="ngModel"
               required
             >
-              <mat-option *NgFor="let item of _brands" [value]="item.id">{{
+            @if(BrandItmes()){
+            <mat-option *ngFor="let item of BrandItmes()" [value]="item.id">{{
                 item.name
               }}</mat-option>
+            }
             </mat-select>
             <mat-error *ngIf="brand.invalid"> </mat-error>
           </mat-form-field>
@@ -98,9 +101,11 @@
               #color="ngModel"
               required
             >
-              <mat-option *ngFor="let item of _colors" [value]="item.id">{{
+            @if(ColorItmes()){
+              <mat-option *ngFor="let item of ColorItmes()" [value]="item.id">{{
                 item.name
               }}</mat-option>
+            }
             </mat-select>
             <mat-error *ngIf="color.invalid"> </mat-error>
           </mat-form-field>
@@ -116,9 +121,11 @@
               #article="ngModel"
               required
             >
-              <mat-option *ngFor="let item of _articles" [value]="item.id">{{
+            @if(ArticleItmes()){
+              <mat-option *ngFor="let item of ArticleItmes()" [value]="item.id">{{
                 item.name
               }}</mat-option>
+            }
             </mat-select>
             <mat-error *ngIf="article.invalid"> </mat-error>
           </mat-form-field>
