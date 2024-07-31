@@ -17,7 +17,7 @@
           <div class="select">
             <mat-form-field>
               <mat-label>выберите тип </mat-label>
-              <mat-select (selectionChange)="doSomething($event)" [(value)]="selected_product_typeId">
+              <mat-select (selectionChange)="doSomething($event)" [(value)]="state_product_type_id">
                 @for (item of product_typeIds(); track item.id) {
                   <mat-option [value]="item.id">{{item.name}}</mat-option>
                 }
@@ -27,7 +27,7 @@
           </div>
         <wsv2-color-list
           [Items]="colors"
-          [product_type_of_clientId]="product_type_of_clientId"
+          [product_type_of_clientId]="state_product_type_id()"
           (сolorChange)="onColorChange($event)"
         ></wsv2-color-list>
       }

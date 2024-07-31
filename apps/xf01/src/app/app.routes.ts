@@ -119,7 +119,8 @@ export const appRoutes: Route[] = [
       {
         path: 'product',
         loadComponent: () =>
-          import('@wsv2/manage-page').then((m) => m.ProductShellComponent),
+          import('@wsv2/manage-page').then((m) => m.ProductShellComponent),        
+          data:{type_product: 4 }
       },
       {
         path: 'info',

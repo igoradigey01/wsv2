@@ -1,7 +1,7 @@
 import { Component, computed ,signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { StateView } from '@wsv2/app-common';
+import { ProductType, StateView } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { Color } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -33,9 +33,7 @@ export interface EmitData {
 })
 export class ColorShellComponent {
 
-  public selected_product_typeId =1;
-  private state_selected=signal(this.selected_product_typeId);
-  public product_type_of_clientId=1;
+  public state_product_type_id=signal(0);
 
   public flag = StateView.default;
   
@@ -44,7 +42,7 @@ export class ColorShellComponent {
 
   public colors = computed(() => this.repository
   .Colors()
-  .filter((f) => f.product_typeId === this.state_selected())
+  .filter((f) => f.product_typeId === this.state_product_type_id())
   
   );
 
@@ -67,9 +65,8 @@ export class ColorShellComponent {
   ) {
     this.route.data.subscribe((v) => {
       const id=+v['type_product']
-      this.product_type_of_clientId=id;
-      this.selected_product_typeId=id;
-      this.state_selected.update(()=>id) ;
+      this.state_product_type_id.set(id);
+     
     }); 
           console.log ( 'repository.Colors'+JSON.stringify( this.repository.Colors()))
     //console.log (repositoryProductType.ProductTypes())
@@ -108,7 +105,7 @@ export class ColorShellComponent {
   
 
   // console.log( evnt.value);
-   this.state_selected.update(()=> evnt.value) 
+   //this.state_selected.update(()=> evnt.value) 
   //   console.log("this.Colors--"+JSON.stringify(this.Colors()))
 
   }

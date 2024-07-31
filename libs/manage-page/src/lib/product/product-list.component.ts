@@ -31,7 +31,8 @@ export class ProductListComponent {
     
      this.state=items;
    }
-
+ 
+   
 
   @Output() public productChange = new EventEmitter<EmitData>();
 

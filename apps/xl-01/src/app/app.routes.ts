@@ -92,14 +92,14 @@ export const appRoutes: Route[] = [
         path: 'article',
         loadComponent: () =>
           import('@wsv2/manage-page').then((m) => m.ArticleShellComponent),
-          data:{type_product: 4 }
+          data:{type_product: 6 }
       },
       
       {
         path: 'brand',
         loadComponent: () =>
           import('@wsv2/manage-page').then((m) => m.BrandShellComponent),
-          data:{type_product: 4 }
+          data:{type_product: 6}
       }
       ,
       
@@ -107,7 +107,7 @@ export const appRoutes: Route[] = [
         path: 'color',
         loadComponent: () =>
           import('@wsv2/manage-page').then((m) => m.ColorShellComponent),
-          data:{type_product: 4 }
+          data:{type_product: 6 }
       }
       ,
       {
@@ -120,6 +120,7 @@ export const appRoutes: Route[] = [
         path: 'product',
         loadComponent: () =>
           import('@wsv2/manage-page').then((m) => m.ProductShellComponent),
+        data:{type_product: 6}
       },
       {
         path: 'info',

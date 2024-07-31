@@ -1,7 +1,7 @@
 import { Component, computed ,signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { StateView } from '@wsv2/app-common';
+import { ProductType, StateView } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { Article } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -33,9 +33,9 @@ export interface EmitData {
 })
 export class ArticleShellComponent {
 
-  private state_selected=signal(1);
-  public selected_product_typeId =1;
-  public product_type_of_clientId=1;
+ 
+  
+  public state_product_type_id=signal(0);
 
   public flag = StateView.default;
   
@@ -46,7 +46,7 @@ export class ArticleShellComponent {
   //  console.log('.repository .Articles()---' + JSON.stringify( this.repository.Articles()));
     return this.repository
       .Articles()
-      .filter((f) => f.product_typeId === this.state_selected());
+      .filter((f) => f.product_typeId === this.state_product_type_id());
   });
 
   public product_typeIds = this.repositoryProductType.ProductTypes;
@@ -68,9 +68,8 @@ export class ArticleShellComponent {
   ) {
     this.route.data.subscribe((v) => {
       const id=+v['type_product']
-      this.product_type_of_clientId=id;
-      this.selected_product_typeId=id;
-      this.state_selected.update(()=>id) ;
+      this.state_product_type_id.set(id);
+      
     }); 
         
     //console.log (repositoryProductType.ProductTypes())
@@ -104,15 +103,7 @@ export class ArticleShellComponent {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public doSomething(evnt:any){
   
-
-  // console.log( evnt.value);
-   this.state_selected.update(()=> evnt.value) 
-    // console.log("this.articles--"+JSON.stringify(this.articles()))
-
-  }
 
   //--------------------
 

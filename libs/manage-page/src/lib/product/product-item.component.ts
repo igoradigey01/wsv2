@@ -94,13 +94,13 @@ export class ProductItemComponent   {
   
  
 
-  private _product_typeIds:Signal< ProductType[]>=signal<ProductType[]>([]);
+  private _product_type=signal<number>( 0);
   private _articls:Signal<Article[]>=signal<Article[]>([]);
   private _colors:Signal<Color[]>=signal<Color[]>([]);
   private _brands:Signal<Brand[]>=signal<Brand[]>([]);
 
   public Product= computed(() => this.state());
-  public ProductTypes=computed(()=>this._product_typeIds());
+  public ProductType=computed(()=>this._product_type);
   public ArticleItmes=computed(()=>this._articls());
   public ColorItmes=computed(()=>this._colors());
 
@@ -110,8 +110,10 @@ export class ProductItemComponent   {
 
   
   //@Input() public _select_Nomenclature: Product;
-  @Input({required:true}) public  set  Articles (items:  Signal<  Article[]>){
+  @Input({required:true}) public  set  Articles (items:  Signal<  Article[] >){
+    if(items){
      this._articls=items;
+    }
     
   }
   @Input({required:true}) public  set Brands(items:  Signal<  Article[]>){
@@ -123,32 +125,29 @@ export class ProductItemComponent   {
    
  }
 
+ @Input({ required: true }) set product_type_id(item :Signal< number>) {
+  this._product_type.set(item());
+ }
+
   
 
   @Input({required:true}) set Item(item: Product) {
-  
- 
-    this.state.update(() =>{ 
-      /* console.log("color ------- product-item")
-        console.log(JSON.stringify(this.Brands))
-        console.log(JSON.stringify(this.Colors))
-       */
-       item.brandName = this.BrandItmes().find(
+   
+
+    this.state.update(() => ({
+      ...item,
+     brandName : this.BrandItmes().find(
         (d) => d.id === item.brandId
-      )?.name;
-
-      item.colorName = this.ColorItmes().find(
+      )?.name,
+      colorName :this.ColorItmes().find(
         (d) => d.id ===item.colorId
-      )?.name;
-
-      item.articleName = this.ArticleItmes().find(
+      )?.name,
+      articleName :this.ArticleItmes().find(
         (d) => d.id ===item.articleId
-      )?.name;
-
-      return item;
-  
-    }
-  );
+      )?.name
+    }));
+ 
+   
   }
 
   @Input({ required: true }) set flag(stateView: StateView) {
@@ -168,12 +167,12 @@ export class ProductItemComponent   {
   @ViewChild(ImgRenderComponent, { static: false })
   private _childComponent: ImgRenderComponent | undefined;
 
-  public _flag_sendServerData= false;
+
   
 
   public _flagInvalid= false;
 
-  public _progress = 0;
+  
 
   public _selectDtoImg: DtoImage = <DtoImage>{
     base64Img: '',
@@ -195,28 +194,12 @@ export class ProductItemComponent   {
     private _repository: ProductService,
     private _imgManager: ImgManagerService
   ) {
-    //this._select_Nomenclature =
+    
   }
 
-  /* ngOnInit(): void {
-     //debugger
-    if (this._select_katalogN) {
-      this._select_Nomenclature.katalogId = this._select_katalogN.id;
-      this._select_Nomenclature.katalogName = this._select_katalogN.name;
-    }
-  } */
+  
 
   public onBrandChange(event: any) {
-    //debugger
-    //console.log('Book changed...');
-  /*   const selectedIdBrand = +event.value;
-
-    this._select_Nomenclature.brandName = this._brands.find(
-      (d) => d.id === this._select_Nomenclature.brandId
-    )?.name; */
-
-    
-
     this.state.update((state) => ({
       ...state,
       brandName : this.BrandItmes().find(
@@ -690,13 +673,6 @@ export class ProductItemComponent   {
     this._onChangeStateView.emit(StateView.default);
   }
 
-  public undo() {
-    //debugger
-    this._flag_sendServerData = false;
-  }
-
-  public OK() {
-    this._onChangeStateView.emit(StateView.default);
-  }
+ 
 }
 

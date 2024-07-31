@@ -6,33 +6,52 @@
 
   @switch (flag) { @default {
 
-  <wsv2-product-sidenav
-    [Catalogs]="catalogs"
-    [SubCatalogs]="subCatalogs"
-    [EmitData]="emitData"
-    (SubCatalogChange)="onSubCatalogChange($event)"
-  ></wsv2-product-sidenav>
+  <wsv2-product-sidenav [Catalogs]="Catalogs" [SubCatalogs]="SubCatalogs" [EmitData]="emitData"
+    (SubCatalogChange)="onSubCatalogChange($event)"></wsv2-product-sidenav>
 
-  }
-  <!--  Create template -->
+  } @case (1) {
+  <!----      SendData        -->
 
-  @case (2) {
+  <div class="item-show">
+    <h4 class="action-name">Данные отправлены на сервер</h4>
+    <div class="back-button">
+      <button mat-mini-fab color="primary" (click)="backToList()">
+        <mat-icon fontIcon="arrow_back">home</mat-icon>
+      </button>
+    </div>
+    @if ( state_Error().error) {
+    <div>
+      {{ state_Error().message }}
+    </div>
+    } @else {
+    <div>
+      <mat-spinner></mat-spinner>
+    </div>
+    }
+  </div>
+  } @case (2) {
+  <div class="h-selector">
+    <div class="select">
+      <mat-form-field>
+        <mat-label>выберите тип </mat-label>
+        <mat-select [(value)]="state_product_type_id">
+          @for (item of Product_types () ; track item.id) {
+          <mat-option [value]="item.id">{{ item.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div class="back-button">
       <button mat-mini-fab color="primary" (click)="backToCatalog()">
         <mat-icon fontIcon="arrow_back">home</mat-icon>
       </button>
     </div>
-  
-    <wsv2-product-list
-      [Items]=" products"
+  </div>
 
-      
-      (productChange)="onProductChange($event)"
-    ></wsv2-product-list>
-  
-    }
+  <wsv2-product-list [Items]="Products" (productChange)="onProductChange($event)"></wsv2-product-list>
 
-  @case (5) {
+  } @case (5) {
   <div class="item-show">
     <h4 class="action-name">Создать Позицию Товара</h4>
     <div class="back-button">
@@ -40,20 +59,11 @@
         <mat-icon fontIcon="arrow_back">home</mat-icon>
       </button>
     </div>
-    <wsv2-product-item
-      [Articles]="Articles"
-      [Brands]="Brands"
-      [Colors]="Colors"
-      [flag]="flag"
-      [Item]="item "
-    ></wsv2-product-item>
+    <wsv2-product-item [Articles]="Articles" [Brands]="Brands" [Colors]="Colors"
+      [product_type_id]="state_product_type_id" [flag]="flag" [Item]="item"></wsv2-product-item>
   </div>
 
-  }
-
-  <!--  Edit  template -->
-
-  @case (4) {
+  } @case (4) {
   <div class="item-show">
     <h4 class="action-name">Редактировать Позицию Товара</h4>
     <div class="back-button">
@@ -62,17 +72,10 @@
       </button>
     </div>
 
-    <wsv2-product-item
-    [Articles]="Articles"
-    [Brands]="Brands"
-    [Colors]="Colors"
-    [flag]="flag"
-    [Item]="item "
-  ></wsv2-product-item>
+    <wsv2-product-item [Articles]="Articles" [Brands]="Brands" [Colors]="Colors"
+      [product_type_id]="state_product_type_id" [flag]="flag" [Item]="item"></wsv2-product-item>
   </div>
-  } 
-  
-  @case (7) {
+  } @case (7) {
   <div class="item-show">
     <h4 class="action-name">Удалить Позицию Товара</h4>
   </div>

@@ -1,10 +1,12 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 //import { StateView } from '@wsv2/app-common';
-import { SubKatalog, Katalog, Product } from '@wsv2/app-common';
+import { SubKatalog, Katalog, Product, ProductType, Message } from '@wsv2/app-common';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { KatalogComponent } from '@wsv2/ui';
 import { ProductItemComponent } from './product-item.component';
@@ -12,10 +14,12 @@ import { ProductItemComponent } from './product-item.component';
 import { ProductSidenavComponent } from './product-sidenav.component';
 import { ProductListComponent } from './product-list.component'
 
-import { ProductService } from '@wsv2/shop-content';
+import { ProductService, ProductTypeService } from '@wsv2/shop-content';
+import { ActivatedRoute } from '@angular/router';
 
 export enum StateView {
   default = 0, // sidenav
+  sendData=1,
   listView = 2,
 
   edit = 4,
@@ -41,6 +45,8 @@ export interface EmitData {
     KatalogComponent,
     MatButtonModule,
     MatIconModule,
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './product-shell.component.html',
   styleUrls: ['./product-shell.component.scss'],
@@ -56,9 +62,31 @@ export class ProductShellComponent {
     stateView: StateView.default,
   };
 
-  public readonly catalogs = this.repositoryProduct.Catalogs;
-  public readonly subCatalogs = this.repositoryProduct.SubCatalogs;
-  public products = computed(() => {
+
+  public state_product_type_id=signal(0);
+
+  public readonly  state_Error=   computed(() => { return this.repositoryProduct.Message() })                                  //signal<Message >({error:false,message:''})
+
+
+  public readonly Catalogs = this.repositoryProduct.Catalogs;
+  public readonly SubCatalogs = this.repositoryProduct.SubCatalogs;
+  public readonly  Product_types = this.repositoryProductType.ProductTypes;
+
+  public readonly Articles =   computed(() => { 
+    
+    return  this.repositoryProduct.Articles() .filter((f) => f.product_typeId ===  this.state_product_type_id())}); 
+      
+  public readonly Colors = computed(() => { 
+    
+    return  this.repositoryProduct.Colors() .filter((f) => f.product_typeId ===  this.state_product_type_id())}); 
+      
+  public readonly Brands = computed(() => { 
+    
+    return    this.repositoryProduct.Brands() .filter((f) => f.product_typeId ===  this.state_product_type_id())}); 
+  
+
+
+  public Products = computed(() => {
 
     this.repositoryProduct.LoadSubCatalogProduct(this.idCatalogAktive);
 
@@ -66,14 +94,6 @@ export class ProductShellComponent {
 
 
   });
-
-  public readonly Articles = this.repositoryProduct.Articles;
-  public readonly Colors = this.repositoryProduct.Colors;
-  public readonly Brands = this.repositoryProduct.Brands;
-
-  /* computed(() => this.repositoryProduct.SubCatalogs() 
-  .filter((f) => f.catalogId === this.emitData.catalogId)  
-  ); */
 
   public readonly message = this.repositoryProduct.Message;
 
@@ -126,7 +146,21 @@ export class ProductShellComponent {
     wwwrootOK: undefined,
   };
 
-  constructor(private repositoryProduct: ProductService) {
+  constructor(
+    private route: ActivatedRoute,
+    private repositoryProduct: ProductService,
+    private repositoryProductType: ProductTypeService
+  ) {
+
+    this.route.data.subscribe((v) => {
+      const id=+v['type_product']
+      this.state_product_type_id.set(id);
+    //  this.selected_product_typeId=id;
+      
+     
+
+    console.log( "constructor product-shell  -- 'type_product  id "+  JSON.stringify(id))
+    }); 
     repositoryProduct.ClearMessage();
     // console.log( "constructor product-shell"+  JSON.stringify(repositoryProduct.SubCatalogs))
   }
@@ -164,6 +198,8 @@ export class ProductShellComponent {
       this.flag = StateView.default;
     }
   }
+
+  
 
   public backToCatalog() {
     this.flag = StateView.default;
