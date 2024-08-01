@@ -36,7 +36,7 @@ $on-surface-variant-color: #4e444b !default;
 $outline-color: #80747c !default;
 
 //Для использования прозрачности в Sass необходимо использовать цвет в RGB формате
-//[CSS var в rgba] (https://habr.com/ru/articles/533084/)
+//[CSS v ar в rgba] (https://habr.com/ru/articles/533084/)
 
 @function HexToRGB($hex) {
   @return red($hex), green($hex), blue($hex);
@@ -47,7 +47,7 @@ $outline-color: #80747c !default;
 // $dark-accent-text: rgba($dark-primary-text, 0.54);
 
 body {
-  --tertiary-color: #{$tertiary-color};
+ --tertiary-color: #{$tertiary-color};
   --tertiary-container-color:  #{$tertiary-container-color};
   --on-tertiary-color:  #{$on-tertiary-color};
   --on-tertiary-container-color:  #{$on-tertiary-container-color};  

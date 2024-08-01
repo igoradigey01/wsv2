@@ -289,7 +289,7 @@
               [disabled]="myForm.invalid || _flagInvalid || myForm.pristine"
               *ngIf="_selectDtoImg.flagChanged"
               color="primary"
-              (click)="saveNomenclature()"
+              (click)="saveProduct()"
             >
               Сохранить
             </button>
@@ -298,7 +298,7 @@
               mat-flat-button
               color="warn"
               [disabled]="_flagInvalid"
-              (click)="deleteNomenclature()"
+              (click)="deleteProduct()"
             >
               Удалить
             </button>

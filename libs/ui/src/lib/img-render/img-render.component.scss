@@ -2,7 +2,7 @@
 
 ::ng-deep .mat-tab-label-active {
   background-color:#f0f0f0;
-  color: var(--bs-purple);
+  color: var(--primary-color);
 }
 .size_show{
   display: inline-block;
@@ -10,28 +10,28 @@
 }
 
 .file_load_show{
-  color: var(--bs-white);
-  background-color:  var(--bs-purple);;
+  color: var(---accent-color);
+  background-color:  var(  --on-accent-color);;
 
 }
 
 .error_show{
-  color: var(--bs-pink)
+  color: var( --warn-color)
 }
 
 .messages-show{
   text-align: center;
-  color: var(--bs-green)
+  color: var(--tertiary-color)
 }
 
 .botton-zoom{
-  color: var(--bs-purple);
+  color: var(--primary-color);
 
 }
 
 
 .botton_Ratio_true{
-  background-color: var(--bs-green)  !important;
+  background-color: var(--tertiary-color)  !important;
   color: #000000de;
 
 
@@ -44,14 +44,14 @@
 
 .botton-rotate{
 
-  color: var(--bs-purple);
+  color: var(--primary-color);
 
 }
 
 
 .accent-btn{
   background-color: hsl(47deg 100% 63%);
-  color: var(--bs-purple);
+  color: var(--primary-color);
 
 }
 

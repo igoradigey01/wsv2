@@ -21,7 +21,8 @@ export enum StateView {
   default = 0, // sidenav
   sendData=1,
   listView = 2,
-
+  editOnlyProduct=3,
+  editOnlyImage=6,
   edit = 4,
   create = 5,
   delete = 7,
@@ -182,7 +183,7 @@ export class ProductShellComponent {
     // debugger
     if (event.stateView === StateView.create) {
       //  debugger
-       console.debug(event.product)
+      console.log ("ProductModified  product-shell Stateview.create :" +JSON.stringify(event.product))
       this.repositoryProduct.Create(event.product);
       this.flag = StateView.default;
     }
@@ -190,6 +191,12 @@ export class ProductShellComponent {
       this.repositoryProduct.Update(event.product);
       this.flag = StateView.default;
     }
+    if(event.stateView===StateView.editOnlyImage){
+       Error("not impliment Exeption")
+    }
+    if(event.stateView===StateView.editOnlyProduct){
+      Error("not impliment Exeption")
+   }
     if (event.stateView === StateView.default) {
       this.flag = StateView.default;
     }
