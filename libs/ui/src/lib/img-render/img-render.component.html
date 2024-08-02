@@ -1,11 +1,76 @@
-<mat-tab-group (selectedIndexChange)="selectedIndexChangeMatTabGroup($event)">
+<mat-tab-group
+  (selectedIndexChange)="selectedIndexChangeMatTabGroup($event)"
+  dynamicHeight
+>
   <mat-tab label="Фото">
     <div class="messages-show" [ngClass]="{ error_show: _flagError }">
       {{ _messagess_show }}
     </div>
 
     <div class="toolbar-box">
+      @if(SrcImg===""){
+
+      <svg
+        width="24"
+        height="24"
+        stroke-width="1.5"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12 8L12 12"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M12 16.01L12.01 15.9989"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M9 3H4V6"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M4 11V13"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M20 11V13"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M15 3H20V6"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M9 21H4V18"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M15 21H20V18"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+
+      } @else {
       <img src="{{ SrcImg }}" class="img-disply" />
+      }
     </div>
   </mat-tab>
   <!--------------------------------------------------------- -->
@@ -14,14 +79,15 @@
       <div class="messages-show" [ngClass]="{ error_show: _flagError }">
         {{ _messagess_show }}
       </div>
-      <div *ngIf="_loading" class="loader">Загрузка...</div>
-      <div *ngIf="this._imgManager.FlagError" class="error_show">
-        {{ this._imgManager.ErrorMassages }}
-      </div>
+     
+      @if(_loading){<div>Загрузка...</div>}
+      
+     
 
       <button
+        mat-flat-button
         type="file"
-        class="btn file_load_show btn-circle"
+        class="file_load_show"
         (click)="fileInput.click()"
       >
         <svg
@@ -36,6 +102,7 @@
             d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"
           />
         </svg>
+
         <input
           #fileInput
           type="file"
@@ -43,23 +110,8 @@
           style="display: none"
         />
       </button>
-      <button class="btn file_load_show btn-circle" (click)="togleShowUrl()">
-        URL
-      </button>
 
-      <ng-template [ngIf]="_flagShowUrl">
-
-
-        <input #fileInput type="url" />
-
-        <button
-          class="btn file_load_show btn-circle"
-          (click)="onSetFileFromUrl(fileInput.value)"
-          (click)="togleShowUrl()"
-        >
-          OK
-        </button>
-      </ng-template>
+     
 
       <ng-container *ngTemplateOutlet="toolbarImg"></ng-container>
     </div>
@@ -70,24 +122,21 @@
         id="reset"
         mat-fab
         (click)="resetImage()"
-        color="warn"
+      
         aria-label="Сбрость настройки"
       >
         <mat-icon>settings_backup_restore</mat-icon>
       </button>
-      <img
-        src="{{ this._imgManager.ImgBase64FromUrl }}"
-        style="max-width: 500px"
-      />
+   
     </div>
   </mat-tab>
 </mat-tab-group>
 <!---------------------------------------------------->
-
-<div class="img-disply" *ngIf="ShowCroppedTab">
+@if(ShowCroppedTab){
+<div class="img-disply" >
   <image-cropper
     [imageChangedEvent]="_imageChanged"
-    [imageBase64]="_imgManager.ImgBase64FromUrl"
+    
     [maintainAspectRatio]="_maintainAspectRatio"
     [aspectRatio]="_aspectRatio"
     [containWithinAspectRatio]="_containWithinAspectRatio"
@@ -103,6 +152,7 @@
   >
   </image-cropper>
 </div>
+}
 
 <!---------------------------------------------------->
 <ng-template #toolbarImg>
@@ -110,19 +160,18 @@
     <div class="zoom">
       <button
         id="zoom"
-        class="accent-btn botton-zoom "
+        class=" botton-zoom"
         mat-mini-fab
         (click)="zoomIn()"
-        color="accent"
+       
         aria-label="Zoom +"
       >
         <mat-icon>zoom_out_map</mat-icon>
       </button>
       <button
         mat-mini-fab
-        class="accent-btn botton-zoom "
-        (click)="zoomOut()"
-        color="accent"
+        class="botton-zoom"
+        (click)="zoomOut()"        
         aria-label="Zoom -"
       >
         <mat-icon>zoom_in_map</mat-icon>
@@ -130,24 +179,22 @@
     </div>
   </div>
 
-  <div class="aspectRatio-group">
+  <div class="toolbarImg-group">
     <button
       id="aspectRatio"
       class="botton-Ratio"
       mat-mini-fab
       [ngClass]="{ botton_Ratio_true: _maintainAspectRatio }"
-      (click)="toggleMaintainAspectRatio()"
-      color="accent"
+      (click)="toggleMaintainAspectRatio()"     
       aria-label="aspect Ratio main toogle"
     >
       <mat-icon>aspect_ratio</mat-icon>
     </button>
 
     <button
-      class=" botton-Ratio "
+      class="botton-Ratio"
       mat-mini-fab
-      (click)="setAspectRatio()"
-      color="accent"
+      (click)="setAspectRatio()"    
       aria-label="aspect Ratio 4:3"
     >
       {{ _show_aspectRatio }}
@@ -157,8 +204,7 @@
       class="botton-Ratio"
       mat-mini-fab
       [ngClass]="{ botton_Ratio_true: _containWithinAspectRatio }"
-      (click)="toggleContainWithinAspectRatio()"
-      color="accent"
+      (click)="toggleContainWithinAspectRatio()"     
       aria-label="aspect Ratio 1/1"
     >
       <mat-icon>burst_mode</mat-icon>
@@ -166,28 +212,27 @@
   </div>
   <div class="rotate-group">
     <button
-      class="accent-btn botton-rotate"
+      class="botton-rotate"
       mat-mini-fab
       (click)="flipHorizontal()"
-      color="accent"
+      
       aria-label="flip to Horisontal"
     >
       <mat-icon>swap_horiz</mat-icon>
     </button>
     <button
-      class="accent-btn botton-rotate"
+      class=" botton-rotate"
       mat-mini-fab
       (click)="flipVertical()"
-      color="accent"
+    
       aria-label="flip to vertical"
     >
       <mat-icon>swap_vert</mat-icon>
     </button>
     <button
-      class="accent-btn botton-rotate"
+      class="botton-rotate"
       mat-mini-fab
-      (click)="setCanvasRotation()"
-      color="accent"
+      (click)="setCanvasRotation()"      
       aria-label="rotate 1=90deg"
     >
       <mat-icon>forward_30</mat-icon>
@@ -195,8 +240,8 @@
   </div>
   <div class="size-group">
     <label for="sizeToWidth" class="size_show"> ( {{ _resizeToWidth }}) </label>
-    <input #sizeToWidth style="width: 3rem" [value]="ResizeToWidth" />
-    <button (click)="ResizeToWidth = sizeToWidth.value">ok</button>
+    <input #sizeToWidth style="width: 3rem ; " [value]="ResizeToWidth" />
+    <button (click)="ResizeToWidth = sizeToWidth.value"  class="ok-button" >ok</button>
     <div style="display: inline-block">
       <span>(original)</span>
       <div class="size_show">

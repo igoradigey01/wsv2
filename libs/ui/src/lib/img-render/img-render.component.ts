@@ -1,9 +1,16 @@
 import { Component} from '@angular/core';
 //import { Product } from './../shared/_interfaces/product.model';
 import { EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button'; 
+//npm instal --save hammerjs
+//yarn add -D hammerjs
+import 'hammerjs';
+import { DomSanitizer, HammerModule, SafeUrl } from '@angular/platform-browser';
+
+
 import {
   //CropperPosition,
   Dimensions,
@@ -27,7 +34,9 @@ export interface DtoImage {
     CommonModule,
     MatTabsModule,
     MatIconModule,
-    ImageCropperComponent
+    MatButtonModule,
+    ImageCropperComponent,
+    HammerModule
   ],
   templateUrl: './img-render.component.html',
   styleUrls: ['./img-render.component.scss'],
@@ -38,7 +47,7 @@ export class ImgRenderComponent  {
   @Output() public _onChangedDtoImage = new EventEmitter<DtoImage>();
   @Output() public _onFlagShowSaveDataBar = new EventEmitter<boolean>();
 
-  public _img_cropped: any = '';
+  public _img_cropped: SafeUrl  = '';
   public _imageChanged: any = '';
   public _imageBase64:string|undefined;
   public _flagShowUrl=false;
@@ -69,6 +78,7 @@ export class ImgRenderComponent  {
   public _cropped_size_h = 0;
   public _cropped_size_w = 0;
   public _resizeToWidth = 1080;
+  
 
   public get ResizeToWidth() {
     return this._resizeToWidth.toString();
@@ -81,7 +91,8 @@ export class ImgRenderComponent  {
     // console.log("SrcImg()---" +this._img_name)
     if (this._flagPhoto) return this._img_cropped;
     if (this._rootSrc && this._img_name) return this._rootSrc +'S'+ this._img_name +'.webp';
-    return this._rootSrc + 'not_found.webp';
+    return     "";
+    // this._rootSrc + 'not_found.webp';
   }
 
   public get ShowCroppedTab(): boolean {
@@ -89,7 +100,9 @@ export class ImgRenderComponent  {
     return true;
   }
 
-  constructor(public _imgManager: ImgManagerService) {}
+  constructor(
+ //   public _imgManager: ImgManagerService,
+    private sanitizer: DomSanitizer) {}
 
   
 
@@ -107,7 +120,7 @@ export class ImgRenderComponent  {
   /** (html.#) or ViewChild.getDtoImgObgect() -- click in parent button for save server */
   public getDtoImgObgect() {
     //
-
+        console.log("get Dto IMg" + this._img_cropped)
     this._onChangedDtoImage.emit({
       base64Img: this._img_cropped,
       flagChanged: this._flagPhoto,
@@ -121,24 +134,8 @@ export class ImgRenderComponent  {
     this._loading = true;
   }
 
-  public togleShowUrl(){
-    this._flagShowUrl=!this._flagShowUrl;
-  }
-  public onSetFileFromUrl(url:string) {
-    //debugger
-    this._flagError=false;
-    if(url===null||undefined){
-      this._flagError=true;
-      this._messagess_show="Url для загрузки image не выбран"
-
-      return
-    }
-   // debugger
-    this._imgManager.ImgBase64FromUrl =url;
-      // 'http://localhost:4200/assets/bg_img/bg-1.jpg';
-
-
-  }
+  
+ 
 
   cropperReady(sourceImageDimensions: Dimensions) {
     // console.log('Cropper ready', sourceImageDimensions);
@@ -166,8 +163,10 @@ export class ImgRenderComponent  {
 
   public imageCropped(event: ImageCroppedEvent) {
     // console.log('imageCropped--', event.base64)
+    //debugger
 
-    this._img_cropped = event.base64;
+    this._img_cropped = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl || event.base64 || '');
+    //event.base64;
     this._cropped_size_h = event.height;
     this._cropped_size_w = event.width;
   }

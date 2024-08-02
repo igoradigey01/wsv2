@@ -1,92 +1,85 @@
 //@import 'src/styles/manager-styles.scss';
 
-::ng-deep .mat-tab-label-active {
+/* ::ng-deep .mat-tab-label-active {
   background-color:#f0f0f0;
   color: var(--primary-color);
-}
-.size_show{
+} */
+.size_show {
   display: inline-block;
-  background-color:#f0f0f0;
+  background-color: #f0f0f0;
+}
+.ok-button {
+  width: 24px;
+  height: 24px;
+  background-color: var(--primary-color);
+  color: var(--on-primary-color);
 }
 
-.file_load_show{
-  color: var(---accent-color);
-  background-color:  var(  --on-accent-color);;
-
+.file_load_show {
+  color: var(--warn-color);
+  background-color: var(--on-accent-color);
 }
 
-.error_show{
-  color: var( --warn-color)
+.error_show {
+  color: var(--warn-color);
 }
 
-.messages-show{
+.messages-show {
   text-align: center;
-  color: var(--tertiary-color)
+  color: var(--tertiary-color);
 }
 
-.botton-zoom{
+.botton-zoom {
   color: var(--primary-color);
-
 }
 
-
-.botton_Ratio_true{
-  background-color: var(--tertiary-color)  !important;
+.botton_Ratio_true {
+  background-color: var(--tertiary-color) !important;
   color: #000000de;
-
-
 }
-.botton-Ratio{
+.botton-Ratio {
   background-color: hsl(47deg 100% 63%);
   color: #000000de;
-
 }
 
-.botton-rotate{
-
+.botton-rotate {
   color: var(--primary-color);
-
-}
-
-
-.accent-btn{
-  background-color: hsl(47deg 100% 63%);
-  color: var(--primary-color);
-
 }
 
 
 
-.toolbarImg{
+input {
+  border: 1px solid var(--primary-color);
+}
+
+.toolbarImg {
   margin-top: 0.3rem;
   margin-bottom: 0.3rem;
-
 }
-.toolbarImg-group ,.aspectRatio-group{
-  display:inline-block;
+.toolbarImg-group {
+  display: inline-flex;
   margin-left: 0.5rem;
 }
 
-.loader{
+.loader {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: var(--on-accent-color);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 20px;
-  color: white;
-
+  color: var(--tertiary-color);
 }
-.img-disply{
+.img-disply {
   max-height: 400px;
+  margin: bottom 16px; ;
 }
 .toolbar-box {
   min-height: 3rem;
   margin: 0.5rem;
   text-align: center;
-
 }
