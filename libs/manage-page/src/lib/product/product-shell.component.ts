@@ -126,12 +126,16 @@ export class ProductShellComponent {
     subCatalogId: -1,
     subCatalogName: undefined,
 
+
     colorId: -1,
     colorName: undefined,
     brandId: -1,
     brandName: undefined,
     articleId: -1,
     articleName: undefined,
+
+
+    
 
     position: 0,
     inStock: false, //есть  на складе ?
@@ -175,8 +179,26 @@ export class ProductShellComponent {
 
 
   public onProductChange(event: EmitData) {
+    if(event.stateView==StateView.create)
+    {
+    
+    
+     this.item.colorId  =  this.Colors().find((f)=>f.name==='none')?.id||-1;
+     
+    this.item.colorName="none";
+     this.item.brandId= this.Brands().find((f)=>f.name==='none')?.id||-1;
+     this.item.brandName="none";
+     this.item.articleId=this.Articles().find((f)=>f.name==='none')?.id||-1;
+     this.item.articleName="none";
+     this.item.price=0;
+     
+      this.flag = event.stateView;
+
+    }else{
     this.item = event.product;
     this.flag = event.stateView;
+    }
+    
   }
 
   public ProductModified(event: EmitData) {

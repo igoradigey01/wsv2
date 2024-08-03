@@ -1,3 +1,5 @@
+import { SafeUrl } from "@angular/platform-browser";
+
 export interface Product {
   id: number;
   guid: string | undefined;
@@ -34,7 +36,7 @@ export interface Product {
   description: string | undefined;
   descriptionSeo:string | undefined;
 
-  imageWebp: Blob | undefined; // именованая ссылка на Blob  window.URL.createObjectURL(d)
+  imageWebp:  SafeUrl  | undefined; // именованая ссылка на Blob  window.URL.createObjectURL(d)
   wwwrootOK:boolean| undefined;                    // onChangeWebp?:boolean; // change  img on server (wwwroot/image)
   wwwroot: string | undefined;  //url for  server-folder wwwroot/
 

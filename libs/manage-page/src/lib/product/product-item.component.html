@@ -17,7 +17,9 @@
         <div class="_input-group">
           <label for="hiddenNomenclature" class="_label"> Скрыть </label>
           <mat-form-field id="hiddenNomenclature" appearance="fill">
-            <div *ngIf="Product()">
+            @if (Product()) {
+            
+
               <mat-select
                 name="hiddenNomenclature"
                 [(ngModel)]="Product().hidden"
@@ -27,8 +29,11 @@
                 <mat-option [value]="false">Нет </mat-option>
                 <mat-option [value]="true">Да </mat-option>
               </mat-select>
-              <mat-error *ngIf="hiddenNomenclature.invalid"> </mat-error>
-            </div>
+              @if (hiddenNomenclature.invalid) {
+              <mat-error > </mat-error>
+              }
+            
+          }
           </mat-form-field>
         </div>
 
@@ -45,7 +50,9 @@
                 <mat-option [value]="false">Нет </mat-option>
                 <mat-option [value]="true">Да </mat-option>
               </mat-select>
-              <mat-error *ngIf="saleNomenclature.invalid"> </mat-error>
+              @if(saleNomenclature.invalid){
+              <mat-error > </mat-error>
+              }
             </div>
           </mat-form-field>
         </div>
@@ -63,7 +70,9 @@
                 <mat-option [value]="false">Нет </mat-option>
                 <mat-option [value]="true">Да </mat-option>
               </mat-select>
-              <mat-error *ngIf="inStokcNomenclature.invalid"> </mat-error>
+               @if(inStokcNomenclature.invalid){
+              <mat-error> </mat-error>
+               }
             </div>
           </mat-form-field>
         </div>
@@ -81,12 +90,13 @@
               required
             >
             @if(BrandItmes()){
-            <mat-option *ngFor="let item of BrandItmes()" [value]="item.id">{{
+            <mat-option *ngFor="let item of BrandItmes() " [value]="item.id">{{
                 item.name
               }}</mat-option>
             }
+            
+            
             </mat-select>
-            <mat-error *ngIf="brand.invalid"> </mat-error>
           </mat-form-field>
         </div>
 

@@ -5,7 +5,7 @@
   <mat-tab label="Фото">
     <div class="messages-show" [ngClass]="{ error_show: _flagError }">
       {{ _messagess_show }}
-    </div>
+    </div>  
 
     <div class="toolbar-box">
       @if(SrcImg===""){
@@ -69,8 +69,15 @@
       </svg>
 
       } @else {
-      <img src="{{ SrcImg }}" class="img-disply" />
+     
+      <picture   >
+        <source [srcset]=" SrcImg " >
+        <img [src]=" SrcImg "  class="img-disply" >
+      </picture>
+   
       }
+
+     
     </div>
   </mat-tab>
   <!--------------------------------------------------------- -->
@@ -114,9 +121,33 @@
      
 
       <ng-container *ngTemplateOutlet="toolbarImg"></ng-container>
+      @if(ShowCroppedTab){
+        <div class="img-cropper" >
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            
+            [maintainAspectRatio]="_maintainAspectRatio"
+            [aspectRatio]="_aspectRatio"
+            [containWithinAspectRatio]="_containWithinAspectRatio"
+            [autoCrop]="true"
+            [resizeToWidth]="_resizeToWidth"
+            [transform]="_transform"
+            [canvasRotation]="_canvasRotation"
+            format="webp"
+            (imageLoaded)="imageLoaded()"
+            (imageCropped)="imageCropped($event)"
+            (loadImageFailed)="loadImageFailed()"
+            (cropperReady)="cropperReady($event)"
+          >
+          </image-cropper>
+        </div>
+        }
+
+
+     
     </div>
   </mat-tab>
-  <mat-tab label="Reset">
+  <mat-tab label="Сбросить">
     <div class="toolbar-box">
       <button
         id="reset"
@@ -125,34 +156,14 @@
       
         aria-label="Сбрость настройки"
       >
-        <mat-icon>settings_backup_restore</mat-icon>
+        <mat-icon  style="width: 48;height: 48;">settings_backup_restore</mat-icon>
       </button>
    
     </div>
   </mat-tab>
 </mat-tab-group>
 <!---------------------------------------------------->
-@if(ShowCroppedTab){
-<div class="img-disply" >
-  <image-cropper
-    [imageChangedEvent]="_imageChanged"
-    
-    [maintainAspectRatio]="_maintainAspectRatio"
-    [aspectRatio]="_aspectRatio"
-    [containWithinAspectRatio]="_containWithinAspectRatio"
-    [autoCrop]="true"
-    [resizeToWidth]="_resizeToWidth"
-    [transform]="_transform"
-    [canvasRotation]="_canvasRotation"
-    format="webp"
-    (imageLoaded)="imageLoaded()"
-    (imageCropped)="imageCropped($event)"
-    (loadImageFailed)="loadImageFailed()"
-    (cropperReady)="cropperReady($event)"
-  >
-  </image-cropper>
-</div>
-}
+
 
 <!---------------------------------------------------->
 <ng-template #toolbarImg>

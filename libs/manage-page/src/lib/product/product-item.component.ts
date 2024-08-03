@@ -89,13 +89,13 @@ export class ProductItemComponent {
 
   private _flag = StateView.default;
 
-  private _product_type = signal<number>(0);
+  private _product_type_id = signal<number>(0);
   private _articls: Signal<Article[]> = signal<Article[]>([]);
   private _colors: Signal<Color[]> = signal<Color[]>([]);
   private _brands: Signal<Brand[]> = signal<Brand[]>([]);
 
   public Product = computed(() => this.state());
-  public ProductType = computed(() => this._product_type);
+  public ProductTypeId = computed(() => this._product_type_id);
   public ArticleItmes = computed(() => this._articls());
   public ColorItmes = computed(() => this._colors());
 
@@ -115,7 +115,7 @@ export class ProductItemComponent {
   }
 
   @Input({ required: true }) set product_type_id(item: Signal<number>) {
-    this._product_type.set(item());
+    this._product_type_id.set(item());
   }
 
   @Input({ required: true }) set Item(item: Product) {
@@ -141,7 +141,7 @@ export class ProductItemComponent {
   public _flagInvalid = false;
 
   public _selectDtoImg: DtoImage = <DtoImage>{
-    base64Img: '',
+    blobUriImg: '',
     flagChanged: false,
   };
   public _flagButtonShow = false;
@@ -153,9 +153,9 @@ export class ProductItemComponent {
   }
 
   constructor(
-    private _repository: ProductService,
-    private _imgManager: ImgManagerService
-  ) {}
+    private _repository: ProductService
+  ) // private _imgManager: ImgManagerService
+  {}
 
   public onBrandChange(event: any) {
     this.state.update((state) => ({
@@ -208,17 +208,9 @@ export class ProductItemComponent {
       this._errorMgs.push(' flag  StateView.edit != Edit');
     }
 
-    if (this._imgManager.FlagError) {
-      this._errorMgs.push(this._imgManager.ErrorMassages);
-      //   this._flagInvalid = true;
-      return;
-    }
-
     this.state.update((state) => ({
       ...state,
-      imageWebp: this._imgManager.convererFromImgBase64Url(
-        this._selectDtoImg.base64Img
-      ),
+      imageWebp: this._selectDtoImg.blobUriImg,
     }));
 
     this.ProductModified.emit(<EmitData>{
@@ -249,12 +241,6 @@ export class ProductItemComponent {
     /** -----init _selectDtoImg  get blob img from ImgRenderComponen---- */
     this._childComponent?.getDtoImgObgect();
 
-    if (this._imgManager.FlagError) {
-      this._errorMgs.push(this._imgManager.ErrorMassages);
-      //   this._flagInvalid = true;
-      return;
-    }
-
     /**  'Файл Фото не изменился,' */
     if (!this._selectDtoImg.flagChanged) {
       this.saveIgnoreImgFromProduct();
@@ -263,9 +249,7 @@ export class ProductItemComponent {
 
     this.state.update((state) => ({
       ...state,
-      imageWebp: this._imgManager.convererFromImgBase64Url(
-        this._selectDtoImg.base64Img
-      ),
+      imageWebp: this._selectDtoImg.blobUriImg,
     }));
 
     this.ProductModified.emit(<EmitData>{

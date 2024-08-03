@@ -8,7 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 //npm instal --save hammerjs
 //yarn add -D hammerjs
 import 'hammerjs';
-import { DomSanitizer, HammerModule, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, HammerModule, SafeUrl} from '@angular/platform-browser';
 
 
 import {
@@ -18,12 +18,11 @@ import {
   ImageCropperComponent,
   ImageTransform
 } from 'ngx-image-cropper';
-
-import { ImgManagerService } from './img-manager.service';
+ // import { ImgManagerService } from './img-manager.service';
 
 
 export interface DtoImage {
-  base64Img: string;
+  blobUriImg:  any ;
   flagChanged: boolean;
 }
 
@@ -47,8 +46,13 @@ export class ImgRenderComponent  {
   @Output() public _onChangedDtoImage = new EventEmitter<DtoImage>();
   @Output() public _onFlagShowSaveDataBar = new EventEmitter<boolean>();
 
-  public _img_cropped: SafeUrl  = '';
-  public _imageChanged: any = '';
+
+    //imageChangedEvent: Event | null = null;
+  //croppedImage: SafeUrl  = '';
+
+  public croppedImage:SafeUrl  = '';
+  //public   croppedImage:any ='';
+  public imageChangedEvent: Event | null = null;
   public _imageBase64:string|undefined;
   public _flagShowUrl=false;
 
@@ -89,7 +93,7 @@ export class ImgRenderComponent  {
 
   public get SrcImg() {
     // console.log("SrcImg()---" +this._img_name)
-    if (this._flagPhoto) return this._img_cropped;
+    if (this._flagPhoto) return          this.croppedImage;
     if (this._rootSrc && this._img_name) return this._rootSrc +'S'+ this._img_name +'.webp';
     return     "";
     // this._rootSrc + 'not_found.webp';
@@ -120,9 +124,9 @@ export class ImgRenderComponent  {
   /** (html.#) or ViewChild.getDtoImgObgect() -- click in parent button for save server */
   public getDtoImgObgect() {
     //
-        console.log("get Dto IMg" + this._img_cropped)
+      // console.log("get Dto IMg" + this.croppedImage)
     this._onChangedDtoImage.emit({
-      base64Img: this._img_cropped,
+      blobUriImg: this.croppedImage,
       flagChanged: this._flagPhoto,
     });
   }
@@ -130,7 +134,7 @@ export class ImgRenderComponent  {
   public onSetFilePhoto(event: any): void {
     this._flagPhoto = true;
     //  this._select_obj= URL.createObjectURL(event.files[0])
-    this._imageChanged = event;
+    this.imageChangedEvent = event;
     this._loading = true;
   }
 
@@ -165,7 +169,7 @@ export class ImgRenderComponent  {
     // console.log('imageCropped--', event.base64)
     //debugger
 
-    this._img_cropped = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl || event.base64 || '');
+    this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl || event.base64 || '');
     //event.base64;
     this._cropped_size_h = event.height;
     this._cropped_size_w = event.width;
