@@ -6,8 +6,12 @@
 
   @switch (flag) { @default {
 
-  <wsv2-product-sidenav [Catalogs]="Catalogs" [SubCatalogs]="SubCatalogs" [EmitData]="emitData"
-    (SubCatalogChange)="onSubCatalogChange($event)"></wsv2-product-sidenav>
+  <wsv2-product-sidenav
+    [Catalogs]="Catalogs"
+    [SubCatalogs]="SubCatalogs"
+    [EmitData]="emitData"
+    (SubCatalogChange)="onSubCatalogChange($event)"
+  ></wsv2-product-sidenav>
 
   } @case (1) {
   <!----      SendData        -->
@@ -49,7 +53,10 @@
     </div>
   </div>
 
-  <wsv2-product-list [Items]="Products" (productChange)="onProductChange($event)"></wsv2-product-list>
+  <wsv2-product-list
+    [Items]="Products"
+    (productChange)="onProductChange($event)"
+  ></wsv2-product-list>
 
   } @case (5) {
   <div class="item-show">
@@ -59,8 +66,15 @@
         <mat-icon fontIcon="arrow_back">home</mat-icon>
       </button>
     </div>
-    <wsv2-product-item [Articles]="Articles" [Brands]="Brands" [Colors]="Colors"
-      [product_type_id]="state_product_type_id" [flag]="flag" [Item]="item"></wsv2-product-item>
+    <wsv2-product-item
+      [Articles]="Articles"
+      [Brands]="Brands"
+      [Colors]="Colors"
+      [product_type_id]="state_product_type_id"
+      [flag]="flag"
+      [Item]="item"
+      (ProductModified)=" ProductModified($event)"
+    ></wsv2-product-item>
   </div>
 
   } @case (4) {
@@ -72,8 +86,14 @@
       </button>
     </div>
 
-    <wsv2-product-item [Articles]="Articles" [Brands]="Brands" [Colors]="Colors"
-      [product_type_id]="state_product_type_id" [flag]="flag" [Item]="item"></wsv2-product-item>
+    <wsv2-product-item
+      [Articles]="Articles"
+      [Brands]="Brands"
+      [Colors]="Colors"
+      [product_type_id]="state_product_type_id"
+      [flag]="flag"
+      [Item]="item"
+    ></wsv2-product-item>
   </div>
   } @case (7) {
   <div class="item-show">

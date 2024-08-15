@@ -52,7 +52,7 @@ export class ProductComponent {
       descriptionSeo:undefined,
       imageWebp:undefined,
       wwwroot:undefined,
-      wwwrootOK:undefined
+      //wwwrootOK:undefined
     });
 
   idSubKatatlog: string | undefined;

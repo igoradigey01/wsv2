@@ -57,7 +57,7 @@ export class ProductListComponent {
   }
 
   addPosition() {
-    // debugger
+    //debugger
     this.productChange.emit(<EmitData>{
       product: <Product>{
         id: -1,
@@ -89,7 +89,7 @@ export class ProductListComponent {
         descriptionSeo: undefined,
         imageWebp: undefined,
         wwwroot: undefined,
-        wwwrootOK: undefined,
+      //  wwwrootOK: undefined,
       },
       stateView: StateView.create,
     });

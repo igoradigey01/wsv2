@@ -24,8 +24,14 @@ import { ProductTypeService } from './product_type.service';
 import { KatlogService } from './katalog.servise';
 
 import { tap, Observable, shareReplay, map, catchError, of } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
 //import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+enum FlagSendData {
+  all,
+  date,
+  img,
+}
 
 interface ProductListState {
   productItems: Product[];
@@ -41,7 +47,6 @@ interface ProductListState {
   providedIn: 'root',
 })
 export class ProductService {
-
   private state = signal<ProductListState>({
     productItems: [],
     queryAdd: [],
@@ -57,8 +62,8 @@ export class ProductService {
   readonly Colors = this.colorRepository.Colors;
   readonly Catalogs = this.katalogRepository.Katalogs;
   readonly SubCatalogs = this.subKatalogRepository.SubCatalogs;
-  readonly serverUrl = this.url.ServerUri;
-
+  readonly serverUrl = this.apiService.ServerUri;
+  readonly ownerId = this.apiService.ClientId;
   readonly TypeProducts = this.product_typeRepository.ProductTypes;
 
   readonly Products = computed(() => this.state().productItems);
@@ -67,7 +72,7 @@ export class ProductService {
   get WWWroot(): string {
     // return this.http.get(src,{responseType: 'blob'});
 
-    return `${this.url.ServerUri}images/`; //environment.serverRoot + 'images/';
+    return `${this.apiService.ServerUri}images/`; //environment.serverRoot + 'images/';
   }
 
   /*  ProductItem = signal<Product>({
@@ -101,7 +106,8 @@ export class ProductService {
 
   constructor(
     private _http: HttpClient,
-    private url: ApiService,
+    private apiService: ApiService,
+  
     private userManager: UserManagerService,
     private subKatalogRepository: SubKatalogService,
     private katalogRepository: KatlogService,
@@ -116,14 +122,14 @@ export class ProductService {
 
   // GetForSubCatalog
 
-   public LoadSubCatalogProduct(idSubCatlog: number) {
+  public LoadSubCatalogProduct(idSubCatlog: number) {
     this.SubCatalogProduct$(idSubCatlog);
   }
 
   private SubCatalogProduct$ = (idSubKatlog: number): void => {
-    this.url.Controller = 'Product';
-    this.url.Action = 'GetForSubCatalog';
-    this.url.ID = this.url.ClientId;
+    this.apiService.Controller = 'Product';
+    this.apiService.Action = 'GetForSubCatalog';
+    this.apiService.ID = this.apiService.ClientId;
     const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       //  Authorization: 'Bearer ' + token,
@@ -135,7 +141,7 @@ export class ProductService {
 
     const httpOptions = { headers, params };
     this._http
-      .get<Product[]>(this.url.Url, httpOptions)
+      .get<Product[]>(this.apiService.Url, httpOptions)
       .pipe(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         map((data: any) => {
@@ -143,44 +149,37 @@ export class ProductService {
           return data.map((f: any) => {
             return <Product>(<unknown>{
               id: f.id,
-              guid: f.guid,      
-              img_guids: f.img_guids ? [...f.img_guids.push(f.guid)] : [f.guid],       
-              hidden:f.hidden,              
-              ownerId:f.ownerId,
-              product_typeId:f.product_typeId,
+              guid: f.guid,
+              img_guids: f.img_guids ? [...f.img_guids.push(f.guid)] : [f.guid],
+              hidden: f.hidden,
+              ownerId: f.ownerId,
+              product_typeId: f.product_typeId,
               title: f.title,
 
-              subCatalogId:f.subCatalogId,
-              subCatalogName:undefined,
-              colorId:f.colorId,
+              subCatalogId: f.subCatalogId,
+              subCatalogName: undefined,
+              colorId: f.colorId,
               colorName: undefined,
-              brandId:f.brandId,
+              brandId: f.brandId,
               brandName: undefined,
-              articleId:f.articleId,
-              articleName:  undefined,
+              articleId: f.articleId,
+              articleName: undefined,
 
-              position:f.position,
-             
+              position: f.position,
 
               inStock: f.inStock,
               sale: f.sale,
-              
+
               price: f.price,
               markup: f.markup,
               cost_total: f.price * (f.markup / 100) + f.price,
 
               description: f.description,
-              descriptionSeo:f.descriptionSeo,
+              descriptionSeo: f.descriptionSeo,
 
-              imageWebp:undefined,
-              wwwrootOK:undefined ,                   // onChangeWebp?:boolean; // change  img on server (wwwroot/image)
-               wwwroot:undefined
-
-              
-
-             
-
-              
+              imageWebp: undefined,
+              wwwrootOK: undefined, // onChangeWebp?:boolean; // change  img on server (wwwroot/image)
+              wwwroot: undefined,
             });
           });
         }),
@@ -193,14 +192,14 @@ export class ProductService {
           }));
         }),
         //https://angularindepth.com/posts/1518/takeuntildestroy-in-angular-v16
-       // takeUntilDestroyed(), //26-07-24
+        // takeUntilDestroyed(), //26-07-24
         catchError(() => of([] as Product[])) //  on any error, just return an empty array
       )
       .subscribe();
 
     ///------------------------------------
-  };  
- 
+  };
+
   public Create = (item: Product) => {
     this.Create$(item)
       .pipe(
@@ -250,25 +249,30 @@ export class ProductService {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private Create$ = (item: Product): Observable<any> => {
-    //debugger
-    this.url.Controller = 'Product';
-    this.url.Action = 'Create';
-    this.url.ID = null;
-    item.ownerId = this.url.ClientId;
+    // debugger
+    this.apiService.Controller = 'Product';
+    this.apiService.Action = 'Create';
+    this.apiService.ID = null;
+    item.ownerId = this.apiService.ClientId;
     const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
+    console.log('Bearer:' + this.userManager.AccessToken());
+
+    const fd = this.createFormData(item, FlagSendData.all);
+    // new Response(fd).text().then(console.log)
+    // console.log(fd);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this._http.post<any>(this.url.Url, item, {
+    return this._http.post<any>(this.apiService.Url, fd, {
       headers,
     });
   };
 
-  public Update = (item: Product) => {
+  public UpdateAll = (item: Product) => {
     // new Error("Протестировать правильность работы метода")
-    this.Update$(item).subscribe({
+    this.UpdateAll$(item).subscribe({
       next: () => {
         //  console.log(res);
         this.state.update((d) => ({
@@ -311,33 +315,145 @@ export class ProductService {
     });
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Update$ = (item: Product): Observable<any> => {
+  private UpdateAll$ = (item: Product): Observable<any> => {
     // throw new Error("not implemint exeption");
-    this.url.Controller = 'Product';
-    this.url.Action = 'Update';
-    this.url.ID = item.id;
-    item.ownerId = this.url.ClientId;
+    this.apiService.Controller = 'Product';
+    this.apiService.Action = 'Update';
+    this.apiService.ID = item.id;
+    item.ownerId = this.apiService.ClientId;
     //  debugger
     const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
 
-    //new Response(fd).text().then(console.log);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this._http.put<any>(this.url.Url, item, {
+    const fd = this.createFormData(item, FlagSendData.all);
+    return this._http.put<any>(this.apiService.Url, fd, {
       headers,
     });
   };
 
   public UpdateIgnoreImg = (item: Product) => {
-    console.log(' - UpdateIgnoreImg -Product-)' + JSON.stringify(item));
-    throw Error('NOt impiment Exeption');
+    this.UpdateIgnoreImg$(item).subscribe({
+      next: () => {
+        //  console.log(res);
+        this.state.update((d) => ({
+          ...d,
+
+          state: Status.modify,
+        }));
+        this.error_state.update((m) => ({
+          ...m,
+          message: 'The status was updated successfully!',
+        }));
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+        this.state.update((d) => ({
+          ...d,
+          queryUpdate: [...d.queryUpdate, item],
+          state: Status.modify,
+        }));
+        this.error_state.update((m) => ({ ...m, error: true }));
+        if (err.status === 401) {
+          this.error_state.update((m) => ({
+            ...m,
+            message: 'пользователь не авторизован,войдите на сайт',
+          }));
+          return;
+        }
+        if (err.status == 400) {
+          this.error_state.update((m) => ({ ...m, message: err.error }));
+          return;
+        }
+
+        this.error_state.update((m) => ({
+          ...m,
+          message:
+            'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса',
+        }));
+        return;
+      },
+    });
+  };
+
+  private UpdateIgnoreImg$ = (item: Product): Observable<any> => {
+    // throw new Error("not implemint exeption");
+    this.apiService.Controller = 'Product';
+    this.apiService.Action = 'Update';
+    this.apiService.ID = item.id;
+    item.ownerId = this.apiService.ClientId;
+    //  debugger
+    const headers: HttpHeaders = new HttpHeaders({
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + this.userManager.AccessToken(),
+    });
+
+    const fd = this.createFormData(item, FlagSendData.date);
+    return this._http.put<any>(this.apiService.Url, fd, {
+      headers,
+    });
   };
 
   public UpdateOnlyImg = (item: Product) => {
-    console.log(' - UpdateOnlyImg -Product-)' + JSON.stringify(item));
-    throw Error('NOt impiment Exeption');
+    this.UpdateOnlyImg$(item).subscribe({
+      next: () => {
+        //  console.log(res);
+        this.state.update((d) => ({
+          ...d,
+
+          state: Status.modify,
+        }));
+        this.error_state.update((m) => ({
+          ...m,
+          message: 'The status was updated successfully!',
+        }));
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+        this.state.update((d) => ({
+          ...d,
+          queryUpdate: [...d.queryUpdate, item],
+          state: Status.modify,
+        }));
+        this.error_state.update((m) => ({ ...m, error: true }));
+        if (err.status === 401) {
+          this.error_state.update((m) => ({
+            ...m,
+            message: 'пользователь не авторизован,войдите на сайт',
+          }));
+          return;
+        }
+        if (err.status == 400) {
+          this.error_state.update((m) => ({ ...m, message: err.error }));
+          return;
+        }
+
+        this.error_state.update((m) => ({
+          ...m,
+          message:
+            'Ошибка {' + err.status + '} -Сообщиете Администаратору Pесурса',
+        }));
+        return;
+      },
+    });
+  };
+  private UpdateOnlyImg$ = (item: Product): Observable<any> => {
+    // throw new Error("not implemint exeption");
+    this.apiService.Controller = 'Product';
+    this.apiService.Action = 'Update';
+    this.apiService.ID = item.id;
+    item.ownerId = this.apiService.ClientId;
+    //  debugger
+    const headers: HttpHeaders = new HttpHeaders({
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + this.userManager.AccessToken(),
+    });
+
+    const fd = this.createFormData(item, FlagSendData.img);
+    return this._http.put<any>(this.apiService.Url, fd, {
+      headers,
+    });
   };
 
   public Delete = (item: Product) => {
@@ -392,21 +508,85 @@ export class ProductService {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private Delete$ = (id: number): Observable<any> => {
-    this.url.Controller = 'Product';
-    this.url.Action = 'Delete';
-    this.url.ID = id;
+    this.apiService.Controller = 'Product';
+    this.apiService.Action = 'Delete';
+    this.apiService.ID = id;
 
     const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
     // let url: string = this._url.Url+'/'+id;
-    return this._http.delete(this.url.Url, {
+    return this._http.delete(this.apiService.Url, {
       headers,
     });
   };
 
   public ClearMessage() {
     this.error_state.update((m) => ({ ...m, message: '', error: false }));
+  }
+
+  private createFormData(item: Product, flag: FlagSendData): FormData {
+    const formData = new FormData();
+
+    const entries = Object.entries(item);
+
+    if (flag == FlagSendData.all) {
+      // debugger
+      entries.forEach(([key, value]) => {
+        //  if (key == 'katalogName') return;
+        // if (key == 'katalogName') return;-- используется на сервере !!!!!
+        if (key == 'wwwroot') return;
+        if (key == 'cost_total') return;
+
+        if (key == 'imageWebp') 
+          {
+          console.log("imageWebp"+value)
+          formData.append('file', value, 'value.name');
+          return;
+        }
+
+        formData.append(key, value);
+        // console.log(`${key}: ${value}`)
+      });
+
+      return formData;
+    }
+    if (flag === FlagSendData.date) {
+      entries.forEach(([key, value]) => {
+        //  if (key == 'katalogName') return;-- используется на сервере !!!!!
+        // if (key == 'categoriaName') return;
+
+        if (key == 'wwwroot') return;
+        if (key == 'cost_total') return;
+        if (key == 'imageWebp') return;
+
+        formData.append(key, value);
+        // console.log(`${key}: ${value}`)
+      });
+
+      return formData;
+    }
+
+    if (flag === FlagSendData.img) {
+      entries.forEach(([key, value]) => {
+        if (key == 'id') {
+          formData.append(key, value);
+          return;
+        }
+
+        if (key == 'guid') {
+          formData.append(key, value);
+          return;
+        }
+
+        if (key == 'imageWebp') {
+          const f = value as File;
+          formData.append('file', f, f.name);
+          return;
+        }
+      });
+    }
+    return formData;
   }
 }

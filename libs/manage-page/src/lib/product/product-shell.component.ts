@@ -54,7 +54,7 @@ export interface EmitData {
 })
 export class ProductShellComponent {
 
-  private idCatalogAktive = -1;
+  private idSubCatalogAktive = -1;
 
   public flag = StateView.default;
   public emitData = <EmitData>{
@@ -89,7 +89,7 @@ export class ProductShellComponent {
 
   public Products = computed(() => {
 
-    this.repositoryProduct.LoadSubCatalogProduct(this.idCatalogAktive);
+    this.repositoryProduct.LoadSubCatalogProduct(this.idSubCatalogAktive);
 
     return this.repositoryProduct.Products();
 
@@ -148,7 +148,7 @@ export class ProductShellComponent {
     descriptionSeo: undefined,
     imageWebp: undefined,
     wwwroot: undefined,
-    wwwrootOK: undefined,
+  //  wwwrootOK: undefined,
   };
 
   constructor(
@@ -174,7 +174,7 @@ export class ProductShellComponent {
     //debugger
     this.emitData = event;
     this.flag = StateView.listView;
-    this.idCatalogAktive = event.subCatalogId;
+    this.idSubCatalogAktive = event.subCatalogId;
   }
 
 
@@ -202,22 +202,27 @@ export class ProductShellComponent {
   }
 
   public ProductModified(event: EmitData) {
-    // debugger
+
+   // debugger
     if (event.stateView === StateView.create) {
-      //  debugger
-      console.log ("ProductModified  product-shell Stateview.create :" +JSON.stringify(event.product))
+      event.product.ownerId=this.repositoryProduct.ownerId;
+     event.product.subCatalogId=this.idSubCatalogAktive;
+        
+      //console.log ("ProductModified  product-shell Stateview.create :" +JSON.stringify(event.product))
       this.repositoryProduct.Create(event.product);
-      this.flag = StateView.default;
+      this.flag = StateView.sendData;
     }
     if (event.stateView === StateView.edit) {
-      this.repositoryProduct.Update(event.product);
-      this.flag = StateView.default;
+      this.repositoryProduct.UpdateAll(event.product);
+      this.flag = StateView.sendData;
     }
     if(event.stateView===StateView.editOnlyImage){
-       Error("not impliment Exeption")
+      this.repositoryProduct.UpdateOnlyImg(event.product);
+      this.flag = StateView.sendData;
     }
     if(event.stateView===StateView.editOnlyProduct){
-      Error("not impliment Exeption")
+      this.repositoryProduct.UpdateIgnoreImg(event.product);
+      this.flag = StateView.sendData;
    }
     if (event.stateView === StateView.default) {
       this.flag = StateView.default;

@@ -22,8 +22,8 @@ import {
 
 
 export interface DtoImage {
-  blobUriImg:  any ;
-  flagChanged: boolean;
+  blobImg:  Blob  | undefined; 
+  flagModified: boolean;
 }
 
 @Component({
@@ -51,9 +51,11 @@ export class ImgRenderComponent  {
   //croppedImage: SafeUrl  = '';
 
   public croppedImage:SafeUrl  = '';
+  private croppedBlog:Blob|undefined;
   //public   croppedImage:any ='';
   public imageChangedEvent: Event | null = null;
   public _imageBase64:string|undefined;
+   
   public _flagShowUrl=false;
 
   public _messagess_show: string | undefined;
@@ -126,8 +128,8 @@ export class ImgRenderComponent  {
     //
       // console.log("get Dto IMg" + this.croppedImage)
     this._onChangedDtoImage.emit({
-      blobUriImg: this.croppedImage,
-      flagChanged: this._flagPhoto,
+      blobImg: this.croppedBlog,
+      flagModified: this._flagPhoto,
     });
   }
 
@@ -168,6 +170,9 @@ export class ImgRenderComponent  {
   public imageCropped(event: ImageCroppedEvent) {
     // console.log('imageCropped--', event.base64)
     //debugger
+      if(event.blob)
+        this.croppedBlog=event.blob;
+
 
     this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl || event.base64 || '');
     //event.base64;

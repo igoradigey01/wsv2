@@ -84,7 +84,7 @@ export class ProductItemComponent {
     descriptionSeo: undefined,
     imageWebp: undefined,
     wwwroot: undefined,
-    wwwrootOK: undefined,
+    //wwwrootOK: undefined,
   });
 
   private _flag = StateView.default;
@@ -95,7 +95,7 @@ export class ProductItemComponent {
   private _brands: Signal<Brand[]> = signal<Brand[]>([]);
 
   public Product = computed(() => this.state());
-  public ProductTypeId = computed(() => this._product_type_id);
+ // public ProductTypeId = computed(() => this._product_type_id);
   public ArticleItmes = computed(() => this._articls());
   public ColorItmes = computed(() => this._colors());
 
@@ -135,14 +135,14 @@ export class ProductItemComponent {
   @Output() public _onChangeStateView = new EventEmitter<StateView>();
   @Output() public ProductModified = new EventEmitter<EmitData>();
 
-  @ViewChild(ImgRenderComponent, { static: false })
-  private _childComponent: ImgRenderComponent | undefined;
+   @ViewChild(ImgRenderComponent, { static: false })
+  private _childComponent: ImgRenderComponent | undefined; 
 
   public _flagInvalid = false;
 
   public _selectDtoImg: DtoImage = <DtoImage>{
-    blobUriImg: '',
-    flagChanged: false,
+    blobImg:undefined ,
+    flagModified: false,
   };
   public _flagButtonShow = false;
   public _flagError = false;
@@ -183,6 +183,8 @@ export class ProductItemComponent {
   }
 
   public onChangedDtoImage(event: DtoImage): void {
+
+    
     this._selectDtoImg = event; // прередача  фото  из дочернего компонента   <wsv2-img-render>
   }
 
@@ -195,7 +197,7 @@ export class ProductItemComponent {
     this._childComponent?.getDtoImgObgect();
 
     this._errorMgs = [];
-    if (!this._selectDtoImg.flagChanged) {
+    if (!this._selectDtoImg.flagModified) {
       this._errorMgs.push('Файл Фото не изменился');
       this._flagInvalid = true;
     }
@@ -210,7 +212,7 @@ export class ProductItemComponent {
 
     this.state.update((state) => ({
       ...state,
-      imageWebp: this._selectDtoImg.blobUriImg,
+      imageWebp: this._selectDtoImg.blobImg,
     }));
 
     this.ProductModified.emit(<EmitData>{
@@ -239,19 +241,15 @@ export class ProductItemComponent {
     this._errorMgs = [];
 
     /** -----init _selectDtoImg  get blob img from ImgRenderComponen---- */
-    this._childComponent?.getDtoImgObgect();
-
-    /**  'Файл Фото не изменился,' */
-    if (!this._selectDtoImg.flagChanged) {
-      this.saveIgnoreImgFromProduct();
-      return;
-    }
+    this._childComponent?.getDtoImgObgect();    
+    
 
     this.state.update((state) => ({
       ...state,
-      imageWebp: this._selectDtoImg.blobUriImg,
-    }));
-
+      imageWebp: this._selectDtoImg.blobImg,
+      product_typeId: this._product_type_id()
+    })); 
+    //  debugger
     this.ProductModified.emit(<EmitData>{
       product: this.Product(),
       stateView: this._flag,
