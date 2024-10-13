@@ -96,7 +96,7 @@ export class ImgRenderComponent  {
   public get SrcImg() {
     // console.log("SrcImg()---" +this._img_name)
     if (this._flagPhoto) return          this.croppedImage;
-    if (this._rootSrc && this._img_name) return this._rootSrc +'S'+ this._img_name +'.webp';
+    if ( this._img_name) return this._rootSrc +'S'+ this._img_name +'.webp' +'?rand=' + Math.random();
     return     "";
     // this._rootSrc + 'not_found.webp';
   }

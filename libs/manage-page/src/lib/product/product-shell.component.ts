@@ -16,6 +16,7 @@ import { ProductListComponent } from './product-list.component'
 
 import { ProductService, ProductTypeService } from '@wsv2/shop-content';
 import { ActivatedRoute } from '@angular/router';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 export enum StateView {
   default = 0, // sidenav
@@ -40,6 +41,7 @@ export interface EmitData {
   standalone: true,
   imports: [
     CommonModule,
+    MatButtonToggleModule,
     ProductItemComponent,
     ProductListComponent,
     ProductSidenavComponent,
@@ -181,6 +183,42 @@ export class ProductShellComponent {
   public onProductChange(event: EmitData) {
     if(event.stateView==StateView.create)
     {
+      this.item=<Product>{
+        id: -1,
+        guid: '',
+        img_guids: undefined,
+        hidden: false,
+        ownerId: '',
+        product_typeId: -1,
+        title: '',
+    
+        subCatalogId: -1,
+        subCatalogName: undefined,
+    
+    
+        colorId: -1,
+        colorName: undefined,
+        brandId: -1,
+        brandName: undefined,
+        articleId: -1,
+        articleName: undefined,
+    
+    
+        
+    
+        position: 0,
+        inStock: false, //есть  на складе ?
+        sale: false,
+    
+        price: -1,
+        markup: 25,
+        cost_total: undefined,
+        description: undefined,
+        descriptionSeo: undefined,
+        imageWebp: undefined,
+        wwwroot: undefined,
+      //  wwwrootOK: undefined,
+      };
     
     
      this.item.colorId  =  this.Colors().find((f)=>f.name==='none')?.id||-1;
@@ -192,7 +230,7 @@ export class ProductShellComponent {
      this.item.articleName="none";
      this.item.price=0;
      
-      this.flag = event.stateView;
+      this.flag = StateView.create;
 
     }else{
     this.item = event.product;
@@ -221,6 +259,7 @@ export class ProductShellComponent {
       this.flag = StateView.sendData;
     }
     if(event.stateView===StateView.editOnlyProduct){
+    // debugger
       this.repositoryProduct.UpdateIgnoreImg(event.product);
       this.flag = StateView.sendData;
    }
@@ -228,18 +267,33 @@ export class ProductShellComponent {
       this.flag = StateView.default;
     }
     if (event.stateView === StateView.delete) {
-      this.repositoryProduct.Delete(event.product);
-      this.flag = StateView.default;
+      this.flag = StateView.delete
+    
     }
+  }
+
+
+  public changeDeletePosition(action: string, item: Product) {
+
+    if(action=='delete'){
+    this.repositoryProduct.Delete(item);
+    this.flag = StateView.default;
+    }
+    if(action=='cansel'){
+      this.flag=StateView.listView
+    }
+
   }
 
   
 
   public backToCatalog() {
+    this.repositoryProduct.ClearMassage();
     this.flag = StateView.default;
   }
 
   public backToList() {
+ 
     this.flag = StateView.listView;
   }
 }

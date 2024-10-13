@@ -69,41 +69,19 @@ export class ProductService {
   readonly Products = computed(() => this.state().productItems);
   readonly Message = computed(() => this.error_state());
 
+    public  ClearMassage=()=>this.error_state.update((m) => ({
+    ...m,
+    message: undefined,
+    error:false
+  }));
+
   get WWWroot(): string {
     // return this.http.get(src,{responseType: 'blob'});
 
     return `${this.apiService.ServerUri}images/`; //environment.serverRoot + 'images/';
   }
 
-  /*  ProductItem = signal<Product>({
-    id: 0,
-    guid: undefined,
-    img_guids: undefined,
-    hidden: false,
-    ownerId: '',
-    product_typeId: 0,
-    title: '',
-    subCatalogId: 0,
-    subCatalogName: undefined,
-
-    colorId: 0,
-    colorName: undefined,
-    brandId: 0,
-    brandName: undefined,
-    articleId: 0,
-    articleName: undefined,
-
-    position: 0,
-    inStock: false,
-    sale: false,
-    price: 0,
-    markup: 0,
-    cost_total: undefined,
-    description: undefined,
-
-    descriptionSeo: undefined,
-  }); */
-
+  
   constructor(
     private _http: HttpClient,
     private apiService: ApiService,
@@ -179,7 +157,7 @@ export class ProductService {
 
               imageWebp: undefined,
               wwwrootOK: undefined, // onChangeWebp?:boolean; // change  img on server (wwwroot/image)
-              wwwroot: undefined,
+              wwwroot: this.WWWroot,
             });
           });
         }),
@@ -380,7 +358,7 @@ export class ProductService {
   private UpdateIgnoreImg$ = (item: Product): Observable<any> => {
     // throw new Error("not implemint exeption");
     this.apiService.Controller = 'Product';
-    this.apiService.Action = 'Update';
+    this.apiService.Action = 'UpdateIgnoreImg';
     this.apiService.ID = item.id;
     item.ownerId = this.apiService.ClientId;
     //  debugger
@@ -396,6 +374,7 @@ export class ProductService {
   };
 
   public UpdateOnlyImg = (item: Product) => {
+   // debugger
     this.UpdateOnlyImg$(item).subscribe({
       next: () => {
         //  console.log(res);
@@ -441,7 +420,7 @@ export class ProductService {
   private UpdateOnlyImg$ = (item: Product): Observable<any> => {
     // throw new Error("not implemint exeption");
     this.apiService.Controller = 'Product';
-    this.apiService.Action = 'Update';
+    this.apiService.Action = 'UpdateOnlyImg';
     this.apiService.ID = item.id;
     item.ownerId = this.apiService.ClientId;
     //  debugger
@@ -471,7 +450,7 @@ export class ProductService {
         }));
         this.error_state.update((m) => ({
           ...m,
-          message: 'The status was updated successfully!',
+          message: 'The status was delete successfully!',
         }));
       },
       error: (err: HttpErrorResponse) => {

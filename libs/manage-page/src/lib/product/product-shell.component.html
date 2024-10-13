@@ -93,6 +93,7 @@
       [product_type_id]="state_product_type_id"
       [flag]="flag"
       [Item]="item"
+      (ProductModified)=" ProductModified($event)"
     ></wsv2-product-item>
   </div>
   } @case (7) {
@@ -104,5 +105,41 @@
       <mat-icon fontIcon="arrow_back">home</mat-icon>
     </button>
   </div>
+   <div>
+    <div  style="text-align: center;color: var(--warn-color); ">вы действительно хотите удалить эту позицию</div>
+    <div class="delete-item">
+      <mat-button-toggle-group>
+        <mat-button-toggle disabled class="article-id">
+          {{ item.id }}
+        </mat-button-toggle>
+        <mat-button-toggle disabled class="article-name">
+          {{ item.title }}</mat-button-toggle
+        >
+        <mat-button-toggle disabled class="article-name">
+          {{ item.product_typeId }}</mat-button-toggle
+        >
+        
+        <mat-button-toggle
+          #toggleDel
+          class="article-del"
+          value="delete"
+          style="background-color: var(--warn-color);color: var(--on-warn-color);"
+          (change)="changeDeletePosition(toggleDel.value, item)"
+         
+        >
+          Del
+        </mat-button-toggle>
+        <mat-button-toggle
+          #toggleCansel
+          class="article-edit"
+          value="cansel"
+          style="background-color: var(--accent-lighter-color);color: var(--on-accent-color);"
+          (change)="changeDeletePosition(toggleCansel.value, item)"
+          
+          >Cansel</mat-button-toggle
+        >
+      </mat-button-toggle-group>
+    </div>
+   </div>
   } }
 </div>

@@ -225,9 +225,9 @@ export class ProductItemComponent {
   public saveIgnoreImgFromProduct(): void {
     this._errorMgs = [];
 
-    if (this._flag == StateView.edit) {
+    if (this._flag == StateView.editOnlyProduct) {
       this._flagInvalid = true;
-      this._errorMgs.push(' flag  StateView.edit != Edit');
+      this._errorMgs.push(' flag  StateView != editOnlyProduct');
     }
 
     this.ProductModified.emit(<EmitData>{
