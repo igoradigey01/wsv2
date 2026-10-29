@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule} from '@angular/router';
 //import { accountRoutes } from './lib.routes';
-import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport, withXhr } from '@angular/common/http';
 import {MaterialModule} from './material.module'
 import {AccountServiceModule } from '@wsv2/account-service';
 
@@ -97,7 +97,7 @@ const vkLoginOptions = {
                 ],
             } as SocialAuthServiceConfig,
         },
-        provideHttpClient(withInterceptorsFromDi(), withJsonpSupport()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi(), withJsonpSupport()),
     ] })
 export class AccountModule {
 

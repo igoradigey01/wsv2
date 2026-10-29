@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideAppInitializer } from '@angular/core';
 import { inject } from '@angular/core';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   MenyItemsService,
@@ -18,7 +18,7 @@ import {
 import { appRoutes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(),
+    provideHttpClient(withXhr()),
     provideAnimations(),
 
     // { provide: APP_CONFIG, useValue: environment}, 05.04.23
