@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {VersionInfoComponent} from '@wsv2/app-common'
 
 
@@ -9,7 +9,7 @@ import {VersionInfoComponent} from '@wsv2/app-common'
     selector: '@wsv2-manager-info',
     templateUrl: './info.component.html',
     styleUrls: ['./info.component.scss'],
-    imports: [CommonModule, VersionInfoComponent]
+    imports: [VersionInfoComponent]
 })
 
 export class InfoComponent  {

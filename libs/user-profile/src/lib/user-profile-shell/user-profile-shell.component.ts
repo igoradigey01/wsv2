@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 
@@ -18,15 +18,14 @@ import { ProfileService } from '../_shared/services/profile.service';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'wsv2-user-profile-shell',
     imports: [
-        CommonModule,
-        MatTabsModule,
-        MatCardModule,
-        ResetPasswordProfileComponent,
-        UserProfileComponent,
-        UserProfileEditComponent,
-        UserProfileDeleteComponent,
-        UserOrderShellComponent,
-    ],
+    MatTabsModule,
+    MatCardModule,
+    ResetPasswordProfileComponent,
+    UserProfileComponent,
+    UserProfileEditComponent,
+    UserProfileDeleteComponent,
+    UserOrderShellComponent
+],
     providers: [ProfileService],
     templateUrl: './user-profile-shell.component.html',
     styleUrls: ['./user-profile-shell.component.scss'],

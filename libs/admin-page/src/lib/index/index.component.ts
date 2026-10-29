@@ -1,5 +1,5 @@
 import { Component,OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule ,Router} from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -13,12 +13,11 @@ import { UserRole } from '@wsv2/app-common'
 @Component({
     selector: 'wsv2-admin-index',
     imports: [
-        CommonModule,
-        AppLayoutModule,
-        AppHeaderLayoutComponent,
-        RouterModule,
-        MaterialModule
-    ],
+    AppLayoutModule,
+    AppHeaderLayoutComponent,
+    RouterModule,
+    MaterialModule
+],
     templateUrl: './index.component.html',
     styleUrls: ['./index.component.scss'],
     providers: [ThemeScssServices]

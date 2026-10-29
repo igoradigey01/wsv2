@@ -10,13 +10,17 @@
       </div>
     </mat-card-header>
     <mat-card-content>
-      <div class="error" *ngIf="_errorMgs?.length">
-        <ul>
-          <li *ngFor="let error of _errorMgs">
-            {{ error }}
-          </li>
-        </ul>
-      </div>
+      @if (_errorMgs?.length) {
+        <div class="error">
+          <ul>
+            @for (error of _errorMgs; track error) {
+              <li>
+                {{ error }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
 
       <!--Error messages Server output end-->
       <form
@@ -24,7 +28,7 @@
         #registerForm="ngForm"
         novalidate
         (ngSubmit)="submitForm()"
-      >
+        >
         <div class="delete-profil-text">
           вы действительно хотите удалить свой профиль без возможности
           восстановления
@@ -36,14 +40,14 @@
             color="warn"
             type="submit"
             [disabled]="!registerForm.valid"
-            
-            class="btn" 
-          >
+
+            class="btn"
+            >
             Удалить
           </button>
         </div>
-      
-       
+
+
       </form>
     </mat-card-content>
   </mat-card>

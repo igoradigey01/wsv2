@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, Signal, signal, Input, computed } from
 import {MatIconModule} from '@angular/material/icon';
 
 //import { MatButtonModule } from "@angular/material/button";
-import { CommonModule } from '@angular/common';
+
 
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import {  Product } from "@wsv2/app-common";
@@ -11,10 +11,9 @@ import { EmitData, StateView } from "./product-shell.component";
 @Component({
     selector: 'wsv2-product-list',
     imports: [
-        CommonModule,
-        MatButtonToggleModule,
-        MatIconModule
-    ],
+    MatButtonToggleModule,
+    MatIconModule
+],
     templateUrl: './product-list.component.html',
     styleUrl: './product-list.component.scss'
 })

@@ -1,37 +1,38 @@
 <!--   -------------------------------------------------->
-<div *ngIf="cartItem()">
-  <div class="conteiner">
-    <div class="itemBlock">
-      <div class="imageBlock">
-        <img
-          class="img"
-          src="{{ ServerUrl }}images/S{{ cartItem().product.guid }}.webp"
-        />
-      </div>
-      <div class="informationBlock">
-        <div>
-          {{ cartItem().product.title }} {{ cartItem().product.articleName }}
-          {{ cartItem().product.colorName }} {{ cartItem().product.brandName }}
+@if (cartItem()) {
+  <div>
+    <div class="conteiner">
+      <div class="itemBlock">
+        <div class="imageBlock">
+          <img
+            class="img"
+            src="{{ ServerUrl }}images/S{{ cartItem().product.guid }}.webp"
+            />
+          </div>
+          <div class="informationBlock">
+            <div>
+              {{ cartItem().product.title }} {{ cartItem().product.articleName }}
+              {{ cartItem().product.colorName }} {{ cartItem().product.brandName }}
+            </div>
+          </div>
+        </div>
+        <div class="selectionBlock">
+          <div class="actionBlock">
+            <button mat-butto (click)="onRemove() "><mat-icon>close</mat-icon></button>
+            {{ cartItem().quantity }}
+            <button mat-button (click)="onAdd()"><mat-icon>add</mat-icon></button>
+          </div>
+          <div class="productPriceBlock">
+            <div>Ц:{{ cartItem().product.cost_total | number : '1.2-2' }}</div>
+            <div>
+              <div>Итого:</div>
+              <div>{{ exPrice() | number : '1.2-2' }}</div>
+            </div>
+          </div>
+          <!--
+          <div class="checkBoxBlock"></div>
+          -->
         </div>
       </div>
     </div>
-    <div class="selectionBlock">
-      <div class="actionBlock">
-        <button mat-butto (click)="onRemove() "><mat-icon>close</mat-icon></button>
-        {{ cartItem().quantity }}
-        <button mat-button (click)="onAdd()"><mat-icon>add</mat-icon></button>
-      </div>
-      <div class="productPriceBlock">
-        <div>Ц:{{ cartItem().product.cost_total | number : '1.2-2' }}</div>
-
-        <div>
-          <div>Итого:</div>
-          <div>{{ exPrice() | number : '1.2-2' }}</div>
-        </div>
-      </div>
-      <!--
-      <div class="checkBoxBlock"></div>
-      -->
-    </div>
-  </div>
-</div>
+  }

@@ -1,5 +1,5 @@
 import { Component, computed} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 //import { StateView } from '@wsv2/app-common';
 import { SubKatalog, Katalog, IButton } from '@wsv2/app-common';
 import { KatlogService, SubKatalogService } from '@wsv2/shop-content';
@@ -31,13 +31,12 @@ export interface EmitData {
 @Component({
     selector: 'wsv2-sub-catalog-shell',
     imports: [
-        CommonModule,
-        SubCatalogItemComponent,
-        SubCatalogListComponent,
-        KatalogComponent,
-        MatButtonModule,
-        MatIconModule,
-    ],
+    SubCatalogItemComponent,
+    SubCatalogListComponent,
+    KatalogComponent,
+    MatButtonModule,
+    MatIconModule
+],
     templateUrl: './sub-catalog-shell.component.html',
     styleUrls: ['./sub-catalog-shell.component.scss']
 })

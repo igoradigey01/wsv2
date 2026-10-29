@@ -1,5 +1,5 @@
 import { Component, computed, signal, Signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Input, Output, EventEmitter } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,11 +13,10 @@ import { Brand } from '@wsv2/app-common';
 @Component({
     selector: 'wsv2-brand-list',
     imports: [
-        CommonModule,
-        MatButtonToggleModule,
-        MatButtonModule,
-        MatIconModule,
-    ],
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatIconModule
+],
     templateUrl: './brand-list.component.html',
     styleUrls: ['./brand-list.component.scss']
 })

@@ -1,5 +1,5 @@
 import { Component,computed,signal, Signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Input, Output, EventEmitter } from '@angular/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,11 +13,10 @@ import { Color } from '@wsv2/app-common';
 @Component({
     selector: 'wsv2-color-list',
     imports: [
-        CommonModule,
-        MatButtonToggleModule,
-        MatButtonModule,
-        MatIconModule
-    ],
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatIconModule
+],
     templateUrl: './color-list.component.html',
     styleUrls: ['./color-list.component.scss']
 })

@@ -5,7 +5,8 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "types": [],
+    "moduleResolution": "bundler"
   },
   "exclude": [
     "src/test-setup.ts",
@@ -13,5 +14,9 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts", "../shop-cart/src/lib/_shared/services/cart-strorage.services.ts", "../shop-opt/src/lib/_shared/services/opt-shopper-storage.services.ts"]
+  "include": [
+    "src/**/*.ts",
+    "../shop-cart/src/lib/_shared/services/cart-strorage.services.ts",
+    "../shop-opt/src/lib/_shared/services/opt-shopper-storage.services.ts"
+  ]
 }

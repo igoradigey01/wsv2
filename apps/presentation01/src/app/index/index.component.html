@@ -28,49 +28,51 @@
       'grid-container1': ! _flagPanel
     }"
   >
-    <div class="sidenav" [ngClass]="{ hiden: !_flagSideBarHiden }" >
+  <div class="sidenav" [ngClass]="{ hiden: !_flagSideBarHiden }" >
     <div class="sidenav-header" (click)="onSideBarVisible()" >
       <div style=" height: 24px;">
         <span><mat-icon aria-hidden="false" aria-label="navigate before icon" fontIcon="navigate_before"></mat-icon></span>
 
 
-    </div>
+      </div>
     </div>
 
     <wsv2-x01-v1-sidebar
-    [menuItems]="_menuItems"
-    (onToggleSideBar)="onSideBarVisible()"
-    >
+      [menuItems]="_menuItems"
+      (onToggleSideBar)="onSideBarVisible()"
+      >
 
     </wsv2-x01-v1-sidebar>
 
 
 
 
+  </div>
+
+  <div class="main_content">
+
+
+    <!-------------------------------------------------------- start  main content-->
+
+
+    <router-outlet></router-outlet>
+
+    <div class="change-role-contener">
+
+
+      <select
+        class="change-role"
+        (change)="changeRole($event)"
+
+        >
+        <option value="">Choose Role</option>
+        @for (role of  roles; track role) {
+          <option >
+            {{ role }}
+          </option>
+        }
+      </select>
     </div>
-
-    <div class="main_content">
-
-
-<!-------------------------------------------------------- start  main content-->
-
-
-<router-outlet></router-outlet>
-
-<div class="change-role-contener">
-
-
-  <select
-  class="change-role"
-  (change)="changeRole($event)"
-
->
-  <option value="">Choose Role</option>
-  <option *ngFor="let role of  roles" >
-    {{ role }}
-  </option>
-</select>
-</div>
 
 
 

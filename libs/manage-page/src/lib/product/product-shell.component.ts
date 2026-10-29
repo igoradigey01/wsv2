@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 //import { StateView } from '@wsv2/app-common';
 import { SubKatalog, Katalog, Product, ProductType, Message } from '@wsv2/app-common';
 
@@ -39,17 +39,16 @@ export interface EmitData {
 @Component({
     selector: 'wsv2-product-shell',
     imports: [
-        CommonModule,
-        MatButtonToggleModule,
-        ProductItemComponent,
-        ProductListComponent,
-        ProductSidenavComponent,
-        KatalogComponent,
-        MatButtonModule,
-        MatIconModule,
-        MatSelectModule,
-        MatProgressSpinnerModule
-    ],
+    MatButtonToggleModule,
+    ProductItemComponent,
+    ProductListComponent,
+    ProductSidenavComponent,
+    KatalogComponent,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule,
+    MatProgressSpinnerModule
+],
     templateUrl: './product-shell.component.html',
     styleUrls: ['./product-shell.component.scss']
 })

@@ -1,20 +1,21 @@
 <div class="slider">
-  
+
   <div class="slide" [style]="slideStyleObj">
     <div>
       <div (click)="goToPrevious()" class="leftArrow">❰</div>
       <div (click)="goToNext()" class="rightArrow">❱</div>
     </div>
     <div class="dotsContainer" [style]="dotsContainerStyleObj">
-      <div
-        *ngFor="let slide of arryImgs; let slideIndex = index"
-        class="dot"
-        (click)="goToSlide(slideIndex)"
-      >
-        ●
-      </div>
+      @for (slide of arryImgs; track slide; let slideIndex = $index) {
+        <div
+          class="dot"
+          (click)="goToSlide(slideIndex)"
+          >
+          ●
+        </div>
+      }
 
-  </div>
-  
+    </div>
+
   </div>
 </div>

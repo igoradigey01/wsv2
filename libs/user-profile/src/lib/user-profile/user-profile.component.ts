@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter,Input, ChangeDetectionStrategy,} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import { MatCardModule } from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
@@ -35,13 +35,12 @@ const THUMBUP_ICON = `
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'wsv2-user-profile',
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatIconModule,
-        MatDividerModule,
-        MatListModule,
-        MatButtonModule,
-    ],
+    MatCardModule,
+    MatIconModule,
+    MatDividerModule,
+    MatListModule,
+    MatButtonModule
+],
     templateUrl: './user-profile.component.html',
     styleUrls: ['./user-profile.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

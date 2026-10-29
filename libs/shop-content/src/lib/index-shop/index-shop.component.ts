@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { Router ,ActivatedRoute} from '@angular/router';
 //import { HttpErrorResponse } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { KatalogComponent } from '@wsv2/ui';
 import { IButton ,UserRole} from '@wsv2/app-common';
@@ -16,7 +16,7 @@ import { KatlogService } from '../_shared/services/katalog.servise';
 
 @Component({
     selector: 'wsv2-index-shop',
-    imports: [CommonModule, KatalogComponent],
+    imports: [KatalogComponent],
     templateUrl: './index-shop.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['./index-shop.component.scss']

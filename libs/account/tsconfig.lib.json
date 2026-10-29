@@ -5,7 +5,8 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "types": [],
+    "moduleResolution": "bundler"
   },
   "exclude": [
     "src/test-setup.ts",
@@ -13,5 +14,8 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts", "../app-common/src/lib/_shared/services/route-api.service.ts"]
+  "include": [
+    "src/**/*.ts",
+    "../app-common/src/lib/_shared/services/route-api.service.ts"
+  ]
 }

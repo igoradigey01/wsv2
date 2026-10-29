@@ -2,7 +2,7 @@ import { Component, Input, computed, signal } from '@angular/core';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import { DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { CartItem } from '../_shared/interfaces/cart-item.model';
@@ -10,7 +10,7 @@ import { CartService } from '../_shared/services/cart.service';
 
 @Component({
     selector: 'wsv2-cart-item',
-    imports: [DecimalPipe, FormsModule, NgFor, NgIf, MatButtonModule, MatIconModule],
+    imports: [DecimalPipe, FormsModule, MatButtonModule, MatIconModule],
     templateUrl: './cart-item.component.html',
     styleUrls: ['./cart-item.component.scss']
 })

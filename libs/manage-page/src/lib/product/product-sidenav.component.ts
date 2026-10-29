@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+
 import { Component, Output, EventEmitter, Signal, signal, Input, computed } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 
@@ -10,10 +10,9 @@ import { EmitData} from "./product-shell.component";
 @Component({
     selector: 'wsv2-product-sidenav',
     imports: [
-        CommonModule,
-        MatSidenavModule,
-        MatButtonModule,
-    ],
+    MatSidenavModule,
+    MatButtonModule
+],
     templateUrl: './product-sidenav.component.html',
     styleUrls: ['./product-sidenav.component.scss']
 })

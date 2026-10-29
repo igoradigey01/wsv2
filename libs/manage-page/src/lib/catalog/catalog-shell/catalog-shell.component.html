@@ -1,36 +1,38 @@
 <div class="_main-container">
 
-  <div *ngIf="message().error">
-  <div class="error">  {{message().message}}</div>
-  </div>
+  @if (message().error) {
+    <div>
+      <div class="error">  {{message().message}}</div>
+    </div>
+  }
   <!------------------->
-  
-    @switch (flag) {
-    
-      @default {
+
+  @switch (flag) {
+
+    @default {
       <wsv2-catalog-list
         [Items]="catalogs()"
         (catalogChange)="onCatalogChange($event)"
       ></wsv2-catalog-list>
     }
     <!--  Create template -->
-   
-      @case (5) {
+
+    @case (5) {
       <div class="item-show">
         <h4 class="action-name">Создать Позицию Каталога</h4>
-  
+
         <wsv2-catalog-item
           [Item]="item"
           [flag]="flag"
           (catalogModified)="catalogModified($event)"
         ></wsv2-catalog-item>
-      
+
       </div>
     }
 
     <!--  Edit  template -->
-    
-      @case (4) {
+
+    @case (4) {
       <div class="item-show">
         <h4 class="action-name">Редактировать Позицию Каталога</h4>
         <wsv2-catalog-item
@@ -39,10 +41,10 @@
           (catalogModified)="catalogModified($event)"
         ></wsv2-catalog-item>
       </div>
-     }
+    }
     <!-- Delete template -->
-    
-      @case (7) {
+
+    @case (7) {
       <div class="item-show">
         <h4 class="action-name">Удалить Позицию Каталога</h4>
         <wsv2-catalog-item
@@ -51,6 +53,6 @@
           (catalogModified)="catalogModified($event)"
         ></wsv2-catalog-item>
       </div>
-     }
+    }
   }
 </div>

@@ -1,47 +1,50 @@
-<div [ngSwitch]="_flagViewState">
-  <ng-template ngSwitchDefault>
-    <div class="container mat-typography">
-      <mat-card class="cart"> 
-        <mat-card-content>
-          <mat-tab-group mat-align-tabs="center">
-            <mat-tab label="Профиль">
-              <wsv2-user-profile
-              [User]="user()"
-              (toggleViewState)="onChangeViewState($event)"
-              
-              ></wsv2-user-profile>
-             </mat-tab>
-            <mat-tab label="Заказы">
-             <wsv2-user-order-shell></wsv2-user-order-shell>
-            </mat-tab> 
-          </mat-tab-group>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </ng-template>
-  <!--  Create template -->
- 
-
-  <!--  Edit -Delete template -->
-  <ng-template name="Edit" ngSwitchCase="4">
-    <wsv2-user-profile-edit
-    [User]="user()"
-    (onToggleViewState)="onChangeViewState($event)"
-    ></wsv2-user-profile-edit>
-  </ng-template>
-  <ng-template name="ResetPassword" ngSwitchCase="10">
-  <wsv2-reset-password-profile
-   
-   (onToggleViewState)="onChangeViewState($event)"
-  >
-
-  </wsv2-reset-password-profile>
-  </ng-template>
-  <ng-template name="delete" ngSwitchCase="7">
-    <wsv2-user-profile-delete
-    [User]="user()"
-    (onToggleViewState)="onChangeViewState($event)"
-    ></wsv2-user-profile-delete>
-  </ng-template>
+<div>
+  @switch (_flagViewState) {
+    @default {
+      <div class="container mat-typography">
+        <mat-card class="cart">
+          <mat-card-content>
+            <mat-tab-group mat-align-tabs="center">
+              <mat-tab label="Профиль">
+                <wsv2-user-profile
+                  [User]="user()"
+                  (toggleViewState)="onChangeViewState($event)"
+                ></wsv2-user-profile>
+              </mat-tab>
+              <mat-tab label="Заказы">
+                <wsv2-user-order-shell></wsv2-user-order-shell>
+              </mat-tab>
+            </mat-tab-group>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+    <!--  Create template -->
+    <!--  Edit -Delete template -->
+    @case (4) {
+      <ng-template name="Edit">
+        <wsv2-user-profile-edit
+          [User]="user()"
+          (onToggleViewState)="onChangeViewState($event)"
+        ></wsv2-user-profile-edit>
+      </ng-template>
+    }
+    @case (10) {
+      <ng-template name="ResetPassword">
+        <wsv2-reset-password-profile
+          (onToggleViewState)="onChangeViewState($event)"
+          >
+        </wsv2-reset-password-profile>
+      </ng-template>
+    }
+    @case (7) {
+      <ng-template name="delete">
+        <wsv2-user-profile-delete
+          [User]="user()"
+          (onToggleViewState)="onChangeViewState($event)"
+        ></wsv2-user-profile-delete>
+      </ng-template>
+    }
+  }
 </div>
 

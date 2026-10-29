@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import { OptManagerService } from '../_shared/services/opt-manager.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'wsv2-opt-sign-in',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './opt-sign-in.component.html',
     styleUrls: ['./opt-sign-in.component.scss']
 })

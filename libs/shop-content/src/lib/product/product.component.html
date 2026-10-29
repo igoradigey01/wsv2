@@ -13,29 +13,33 @@
   <h4>{{ pageTitle }}</h4>
 </div>
 
-<div [ngSwitch]="flagViewState">
-  <ng-template name="ImgView" ngSwitchDefault>
-    <wsv2-katalog-img
-      [flagView]="false"
-      [flagOpt]="false"
-      [serverUrl]="serverUrl"
-      [products]="products()"
-      (_onSelectedProduct)="changeProduct($event)"
-    ></wsv2-katalog-img>
-  </ng-template>
-
-  <ng-template name="ItemView" ngSwitchCase="3"> 
-    <wsv2-card-product
-    [katalog_name]="subkatalog_name"
-    [product]="itemProduct()"
-    [flagOpt]="false"
-    [serverUrl]="serverUrl"
-    [productURL]="UrlProduct"
-    [katalogURL]="UrlKatalogProducts"
-    (_onBack)="changeViewState(0)"
-    (_onQRCode)="_onQRCode()"
-    (addCart)="addCart($event)"
-  ></wsv2-card-product>
-
-  </ng-template>
+<div>
+  @switch (flagViewState) {
+    @default {
+      <ng-template name="ImgView">
+        <wsv2-katalog-img
+          [flagView]="false"
+          [flagOpt]="false"
+          [serverUrl]="serverUrl"
+          [products]="products()"
+          (_onSelectedProduct)="changeProduct($event)"
+        ></wsv2-katalog-img>
+      </ng-template>
+    }
+    @case (3) {
+      <ng-template name="ItemView">
+        <wsv2-card-product
+          [katalog_name]="subkatalog_name"
+          [product]="itemProduct()"
+          [flagOpt]="false"
+          [serverUrl]="serverUrl"
+          [productURL]="UrlProduct"
+          [katalogURL]="UrlKatalogProducts"
+          (_onBack)="changeViewState(0)"
+          (_onQRCode)="_onQRCode()"
+          (addCart)="addCart($event)"
+        ></wsv2-card-product>
+      </ng-template>
+    }
+  }
 </div>

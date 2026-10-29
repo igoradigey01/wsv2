@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component,signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Input } from '@angular/core';
 
 import { AppHeaderLayoutComponent } from '../layout/app-header-layout/app-header-layout.component'
@@ -21,11 +21,10 @@ import {KatalogImgComponent} from '../katalog/katalog-img/katalog-img.component'
     styleUrls: ['./cart-presentation.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
-        CommonModule,
-        CartShellComponent,
-        AppHeaderLayoutComponent,
-        KatalogImgComponent
-    ],
+    CartShellComponent,
+    AppHeaderLayoutComponent,
+    KatalogImgComponent
+],
     providers: [DataPresentationService]
 })
 export class CartPresentationComponent {

@@ -1,5 +1,5 @@
 import { Component,Output, EventEmitter,Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
@@ -16,12 +16,11 @@ import {StateView} from '@wsv2/app-common'
 @Component({
     selector: 'wsv2-user-profile-delete',
     imports: [
-        CommonModule,
-        MatCardModule,
-        FormsModule,
-        MatIconModule,
-        MatButtonModule
-    ],
+    MatCardModule,
+    FormsModule,
+    MatIconModule,
+    MatButtonModule
+],
     templateUrl: './user-profile-delete.component.html',
     styleUrls: ['./user-profile-delete.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'wsv2-user-order-shell',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './user-order-shell.component.html',
     styleUrls: ['./user-order-shell.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

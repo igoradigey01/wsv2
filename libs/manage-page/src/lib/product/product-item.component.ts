@@ -1,6 +1,6 @@
 import { Component, computed, Signal, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIf, NgFor } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -38,16 +38,14 @@ export interface DtoNomenclature {
 @Component({
     selector: 'wsv2-product-item',
     imports: [
-        CommonModule,
-        NgIf,
-        NgFor,
-        MatButtonModule,
-        MatSelectModule,
-        MatInputModule,
-        MatIconModule,
-        FormsModule,
-        ImgRenderComponent,
-    ],
+    CommonModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
+    ImgRenderComponent
+],
     templateUrl: './product-item.component.html',
     styleUrls: ['./product-item.component.scss']
 })

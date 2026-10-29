@@ -1,10 +1,10 @@
 import { Component ,inject} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {OrderService} from '../_shared/services/order.service'
 
 @Component({
     selector: 'wsv2-shop-orders-shell',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './orders-shell.component.html',
     styleUrls: ['./orders-shell.component.scss']
 })

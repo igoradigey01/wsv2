@@ -3,11 +3,11 @@ import { Component, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/c
 import { ISliderImage } from '@wsv2/app-config';
 
 
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'wsv2-image-slider',
-    imports: [CommonModule],
+    imports: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './image-slider.component.html',
     styleUrls: ['./image-slider.component.scss']

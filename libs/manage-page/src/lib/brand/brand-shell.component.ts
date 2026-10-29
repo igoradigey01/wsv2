@@ -1,5 +1,5 @@
 import { Component, computed ,signal} from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { ProductType, StateView } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -21,11 +21,10 @@ export interface EmitData {
 @Component({
     selector: 'wsv2-brand-shell',
     imports: [
-        CommonModule,
-        MatSelectModule,
-        BrandListComponent,
-        BrandItemComponent
-    ],
+    MatSelectModule,
+    BrandListComponent,
+    BrandItemComponent
+],
     templateUrl: './brand-shell.component.html',
     styleUrls: ['./brand-shell.component.scss']
 })

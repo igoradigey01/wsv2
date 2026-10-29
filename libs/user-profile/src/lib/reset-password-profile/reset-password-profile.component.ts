@@ -8,7 +8,7 @@ import {
   effect,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -27,15 +27,14 @@ import { MatchPasswordDirective } from '../_shared/_helpers/must-match.directive
 @Component({
     selector: 'wsv2-reset-password-profile',
     imports: [
-        CommonModule,
-        MatCardModule,
-        MatIconModule,
-        MatInputModule,
-        FormsModule,
-        RouterModule,
-        MatchPasswordDirective,
-        MatButtonModule,
-    ],
+    MatCardModule,
+    MatIconModule,
+    MatInputModule,
+    FormsModule,
+    RouterModule,
+    MatchPasswordDirective,
+    MatButtonModule
+],
     templateUrl: './reset-password-profile.component.html',
     styleUrls: ['./reset-password-profile.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

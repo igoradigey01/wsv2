@@ -4,76 +4,79 @@
 
     <button   (click)="copyLinkK()"  >
       <mat-icon aria-hidden="false" aria-label="copy katalog link">content_copy</mat-icon>K</button>
-    <button (click)="copyLinkP()" >
-      <mat-icon aria-hidden="false" aria-label="copy nomenclature link">content_copy</mat-icon>T</button>
-  </div>
-  <mat-card-title class="title-card">{{katalog_name}}</mat-card-title>
-  <mat-card-header>
-   
- 
-    <mat-card-subtitle>
-      
-    <div class="row-cart"> <div><span class="name-item"> ID :</span>
-      <span >{{productItem().id}} </span></div>
-      <div  >
-        <button mat-mini-fab class="cart" (click)="add_cart()"  aria-label="Cart add">
-       <mat-icon>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 6h19l-3 10H6L3 6Zm0 0l-.75-2.5M9.992 11h2m2 0h-2m0 0V9m0 2v2M11 19.5a1.5 1.5 0 0 1-3 0m9 0a1.5 1.5 0 0 1-3 0"/></svg>
-      </mat-icon>
-        </button>
-    </div>
-    </div>
-    <div>
-      <span class="name-item"> Название:</span> <br>
-      {{FullName}}
+      <button (click)="copyLinkP()" >
+        <mat-icon aria-hidden="false" aria-label="copy nomenclature link">content_copy</mat-icon>T</button>
+      </div>
+      <mat-card-title class="title-card">{{katalog_name}}</mat-card-title>
+      <mat-card-header>
+
+
+        <mat-card-subtitle>
+
+          <div class="row-cart"> <div><span class="name-item"> ID :</span>
+          <span >{{productItem().id}} </span></div>
+          <div  >
+            <button mat-mini-fab class="cart" (click)="add_cart()"  aria-label="Cart add">
+              <mat-icon>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 6h19l-3 10H6L3 6Zm0 0l-.75-2.5M9.992 11h2m2 0h-2m0 0V9m0 2v2M11 19.5a1.5 1.5 0 0 1-3 0m9 0a1.5 1.5 0 0 1-3 0"/></svg>
+              </mat-icon>
+            </button>
+          </div>
+        </div>
+        <div>
+          <span class="name-item"> Название:</span> <br>
+          {{FullName}}
+
+        </div>
+
+      </mat-card-subtitle>
+    </mat-card-header>
+    <wsv2-image-slider
+      [slideImgs]="ImgUrls"
+      [minHeight]="'19rem'"
+      [marginTopSlideBar]="'85%'"
+      [marginLeftSlideBar]="'30%'"
+      >
+
+    </wsv2-image-slider>
+    <!--
+    <img mat-card-image src="{{ ImgObj() }}" alt="{{productItem().name}}">
+    -->
+    <mat-card-content>
+      <div class="card-description ">
+        <h5 class="name-item title-card">Описание товара</h5>
+        <p class="card-text">
+          {{productItem().description}}
+        </p>
+      </div>
+
+      <mat-divider></mat-divider>
+
+
+
+      <ul class="list-group">
+        <li class="list-item"> <span class="name-item"> Артикул  : </span> {{productItem().articleName}} </li>
+        <li class="list-item"> <span class="name-item">Цвет :</span> {{productItem().colorName}} </li>
+        <li class="list-item"><span class="name-item">Бренд :</span>{{productItem().brandName}}</li>
+        <li class="list-item"> <span class="name-item">Цена : </span>
+        @if (!flagOpt) {
+          <span> Ц:{{ productItem().cost_total }}р </span>
+        } @else {
+          Ц:{{ productItem().price }}
+        }
+      </li>
+    </ul>
+
+    <div class="panel-card-action">
+
+      <button (click)="on_back()" class="btn-link" mat-button>Назад</button>
+
+
+      <button (click)="on_qr_code()" class="btn-link" mat-button>QR Code</button>
 
     </div>
-  
-  </mat-card-subtitle>
-  </mat-card-header>
-  <wsv2-image-slider
-  [slideImgs]="ImgUrls"
-  [minHeight]="'19rem'"
-  [marginTopSlideBar]="'85%'"
-  [marginLeftSlideBar]="'30%'"
-  >
-
-  </wsv2-image-slider>
-  <!--
-  <img mat-card-image src="{{ ImgObj() }}" alt="{{productItem().name}}">
-  -->
-  <mat-card-content>
-    <div class="card-description ">
-    <h5 class="name-item title-card">Описание товара</h5>
-    <p class="card-text">
-      {{productItem().description}}
-    </p>
-  </div>
-
-  <mat-divider></mat-divider>
-
-  
-
-  <ul class="list-group">
-    <li class="list-item"> <span class="name-item"> Артикул  : </span> {{productItem().articleName}} </li>
-    <li class="list-item"> <span class="name-item">Цвет :</span> {{productItem().colorName}} </li>
-    <li class="list-item"><span class="name-item">Бренд :</span>{{productItem().brandName}}</li>
-    <li class="list-item"> <span class="name-item">Цена : </span>
-      <span *ngIf="!flagOpt; else opt"> Ц:{{ productItem().cost_total }}р </span>
-            <ng-template #opt> Ц:{{ productItem().price }} </ng-template>
-    </li>
-  </ul>
-
-  <div class="panel-card-action">
-      
-    <button (click)="on_back()" class="btn-link" mat-button>Назад</button>
-
-  
-    <button (click)="on_qr_code()" class="btn-link" mat-button>QR Code</button>
-  
-  </div>
   </mat-card-content>
-  
+
 </mat-card>
 
 <!-----------------------end card-------------------->

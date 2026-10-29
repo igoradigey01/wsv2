@@ -2,30 +2,35 @@
   <div class="c-2">
     <h1 class="mat-1">ОПЛАТА & ДОСТАВКА</h1>
 
-   
+
 
     <div class="c-p">
       Наш интернет-магазин предполагает оплату заказов только по факту доставки
       товара
     </div>
 
-   
-     <div *ngIf="product_delivery;else not_delivery" class="c-p" > 
-      Доставка товара производится в удобное для вас время, 
-      по предварительной договоренности
+
+    @if (product_delivery) {
+      <div class="c-p" >
+        Доставка товара производится в удобное для вас время,
+        по предварительной договоренности
       </div>
-   
-      <ng-template #not_delivery>  
-      <div class="not_delivery" >Доставка товара не производится </div>  
-      </ng-template>   
-      <h2 >Время работы</h2>
-  
-        <ul>
-          <li>Пн - Пт: с{{work_time.start}} до {{work_time.end}} (МСК)</li>
-          <li *ngIf="work_time_timeSaturdaySunday" >Сб-Вс: с {{work_time_timeSaturdaySunday.start}}до {{work_time_timeSaturdaySunday.end}} (МСК)</li>
-          <li *ngIf="company_day_off">выходной : {{company_day_off}} </li>
-        </ul>
-      
-    
+    } @else {
+      <div class="not_delivery" >Доставка товара не производится </div>
+    }
+
+    <h2 >Время работы</h2>
+
+    <ul>
+      <li>Пн - Пт: с{{work_time.start}} до {{work_time.end}} (МСК)</li>
+      @if (work_time_timeSaturdaySunday) {
+        <li >Сб-Вс: с {{work_time_timeSaturdaySunday.start}}до {{work_time_timeSaturdaySunday.end}} (МСК)</li>
+      }
+      @if (company_day_off) {
+        <li>выходной : {{company_day_off}} </li>
+      }
+    </ul>
+
+
   </div>
 </div>

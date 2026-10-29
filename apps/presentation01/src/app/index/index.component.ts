@@ -8,7 +8,7 @@ import { CompanyInformationService, MenyItemsService, IMenyItem } from '@wsv2/ap
 import { KatalogComponent, AppHeaderLayoutComponent } from '@wsv2/ui'
 import { IButton } from '@wsv2/app-common'
 import { UserRole } from '@wsv2/app-common'
-import { NgFor, NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 
 @Component({

@@ -2,7 +2,7 @@
 import { Component ,OnInit, ChangeDetectionStrategy, computed} from '@angular/core';
 import { Router ,ActivatedRoute } from '@angular/router';
 
-import { CommonModule } from '@angular/common';
+
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { KatalogComponent } from '@wsv2/ui';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -12,7 +12,7 @@ import { SubKatalogService } from '../_shared/services/sub-katalog.service'
 
 @Component({
     selector: 'wsv2-sub-catalog',
-    imports: [CommonModule, KatalogComponent],
+    imports: [KatalogComponent],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './sub-catalog.component.html',
     styleUrls: ['./sub-catalog.component.scss']

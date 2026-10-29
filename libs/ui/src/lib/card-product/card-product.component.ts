@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-import { CommonModule } from '@angular/common';
+
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Input, Output, EventEmitter } from '@angular/core';
@@ -21,15 +21,14 @@ import { ISliderImage } from '@wsv2/app-config';
 @Component({
     selector: 'wsv2-card-product',
     imports: [
-        CommonModule,
-        ClipboardModule,
-        MatIconModule,
-        MatCardModule,
-        MatButtonModule,
-        MatDividerModule,
-        MatListModule,
-        ImageSliderComponent
-    ],
+    ClipboardModule,
+    MatIconModule,
+    MatCardModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatListModule,
+    ImageSliderComponent
+],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './card-product.component.html',
     styleUrls: ['./card-product.component.scss']

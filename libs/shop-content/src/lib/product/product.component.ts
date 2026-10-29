@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { ActivatedRoute , Router } from '@angular/router';
 
-import { CommonModule } from '@angular/common';
+
 import { ProductService } from '../_shared/services/product.service';
 import { StateView, Product, } from '@wsv2/app-common';
 import {CartService } from '@wsv2/shop-cart'
@@ -11,7 +11,7 @@ import { KatalogImgComponent, CardProductComponent } from '@wsv2/ui';
 
 @Component({
     selector: 'wsv2-product',
-    imports: [CommonModule, KatalogImgComponent, CardProductComponent],
+    imports: [KatalogImgComponent, CardProductComponent],
     templateUrl: './product.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['./product.component.scss']

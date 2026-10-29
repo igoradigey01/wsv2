@@ -1,5 +1,5 @@
 import { Component,  Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 
 import { Router } from '@angular/router';
@@ -19,13 +19,12 @@ import { StateView } from '@wsv2/app-common';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'wsv2-user-profile-edit',
     imports: [
-        CommonModule,
-        MatCardModule,
-        FormsModule,
-        MatIconModule,
-        MatInputModule,
-        MatButtonModule
-    ],
+    MatCardModule,
+    FormsModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule
+],
     templateUrl: './user-profile-edit.component.html',
     styleUrls: ['./user-profile-edit.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

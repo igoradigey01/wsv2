@@ -5,40 +5,40 @@
     <button (click)="toggle()" [ngClass]="{ active: isDeactive }" style="margin-left:2rem;">Фото</button>
   </h3>
 
-  <div *ngIf="condition; else photo">
-    <div class="yandex-map" *ngIf="coordinates">
-      
-    
-      <ya-map [center]="coordinates" [zoom]="yandex_zoom">
-        <div  *ngIf="geoObject">
-        <ya-geoobject
-        [feature]="geoObject.feature"
-        [options]="geoObject.options"
-      ></ya-geoobject>
+  @if (condition) {
+    <div>
+      @if (coordinates) {
+        <div class="yandex-map">
+          <ya-map [center]="coordinates" [zoom]="yandex_zoom">
+            @if (geoObject) {
+              <div >
+                <ya-geoobject
+                  [feature]="geoObject.feature"
+                  [options]="geoObject.options"
+                ></ya-geoobject>
+              </div>
+            }
+          </ya-map>
         </div>
-      </ya-map>
-  
-</div>
-  </div>
-  <ng-template #photo>
-    
+      }
+    </div>
+  } @else {
     <div class="photo-slider" >
-      <wsv2-image-slider 
-      [slideImgs]="slideImgs"
-      [minHeight]="minHeightPhoto"
-      [minWidth]="minWidthPhoto"
-      [marginTopSlideBar] ="marginTopSlideBar" 
-      [marginLeftSlideBar] ="marginLeftSlideBar"  
+      <wsv2-image-slider
+        [slideImgs]="slideImgs"
+        [minHeight]="minHeightPhoto"
+        [minWidth]="minWidthPhoto"
+        [marginTopSlideBar] ="marginTopSlideBar"
+        [marginLeftSlideBar] ="marginLeftSlideBar"
       ></wsv2-image-slider>
     </div>
-    
-  </ng-template>
+  }
 
 
- 
 
-  
 
- 
+
+
+
 
 

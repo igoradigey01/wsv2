@@ -1,5 +1,5 @@
 import { Component ,signal,computed, Signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Input, Output, EventEmitter } from '@angular/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,11 +10,10 @@ import { EmitData ,StateView} from './sub-catalog-shell.component';
 @Component({
     selector: 'wsv2-sub-catalog-list',
     imports: [
-        CommonModule,
-        MatButtonToggleModule,
-        MatButtonModule,
-        MatIconModule
-    ],
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatIconModule
+],
     templateUrl: './sub-catalog-list.component.html',
     styleUrls: ['./sub-catalog-list.component.scss']
 })

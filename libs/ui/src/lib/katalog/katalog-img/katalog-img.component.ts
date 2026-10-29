@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import { Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '@wsv2/app-common';
 
 @Component({
     selector: 'wsv2-katalog-img',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './katalog-img.component.html',
     styleUrls: ['./katalog-img.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

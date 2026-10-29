@@ -11,69 +11,73 @@
     </mat-card-header>
 
     <mat-card-content>
-      <div class="error" *ngIf="_errorMgs?.length">
-        <ul>
-          <li *ngFor="let error of _errorMgs">
-            {{ error }}
-          </li>
-        </ul>
-      </div>
+      @if (_errorMgs?.length) {
+        <div class="error">
+          <ul>
+            @for (error of _errorMgs; track error) {
+              <li>
+                {{ error }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
 
-    
+
 
       <mat-list class="list-wrapping">
 
         <mat-list-item lines="3">
           <span matListItemTitle><mat-icon>
             account_circle
-            </mat-icon></span> <br>
+          </mat-icon></span> <br>
           <div style="width: 300px ;height:100px !important ; margin-left: auto;margin-right: auto;white-space: normal;text-align: left;">
-           <div> <span >Имя :</span> <span class="profileUserInfo_personData">{{ User.firstName }} |</span> </div>
-          <div> <span>Отчество :</span><span class="profileUserInfo_personData">{{ User.lastName }} </span></div>
-        </div>
+            <div> <span >Имя :</span> <span class="profileUserInfo_personData">{{ User.firstName }} |</span> </div>
+            <div> <span>Отчество :</span><span class="profileUserInfo_personData">{{ User.lastName }} </span></div>
+          </div>
         </mat-list-item>
-       
+
         <mat-list-item>
-          
-        <span> <mat-icon  mat-list-icon>
+
+          <span> <mat-icon  mat-list-icon>
             phone
-            </mat-icon> </span> :
+          </mat-icon> </span> :
           <span class="profileUserInfo_personData"> {{ User.phone }} </span>
         </mat-list-item>
         <mat-divider></mat-divider>
-       
+
         <mat-list-item>
           <span >
-          <mat-icon mat-list-icon>email</mat-icon>:
-        </span>
+            <mat-icon mat-list-icon>email</mat-icon>:
+          </span>
           <span class="profileUserInfo_personData" > {{ User.email }}</span>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item lines="5">
           <span matListItemTitle>Title
-        
-          Адрес доставки
-          <mat-icon
-            class="icon_aderss_svg"
-            svgIcon="thumbs-up"
-            aria-hidden="false"
-            aria-label="adress SVG icon"
-            mat-list-icon
-          ></mat-icon>
-       
-      </span>
-      <address >
-      <div style="height: 100px !important;white-space: normal;text-align: start;margin-left: 0.2rem;"> 
-       
-        {{ User.address }}
-      </div>
-        
-        </address>
-     
-     
+
+            Адрес доставки
+            <mat-icon
+              class="icon_aderss_svg"
+              svgIcon="thumbs-up"
+              aria-hidden="false"
+              aria-label="adress SVG icon"
+              mat-list-icon
+            ></mat-icon>
+
+          </span>
+          <address >
+            <div style="height: 100px !important;white-space: normal;text-align: start;margin-left: 0.2rem;">
+
+              {{ User.address }}
+            </div>
+
+          </address>
+
+
         </mat-list-item>
-      <mat-divider></mat-divider>
-    </mat-list>
+        <mat-divider></mat-divider>
+      </mat-list>
 
       <div>
         <button
@@ -81,7 +85,7 @@
           color="accent"
           (click)="onEdit()"
           class="btn"
-        >
+          >
           Редактировать Профиль
         </button>
       </div>
@@ -91,7 +95,7 @@
           color="primary"
           (click)="onChangePassword()"
           class="btn"
-        >
+          >
           сменить пароль
         </button>
       </div>
@@ -101,7 +105,7 @@
           color="warn"
           (click)="onDelete()"
           class="btn"
-        >
+          >
           Удалить Профиль
         </button>
       </div>

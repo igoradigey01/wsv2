@@ -1,6 +1,6 @@
 import { Component , ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { QrCodeModule } from 'ng-qrcode';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -13,10 +13,9 @@ import {JsPDFService} from '@wsv2/js-pdf'
     selector: 'wsv2-qr-code',
     templateUrl: './qr-code.component.html',
     imports: [
-        CommonModule,
-        MatButtonModule,
-        QrCodeModule
-    ],
+    MatButtonModule,
+    QrCodeModule
+],
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['./qr-code.component.scss'],
     providers: [JsPDFService]

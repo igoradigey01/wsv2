@@ -1,5 +1,5 @@
 import { Component, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -14,12 +14,11 @@ import { Input, Output, EventEmitter } from '@angular/core';
 @Component({
     selector: 'wsv2-sub-catalog-item',
     imports: [
-        CommonModule,
-        MatButtonModule,
-        MatSelectModule,
-        MatInputModule,
-        FormsModule,
-    ],
+    MatButtonModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule
+],
     templateUrl: './sub-catalog-item.component.html',
     styleUrls: ['./sub-catalog-item.component.scss']
 })

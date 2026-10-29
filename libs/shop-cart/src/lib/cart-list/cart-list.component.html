@@ -1,8 +1,8 @@
 <mat-card>
-<div *ngFor="let item of cartItems()">
-   
-    <wsv2-cart-item [item]='item'></wsv2-cart-item>
-  
- </div>
+  @for (item of cartItems(); track item) {
+    <div>
+      <wsv2-cart-item [item]='item'></wsv2-cart-item>
+    </div>
+  }
 </mat-card>
 

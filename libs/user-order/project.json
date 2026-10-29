@@ -10,15 +10,14 @@
       "executor": "@nx/angular:ng-packagr-lite",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/user-order/ng-package.json"
+        "project": "libs/user-order/ng-package.json",
+        "tsConfig": "libs/user-order/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
           "tsConfig": "libs/user-order/tsconfig.lib.prod.json"
         },
-        "development": {
-          "tsConfig": "libs/user-order/tsconfig.lib.json"
-        }
+        "development": {}
       },
       "defaultConfiguration": "production"
     },
@@ -27,7 +26,8 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/user-order/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "libs/user-order/tsconfig.spec.json"
       },
       "configurations": {
         "ci": {

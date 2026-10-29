@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { StateView } from '@wsv2/app-common';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -17,10 +17,9 @@ export interface EmitData{
 @Component({
     selector: 'wsv2-catalog-shell',
     imports: [
-        CommonModule,
-        CatalogListComponent,
-        CatalogItemComponent
-    ],
+    CatalogListComponent,
+    CatalogItemComponent
+],
     templateUrl: './catalog-shell.component.html',
     styleUrls: ['./catalog-shell.component.scss']
 })
