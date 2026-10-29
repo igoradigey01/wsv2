@@ -46,3 +46,9 @@ Thumbs.db
 
 
 .nx/workspace-data
+
+# local environment override (not tracked in git)
+/apps/xf01/src/environments/environment.ts
+
+# local documentation
+/docs/docker-help-2.md

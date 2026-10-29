@@ -69,8 +69,6 @@
   "affected": {
     "defaultBase": "main"
   },
-  "nxCloudAccessToken": "NzFiMjFhOGEtYjBkZi00MWM1LWE4NzktZmRhMTQzOGY5ZTY1fHJlYWQtd3JpdGU=",
-  "defaultBase": "master",
   "plugins": [
     {
       "plugin": "@nx/cypress/plugin",
