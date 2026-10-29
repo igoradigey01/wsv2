@@ -29,18 +29,17 @@ export interface EmitData {
 }
 
 @Component({
-  selector: 'wsv2-sub-catalog-shell',
-  standalone: true,
-  imports: [
-    CommonModule,
-    SubCatalogItemComponent,
-    SubCatalogListComponent,
-    KatalogComponent,
-    MatButtonModule,
-    MatIconModule,
-  ],
-  templateUrl: './sub-catalog-shell.component.html',
-  styleUrls: ['./sub-catalog-shell.component.scss'],
+    selector: 'wsv2-sub-catalog-shell',
+    imports: [
+        CommonModule,
+        SubCatalogItemComponent,
+        SubCatalogListComponent,
+        KatalogComponent,
+        MatButtonModule,
+        MatIconModule,
+    ],
+    templateUrl: './sub-catalog-shell.component.html',
+    styleUrls: ['./sub-catalog-shell.component.scss']
 })
 export class SubCatalogShellComponent {
   private idCatalogAktive=-1;

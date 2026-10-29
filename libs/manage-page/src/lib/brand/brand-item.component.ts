@@ -16,18 +16,16 @@ import { StateView } from '@wsv2/app-common';
 import { Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'wsv2-brand-item',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatInputModule,
-
-    FormsModule,
-  ],
-  templateUrl: './brand-item.component.html',
-  styleUrls: ['./brand-item.component.scss'],
+    selector: 'wsv2-brand-item',
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatInputModule,
+        FormsModule,
+    ],
+    templateUrl: './brand-item.component.html',
+    styleUrls: ['./brand-item.component.scss']
 })
 export class BrandItemComponent {
   private state = signal<Brand>(<Brand>{

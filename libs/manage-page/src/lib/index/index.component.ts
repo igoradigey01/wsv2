@@ -26,22 +26,21 @@ import { IThemeScss, ThemeScssServices } from '@wsv2/app-common';
   }
 
 @Component({
-  selector: 'wsv2-manager-index',
-  standalone: true,
-  imports: [
-    CommonModule,
-    AppLayoutModule,
-    //  AppHeaderLayoutComponent ,
-    RouterModule,
-    //  MaterialModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule
-  ],
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
-  providers: [ThemeScssServices],
+    selector: 'wsv2-manager-index',
+    imports: [
+        CommonModule,
+        AppLayoutModule,
+        //  AppHeaderLayoutComponent ,
+        RouterModule,
+        //  MaterialModule,
+        MatToolbarModule,
+        MatMenuModule,
+        MatIconModule,
+        MatButtonModule
+    ],
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.scss'],
+    providers: [ThemeScssServices]
 })
 export class IndexComponent implements OnDestroy {
   private _theme_css: IThemeScss = <IThemeScss>{

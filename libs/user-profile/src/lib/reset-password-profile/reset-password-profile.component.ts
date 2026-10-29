@@ -25,21 +25,20 @@ import { RouterModule } from '@angular/router';
 import { MatchPasswordDirective } from '../_shared/_helpers/must-match.directive';
 
 @Component({
-  selector: 'wsv2-reset-password-profile',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatIconModule,
-    MatInputModule,
-    FormsModule,
-    RouterModule,
-    MatchPasswordDirective,
-    MatButtonModule,
-  ],
-  templateUrl: './reset-password-profile.component.html',
-  styleUrls: ['./reset-password-profile.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'wsv2-reset-password-profile',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatIconModule,
+        MatInputModule,
+        FormsModule,
+        RouterModule,
+        MatchPasswordDirective,
+        MatButtonModule,
+    ],
+    templateUrl: './reset-password-profile.component.html',
+    styleUrls: ['./reset-password-profile.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResetPasswordProfileComponent implements OnInit {
   public resetPassDto: ResetPasswordProfileDto = <ResetPasswordProfileDto>{

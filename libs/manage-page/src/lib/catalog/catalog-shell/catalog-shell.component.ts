@@ -15,15 +15,14 @@ export interface EmitData{
 }
 
 @Component({
-  selector: 'wsv2-catalog-shell',
-  standalone: true,
-  imports: [
-    CommonModule,
-    CatalogListComponent,
-    CatalogItemComponent
-  ],
-  templateUrl: './catalog-shell.component.html',
-  styleUrls: ['./catalog-shell.component.scss'],
+    selector: 'wsv2-catalog-shell',
+    imports: [
+        CommonModule,
+        CatalogListComponent,
+        CatalogItemComponent
+    ],
+    templateUrl: './catalog-shell.component.html',
+    styleUrls: ['./catalog-shell.component.scss']
 })
 export class CatalogShellComponent {
 

@@ -9,9 +9,10 @@ import {UserVkDto} from '../_shared/_interfaces/user-vkDto.model'
 
 
 @Component({
-  selector: '@wsv2-app-auth-callback-vk',
-  templateUrl: './auth-callback-vk.component.html',
-  styleUrls: ['./auth-callback-vk.component.scss'],
+    selector: '@wsv2-app-auth-callback-vk',
+    templateUrl: './auth-callback-vk.component.html',
+    styleUrls: ['./auth-callback-vk.component.scss'],
+    standalone: false
 })
 export class AuthCallbackVkComponent implements OnInit , OnDestroy {
 

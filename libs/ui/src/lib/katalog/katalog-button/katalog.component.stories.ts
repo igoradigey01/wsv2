@@ -2,7 +2,7 @@
 
 import type { Meta, StoryObj } from '@storybook/angular';
 
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { KatalogComponent } from './katalog.component';
 //import { IButton } from '../../_interfaces/button.model'
 //import { ButtonComponent } from '../../button/button.component';

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {StateView} from '../../_shared/_interfaces/state-view'
 
 @Component({
-  selector: 'x01-v1-user-orders-main',
-  templateUrl: './user-orders-main.component.html',
-  styleUrls: ['./user-orders-main.component.scss'],
+    selector: 'x01-v1-user-orders-main',
+    templateUrl: './user-orders-main.component.html',
+    styleUrls: ['./user-orders-main.component.scss'],
+    standalone: false
 })
 export class UserOrdersMainComponent implements OnInit {
 

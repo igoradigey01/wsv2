@@ -7,16 +7,15 @@ import {MatCardModule} from '@angular/material/card';
 
 
 @Component({
-  selector: 'wsv2-shop-cart',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    CartListComponent, 
-    CartTotalComponent
-  ],
-  templateUrl: './cart-shell.component.html',
-  styleUrls: ['./cart-shell.component.scss'],
+    selector: 'wsv2-shop-cart',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        CartListComponent,
+        CartTotalComponent
+    ],
+    templateUrl: './cart-shell.component.html',
+    styleUrls: ['./cart-shell.component.scss']
 })
 export class CartShellComponent {
 

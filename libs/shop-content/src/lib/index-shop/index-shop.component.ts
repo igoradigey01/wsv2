@@ -15,12 +15,11 @@ import {UserManagerService} from '@wsv2/account-service'
 import { KatlogService } from '../_shared/services/katalog.servise';
 
 @Component({
-  selector: 'wsv2-index-shop',
-  standalone: true,
-  imports: [CommonModule, KatalogComponent],
-  templateUrl: './index-shop.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./index-shop.component.scss'],
+    selector: 'wsv2-index-shop',
+    imports: [CommonModule, KatalogComponent],
+    templateUrl: './index-shop.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./index-shop.component.scss']
 })
 export class IndexShopComponent implements OnInit {
   

@@ -5,15 +5,14 @@ import {IButton} from '@wsv2/app-common'
 import { Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'wsv2-button',
-  standalone: true,  
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    MatButtonModule
-  ],
-  templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss'],
+    selector: 'wsv2-button',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        MatButtonModule
+    ],
+    templateUrl: './button.component.html',
+    styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent {
 

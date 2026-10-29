@@ -11,17 +11,15 @@ import { StateView } from '@wsv2/app-common';
 import { Article } from '@wsv2/app-common';
 
 @Component({
-  selector: 'wsv2-article-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonToggleModule,
-    MatButtonModule,
-    MatIconModule
-   
-  ],
-  templateUrl: './article-list.component.html',
-  styleUrls: ['./article-list.component.scss'],
+    selector: 'wsv2-article-list',
+    imports: [
+        CommonModule,
+        MatButtonToggleModule,
+        MatButtonModule,
+        MatIconModule
+    ],
+    templateUrl: './article-list.component.html',
+    styleUrls: ['./article-list.component.scss']
 })
 export class ArticleListComponent {
 

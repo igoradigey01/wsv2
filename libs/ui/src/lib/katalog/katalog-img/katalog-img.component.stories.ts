@@ -2,7 +2,7 @@
 
 import type { Meta, StoryObj } from '@storybook/angular';
 
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { KatalogImgComponent } from './katalog-img.component';
 import {katalog_data2} from '../../_shared/servises/data-fake2'
 

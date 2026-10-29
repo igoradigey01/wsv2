@@ -27,18 +27,17 @@ export interface DtoImage {
 }
 
 @Component({
-  selector: 'wsv2-img-render',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatTabsModule,
-    MatIconModule,
-    MatButtonModule,
-    ImageCropperComponent,
-    HammerModule
-  ],
-  templateUrl: './img-render.component.html',
-  styleUrls: ['./img-render.component.scss'],
+    selector: 'wsv2-img-render',
+    imports: [
+        CommonModule,
+        MatTabsModule,
+        MatIconModule,
+        MatButtonModule,
+        ImageCropperComponent,
+        HammerModule
+    ],
+    templateUrl: './img-render.component.html',
+    styleUrls: ['./img-render.component.scss']
 })
 export class ImgRenderComponent  {
   @Input() public _img_name: string | undefined;

@@ -8,16 +8,14 @@ import { EmitData} from "./product-shell.component";
 
 
 @Component({
-  selector: 'wsv2-product-sidenav',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatSidenavModule,
-    MatButtonModule,
-   
-  ],
-  templateUrl: './product-sidenav.component.html',
-  styleUrls: ['./product-sidenav.component.scss'],
+    selector: 'wsv2-product-sidenav',
+    imports: [
+        CommonModule,
+        MatSidenavModule,
+        MatButtonModule,
+    ],
+    templateUrl: './product-sidenav.component.html',
+    styleUrls: ['./product-sidenav.component.scss']
 })
 export class ProductSidenavComponent {
   @Output() public SubCatalogChange = new EventEmitter<EmitData>();

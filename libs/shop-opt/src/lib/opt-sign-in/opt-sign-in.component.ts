@@ -5,11 +5,10 @@ import { OptManagerService } from '../_shared/services/opt-manager.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'wsv2-opt-sign-in',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './opt-sign-in.component.html',
-  styleUrls: ['./opt-sign-in.component.scss'],
+    selector: 'wsv2-opt-sign-in',
+    imports: [CommonModule],
+    templateUrl: './opt-sign-in.component.html',
+    styleUrls: ['./opt-sign-in.component.scss']
 })
 export class OptSignInComponent implements OnInit {
   constructor(

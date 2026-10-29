@@ -11,18 +11,17 @@ import { UserRole } from '@wsv2/app-common'
 
 
 @Component({
-  selector: 'wsv2-admin-index',
-  standalone: true,
-  imports: [
-    CommonModule,
-    AppLayoutModule,
-    AppHeaderLayoutComponent ,
-    RouterModule,
-    MaterialModule
-  ],
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
-  providers:[ThemeScssServices]
+    selector: 'wsv2-admin-index',
+    imports: [
+        CommonModule,
+        AppLayoutModule,
+        AppHeaderLayoutComponent,
+        RouterModule,
+        MaterialModule
+    ],
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.scss'],
+    providers: [ThemeScssServices]
 })
 export class IndexComponent implements  OnDestroy {
    

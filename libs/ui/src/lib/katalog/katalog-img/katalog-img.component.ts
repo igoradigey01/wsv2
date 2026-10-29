@@ -5,12 +5,11 @@ import { Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '@wsv2/app-common';
 
 @Component({
-  selector: 'wsv2-katalog-img',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './katalog-img.component.html',
-  styleUrls: ['./katalog-img.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'wsv2-katalog-img',
+    imports: [CommonModule],
+    templateUrl: './katalog-img.component.html',
+    styleUrls: ['./katalog-img.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KatalogImgComponent {
    

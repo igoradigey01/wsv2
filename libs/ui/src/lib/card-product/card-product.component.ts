@@ -19,21 +19,20 @@ import { ISliderImage } from '@wsv2/app-config';
 
 
 @Component({
-  selector: 'wsv2-card-product',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ClipboardModule,
-    MatIconModule,
-    MatCardModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatListModule,
-    ImageSliderComponent
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './card-product.component.html',
-  styleUrls: ['./card-product.component.scss'],
+    selector: 'wsv2-card-product',
+    imports: [
+        CommonModule,
+        ClipboardModule,
+        MatIconModule,
+        MatCardModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatListModule,
+        ImageSliderComponent
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './card-product.component.html',
+    styleUrls: ['./card-product.component.scss']
 })
 export class CardProductComponent  {
 

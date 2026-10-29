@@ -16,20 +16,19 @@ import { ProfileService } from '../_shared/services/profile.service';
 import { StateView } from '@wsv2/app-common';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'wsv2-user-profile-edit',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    FormsModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule
-  ],
-  templateUrl: './user-profile-edit.component.html',
-  styleUrls: ['./user-profile-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'wsv2-user-profile-edit',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        FormsModule,
+        MatIconModule,
+        MatInputModule,
+        MatButtonModule
+    ],
+    templateUrl: './user-profile-edit.component.html',
+    styleUrls: ['./user-profile-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserProfileEditComponent  {
   

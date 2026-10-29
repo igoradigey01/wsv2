@@ -16,18 +16,17 @@ import { CartService } from '@wsv2/shop-cart';
 
 
 @Component({
-  selector: 'wsv2-index',
-  standalone: true,
-  imports: [
-    CommonModule,
-    AppHeaderLayoutComponent,
-    AppLayoutModule,
-    MaterialModule,
-    RouterModule,
-    KatalogComponent
-  ],
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'],
+    selector: 'wsv2-index',
+    imports: [
+        CommonModule,
+        AppHeaderLayoutComponent,
+        AppLayoutModule,
+        MaterialModule,
+        RouterModule,
+        KatalogComponent
+    ],
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
 

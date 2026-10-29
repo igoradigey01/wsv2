@@ -20,16 +20,15 @@ export interface EmitData {
 }
 
 @Component({
-  selector: 'wsv2-article-shell',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatSelectModule,
-    ArticleItemComponent,
-    ArticleListComponent,
-  ],
-  templateUrl: './article-shell.component.html',
-  styleUrls: ['./article-shell.component.scss'],
+    selector: 'wsv2-article-shell',
+    imports: [
+        CommonModule,
+        MatSelectModule,
+        ArticleItemComponent,
+        ArticleListComponent,
+    ],
+    templateUrl: './article-shell.component.html',
+    styleUrls: ['./article-shell.component.scss']
 })
 export class ArticleShellComponent {
 

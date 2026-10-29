@@ -15,12 +15,11 @@ import { Subscription } from 'rxjs';
 import { interval } from 'rxjs';
 
 @Component({
-  selector: 'wsv2-katalog-button',
-  standalone: true,
-  imports: [CommonModule, ButtonComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './katalog.component.html',
-  styleUrls: ['./katalog.component.scss'],
+    selector: 'wsv2-katalog-button',
+    imports: [CommonModule, ButtonComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './katalog.component.html',
+    styleUrls: ['./katalog.component.scss']
 })
 export class KatalogComponent implements OnInit, OnDestroy {
   @Output() public _onSelectButton = new EventEmitter<IButton>();

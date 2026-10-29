@@ -36,22 +36,20 @@ export interface DtoNomenclature {
 }
 
 @Component({
-  selector: 'wsv2-product-item',
-  standalone: true,
-  imports: [
-    CommonModule,
-    NgIf,
-    NgFor,
-    MatButtonModule,
-    MatSelectModule,
-    MatInputModule,
-    MatIconModule,
-
-    FormsModule,
-    ImgRenderComponent,
-  ],
-  templateUrl: './product-item.component.html',
-  styleUrls: ['./product-item.component.scss'],
+    selector: 'wsv2-product-item',
+    imports: [
+        CommonModule,
+        NgIf,
+        NgFor,
+        MatButtonModule,
+        MatSelectModule,
+        MatInputModule,
+        MatIconModule,
+        FormsModule,
+        ImgRenderComponent,
+    ],
+    templateUrl: './product-item.component.html',
+    styleUrls: ['./product-item.component.scss']
 })
 export class ProductItemComponent {
   private state = signal<Product>(<Product>{

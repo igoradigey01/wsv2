@@ -5,11 +5,10 @@ import {CompanyInformationService} from '@wsv2/app-config'
 //import {environment} from '../environments/environment'
 
 @Component({
-  standalone: true,
-  imports: [RouterModule],
-  selector: 'wsv2-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    imports: [RouterModule],
+    selector: 'wsv2-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 

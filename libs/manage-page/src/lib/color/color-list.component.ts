@@ -11,16 +11,15 @@ import { StateView } from '@wsv2/app-common';
 import { Color } from '@wsv2/app-common';
 
 @Component({
-  selector: 'wsv2-color-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonToggleModule,
-    MatButtonModule,
-    MatIconModule
-  ],
-  templateUrl: './color-list.component.html',
-  styleUrls: ['./color-list.component.scss'],
+    selector: 'wsv2-color-list',
+    imports: [
+        CommonModule,
+        MatButtonToggleModule,
+        MatButtonModule,
+        MatIconModule
+    ],
+    templateUrl: './color-list.component.html',
+    styleUrls: ['./color-list.component.scss']
 })
 export class ColorListComponent {
 

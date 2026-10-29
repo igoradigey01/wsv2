@@ -37,22 +37,21 @@ export interface EmitData {
 }
 
 @Component({
-  selector: 'wsv2-product-shell',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonToggleModule,
-    ProductItemComponent,
-    ProductListComponent,
-    ProductSidenavComponent,
-    KatalogComponent,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatProgressSpinnerModule
-  ],
-  templateUrl: './product-shell.component.html',
-  styleUrls: ['./product-shell.component.scss'],
+    selector: 'wsv2-product-shell',
+    imports: [
+        CommonModule,
+        MatButtonToggleModule,
+        ProductItemComponent,
+        ProductListComponent,
+        ProductSidenavComponent,
+        KatalogComponent,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatProgressSpinnerModule
+    ],
+    templateUrl: './product-shell.component.html',
+    styleUrls: ['./product-shell.component.scss']
 })
 export class ProductShellComponent {
 

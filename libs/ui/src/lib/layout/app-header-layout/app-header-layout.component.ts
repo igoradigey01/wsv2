@@ -22,25 +22,20 @@ import { UserRole } from '@wsv2/app-common';
 
 
 @Component({
-  selector: 'wsv2-app-header-layout',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    RouterModule,
-
-    MatBadgeModule,
-    MatToolbarModule,
-    MatMenuModule,
-    // MatSelectModule,
-    MatButtonModule,
-    MatIconModule
-
-  ],
-
-
-  templateUrl: './app-header-layout.component.html',
-  styleUrls: ['./app-header-layout.component.scss'],
+    selector: 'wsv2-app-header-layout',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        RouterModule,
+        MatBadgeModule,
+        MatToolbarModule,
+        MatMenuModule,
+        // MatSelectModule,
+        MatButtonModule,
+        MatIconModule
+    ],
+    templateUrl: './app-header-layout.component.html',
+    styleUrls: ['./app-header-layout.component.scss']
 })
 /**
  * если пользователь авторизован то Это есть admin manager shopper shopperOpt

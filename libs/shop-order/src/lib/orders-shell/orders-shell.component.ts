@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import {OrderService} from '../_shared/services/order.service'
 
 @Component({
-  selector: 'wsv2-shop-orders-shell',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './orders-shell.component.html',
-  styleUrls: ['./orders-shell.component.scss'],
+    selector: 'wsv2-shop-orders-shell',
+    imports: [CommonModule],
+    templateUrl: './orders-shell.component.html',
+    styleUrls: ['./orders-shell.component.scss']
 })
 export class OrdersShellComponent {
 

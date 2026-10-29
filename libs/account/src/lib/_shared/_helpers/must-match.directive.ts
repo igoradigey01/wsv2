@@ -4,10 +4,10 @@ import Validation from './must-match.validator';
 
 //https://www.bezkoder.com/angular-13-template-driven-form-validation/
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: '[appMatchPassword]',
- 
-  providers: [{ provide: NG_VALIDATORS, useExisting: MatchPasswordDirective, multi: true }]
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: '[appMatchPassword]',
+    providers: [{ provide: NG_VALIDATORS, useExisting: MatchPasswordDirective, multi: true }],
+    standalone: false
 })
 export class MatchPasswordDirective implements Validator {
   @Input('appMatchPassword') matchPassword: string[] = [];

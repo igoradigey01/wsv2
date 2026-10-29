@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CompanyInformationService, EnvironmentService } from '@wsv2/app-config'
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'app-privacy',
-  templateUrl: './privacy.component.html',
-  styleUrls: ['./privacy.component.scss'],
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'app-privacy',
+    templateUrl: './privacy.component.html',
+    styleUrls: ['./privacy.component.scss'],
+    standalone: false
 })
 export class PrivacyComponent {
 

@@ -8,16 +8,15 @@ import { SubKatalog,Katalog } from '@wsv2/app-common';
 import { EmitData ,StateView} from './sub-catalog-shell.component';
 
 @Component({
-  selector: 'wsv2-sub-catalog-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonToggleModule,
-    MatButtonModule,
-    MatIconModule
-  ],
-  templateUrl: './sub-catalog-list.component.html',
-  styleUrls: ['./sub-catalog-list.component.scss'],
+    selector: 'wsv2-sub-catalog-list',
+    imports: [
+        CommonModule,
+        MatButtonToggleModule,
+        MatButtonModule,
+        MatIconModule
+    ],
+    templateUrl: './sub-catalog-list.component.html',
+    styleUrls: ['./sub-catalog-list.component.scss']
 })
 export class SubCatalogListComponent {
 

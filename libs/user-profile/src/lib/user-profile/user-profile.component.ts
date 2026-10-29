@@ -32,21 +32,19 @@ const THUMBUP_ICON = `
 `;
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'wsv2-user-profile',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatIconModule,
-    MatDividerModule,
-    MatListModule,
-    MatButtonModule,
-   
-  ],
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'wsv2-user-profile',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatIconModule,
+        MatDividerModule,
+        MatListModule,
+        MatButtonModule,
+    ],
+    templateUrl: './user-profile.component.html',
+    styleUrls: ['./user-profile.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserProfileComponent {  
 

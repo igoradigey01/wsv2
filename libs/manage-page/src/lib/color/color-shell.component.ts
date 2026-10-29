@@ -20,16 +20,15 @@ export interface EmitData {
 }
 
 @Component({
-  selector: 'wsv2-color-shell',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatSelectModule,
-    ColorListComponent,
-    ColorItemComponent
-  ],
-  templateUrl: './color-shell.component.html',
-  styleUrls: ['./color-shell.component.scss'],
+    selector: 'wsv2-color-shell',
+    imports: [
+        CommonModule,
+        MatSelectModule,
+        ColorListComponent,
+        ColorItemComponent
+    ],
+    templateUrl: './color-shell.component.html',
+    styleUrls: ['./color-shell.component.scss']
 })
 export class ColorShellComponent {
 

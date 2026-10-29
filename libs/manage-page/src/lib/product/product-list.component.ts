@@ -9,16 +9,14 @@ import {  Product } from "@wsv2/app-common";
 import { EmitData, StateView } from "./product-shell.component";
 
 @Component({
-  selector: 'wsv2-product-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonToggleModule,
-    MatIconModule
-
-  ],
-  templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss',
+    selector: 'wsv2-product-list',
+    imports: [
+        CommonModule,
+        MatButtonToggleModule,
+        MatIconModule
+    ],
+    templateUrl: './product-list.component.html',
+    styleUrl: './product-list.component.scss'
 })
 export class ProductListComponent {
 

@@ -12,18 +12,16 @@ import { EmitData, StateView } from './sub-catalog-shell.component';
 import { Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'wsv2-sub-catalog-item',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatInputModule,
-
-    FormsModule,
-  ],
-  templateUrl: './sub-catalog-item.component.html',
-  styleUrls: ['./sub-catalog-item.component.scss'],
+    selector: 'wsv2-sub-catalog-item',
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatInputModule,
+        FormsModule,
+    ],
+    templateUrl: './sub-catalog-item.component.html',
+    styleUrls: ['./sub-catalog-item.component.scss']
 })
 export class SubCatalogItemComponent {
   private catalog = <Katalog>{

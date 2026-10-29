@@ -4,11 +4,10 @@ import {CompanyInformationService} from '@wsv2/app-config'
 
 
 @Component({
-  standalone: true,
-  imports: [ RouterModule],
-  selector: 'wsv2-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    imports: [RouterModule],
+    selector: 'wsv2-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'presentation01';

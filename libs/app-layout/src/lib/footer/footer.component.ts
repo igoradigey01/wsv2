@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {CompanyInformationService} from '@wsv2/app-config'
 
 @Component({
-  selector: 'x01-v1-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
+    selector: 'x01-v1-footer',
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.scss'],
+    standalone: false
 })
 export class FooterComponent implements OnInit {
 

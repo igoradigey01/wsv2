@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/angular';
 import { data } from '../_shared/servises/data-fake3';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { ImageSliderComponent } from './image-slider.component';
 import { Product } from '@wsv2/app-common';
 import { ISliderImage } from '@wsv2/app-common';

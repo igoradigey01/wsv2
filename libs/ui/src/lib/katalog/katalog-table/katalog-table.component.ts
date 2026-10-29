@@ -5,12 +5,11 @@ import { Product} from '@wsv2/app-common';
 
 
 @Component({
-  selector: 'wsv2-katalog-table',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './katalog-table.component.html',
-  styleUrls: ['./katalog-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'wsv2-katalog-table',
+    imports: [CommonModule],
+    templateUrl: './katalog-table.component.html',
+    styleUrls: ['./katalog-table.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KatalogTableComponent {
 

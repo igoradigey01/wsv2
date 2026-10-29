@@ -11,16 +11,15 @@ import { StateView } from '@wsv2/app-common';
 import { Brand } from '@wsv2/app-common';
 
 @Component({
-  selector: 'wsv2-brand-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonToggleModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
-  templateUrl: './brand-list.component.html',
-  styleUrls: ['./brand-list.component.scss'],
+    selector: 'wsv2-brand-list',
+    imports: [
+        CommonModule,
+        MatButtonToggleModule,
+        MatButtonModule,
+        MatIconModule,
+    ],
+    templateUrl: './brand-list.component.html',
+    styleUrls: ['./brand-list.component.scss']
 })
 export class BrandListComponent {
   @Output() public brandChange = new EventEmitter<EmitData>();

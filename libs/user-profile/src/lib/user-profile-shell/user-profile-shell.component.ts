@@ -15,24 +15,22 @@ import { Router } from '@angular/router';
 import { ProfileService } from '../_shared/services/profile.service';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'wsv2-user-profile-shell',
-  standalone: true,
-  imports: [
-    CommonModule,
-     MatTabsModule, 
-     MatCardModule,
-     ResetPasswordProfileComponent,
-     UserProfileComponent,
-     UserProfileEditComponent,
-     UserProfileDeleteComponent,
-     UserOrderShellComponent,
-   
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'wsv2-user-profile-shell',
+    imports: [
+        CommonModule,
+        MatTabsModule,
+        MatCardModule,
+        ResetPasswordProfileComponent,
+        UserProfileComponent,
+        UserProfileEditComponent,
+        UserProfileDeleteComponent,
+        UserOrderShellComponent,
     ],
-    providers:[ProfileService],
-  templateUrl: './user-profile-shell.component.html',
-  styleUrls: ['./user-profile-shell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [ProfileService],
+    templateUrl: './user-profile-shell.component.html',
+    styleUrls: ['./user-profile-shell.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserProfileShellComponent  {
   public _flagViewState: StateView = StateView.default;

@@ -10,12 +10,11 @@ import { KatalogImgComponent, CardProductComponent } from '@wsv2/ui';
 
 
 @Component({
-  selector: 'wsv2-product',
-  standalone: true,
-  imports: [CommonModule, KatalogImgComponent, CardProductComponent],
-  templateUrl: './product.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./product.component.scss'],
+    selector: 'wsv2-product',
+    imports: [CommonModule, KatalogImgComponent, CardProductComponent],
+    templateUrl: './product.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./product.component.scss']
 })
 export class ProductComponent {
 

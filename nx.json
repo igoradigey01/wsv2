@@ -35,6 +35,9 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+    "e2e-ci--**/**": {
+      "dependsOn": ["^skladhs:build"]
     }
   },
   "namedInputs": {
@@ -86,5 +89,6 @@
         "extensions": ["ts", "tsx", "js", "jsx", "html", "vue"]
       }
     }
-  ]
+  ],
+  "useLegacyCache": true
 }

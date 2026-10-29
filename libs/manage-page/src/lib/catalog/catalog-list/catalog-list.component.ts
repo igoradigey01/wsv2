@@ -13,17 +13,15 @@ import {EmitData} from '../catalog-shell/catalog-shell.component'
 
 
 @Component({
-  selector: 'wsv2-catalog-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonToggleModule,
-    MatButtonModule,
-    MatIconModule
-   
-  ],
-  templateUrl: './catalog-list.component.html',
-  styleUrls: ['./catalog-list.component.scss'],
+    selector: 'wsv2-catalog-list',
+    imports: [
+        CommonModule,
+        MatButtonToggleModule,
+        MatButtonModule,
+        MatIconModule
+    ],
+    templateUrl: './catalog-list.component.html',
+    styleUrls: ['./catalog-list.component.scss']
 })
 export class CatalogListComponent {
 

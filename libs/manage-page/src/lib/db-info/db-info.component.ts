@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ApiService} from '@wsv2/app-config';
 
 @Component({
-  selector: 'wsv2-db-info',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './db-info.component.html',
-  styleUrls: ['./db-info.component.scss'],
+    selector: 'wsv2-db-info',
+    imports: [CommonModule],
+    templateUrl: './db-info.component.html',
+    styleUrls: ['./db-info.component.scss']
 })
 export class DbInfoComponent {
 

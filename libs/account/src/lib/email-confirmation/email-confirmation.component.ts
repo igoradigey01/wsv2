@@ -4,9 +4,10 @@ import { AccountService } from '../_shared/services/account.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-email-confirmation',
-  templateUrl: './email-confirmation.component.html',
-  styleUrls: ['./email-confirmation.component.scss'],
+    selector: 'app-email-confirmation',
+    templateUrl: './email-confirmation.component.html',
+    styleUrls: ['./email-confirmation.component.scss'],
+    standalone: false
 })
 export class EmailConfirmationComponent implements OnInit {
   public showSuccess: boolean = false;

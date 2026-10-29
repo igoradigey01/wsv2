@@ -5,14 +5,13 @@ import {MatTableModule} from '@angular/material/table';
 import {ProductTypeService} from '@wsv2/shop-content'
 
 @Component({
-  selector: 'wsv2-product-type-shell',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatTableModule
-  ],
-  templateUrl: './product-type-shell.component.html',
-  styleUrls: ['./product-type-shell.component.scss'],
+    selector: 'wsv2-product-type-shell',
+    imports: [
+        CommonModule,
+        MatTableModule
+    ],
+    templateUrl: './product-type-shell.component.html',
+    styleUrls: ['./product-type-shell.component.scss']
 })
 export class ProductTypeShellComponent {
 

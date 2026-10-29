@@ -1,5 +1,5 @@
-import { ApplicationConfig } from '@angular/core';
-import { APP_INITIALIZER, inject } from '@angular/core';
+import { ApplicationConfig, provideAppInitializer } from '@angular/core';
+import { inject } from '@angular/core';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
@@ -23,9 +23,8 @@ export const appConfig: ApplicationConfig = {
 
     // { provide: APP_CONFIG, useValue: environment}, 05.04.23
     //https://github.com/profanis/codeShotsWithProfanis/blob/44/environmental_variables_app_initializer/src/app/app.module.ts
-    {
-      provide: APP_INITIALIZER,
-      useFactory: () => {
+    provideAppInitializer(() => {
+        const initializerFn = (() => {
         const menyItemsService = inject(MenyItemsService);
 
         const http = inject(HttpClient);
@@ -45,13 +44,11 @@ export const appConfig: ApplicationConfig = {
               .subscribe();
             resolve(true);
           });
-      },
-
-      multi: true,
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: () => {
+      })();
+        return initializerFn();
+      }),
+    provideAppInitializer(() => {
+        const initializerFn = (() => {
         const menyItemsService = inject(MenyItemsService);
 
         const http = inject(HttpClient);
@@ -71,13 +68,11 @@ export const appConfig: ApplicationConfig = {
               .subscribe();
             resolve(true);
           });
-      },
-
-      multi: true,
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: () => {
+      })();
+        return initializerFn();
+      }),
+    provideAppInitializer(() => {
+        const initializerFn = (() => {
         const menyItemsService = inject(MenyItemsService);
 
         const http = inject(HttpClient);
@@ -97,13 +92,11 @@ export const appConfig: ApplicationConfig = {
               .subscribe();
             resolve(true);
           });
-      },
-
-      multi: true,
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: () => {
+      })();
+        return initializerFn();
+      }),
+    provideAppInitializer(() => {
+        const initializerFn = (() => {
         const environmentService = inject(EnvironmentService);
 
         const http = inject(HttpClient);
@@ -140,13 +133,11 @@ export const appConfig: ApplicationConfig = {
               .subscribe();
             resolve(true);
           });
-      },
-
-      multi: true,
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: () => {
+      })();
+        return initializerFn();
+      }),
+    provideAppInitializer(() => {
+        const initializerFn = (() => {
         const companyInformationService = inject(CompanyInformationService);
         const http = inject(HttpClient);
         return () =>
@@ -218,10 +209,9 @@ export const appConfig: ApplicationConfig = {
               .subscribe();
             resolve(true);
           });
-      },
-
-      multi: true,
-    },
+      })();
+        return initializerFn();
+      }),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
   ],
 };

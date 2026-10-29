@@ -9,11 +9,10 @@ import { CartItem } from '../_shared/interfaces/cart-item.model';
 import { CartService } from '../_shared/services/cart.service';
 
 @Component({
-  selector: 'wsv2-cart-item',
-  standalone: true,
-  imports: [DecimalPipe, FormsModule, NgFor, NgIf,MatButtonModule,MatIconModule],
-  templateUrl: './cart-item.component.html', 
-  styleUrls: ['./cart-item.component.scss'],
+    selector: 'wsv2-cart-item',
+    imports: [DecimalPipe, FormsModule, NgFor, NgIf, MatButtonModule, MatIconModule],
+    templateUrl: './cart-item.component.html',
+    styleUrls: ['./cart-item.component.scss']
 })
 export class CartItemComponent {
 

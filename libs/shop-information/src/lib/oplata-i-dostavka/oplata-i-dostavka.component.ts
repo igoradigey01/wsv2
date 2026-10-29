@@ -3,9 +3,10 @@ import {CompanyInformationService} from '@wsv2/app-config';
 import {IWorkTime} from '@wsv2/app-config'
 
 @Component({
-  selector: 'app-oplata-i-dostavka',
-  templateUrl: './oplata-i-dostavka.component.html',
-  styleUrls: ['./oplata-i-dostavka.component.scss']
+    selector: 'app-oplata-i-dostavka',
+    templateUrl: './oplata-i-dostavka.component.html',
+    styleUrls: ['./oplata-i-dostavka.component.scss'],
+    standalone: false
 })
 export class OplataIDostavkaComponent implements OnInit {
 

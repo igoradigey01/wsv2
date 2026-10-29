@@ -14,18 +14,17 @@ import { ProfileService } from '../_shared/services/profile.service';
 import {StateView} from '@wsv2/app-common'
 
 @Component({
-  selector: 'wsv2-user-profile-delete',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    FormsModule,
-    MatIconModule,
-    MatButtonModule
-  ],
-  templateUrl: './user-profile-delete.component.html',
-  styleUrls: ['./user-profile-delete.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'wsv2-user-profile-delete',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        FormsModule,
+        MatIconModule,
+        MatButtonModule
+    ],
+    templateUrl: './user-profile-delete.component.html',
+    styleUrls: ['./user-profile-delete.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserProfileDeleteComponent  {
 

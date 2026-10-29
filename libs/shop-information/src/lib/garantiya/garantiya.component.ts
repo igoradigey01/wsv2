@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {CompanyInformationService} from '@wsv2/app-config'
 
 @Component({
-  selector: 'app-garantiya',
-  templateUrl: './garantiya.component.html',
-  styleUrls: ['./garantiya.component.scss']
+    selector: 'app-garantiya',
+    templateUrl: './garantiya.component.html',
+    styleUrls: ['./garantiya.component.scss'],
+    standalone: false
 })
 export class GarantiyaComponent implements OnInit {
 

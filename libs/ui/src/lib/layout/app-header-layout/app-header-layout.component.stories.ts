@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { AppHeaderLayoutComponent } from './app-header-layout.component';
 import {UserRole} from '@wsv2/app-common'
 import { moduleMetadata } from '@storybook/angular';

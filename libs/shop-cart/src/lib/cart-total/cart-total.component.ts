@@ -13,11 +13,10 @@ import {OrderService,OrderDetail} from '@wsv2/shop-order'
 
 
 @Component({
-  selector: 'wsv2-cart-total',
-  standalone: true,
-  imports: [DecimalPipe, NgIf,MatCardModule, MatButtonModule,MatProgressBarModule],
-  templateUrl: './cart-total.component.html',
-  styleUrls: ['./cart-total.component.scss'],
+    selector: 'wsv2-cart-total',
+    imports: [DecimalPipe, NgIf, MatCardModule, MatButtonModule, MatProgressBarModule],
+    templateUrl: './cart-total.component.html',
+    styleUrls: ['./cart-total.component.scss']
 })
 export class CartTotalComponent {
 

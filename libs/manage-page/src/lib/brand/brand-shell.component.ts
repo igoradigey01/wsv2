@@ -19,16 +19,15 @@ export interface EmitData {
   stateView: StateView;
 }
 @Component({
-  selector: 'wsv2-brand-shell',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatSelectModule,
-    BrandListComponent,
-    BrandItemComponent
-  ],
-  templateUrl: './brand-shell.component.html',
-  styleUrls: ['./brand-shell.component.scss'],
+    selector: 'wsv2-brand-shell',
+    imports: [
+        CommonModule,
+        MatSelectModule,
+        BrandListComponent,
+        BrandItemComponent
+    ],
+    templateUrl: './brand-shell.component.html',
+    styleUrls: ['./brand-shell.component.scss']
 })
 export class BrandShellComponent {
   

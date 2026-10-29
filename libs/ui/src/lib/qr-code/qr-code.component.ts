@@ -10,17 +10,16 @@ import {JsPDFService} from '@wsv2/js-pdf'
 
 
 @Component({
-  selector: 'wsv2-qr-code',
-  templateUrl: './qr-code.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    QrCodeModule
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./qr-code.component.scss'],
-  providers:[JsPDFService]
+    selector: 'wsv2-qr-code',
+    templateUrl: './qr-code.component.html',
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        QrCodeModule
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./qr-code.component.scss'],
+    providers: [JsPDFService]
 })
 export class QrCodeComponent  {
 

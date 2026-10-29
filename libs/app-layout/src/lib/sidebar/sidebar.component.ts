@@ -10,9 +10,10 @@ import { UserManagerService } from '@wsv2/account-service';
 import {UserRole} from '@wsv2/app-common'
 
 @Component({
-  selector: 'wsv2-x01-v1-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
+    selector: 'wsv2-x01-v1-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss'],
+    standalone: false
 })
 export class SidebarComponent {
 

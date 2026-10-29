@@ -11,12 +11,11 @@ import { SubKatalogService } from '../_shared/services/sub-katalog.service'
 
 
 @Component({
-  selector: 'wsv2-sub-catalog',
-  standalone: true,
-  imports: [CommonModule,KatalogComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './sub-catalog.component.html',
-  styleUrls: ['./sub-catalog.component.scss'],
+    selector: 'wsv2-sub-catalog',
+    imports: [CommonModule, KatalogComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './sub-catalog.component.html',
+    styleUrls: ['./sub-catalog.component.scss']
 })
 export class SubCatalogComponent  implements OnInit{
 

@@ -6,12 +6,11 @@ import { ISliderImage } from '@wsv2/app-config';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'wsv2-image-slider',
-  standalone: true,
-  imports: [CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './image-slider.component.html',
-  styleUrls: ['./image-slider.component.scss'],
+    selector: 'wsv2-image-slider',
+    imports: [CommonModule],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './image-slider.component.html',
+    styleUrls: ['./image-slider.component.scss']
 })
 export class ImageSliderComponent implements  OnDestroy {
 

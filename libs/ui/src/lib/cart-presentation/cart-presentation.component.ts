@@ -17,8 +17,6 @@ import {KatalogImgComponent} from '../katalog/katalog-img/katalog-img.component'
 
 @Component({
     selector: 'wsv2-cart-presentation',
-    standalone: true,
-  
     templateUrl: './cart-presentation.component.html',
     styleUrls: ['./cart-presentation.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,9 +25,8 @@ import {KatalogImgComponent} from '../katalog/katalog-img/katalog-img.component'
         CartShellComponent,
         AppHeaderLayoutComponent,
         KatalogImgComponent
-        
     ],
-    providers: [DataPresentationService],
+    providers: [DataPresentationService]
 })
 export class CartPresentationComponent {
 

@@ -6,9 +6,10 @@ import { ApiService} from '@wsv2/app-config';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'wsv2-app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss'],
+    selector: 'wsv2-app-forgot-password',
+    templateUrl: './forgot-password.component.html',
+    styleUrls: ['./forgot-password.component.scss'],
+    standalone: false
 })
 export class ForgotPasswordComponent {
 

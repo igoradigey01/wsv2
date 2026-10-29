@@ -1,6 +1,6 @@
 import type { Meta} from '@storybook/angular';
 import {data} from '../_shared/servises/data-fake3'
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { CardProductComponent } from './card-product.component';
 import { Product} from '@wsv2/app-common'
 

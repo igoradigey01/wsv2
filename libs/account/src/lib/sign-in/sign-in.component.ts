@@ -35,11 +35,11 @@ import {Message} from '@wsv2/app-common'
 
 
 @Component({
-  selector: '@wsv2-app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss'],
-  providers: [],
- // changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: '@wsv2-app-sign-in',
+    templateUrl: './sign-in.component.html',
+    styleUrls: ['./sign-in.component.scss'],
+    providers: [],
+    standalone: false
 })
 export class SignInComponent implements OnInit, OnDestroy {
   private _subscriptions: Subscription[] = [];
