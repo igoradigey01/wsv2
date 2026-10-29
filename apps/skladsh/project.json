@@ -77,7 +77,11 @@
         "buildTarget": "skladhs:build",
         "port": 4200,
         "spa": true
-      }
+      },
+      "readyWhen": {
+        "signal": true
+      },
+      "dependsOn": ["build"]
     }
   }
 }

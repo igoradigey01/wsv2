@@ -83,7 +83,11 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "presentation01:build"
-      }
+      },
+      "readyWhen": {
+        "signal": true
+      },
+      "dependsOn": ["build"]
     }
   }
 }
