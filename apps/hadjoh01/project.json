@@ -76,17 +76,13 @@
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/hadjoh01/jest.config.ts",
-        "passWithNoTests": true,
-        "tsConfig": "apps/hadjoh01/tsconfig.spec.json"
+        "passWithNoTests": true
       },
       "configurations": {
         "ci": {
           "ci": true,
-          "codeCoverage": true
+          "coverage": true
         }
       }
     }

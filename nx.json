@@ -142,6 +142,38 @@
         "targetName": "eslint:lint",
         "extensions": ["ts", "tsx", "js", "jsx", "html", "vue"]
       }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      },
+      "include": [
+        "apps/hadjoh01/**/*",
+        "apps/presentation01/**/*",
+        "apps/shagen01/**/*",
+        "apps/skladsh/**/*",
+        "apps/x01/**/*",
+        "apps/xf01/**/*",
+        "apps/xl-01/**/*",
+        "libs/account/**/*",
+        "libs/account-service/**/*",
+        "libs/admin-page/**/*",
+        "libs/app-common/**/*",
+        "libs/app-config/**/*",
+        "libs/app-layout/**/*",
+        "libs/app-styles/**/*",
+        "libs/js-pdf/**/*",
+        "libs/manage-page/**/*",
+        "libs/shop-cart/**/*",
+        "libs/shop-content/**/*",
+        "libs/shop-information/**/*",
+        "libs/shop-opt/**/*",
+        "libs/shop-order/**/*",
+        "libs/ui/**/*",
+        "libs/user-order/**/*",
+        "libs/user-profile/**/*"
+      ]
     }
   ]
 }
