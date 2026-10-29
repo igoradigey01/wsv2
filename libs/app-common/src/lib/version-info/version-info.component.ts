@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {VersionInfoService} from '../../../../app-config/src/lib/_shared/services/version-info.service'
+import {VersionInfoService} from '@wsv2/app-config'
 
 @Component({
   selector: '@wsv2-version-info',

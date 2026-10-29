@@ -4,7 +4,6 @@
     "outDir": "../../dist/out-tsc",
     "declaration": true,
     "declarationMap": true,
-    "composite": true,  //16-07-24
     "inlineSources": true,
     "types": []
   },
@@ -16,5 +15,5 @@
     "**/*.stories.ts",
     "**/*.stories.js"
   ],
-  "include": ["src/**/*.ts", "../app-common/src/lib/_shared/interfaces/button.model.ts"]
+  "include": ["src/**/*.ts"]
 }

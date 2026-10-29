@@ -5,7 +5,8 @@ import { AppLayoutModule } from '@wsv2/app-layout'
 import { MaterialModule } from '../material.module'
 import { RouterModule } from "@angular/router";
 import { CompanyInformationService, MenyItemsService, IMenyItem } from '@wsv2/app-config'
-import { KatalogComponent, IButton, AppHeaderLayoutComponent } from '@wsv2/ui'
+import { KatalogComponent, AppHeaderLayoutComponent } from '@wsv2/ui'
+import { IButton } from '@wsv2/app-common'
 import { UserRole } from '@wsv2/app-common'
 import { NgFor, NgClass, NgIf } from '@angular/common';
 
