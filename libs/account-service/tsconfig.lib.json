@@ -18,5 +18,13 @@
     "src/**/*.ts",
     "../shop-cart/src/lib/_shared/services/cart-strorage.services.ts",
     "../shop-opt/src/lib/_shared/services/opt-shopper-storage.services.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  }
 }

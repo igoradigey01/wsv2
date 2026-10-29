@@ -14,5 +14,16 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts", "src/lib/_shared/services/route-api.service.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/lib/_shared/services/route-api.service.ts"
+  ],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  }
 }

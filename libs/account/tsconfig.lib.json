@@ -17,5 +17,13 @@
   "include": [
     "src/**/*.ts",
     "../app-common/src/lib/_shared/services/route-api.service.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  }
 }
