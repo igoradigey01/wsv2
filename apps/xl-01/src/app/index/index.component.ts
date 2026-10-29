@@ -1,4 +1,5 @@
-import { Component, computed, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, ChangeDetectionStrategy } from '@angular/core';
+import type { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout'

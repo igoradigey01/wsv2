@@ -1,4 +1,5 @@
-import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import type { OnDestroy } from '@angular/core';
 
 import { RouterModule ,Router} from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout';

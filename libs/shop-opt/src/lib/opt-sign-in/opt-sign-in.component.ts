@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import type { OnInit } from '@angular/core';
 
 
 import { OptManagerService } from '../_shared/services/opt-manager.service';

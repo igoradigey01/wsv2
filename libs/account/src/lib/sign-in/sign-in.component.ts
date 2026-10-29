@@ -1,12 +1,5 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  //ChangeDetectionStrategy,
-  signal,
-  computed,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
+import type { OnInit, OnDestroy } from '@angular/core';
 import {
   SocialAuthService,
 

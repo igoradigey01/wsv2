@@ -1,9 +1,5 @@
-import {
-  Component,
-  ChangeDetectionStrategy,  
-  OnInit,
-  computed,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed } from '@angular/core';
+import type { OnInit } from '@angular/core';
 import { Router ,ActivatedRoute} from '@angular/router';
 //import { HttpErrorResponse } from '@angular/common/http';
 

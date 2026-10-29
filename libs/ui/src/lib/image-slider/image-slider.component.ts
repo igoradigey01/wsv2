@@ -1,4 +1,5 @@
-import { Component, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import type { OnDestroy } from '@angular/core';
 
 import { ISliderImage } from '@wsv2/app-config';
 

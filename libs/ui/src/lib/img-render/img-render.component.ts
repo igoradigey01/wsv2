@@ -5,7 +5,8 @@ import { CommonModule} from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button'; 
-import { DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
+import type { SafeUrl } from '@angular/platform-browser';
 
 
 import {

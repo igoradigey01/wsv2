@@ -1,4 +1,5 @@
-import { ApplicationConfig, provideAppInitializer } from '@angular/core';
+import { provideAppInitializer } from '@angular/core';
+import type { ApplicationConfig } from '@angular/core';
 import { inject } from '@angular/core';
 import { HttpClient, provideHttpClient, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';

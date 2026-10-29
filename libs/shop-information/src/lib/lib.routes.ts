@@ -1,4 +1,4 @@
-import { Route } from '@angular/router';
+import type { Route } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { KakZakazatComponent } from './kak-zakazat/kak-zakazat.component';
 import { OplataIDostavkaComponent } from './oplata-i-dostavka/oplata-i-dostavka.component';

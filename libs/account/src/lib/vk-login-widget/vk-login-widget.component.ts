@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import type { OnInit } from '@angular/core';
 import {VkLoginWidgetService} from '../_shared/services/vk-login-widger.service'
 
 @Component({

@@ -1,5 +1,6 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { Component ,OnInit, ChangeDetectionStrategy, computed} from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed } from '@angular/core';
+import type { OnInit } from '@angular/core';
 import { Router ,ActivatedRoute } from '@angular/router';
 
 

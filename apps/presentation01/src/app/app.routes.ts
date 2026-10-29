@@ -1,4 +1,4 @@
-import { Route } from '@angular/router';
+import type { Route } from '@angular/router';
 
 import  {IndexComponent} from './index/index.component';
 //import {PageNotFoundComponent} from '@wsv2/app-common'

@@ -1,5 +1,6 @@
 
-import { Component, Output, EventEmitter, Signal, signal, Input, computed, ChangeDetectionStrategy } from "@angular/core";
+import { Component, Output, EventEmitter, signal, Input, computed, ChangeDetectionStrategy } from "@angular/core";
+import type { Signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 
 import { MatSidenavModule } from "@angular/material/sidenav";

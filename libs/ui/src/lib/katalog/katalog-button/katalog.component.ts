@@ -1,11 +1,5 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  signal
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, signal } from '@angular/core';
+import type { OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../button/button.component';
 

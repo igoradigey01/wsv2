@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map} from 'rxjs/operators';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { HttpEventType } from '@angular/common/http';
+import type { HttpEvent } from '@angular/common/http';
 import { Nomenclature} from 'apps/xf01/src/app/_shared/_interfaces/nomenclature.model';
 import { KatalogN } from 'apps/xf01/src/app/_shared/_interfaces/katalog-n.model';
 import { Article } from 'apps/xf01/src/app/_shared/_interfaces/article.model';

@@ -1,4 +1,5 @@
-import { Component, computed, signal, Signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
+import type { Signal } from '@angular/core';
 
 import { Input, Output, EventEmitter } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';

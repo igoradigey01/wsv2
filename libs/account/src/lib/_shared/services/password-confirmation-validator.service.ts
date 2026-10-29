@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
+import type { ValidatorFn } from '@angular/forms';
 import {ManagerServiceModule} from './maneger-service.module'
 
 @Injectable({

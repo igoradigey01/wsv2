@@ -1,13 +1,5 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  ChangeDetectionStrategy,  
-  EffectRef,
-  effect,
-  signal,
-} from '@angular/core';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy, effect, signal } from '@angular/core';
+import type { OnInit, EffectRef } from '@angular/core';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
