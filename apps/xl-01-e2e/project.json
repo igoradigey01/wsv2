@@ -7,16 +7,8 @@
   "implicitDependencies": ["xl-01"],
   "targets": {
     "e2e": {
-      "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/xl-01-e2e/cypress.config.ts",
-        "devServerTarget": "xl-01:serve:development",
-        "testingType": "e2e"
-      },
-      "configurations": {
-        "production": {
-          "devServerTarget": "xl-01:serve:production"
-        }
+        "config-file": "./cypress.config.ts"
       }
     },
     "lint": {

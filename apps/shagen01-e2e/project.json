@@ -7,16 +7,8 @@
   "implicitDependencies": ["shagen01"],
   "targets": {
     "e2e": {
-      "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/shagen01-e2e/cypress.config.ts",
-        "devServerTarget": "shagen01:serve:development",
-        "testingType": "e2e"
-      },
-      "configurations": {
-        "production": {
-          "devServerTarget": "shagen01:serve:production"
-        }
+        "config-file": "./cypress.config.ts"
       }
     },
     "lint": {

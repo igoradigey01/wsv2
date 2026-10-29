@@ -7,19 +7,8 @@
   "implicitDependencies": ["presentation01"],
   "targets": {
     "e2e": {
-      "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/presentation01-e2e/cypress.config.ts",
-        "devServerTarget": "presentation01:serve:development",
-        "testingType": "e2e"
-      },
-      "configurations": {
-        "production": {
-          "devServerTarget": "presentation01:serve:production"
-        },
-        "ci": {
-          "devServerTarget": "presentation01:serve-static"
-        }
+        "config-file": "./cypress.config.ts"
       }
     },
     "lint": {
