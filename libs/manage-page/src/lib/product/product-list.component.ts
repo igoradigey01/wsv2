@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Signal, signal, Input, computed } from "@angular/core";
+import { Component, Output, EventEmitter, Signal, signal, Input, computed, ChangeDetectionStrategy } from "@angular/core";
 import {MatIconModule} from '@angular/material/icon';
 
 //import { MatButtonModule } from "@angular/material/button";
@@ -15,6 +15,7 @@ import { EmitData, StateView } from "./product-shell.component";
     MatIconModule
 ],
     templateUrl: './product-list.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './product-list.component.scss'
 })
 export class ProductListComponent {

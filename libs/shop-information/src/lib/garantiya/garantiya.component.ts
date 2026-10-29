@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {CompanyInformationService} from '@wsv2/app-config'
 
 @Component({
     selector: 'app-garantiya',
     templateUrl: './garantiya.component.html',
     styleUrls: ['./garantiya.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GarantiyaComponent implements OnInit {

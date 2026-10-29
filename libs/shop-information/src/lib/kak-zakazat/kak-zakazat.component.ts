@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {CompanyInformationService} from '@wsv2/app-config';
 import {IPhone} from "@wsv2/app-config";
 @Component({
@@ -6,6 +6,7 @@ import {IPhone} from "@wsv2/app-config";
     selector: 'app-kak-zakazat',
     templateUrl: './kak-zakazat.component.html',
     styleUrls: ['./kak-zakazat.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class KakZakazatComponent {

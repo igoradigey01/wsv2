@@ -1,4 +1,4 @@
-import { Component ,inject} from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import {OrderService} from '../_shared/services/order.service'
 
@@ -6,6 +6,7 @@ import {OrderService} from '../_shared/services/order.service'
     selector: 'wsv2-shop-orders-shell',
     imports: [],
     templateUrl: './orders-shell.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./orders-shell.component.scss']
 })
 export class OrdersShellComponent {

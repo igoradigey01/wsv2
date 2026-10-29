@@ -1,4 +1,4 @@
-import { Component, computed ,signal} from '@angular/core';
+import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { ProductType, StateView } from '@wsv2/app-common';
@@ -27,6 +27,7 @@ export interface EmitData {
     ArticleListComponent
 ],
     templateUrl: './article-shell.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./article-shell.component.scss']
 })
 export class ArticleShellComponent {

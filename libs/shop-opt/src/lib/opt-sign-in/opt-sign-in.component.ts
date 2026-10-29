@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 
 import { OptManagerService } from '../_shared/services/opt-manager.service';
@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     selector: 'wsv2-opt-sign-in',
     imports: [],
     templateUrl: './opt-sign-in.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./opt-sign-in.component.scss']
 })
 export class OptSignInComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { CartListComponent } from "../cart-list/cart-list.component";
 import { CartTotalComponent } from "../cart-total/cart-total.component";
@@ -14,6 +14,7 @@ import {MatCardModule} from '@angular/material/card';
     CartTotalComponent
 ],
     templateUrl: './cart-shell.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./cart-shell.component.scss']
 })
 export class CartShellComponent {

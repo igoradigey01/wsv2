@@ -1,4 +1,4 @@
-import { Component, OnInit , OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router ,ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserManagerService } from '@wsv2/account-service';
@@ -12,6 +12,7 @@ import {UserVkDto} from '../_shared/_interfaces/user-vkDto.model'
     selector: '@wsv2-app-auth-callback-vk',
     templateUrl: './auth-callback-vk.component.html',
     styleUrls: ['./auth-callback-vk.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AuthCallbackVkComponent implements OnInit , OnDestroy {

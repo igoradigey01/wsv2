@@ -5,7 +5,7 @@ import {
   //ChangeDetectionStrategy,
   signal,
   computed,
-  //effect,EffectRef
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   SocialAuthService,
@@ -39,6 +39,7 @@ import {Message} from '@wsv2/app-common'
     templateUrl: './sign-in.component.html',
     styleUrls: ['./sign-in.component.scss'],
     providers: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SignInComponent implements OnInit, OnDestroy {

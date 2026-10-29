@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserManagerService } from '@wsv2/account-service';
 import {SocialAuthService} from '@abacritt/angularx-social-login'
@@ -8,6 +8,7 @@ import {SocialAuthService} from '@abacritt/angularx-social-login'
     selector: 'app-log-off',
     templateUrl: './log-off.component.html',
     styleUrls: ['./log-off.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class LogOffComponent implements OnInit {

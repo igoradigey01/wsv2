@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { ApiService} from '@wsv2/app-config';
 
@@ -6,6 +6,7 @@ import { ApiService} from '@wsv2/app-config';
     selector: 'wsv2-db-info',
     imports: [],
     templateUrl: './db-info.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./db-info.component.scss']
 })
 export class DbInfoComponent {

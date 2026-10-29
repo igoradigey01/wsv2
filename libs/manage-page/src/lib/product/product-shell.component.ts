@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 
 //import { StateView } from '@wsv2/app-common';
 import { SubKatalog, Katalog, Product, ProductType, Message } from '@wsv2/app-common';
@@ -50,6 +50,7 @@ export interface EmitData {
     MatProgressSpinnerModule
 ],
     templateUrl: './product-shell.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./product-shell.component.scss']
 })
 export class ProductShellComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ForgotPasswordDto } from '../_shared/_interfaces/forgot-passwordDto.model';
 
 import { AccountService } from '../_shared/services/account.service';
@@ -9,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     selector: 'wsv2-app-forgot-password',
     templateUrl: './forgot-password.component.html',
     styleUrls: ['./forgot-password.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ForgotPasswordComponent {

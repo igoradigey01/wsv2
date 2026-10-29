@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import {MatCardModule} from '@angular/material/card';
 
@@ -9,6 +9,7 @@ import { CartItemComponent } from "../cart-item/cart-item.component";
     selector: 'wsv2-cart-list',
     templateUrl: 'cart-list.component.html',
     styleUrls: ['./cart-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatCardModule, CartItemComponent]
 })
 export class CartListComponent {

@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -16,6 +16,7 @@ import { UserManagerService } from '@wsv2/account-service';
     selector: 'app-reset-password-from-mail',
     templateUrl: './reset-password-from-mail.component.html',
     styleUrls: ['./reset-password-from-mail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ResetPasswordFromMailComponent implements OnInit {

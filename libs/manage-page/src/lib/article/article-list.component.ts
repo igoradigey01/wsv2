@@ -1,4 +1,4 @@
-import { Component,computed,signal, Signal } from '@angular/core';
+import { Component, computed, signal, Signal, ChangeDetectionStrategy } from '@angular/core';
 
 import { Input, Output, EventEmitter } from '@angular/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -18,6 +18,7 @@ import { Article } from '@wsv2/app-common';
     MatIconModule
 ],
     templateUrl: './article-list.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./article-list.component.scss']
 })
 export class ArticleListComponent {

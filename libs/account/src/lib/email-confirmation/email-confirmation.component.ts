@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../_shared/services/account.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     selector: 'app-email-confirmation',
     templateUrl: './email-confirmation.component.html',
     styleUrls: ['./email-confirmation.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EmailConfirmationComponent implements OnInit {

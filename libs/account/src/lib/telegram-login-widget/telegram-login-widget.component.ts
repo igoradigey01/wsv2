@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {TelegramLoginWidgetService} from '../_shared/services/telegram-login-widget.servise'
 
@@ -8,6 +8,7 @@ import {TelegramLoginWidgetService} from '../_shared/services/telegram-login-wid
     selector: 'x01-v1-telegram-login-widget',
     templateUrl: './telegram-login-widget.component.html',
     styleUrls: ['./telegram-login-widget.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TelegramLoginWidgetComponent implements OnInit {

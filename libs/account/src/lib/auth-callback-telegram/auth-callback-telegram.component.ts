@@ -1,4 +1,4 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router ,ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
@@ -13,6 +13,7 @@ import {EnvironmentService} from '@wsv2/app-config'
     selector: 'wsv2-auth-callback-telegram',
     templateUrl: './auth-callback-telegram.component.html',
     styleUrls: ['./auth-callback-telegram.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AuthCallbackTelegramComponent implements OnInit , OnDestroy {

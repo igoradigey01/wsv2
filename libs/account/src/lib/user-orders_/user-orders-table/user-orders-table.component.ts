@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'x01-v1-user-orders-table',
     templateUrl: './user-orders-table.component.html',
     styleUrls: ['./user-orders-table.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class UserOrdersTableComponent implements OnInit {

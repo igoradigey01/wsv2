@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { StateView } from '@wsv2/app-common';
@@ -21,6 +21,7 @@ export interface EmitData{
     CatalogItemComponent
 ],
     templateUrl: './catalog-shell.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./catalog-shell.component.scss']
 })
 export class CatalogShellComponent {

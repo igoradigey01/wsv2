@@ -1,4 +1,4 @@
-import { Component, Input, computed, signal } from '@angular/core';
+import { Component, Input, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -12,6 +12,7 @@ import { CartService } from '../_shared/services/cart.service';
     selector: 'wsv2-cart-item',
     imports: [DecimalPipe, FormsModule, MatButtonModule, MatIconModule],
     templateUrl: './cart-item.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./cart-item.component.scss']
 })
 export class CartItemComponent {

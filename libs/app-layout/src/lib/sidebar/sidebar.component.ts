@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input ,signal} from '@angular/core';
+import { Component, Output, EventEmitter, Input, signal, ChangeDetectionStrategy } from '@angular/core';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import {IMenyItem} from '@wsv2/app-config'
@@ -13,6 +13,7 @@ import {UserRole} from '@wsv2/app-common'
     selector: 'wsv2-x01-v1-sidebar',
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SidebarComponent {

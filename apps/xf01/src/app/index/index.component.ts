@@ -1,4 +1,4 @@
-import { Component, computed, OnInit } from '@angular/core';
+import { Component, computed, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout';
@@ -30,6 +30,7 @@ import { CartService } from '@wsv2/shop-cart';
         KatalogComponent,
     ],
     templateUrl: './index.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {

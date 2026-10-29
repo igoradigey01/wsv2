@@ -1,5 +1,5 @@
 
-import { Component, Output, EventEmitter, Signal, signal, Input, computed } from "@angular/core";
+import { Component, Output, EventEmitter, Signal, signal, Input, computed, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -14,6 +14,7 @@ import { EmitData} from "./product-shell.component";
     MatButtonModule
 ],
     templateUrl: './product-sidenav.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./product-sidenav.component.scss']
 })
 export class ProductSidenavComponent {

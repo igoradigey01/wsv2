@@ -1,4 +1,4 @@
-import { Component, OnDestroy,signal } from '@angular/core';
+import { Component, OnDestroy, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout';
@@ -40,6 +40,7 @@ import { IThemeScss, ThemeScssServices } from '@wsv2/app-common';
     ],
     templateUrl: './index.component.html',
     styleUrls: ['./index.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [ThemeScssServices]
 })
 export class IndexComponent implements OnDestroy {

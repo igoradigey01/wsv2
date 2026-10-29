@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {CompanyInformationService} from '@wsv2/app-config';
 import {IWorkTime} from '@wsv2/app-config'
 
@@ -6,6 +6,7 @@ import {IWorkTime} from '@wsv2/app-config'
     selector: 'app-oplata-i-dostavka',
     templateUrl: './oplata-i-dostavka.component.html',
     styleUrls: ['./oplata-i-dostavka.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class OplataIDostavkaComponent implements OnInit {

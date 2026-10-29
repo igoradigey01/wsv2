@@ -1,4 +1,4 @@
-import { Component, computed} from '@angular/core';
+import { Component, computed, ChangeDetectionStrategy } from '@angular/core';
 
 //import { StateView } from '@wsv2/app-common';
 import { SubKatalog, Katalog, IButton } from '@wsv2/app-common';
@@ -38,6 +38,7 @@ export interface EmitData {
     MatIconModule
 ],
     templateUrl: './sub-catalog-shell.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./sub-catalog-shell.component.scss']
 })
 export class SubCatalogShellComponent {

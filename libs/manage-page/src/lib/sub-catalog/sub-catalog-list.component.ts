@@ -1,4 +1,4 @@
-import { Component ,signal,computed, Signal } from '@angular/core';
+import { Component, signal, computed, Signal, ChangeDetectionStrategy } from '@angular/core';
 
 import { Input, Output, EventEmitter } from '@angular/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -15,6 +15,7 @@ import { EmitData ,StateView} from './sub-catalog-shell.component';
     MatIconModule
 ],
     templateUrl: './sub-catalog-list.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./sub-catalog-list.component.scss']
 })
 export class SubCatalogListComponent {

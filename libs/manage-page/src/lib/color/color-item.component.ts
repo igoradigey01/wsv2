@@ -1,4 +1,4 @@
-import { Component, signal, computed, Signal } from '@angular/core';
+import { Component, signal, computed, Signal, ChangeDetectionStrategy } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -24,6 +24,7 @@ import { Input, Output, EventEmitter } from '@angular/core';
     FormsModule
 ],
     templateUrl: './color-item.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./color-item.component.scss']
 })
 export class ColorItemComponent {

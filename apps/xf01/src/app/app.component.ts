@@ -1,11 +1,12 @@
 import { RouterModule } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {CompanyInformationService} from '@wsv2/app-config'
 
 @Component({
     imports: [RouterModule],
     selector: 'wsv2-root',
     templateUrl: './app.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {

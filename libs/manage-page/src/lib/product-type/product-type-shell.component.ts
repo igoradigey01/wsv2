@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 //import {ProductType} from '../_shared/interfaces/product_type.model'
 import {MatTableModule} from '@angular/material/table';
@@ -10,6 +10,7 @@ import {ProductTypeService} from '@wsv2/shop-content'
     MatTableModule
 ],
     templateUrl: './product-type-shell.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./product-type-shell.component.scss']
 })
 export class ProductTypeShellComponent {

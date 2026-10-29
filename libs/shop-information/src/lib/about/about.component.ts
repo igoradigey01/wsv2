@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CompanyInformationService } from '@wsv2/app-config'
 import { ISliderImage} from '@wsv2/app-config'
 //import {ImageSliderComponent} from '@wsv2/ui'
@@ -14,6 +14,7 @@ interface GeoObjectConstructor {
     selector: 'wsv2-app-about',
     templateUrl: './about.component.html',
     styleUrls: ['./about.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AboutComponent  {

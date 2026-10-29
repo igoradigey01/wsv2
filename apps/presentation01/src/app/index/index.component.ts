@@ -1,4 +1,4 @@
-import { Component,  signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Router} from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout'
@@ -22,6 +22,7 @@ import { NgClass } from '@angular/common';
         KatalogComponent
     ],
     templateUrl: './index.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./index.component.scss']
 })
 export class IndexComponent {

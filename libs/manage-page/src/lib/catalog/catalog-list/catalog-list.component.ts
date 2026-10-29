@@ -1,4 +1,4 @@
-import { Component,signal,computed } from '@angular/core';
+import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 
 import { Input, Output, EventEmitter } from '@angular/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -20,6 +20,7 @@ import {EmitData} from '../catalog-shell/catalog-shell.component'
     MatIconModule
 ],
     templateUrl: './catalog-list.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./catalog-list.component.scss']
 })
 export class CatalogListComponent {

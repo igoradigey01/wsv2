@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CompanyInformationService, EnvironmentService } from '@wsv2/app-config'
 
 @Component({
@@ -6,6 +6,7 @@ import { CompanyInformationService, EnvironmentService } from '@wsv2/app-config'
     selector: 'app-privacy',
     templateUrl: './privacy.component.html',
     styleUrls: ['./privacy.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PrivacyComponent {

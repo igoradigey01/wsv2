@@ -1,4 +1,4 @@
-import { Component, computed, Signal, signal, ViewChild } from '@angular/core';
+import { Component, computed, Signal, signal, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -47,6 +47,7 @@ export interface DtoNomenclature {
     ImgRenderComponent
 ],
     templateUrl: './product-item.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./product-item.component.scss']
 })
 export class ProductItemComponent {

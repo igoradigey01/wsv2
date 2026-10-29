@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, ChangeDetectionStrategy } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -21,6 +21,7 @@ import { Input, Output, EventEmitter } from '@angular/core';
     FormsModule
 ],
     templateUrl: './catalog-item.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./catalog-item.component.scss']
 })
 export class CatalogItemComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import {VersionInfoComponent} from '@wsv2/app-common'
 
@@ -9,6 +9,7 @@ import {VersionInfoComponent} from '@wsv2/app-common'
     selector: '@wsv2-manager-info',
     templateUrl: './info.component.html',
     styleUrls: ['./info.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [VersionInfoComponent]
 })
 

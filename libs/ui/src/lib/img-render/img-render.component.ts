@@ -1,14 +1,11 @@
-import { Component} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 //import { Product } from './../shared/_interfaces/product.model';
 import { EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button'; 
-//npm instal --save hammerjs
-//yarn add -D hammerjs
-import 'hammerjs';
-import { DomSanitizer, HammerModule, SafeUrl} from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 
 import {
@@ -33,10 +30,10 @@ export interface DtoImage {
         MatTabsModule,
         MatIconModule,
         MatButtonModule,
-        ImageCropperComponent,
-        HammerModule
+        ImageCropperComponent
     ],
     templateUrl: './img-render.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./img-render.component.scss']
 })
 export class ImgRenderComponent  {

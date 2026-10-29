@@ -1,5 +1,5 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { Component,inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
@@ -16,6 +16,7 @@ import {OrderService,OrderDetail} from '@wsv2/shop-order'
     selector: 'wsv2-cart-total',
     imports: [DecimalPipe, MatCardModule, MatButtonModule, MatProgressBarModule],
     templateUrl: './cart-total.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./cart-total.component.scss']
 })
 export class CartTotalComponent {
