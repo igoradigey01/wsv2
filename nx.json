@@ -123,7 +123,8 @@
     }
   },
   "affected": {
-    "defaultBase": "main"
+    "defaultBase": "main",
+    "legacy": true
   },
   "plugins": [
     {
