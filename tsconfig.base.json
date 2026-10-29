@@ -34,7 +34,12 @@
       "@wsv2/ui": ["./libs/ui/src/index.ts"],
       "@wsv2/user-order": ["./libs/user-order/src/index.ts"],
       "@wsv2/user-profile": ["./libs/user-profile/src/index.ts"]
-    }
+    },
+    "strict": false,
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"],
+    "esModuleInterop": false,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp"]
 }
