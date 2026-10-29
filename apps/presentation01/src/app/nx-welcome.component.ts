@@ -1,10 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'wsv2-nx-welcome',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <!--
      * * * * * * * * * * * * * * * * * * * * * * * * * * * *
