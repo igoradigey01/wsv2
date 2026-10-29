@@ -80,9 +80,6 @@
         "buildTarget": "xl-01:build"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
     "test": {
       "options": {
         "passWithNoTests": true

@@ -23,15 +23,6 @@
       ],
       "cache": true
     },
-    "@nx/eslint:lint": {
-      "inputs": [
-        "default",
-        "^default",
-        "{workspaceRoot}/eslint.config.mjs",
-        "{workspaceRoot}/tools/eslint-rules/**/*"
-      ],
-      "cache": true
-    },
     "@angular-devkit/build-angular:browser": {
       "cache": true,
       "dependsOn": ["^build"],
@@ -190,6 +181,44 @@
         "apps/x01-e2e/**/*",
         "apps/xf01-e2e/**/*",
         "apps/xl-01-e2e/**/*"
+      ]
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      },
+      "include": [
+        "apps/hadjoh01/**/*",
+        "apps/hadjoh01-e2e/**/*",
+        "apps/presentation01/**/*",
+        "apps/presentation01-e2e/**/*",
+        "apps/shagen01/**/*",
+        "apps/shagen01-e2e/**/*",
+        "apps/skladsh/**/*",
+        "apps/x01/**/*",
+        "apps/x01-e2e/**/*",
+        "apps/xf01/**/*",
+        "apps/xf01-e2e/**/*",
+        "apps/xl-01/**/*",
+        "apps/xl-01-e2e/**/*",
+        "libs/account/**/*",
+        "libs/account-service/**/*",
+        "libs/admin-page/**/*",
+        "libs/app-common/**/*",
+        "libs/app-config/**/*",
+        "libs/app-layout/**/*",
+        "libs/app-styles/**/*",
+        "libs/js-pdf/**/*",
+        "libs/manage-page/**/*",
+        "libs/shop-cart/**/*",
+        "libs/shop-content/**/*",
+        "libs/shop-information/**/*",
+        "libs/shop-opt/**/*",
+        "libs/shop-order/**/*",
+        "libs/ui/**/*",
+        "libs/user-order/**/*",
+        "libs/user-profile/**/*"
       ]
     }
   ]

@@ -68,9 +68,6 @@
         "buildTarget": "presentation01:build"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
     "test": {
       "options": {
         "passWithNoTests": true
