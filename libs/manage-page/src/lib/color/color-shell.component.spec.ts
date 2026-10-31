@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { ColorShellComponent } from './color-shell.component';
 
 describe('ColorShellComponent', () => {
@@ -7,6 +8,7 @@ describe('ColorShellComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [provideRouter([])],
       imports: [ColorShellComponent],
     }).compileComponents();
 

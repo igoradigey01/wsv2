@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { OptSignInComponent } from './opt-sign-in.component';
 
 describe('OptSignInComponent', () => {
@@ -8,6 +9,7 @@ describe('OptSignInComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [OptSignInComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(OptSignInComponent);

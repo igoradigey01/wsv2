@@ -4,7 +4,7 @@ import { action } from 'storybook/actions';
 import { CardProductComponent } from './card-product.component';
 import { Product} from '@wsv2/app-common'
 
-const i=  data as Product;
+const i=  data as unknown as Product;
 const meta: Meta<CardProductComponent> = {
     title: 'Card-Product',
     component: CardProductComponent,

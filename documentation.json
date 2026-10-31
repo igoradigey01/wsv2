@@ -28,7 +28,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\r\n    render: (args: CardProductComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n       \r\n        flagOpt:false,\r\n        katalog_name:\"Ручки\",\r\n        productURL:'https://xf-01.ru/content/opt/optkatalog/optnomenclature/48',\r\n        katalogURL:'https://xf-01.ru/content/opt/optkatalog/1',\r\n        serverUrl:'https://s.x-01.ru/',\r\n     \r\n        product:i\r\n\r\n    }\r\n\r\n}"
+                "defaultValue": "{\n    render: (args: CardProductComponent) => ({\n        props: args,\n    }),\n    args: {\n       \n        flagOpt:false,\n        katalog_name:\"Ручки\",\n        productURL:'https://xf-01.ru/content/opt/optkatalog/optnomenclature/48',\n        katalogURL:'https://xf-01.ru/content/opt/optkatalog/1',\n        serverUrl:'https://s.x-01.ru/',\n     \n        product:i\n\n    }\n\n}"
             },
             {
                 "name": "CartPresentationUI",
@@ -58,7 +58,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "unknown",
-                "defaultValue": "data as Product"
+                "defaultValue": "data as unknown as Product"
             },
             {
                 "name": "i",
@@ -68,7 +68,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "unknown",
-                "defaultValue": "data as Product"
+                "defaultValue": "data as unknown as Product"
             },
             {
                 "name": "i",
@@ -78,7 +78,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "unknown",
-                "defaultValue": "katalog_data2 as Product[]"
+                "defaultValue": "katalog_data2 as unknown as Product[]"
             },
             {
                 "name": "i",
@@ -88,7 +88,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "unknown",
-                "defaultValue": "katalog_data2 as Product[]"
+                "defaultValue": "katalog_data2 as unknown as Product[]"
             },
             {
                 "name": "ImageSliderUI",
@@ -98,7 +98,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\r\n  render: (args: ImageSliderComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    minHeight: '500px',\r\n    minWidth : '200px',\r\n    \r\n    marginTopSlideBar: '85%', // опустить от верха на 85%\r\n    marginLeftSlideBar: '40%', //отсптупить с лева на 40%(для шести точек 30%)\r\n     \r\n\r\n    slideImgs: img_urls ,\r\n    //   serverUrl:'https://s.x-01.ru/',\r\n  },\r\n}"
+                "defaultValue": "{\n  render: (args: ImageSliderComponent) => ({\n    props: args,\n  }),\n  args: {\n    minHeight: '500px',\n    minWidth : '200px',\n    \n    marginTopSlideBar: '85%', // опустить от верха на 85%\n    marginLeftSlideBar: '40%', //отсптупить с лева на 40%(для шести точек 30%)\n     \n\n    slideImgs: img_urls ,\n    //   serverUrl:'https://s.x-01.ru/',\n  },\n}"
             },
             {
                 "name": "ImageSliderUI",
@@ -168,7 +168,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<CardProductComponent>",
-                "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        flagOpt: {\r\n            name: \"flagOpt\",\r\n            description: \"переключатель оптовая to рознечная цена\"\r\n          },\r\n          _onBack:{ action: 'clicked'},\r\n          _onQRCode:{action: 'clicked'},\r\n          addCart:{action: 'clicked', return:0},\r\n    },\r\n   \r\n\r\n\r\n}"
+                "defaultValue": "{\n    title: 'Card-Product',\n    component: CardProductComponent,\n    tags: ['autodocs'],\n    argTypes: {\n        flagOpt: {\n            name: \"flagOpt\",\n            description: \"переключатель оптовая to рознечная цена\"\n          },\n          _onBack:{ action: 'clicked'},\n          _onQRCode:{action: 'clicked'},\n          addCart:{action: 'clicked', return:0},\n    },\n   \n\n\n}"
             },
             {
                 "name": "meta",
@@ -188,7 +188,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ImageSliderComponent>",
-                "defaultValue": "{\r\n  title: 'ImageSliderUI',\r\n  component: ImageSliderComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    minHeight: {\r\n      name: \"minHeight\",\r\n      description: \"min-height img css - задавать обязательно ,sample '450px' or 'auto' or '15rem' ,задать желательно для каждого \"+\r\n      \"@media (min-width: 413px) ,@media (min-width: 768px), @media (min-width:992px)\",\r\n    \r\n      \r\n    },\r\n    minWidth: {\r\n      name: \" minWidth\",\r\n      description: \" min-width img css,sample '450px' or 'auto' or '15rem'\"\r\n    },\r\n    marginTopSlideBar: {\r\n      name: \" marginTopSlideBar\",\r\n      description: \"опустить от верха контейнера img на 85%,задавать в %\"\r\n    },\r\n    marginLeftSlideBar: {\r\n      name: \"marginLeftSlideBar\",\r\n      description: \"опустить от верха отсптупить с лева контейнера img на 40%(для шести точек 30%) ,зависит от количества img в [],задавать в %\"\r\n    },\r\n  },\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
+                "defaultValue": "{\n  title: 'ImageSliderUI',\n  component: ImageSliderComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    minHeight: {\n      name: \"minHeight\",\n      description: \"min-height img css - задавать обязательно ,sample '450px' or 'auto' or '15rem' ,задать желательно для каждого \"+\n      \"@media (min-width: 413px) ,@media (min-width: 768px), @media (min-width:992px)\",\n    \n      \n    },\n    minWidth: {\n      name: \" minWidth\",\n      description: \" min-width img css,sample '450px' or 'auto' or '15rem'\"\n    },\n    marginTopSlideBar: {\n      name: \" marginTopSlideBar\",\n      description: \"опустить от верха контейнера img на 85%,задавать в %\"\n    },\n    marginLeftSlideBar: {\n      name: \"marginLeftSlideBar\",\n      description: \"опустить от верха отсптупить с лева контейнера img на 40%(для шести точек 30%) ,зависит от количества img в [],задавать в %\"\n    },\n  },\n\n  //  add_cart: { action: 'clicked',return  }\n}"
             },
             {
                 "name": "meta",
@@ -218,7 +218,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<KatalogImgComponent>",
-                "defaultValue": "{\r\n\r\n  title: 'Katalog-img',\r\n  component:  KatalogImgComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagView: {\r\n      name: \"flagView\",\r\n      description: \"переключатель img to card_img\"\r\n    },\r\n    flagOpt: {\r\n      name: \"flagOpt\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n  },\r\n  // decorators: [\r\n  //   moduleMetadata({\r\n  //     imports: [\r\n        \r\n  //     ],\r\n  //     providers: [\r\n  //       {\r\n  //         provide: APP_INITIALIZER,\r\n  //         useFactory: myServiceFactory,\r\n  //         deps: [DataPresentationService]\r\n  //       }\r\n  //     ]\r\n  //   })\r\n  // ]\r\n}"
+                "defaultValue": "{\n\n  title: 'Katalog-img',\n  component:  KatalogImgComponent,\n  tags: ['autodocs'],\n\n  argTypes: {\n    flagView: {\n      name: \"flagView\",\n      description: \"переключатель img to card_img\"\n    },\n    flagOpt: {\n      name: \"flagOpt\",\n      description: \"переключатель оптовая to рознечная цена\"\n    },\n    \n    changeProduct: { action: 'clicked' }\n  },\n  // decorators: [\n  //   moduleMetadata({\n  //     imports: [\n        \n  //     ],\n  //     providers: [\n  //       {\n  //         provide: APP_INITIALIZER,\n  //         useFactory: myServiceFactory,\n  //         deps: [DataPresentationService]\n  //       }\n  //     ]\n  //   })\n  // ]\n}"
             },
             {
                 "name": "meta",
@@ -228,7 +228,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<KatalogTableComponent>",
-                "defaultValue": "{\r\n\r\n  title: 'Katalog-table',\r\n  component: KatalogTableComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagOpt: {\r\n      name: \"flagOpt\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n\r\n\r\n\r\n  }\r\n}"
+                "defaultValue": "{\n\n  title: 'Katalog-table',\n  component: KatalogTableComponent,\n  tags: ['autodocs'],\n\n  argTypes: {\n    flagOpt: {\n      name: \"flagOpt\",\n      description: \"переключатель оптовая to рознечная цена\"\n    },\n    \n    changeProduct: { action: 'clicked' }\n\n\n\n  }\n}"
             },
             {
                 "name": "meta",
@@ -278,7 +278,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n    flagView:false,\r\n    flagOpt:false,\r\n    serverUrl:'https://s.x-01.ru/',\r\n   \r\n    products:i\r\n  \r\n  },\r\n\r\n}"
+                "defaultValue": "{\n  args: {\n    flagView:false,\n    flagOpt:false,\n    serverUrl:'https://s.x-01.ru/',\n   \n    products:i\n  \n  },\n\n}"
             },
             {
                 "name": "SubKatalogTableUI",
@@ -288,7 +288,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "{\r\n  args: {\r\n   \r\n    flagOpt:false,\r\n    serverUrl:'https://s.x-01.ru/',\r\n   \r\n    products:i\r\n \r\n  },\r\n\r\n}"
+                "defaultValue": "{\n  args: {\n   \n    flagOpt:false,\n    serverUrl:'https://s.x-01.ru/',\n   \n    products:i\n \n  },\n\n}"
             },
             {
                 "name": "tempRepozitory",
@@ -381,7 +381,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\r\n    render: (args: CardProductComponent) => ({\r\n        props: args,\r\n    }),\r\n    args: {\r\n       \r\n        flagOpt:false,\r\n        katalog_name:\"Ручки\",\r\n        productURL:'https://xf-01.ru/content/opt/optkatalog/optnomenclature/48',\r\n        katalogURL:'https://xf-01.ru/content/opt/optkatalog/1',\r\n        serverUrl:'https://s.x-01.ru/',\r\n     \r\n        product:i\r\n\r\n    }\r\n\r\n}"
+                    "defaultValue": "{\n    render: (args: CardProductComponent) => ({\n        props: args,\n    }),\n    args: {\n       \n        flagOpt:false,\n        katalog_name:\"Ручки\",\n        productURL:'https://xf-01.ru/content/opt/optkatalog/optnomenclature/48',\n        katalogURL:'https://xf-01.ru/content/opt/optkatalog/1',\n        serverUrl:'https://s.x-01.ru/',\n     \n        product:i\n\n    }\n\n}"
                 },
                 {
                     "name": "i",
@@ -391,7 +391,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
-                    "defaultValue": "data as Product"
+                    "defaultValue": "data as unknown as Product"
                 },
                 {
                     "name": "meta",
@@ -401,7 +401,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<CardProductComponent>",
-                    "defaultValue": "{\r\n    title: 'Card-Product',\r\n    component: CardProductComponent,\r\n    tags: ['autodocs'],\r\n    argTypes: {\r\n        flagOpt: {\r\n            name: \"flagOpt\",\r\n            description: \"переключатель оптовая to рознечная цена\"\r\n          },\r\n          _onBack:{ action: 'clicked'},\r\n          _onQRCode:{action: 'clicked'},\r\n          addCart:{action: 'clicked', return:0},\r\n    },\r\n   \r\n\r\n\r\n}"
+                    "defaultValue": "{\n    title: 'Card-Product',\n    component: CardProductComponent,\n    tags: ['autodocs'],\n    argTypes: {\n        flagOpt: {\n            name: \"flagOpt\",\n            description: \"переключатель оптовая to рознечная цена\"\n          },\n          _onBack:{ action: 'clicked'},\n          _onQRCode:{action: 'clicked'},\n          addCart:{action: 'clicked', return:0},\n    },\n   \n\n\n}"
                 }
             ],
             "libs/ui/src/lib/cart-presentation/cart-presentation.component.stories.ts": [
@@ -487,7 +487,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
-                    "defaultValue": "data as Product"
+                    "defaultValue": "data as unknown as Product"
                 },
                 {
                     "name": "ImageSliderUI",
@@ -497,7 +497,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\r\n  render: (args: ImageSliderComponent) => ({\r\n    props: args,\r\n  }),\r\n  args: {\r\n    minHeight: '500px',\r\n    minWidth : '200px',\r\n    \r\n    marginTopSlideBar: '85%', // опустить от верха на 85%\r\n    marginLeftSlideBar: '40%', //отсптупить с лева на 40%(для шести точек 30%)\r\n     \r\n\r\n    slideImgs: img_urls ,\r\n    //   serverUrl:'https://s.x-01.ru/',\r\n  },\r\n}"
+                    "defaultValue": "{\n  render: (args: ImageSliderComponent) => ({\n    props: args,\n  }),\n  args: {\n    minHeight: '500px',\n    minWidth : '200px',\n    \n    marginTopSlideBar: '85%', // опустить от верха на 85%\n    marginLeftSlideBar: '40%', //отсптупить с лева на 40%(для шести точек 30%)\n     \n\n    slideImgs: img_urls ,\n    //   serverUrl:'https://s.x-01.ru/',\n  },\n}"
                 },
                 {
                     "name": "img_urls",
@@ -517,7 +517,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ImageSliderComponent>",
-                    "defaultValue": "{\r\n  title: 'ImageSliderUI',\r\n  component: ImageSliderComponent,\r\n  tags: ['autodocs'],\r\n  argTypes: {\r\n    minHeight: {\r\n      name: \"minHeight\",\r\n      description: \"min-height img css - задавать обязательно ,sample '450px' or 'auto' or '15rem' ,задать желательно для каждого \"+\r\n      \"@media (min-width: 413px) ,@media (min-width: 768px), @media (min-width:992px)\",\r\n    \r\n      \r\n    },\r\n    minWidth: {\r\n      name: \" minWidth\",\r\n      description: \" min-width img css,sample '450px' or 'auto' or '15rem'\"\r\n    },\r\n    marginTopSlideBar: {\r\n      name: \" marginTopSlideBar\",\r\n      description: \"опустить от верха контейнера img на 85%,задавать в %\"\r\n    },\r\n    marginLeftSlideBar: {\r\n      name: \"marginLeftSlideBar\",\r\n      description: \"опустить от верха отсптупить с лева контейнера img на 40%(для шести точек 30%) ,зависит от количества img в [],задавать в %\"\r\n    },\r\n  },\r\n\r\n  //  add_cart: { action: 'clicked',return  }\r\n}"
+                    "defaultValue": "{\n  title: 'ImageSliderUI',\n  component: ImageSliderComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    minHeight: {\n      name: \"minHeight\",\n      description: \"min-height img css - задавать обязательно ,sample '450px' or 'auto' or '15rem' ,задать желательно для каждого \"+\n      \"@media (min-width: 413px) ,@media (min-width: 768px), @media (min-width:992px)\",\n    \n      \n    },\n    minWidth: {\n      name: \" minWidth\",\n      description: \" min-width img css,sample '450px' or 'auto' or '15rem'\"\n    },\n    marginTopSlideBar: {\n      name: \" marginTopSlideBar\",\n      description: \"опустить от верха контейнера img на 85%,задавать в %\"\n    },\n    marginLeftSlideBar: {\n      name: \"marginLeftSlideBar\",\n      description: \"опустить от верха отсптупить с лева контейнера img на 40%(для шести точек 30%) ,зависит от количества img в [],задавать в %\"\n    },\n  },\n\n  //  add_cart: { action: 'clicked',return  }\n}"
                 },
                 {
                     "name": "serverUrl",
@@ -539,7 +539,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
-                    "defaultValue": "katalog_data2 as Product[]"
+                    "defaultValue": "katalog_data2 as unknown as Product[]"
                 },
                 {
                     "name": "meta",
@@ -549,7 +549,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<KatalogImgComponent>",
-                    "defaultValue": "{\r\n\r\n  title: 'Katalog-img',\r\n  component:  KatalogImgComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagView: {\r\n      name: \"flagView\",\r\n      description: \"переключатель img to card_img\"\r\n    },\r\n    flagOpt: {\r\n      name: \"flagOpt\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n  },\r\n  // decorators: [\r\n  //   moduleMetadata({\r\n  //     imports: [\r\n        \r\n  //     ],\r\n  //     providers: [\r\n  //       {\r\n  //         provide: APP_INITIALIZER,\r\n  //         useFactory: myServiceFactory,\r\n  //         deps: [DataPresentationService]\r\n  //       }\r\n  //     ]\r\n  //   })\r\n  // ]\r\n}"
+                    "defaultValue": "{\n\n  title: 'Katalog-img',\n  component:  KatalogImgComponent,\n  tags: ['autodocs'],\n\n  argTypes: {\n    flagView: {\n      name: \"flagView\",\n      description: \"переключатель img to card_img\"\n    },\n    flagOpt: {\n      name: \"flagOpt\",\n      description: \"переключатель оптовая to рознечная цена\"\n    },\n    \n    changeProduct: { action: 'clicked' }\n  },\n  // decorators: [\n  //   moduleMetadata({\n  //     imports: [\n        \n  //     ],\n  //     providers: [\n  //       {\n  //         provide: APP_INITIALIZER,\n  //         useFactory: myServiceFactory,\n  //         deps: [DataPresentationService]\n  //       }\n  //     ]\n  //   })\n  // ]\n}"
                 },
                 {
                     "name": "SubKatalogImgUI",
@@ -559,7 +559,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n    flagView:false,\r\n    flagOpt:false,\r\n    serverUrl:'https://s.x-01.ru/',\r\n   \r\n    products:i\r\n  \r\n  },\r\n\r\n}"
+                    "defaultValue": "{\n  args: {\n    flagView:false,\n    flagOpt:false,\n    serverUrl:'https://s.x-01.ru/',\n   \n    products:i\n  \n  },\n\n}"
                 }
             ],
             "libs/ui/src/lib/katalog/katalog-table/katalog-table.component.stories.ts": [
@@ -571,7 +571,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
-                    "defaultValue": "katalog_data2 as Product[]"
+                    "defaultValue": "katalog_data2 as unknown as Product[]"
                 },
                 {
                     "name": "meta",
@@ -581,7 +581,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<KatalogTableComponent>",
-                    "defaultValue": "{\r\n\r\n  title: 'Katalog-table',\r\n  component: KatalogTableComponent,\r\n  tags: ['autodocs'],\r\n\r\n  argTypes: {\r\n    flagOpt: {\r\n      name: \"flagOpt\",\r\n      description: \"переключатель оптовая to рознечная цена\"\r\n    },\r\n    \r\n    changeProduct: { action: 'clicked' }\r\n\r\n\r\n\r\n  }\r\n}"
+                    "defaultValue": "{\n\n  title: 'Katalog-table',\n  component: KatalogTableComponent,\n  tags: ['autodocs'],\n\n  argTypes: {\n    flagOpt: {\n      name: \"flagOpt\",\n      description: \"переключатель оптовая to рознечная цена\"\n    },\n    \n    changeProduct: { action: 'clicked' }\n\n\n\n  }\n}"
                 },
                 {
                     "name": "SubKatalogTableUI",
@@ -591,7 +591,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "{\r\n  args: {\r\n   \r\n    flagOpt:false,\r\n    serverUrl:'https://s.x-01.ru/',\r\n   \r\n    products:i\r\n \r\n  },\r\n\r\n}"
+                    "defaultValue": "{\n  args: {\n   \n    flagOpt:false,\n    serverUrl:'https://s.x-01.ru/',\n   \n    products:i\n \n  },\n\n}"
                 }
             ],
             "libs/ui/src/lib/qr-code/qr-code.component.stories.ts": [

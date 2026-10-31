@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { ArticleShellComponent } from './article-shell.component';
 
 describe('ArticleShellComponent', () => {
@@ -7,6 +8,7 @@ describe('ArticleShellComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [provideRouter([])],
       imports: [ArticleShellComponent],
     }).compileComponents();
 

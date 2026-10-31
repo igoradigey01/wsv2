@@ -20,7 +20,7 @@ import { Product} from '@wsv2/app-common'
 
  
  
-const i=  katalog_data2 as Product[];
+const i=  katalog_data2 as unknown as Product[];
 
 const meta: Meta< KatalogImgComponent> = {
 

@@ -28,7 +28,7 @@ export class DataPresentationService {
     map((data: any) => {
         //  console.log(JSON.stringify(data))
         return data.map((f: any) => {
-          return <Product>{
+          return <Product><unknown>{
             id:f.id,
             guid:f.guid,
             name:f.name,

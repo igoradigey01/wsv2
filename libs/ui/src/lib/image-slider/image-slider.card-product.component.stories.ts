@@ -3,9 +3,9 @@ import { data } from '../_shared/servises/data-fake3';
 import { action } from 'storybook/actions';
 import { ImageSliderComponent } from './image-slider.component';
 import { Product } from '@wsv2/app-common';
-import { ISliderImage } from '@wsv2/app-common';
+import { ISliderImage } from '@wsv2/app-config';
 
-const i = data as Product;
+const i = data as unknown as Product;
 
 const img_urls:ISliderImage[]= [];
 const  serverUrl='https://s.x-01.ru/';

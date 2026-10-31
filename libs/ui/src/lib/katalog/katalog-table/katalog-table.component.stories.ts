@@ -5,7 +5,7 @@ import {katalog_data2} from '../../_shared/servises/data-fake2'
 import {Product} from '@wsv2/app-common'
 import { KatalogTableComponent } from './katalog-table.component';
 
-const i= katalog_data2 as Product[];
+const i= katalog_data2 as unknown as Product[];
 
 const meta: Meta<KatalogTableComponent> = {
 

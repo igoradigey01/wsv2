@@ -32,29 +32,37 @@ export class CartPresentationComponent {
   public _menuItems: IMenyItem[] = [{
     "id": 0,
     "name": "Как заказать?",
-    "url": "menu/kak-zakazat"
+    "url": "menu/kak-zakazat",
+    "meny": undefined,
+    "meny_name": undefined
   },
   {
     "id": 1,
     "name": "Оплата&Доставка",
-    "url": "menu/oplata-i-dostavka"
+    "url": "menu/oplata-i-dostavka",
+    "meny": undefined,
+    "meny_name": undefined
 
   },
   {
     "id": 2,
     "name": "Гарантии",
-    "url": "menu/garantiya"
+    "url": "menu/garantiya",
+    "meny": undefined,
+    "meny_name": undefined
 
   },
   {
     "id": 3,
     "name": "Как доехать",
-    "url": "menu/about"
+    "url": "menu/about",
+    "meny": undefined,
+    "meny_name": undefined
 
   }
   ]
 
- public data_fake= signal<Product[]>( katalog_data2 as Product[]);
+ public data_fake= signal<Product[]>( katalog_data2 as unknown as Product[]);
  
  @Input() public flagView = false;
   @Input() public flagOpt = false;

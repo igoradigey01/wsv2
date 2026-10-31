@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { BrandShellComponent } from './brand-shell.component';
 
 describe('BrandShellComponent', () => {
@@ -7,6 +8,7 @@ describe('BrandShellComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [provideRouter([])],
       imports: [BrandShellComponent],
     }).compileComponents();
 
