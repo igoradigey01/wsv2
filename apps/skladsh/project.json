@@ -7,13 +7,12 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/skladsh",
         "index": "apps/skladsh/src/index.html",
-        "main": "apps/skladsh/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/skladsh/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
@@ -24,7 +23,8 @@
           }
         ],
         "styles": ["apps/skladsh/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/skladsh/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -43,9 +43,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -53,7 +51,7 @@
       }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "defaultConfiguration": "development",
       "continuous": true,
       "configurations": {

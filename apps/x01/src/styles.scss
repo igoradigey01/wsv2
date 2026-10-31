@@ -6,6 +6,7 @@
     $accent-lighter-color:#c7cacf,
     $accent-darker-color:#2e3542
     );
+@use "sass:color";
 @use "../../../libs/app-styles/src/styles/style.scss" as s;
 @use "@angular/material" as mat;
 //  mat.core()- должен быть включен ровно один раз
@@ -33,7 +34,9 @@ $my-warn: mat.m2-define-palette(s.$mat-warn, main, lighter, darker);
 $my-accent: mat.m2-define-palette(s.$mat-accent, main, lighter, darker);
 $my-primary: mat.m2-define-palette(s.$mat-primary, main, lighter, darker);
 @function HexToRGB($hex) {
-    @return red($hex), green($hex), blue($hex);
+    @return color.channel($hex, "red", $space: rgb),
+        color.channel($hex, "green", $space: rgb),
+        color.channel($hex, "blue", $space: rgb);
   }
 
 $my-theme: mat.m2-define-light-theme(

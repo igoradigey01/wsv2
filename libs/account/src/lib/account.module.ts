@@ -33,7 +33,7 @@ import {VkLoginWidgetComponent} from './vk-login-widget/vk-login-widget.componen
 import {accountRoutes} from './lib.routes'
 
 
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { SocialLoginModule, GoogleSigninButtonModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { 
   GoogleLoginProvider 
 
@@ -78,7 +78,8 @@ const vkLoginOptions = {
         MaterialModule,
         ManagerServiceModule,
         AccountServiceModule,
-        SocialLoginModule], providers: [
+        SocialLoginModule,
+        GoogleSigninButtonModule], providers: [
         {
             provide: 'SocialAuthServiceConfig',
             useValue: {

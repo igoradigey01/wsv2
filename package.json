@@ -5,7 +5,7 @@
   "scripts": {},
   "private": true,
   "dependencies": {
-    "@abacritt/angularx-social-login": "^1.3.2",
+    "@abacritt/angularx-social-login": "^2.6.0",
     "@angular/animations": "~22.2.0",
     "@angular/cdk": "~22.2.0",
     "@angular/common": "~22.2.0",
@@ -18,16 +18,15 @@
     "@angular/router": "~22.2.0",
     "@datorama/akita": "^8.0.1",
     "@nx/angular": "24.0.2",
-    "angular8-yandex-maps": "^16.0.0",
+    "angular8-yandex-maps": "^22.0.0",
     "i": "^0.3.7",
     "jspdf": "^2.5.1",
-    "ng-qrcode": "^16.0.0",
-    "ngx-image-cropper": "^8.0.0",
+    "ng-qrcode": "^22.0.0",
+    "ngx-image-cropper": "^9.1.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rxjs": "~7.8.0",
     "storybook": "^10.6.5",
-    "storybook-addon-angular-router": "^1.8.0",
     "tsc": "^2.0.4",
     "tslib": "^2.3.0",
     "zone.js": "0.16.3"
@@ -57,7 +56,6 @@
     "@storybook/addon-docs": "^10.6.5",
     "@storybook/addon-mcp": "^10.6.5",
     "@storybook/angular": "10.6.5",
-    "@storybook/core-server": "8.6.19",
     "@swc-node/register": "1.12.1",
     "@swc/core": "1.16.20",
     "@swc/helpers": "0.5.23",
@@ -97,5 +95,10 @@
     "node": ">=22.22.3"
   },
   "packageManager": "npm@10.9.9",
-  "nx": {}
+  "nx": {},
+  "overrides": {
+    "@datorama/akita": {
+      "tslib": "$tslib"
+    }
+  }
 }

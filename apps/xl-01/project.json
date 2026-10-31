@@ -7,13 +7,12 @@
   "tags": ["scope:xl01", "type:app"],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/xl01",
         "index": "apps/xl-01/src/index.html",
-        "main": "apps/xl-01/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/xl-01/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
@@ -27,7 +26,8 @@
           }
         ],
         "styles": ["apps/xl-01/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/xl-01/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -52,9 +52,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -62,7 +60,7 @@
       }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "defaultConfiguration": "development",
       "continuous": true,
       "configurations": {

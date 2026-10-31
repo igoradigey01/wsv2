@@ -3,7 +3,6 @@ import { dirname } from "node:path";
 const config = {
   stories: ['../**/*.stories.@(js|jsx|ts|tsx|mdx)'],
   addons: [
-    getAbsolutePath("storybook-addon-angular-router"),
     getAbsolutePath("@storybook/addon-mcp"),
     getAbsolutePath("@storybook/addon-docs")
   ],

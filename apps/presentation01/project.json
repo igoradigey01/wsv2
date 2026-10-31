@@ -7,13 +7,12 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/presentation01",
         "index": "apps/presentation01/src/index.html",
-        "main": "apps/presentation01/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/presentation01/tsconfig.app.json",
         "assets": [
@@ -21,7 +20,8 @@
           "apps/presentation01/src/assets"
         ],
         "styles": ["apps/presentation01/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/presentation01/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -40,9 +40,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -50,7 +48,7 @@
       }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "defaultConfiguration": "development",
       "continuous": true,
       "configurations": {

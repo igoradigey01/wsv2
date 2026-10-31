@@ -11,7 +11,7 @@ import { AboutComponent } from './about/about.component';
 import { KakZakazatComponent } from './kak-zakazat/kak-zakazat.component';
 import { OplataIDostavkaComponent } from './oplata-i-dostavka/oplata-i-dostavka.component';
 import { GarantiyaComponent } from './garantiya/garantiya.component';
-import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
+import { YaMapComponent, YaGeoObjectDirective, provideYaConfig, YaConfig } from 'angular8-yandex-maps';
 import { PrivacyComponent } from './privacy-policy/privacy.component';
 
 const mapConfig: YaConfig = {
@@ -24,8 +24,10 @@ const mapConfig: YaConfig = {
     CommonModule,
    ImageSliderComponent,
     RouterModule.forChild(shopInformationRoutes),
-    AngularYandexMapsModule.forRoot(mapConfig)
+    YaMapComponent,
+    YaGeoObjectDirective
   ],
+  providers: [provideYaConfig(mapConfig)],
   declarations: [
     AboutComponent,
     KakZakazatComponent,

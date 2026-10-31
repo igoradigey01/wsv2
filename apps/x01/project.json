@@ -7,19 +7,19 @@
   "tags": ["scope:x01", "type:app"],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/x01",
         "index": "apps/x01/src/index.html",
-        "main": "apps/x01/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/x01/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/x01/src/favicon.ico", "apps/x01/src/assets"],
         "styles": ["apps/x01/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/x01/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -44,9 +44,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -54,7 +52,7 @@
       }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "defaultConfiguration": "development",
       "continuous": true,
       "configurations": {
