@@ -64,6 +64,9 @@
         "development": {
           "buildTarget": "shagen01:build:development"
         }
+      },
+      "readyWhen": {
+        "signal": true
       }
     },
     "extract-i18n": {

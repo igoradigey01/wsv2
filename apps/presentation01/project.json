@@ -60,6 +60,9 @@
         "development": {
           "buildTarget": "presentation01:build:development"
         }
+      },
+      "readyWhen": {
+        "signal": true
       }
     },
     "extract-i18n": {
@@ -81,13 +84,13 @@
     },
     "serve-static": {
       "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "presentation01:build"
-      },
       "readyWhen": {
         "signal": true
       },
-      "dependsOn": ["build"]
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "presentation01:build"
+      }
     }
   }
 }
