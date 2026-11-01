@@ -33,7 +33,9 @@ for (const key of Object.keys(testEnvDefaults)) {
       return testEnvDefaults[key];
     },
     // присвоения конструктора/initializer'а в тестах игнорируем
-    set() {},
+    set(value: unknown) {
+      void value;
+    },
     configurable: true,
   });
 }

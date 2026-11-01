@@ -10,13 +10,11 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  it('should render title', () => {
+  it('should render router outlet', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Welcome presentation01'
-    );
+    expect(compiled.querySelector('router-outlet')).not.toBeNull();
   });
 
   it(`should have as title 'presentation01'`, () => {

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { SubCatalogComponent } from './sub-catalog.component';
 
 describe('SubCatalogComponent', () => {
@@ -7,6 +8,7 @@ describe('SubCatalogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [provideRouter([])],
       imports: [SubCatalogComponent],
     }).compileComponents();
 

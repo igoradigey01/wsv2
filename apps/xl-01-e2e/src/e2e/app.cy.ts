@@ -1,13 +1,10 @@
-import { getGreeting } from '../support/app.po';
-
-describe('xl-01', () => {
-  beforeEach(() => cy.visit('/'));
-
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
-
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome xl-01');
+// Спека-шаблон Nx ('should display welcome message' с h1 'Welcome xl-01')
+// не соответствует реальному приложению: xl-01 — SPA на <router-outlet>,
+// корневой маршрут перенаправляет на /index. Проверяем "смоук": запустился ли
+// дев-сервер, загрузился ли бандл Angular и отработал ли редирект роутера.
+describe('xl-01-e2e', () => {
+  it('приложение запускается и перенаправляет на /index', () => {
+    cy.visit('/');
+    cy.url({ timeout: 15000 }).should('contain', '/index');
   });
 });

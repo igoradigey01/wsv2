@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { TelegramLoginWidgetService } from '../_shared/services/telegram-login-widget.servise';
 
 import { AuthCallbackTelegramComponent } from './auth-callback-telegram.component';
 
@@ -9,6 +13,12 @@ describe('AuthCallbackTelegramComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AuthCallbackTelegramComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        TelegramLoginWidgetService,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AuthCallbackTelegramComponent);

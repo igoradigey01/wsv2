@@ -1,13 +1,10 @@
-import { getGreeting } from '../support/app.po';
-
+// Спека-шаблон Nx ('should display welcome message' с h1 'Welcome x01') не
+// соответствует реальному приложению: x01 — SPA на <router-outlet>, корневой
+// маршрут перенаправляет на /index. Проверяем "смоук": запустился ли дев-сервер,
+// загрузился ли бандл Angular и отработал ли редирект роутера.
 describe('x01', () => {
-  beforeEach(() => cy.visit('/'));
-
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
-
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome x01');
+  it('запускается и перенаправляет с / на /index', () => {
+    cy.visit('/');
+    cy.url({ timeout: 15000 }).should('contain', '/index');
   });
 });

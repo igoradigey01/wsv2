@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 import { LogOffComponent } from './log-off.component';
 
@@ -8,7 +10,11 @@ describe('LogOffComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LogOffComponent ]
+      declarations: [ LogOffComponent ],
+      providers: [
+        provideRouter([]),
+        { provide: SocialAuthService, useValue: { signOut: () => Promise.resolve() } },
+      ],
     })
     .compileComponents();
   }));

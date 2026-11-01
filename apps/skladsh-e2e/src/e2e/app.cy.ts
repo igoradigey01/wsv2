@@ -1,13 +1,9 @@
-import { getGreeting } from '../support/app.po';
-
-describe('skladhs-e2e', () => {
-  beforeEach(() => cy.visit('/'));
-
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
-
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains(/Welcome/);
+// Приложение skladsh — минимальный шелл: без роутов, корневой компонент
+// рендерит <app-nx-welcome>. Проверяем "смоук": запустился ли дев-сервер и
+// загрузился ли бандл Angular с приветственным компонентом.
+describe('skladsh-e2e', () => {
+  it('приложение запускается и рендерит welcome-компонент', () => {
+    cy.visit('/');
+    cy.get('app-nx-welcome', { timeout: 15000 }).should('exist');
   });
 });
