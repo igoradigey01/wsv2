@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 import { ProfileService } from '../_shared/services/profile.service';
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'wsv2-user-profile-shell',
     imports: [
     MatTabsModule,

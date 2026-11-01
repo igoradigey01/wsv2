@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import type { OnInit, OnDestroy } from '@angular/core';
+import type { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -8,16 +8,16 @@ import { UserRegistrationDto } from '../_shared/_interfaces/user-registrationDto
 import { AccountService } from '../_shared/services/account.service';
 
 @Component({
-    selector: 'app-sign-up',
+    selector: 'wsv2-sign-up',
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class SignUpComponent implements OnInit , OnDestroy  {
+export class SignUpComponent implements OnDestroy  {
 
   private _subscriptions: Subscription[] = [];
-  public showSuccess: boolean = false;
+  public showSuccess = false;
 
   public _user: UserRegistrationDto = {
     clientURI: this._authService.ClientUri + 'account/email-confirmation',
@@ -35,8 +35,6 @@ export class SignUpComponent implements OnInit , OnDestroy  {
 
   constructor(private _authService: AccountService) {}
 
-  ngOnInit(): void {}
-
   ngOnDestroy() {
     this._subscriptions.forEach((s) => s.unsubscribe());
   }
@@ -51,7 +49,7 @@ export class SignUpComponent implements OnInit , OnDestroy  {
     // const credentials = JSON.stringify(registerForm.value);
     // this._errorMgs.length=0;
 
-   var sub=  this._authService.registerUser(this._user).subscribe({
+   const sub=  this._authService.registerUser(this._user).subscribe({
       next: (_) => {
         console.log('Successful registration');
         this.showSuccess = true;

@@ -2,8 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CompanyInformationService, EnvironmentService } from '@wsv2/app-config'
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'app-privacy',
+    selector: 'wsv2-privacy',
     templateUrl: './privacy.component.html',
     styleUrls: ['./privacy.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,

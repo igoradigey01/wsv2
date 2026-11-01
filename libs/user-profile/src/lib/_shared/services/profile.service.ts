@@ -112,7 +112,7 @@ export class ProfileService {
       .subscribe();
   }
 
-  private Update$ = (profileDto: UserProfileDto): Observable<any> => {
+  private Update$ = (profileDto: UserProfileDto): Observable<unknown> => {
     this.url.Controller = 'Profile';
     this.url.Action = 'EditUser';
     this.url.ID = null;
@@ -183,7 +183,7 @@ export class ProfileService {
     });
   };
 
-  public Delete = (id: string): Observable<any> => {
+  public Delete = (id: string): Observable<unknown> => {
     // id is email-user
     this.url.Controller = 'Profile';
     this.url.Action = 'Delete';
@@ -220,7 +220,7 @@ export class ProfileService {
     }
     if (err.status === 404) {
 
-      this.error_state.update((m) => ({ ...m, error: true, message: "404 not Found" }));;
+      this.error_state.update((m) => ({ ...m, error: true, message: "404 not Found" }));
       
 
 

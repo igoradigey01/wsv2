@@ -1,4 +1,4 @@
-/* eslint-disable @nx/enforce-module-boundaries */
+ 
 import type { Route } from '@angular/router';
 
 import { IndexComponent } from './index/index.component';
@@ -14,7 +14,7 @@ export const appRoutes: Route[] = [
       {
         path: '',
         loadComponent: () =>
-          // eslint-disable-next-line @nx/enforce-module-boundaries
+           
           import('@wsv2/shop-content').then((m) => m.IndexShopComponent),
       },
       {

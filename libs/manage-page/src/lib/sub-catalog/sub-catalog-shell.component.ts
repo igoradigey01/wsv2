@@ -5,7 +5,7 @@ import { SubKatalog, Katalog, IButton } from '@wsv2/app-common';
 import { KatlogService, SubKatalogService } from '@wsv2/shop-content';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { KatalogComponent } from '@wsv2/ui';
 import { SubCatalogItemComponent } from './sub-catalog-item.component';
 import { SubCatalogListComponent } from './sub-catalog-list.component';

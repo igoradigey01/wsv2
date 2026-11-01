@@ -154,8 +154,7 @@ export class UserManagerService {
   
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private refreshToken$= (accessToken: string): Observable<any> => {
+  private refreshToken$= (accessToken: string): Observable<{ accessToken: string }> => {
 
     this.url.Controller = 'Account';
     this.url.Action = 'refresh-token';
@@ -165,7 +164,7 @@ export class UserManagerService {
       "access_token": "${accessToken}"
     }`;
   
-    return this.http.post(this.url.AuthUrl, credentials, {
+    return this.http.post<{ accessToken: string }>(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
        

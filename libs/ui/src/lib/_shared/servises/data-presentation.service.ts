@@ -25,9 +25,9 @@ export class DataPresentationService {
   
   
   private products$ = this.http.get<Product[]>(this.url).pipe(
-    map((data: any) => {
+    map((data) => {
         //  console.log(JSON.stringify(data))
-        return data.map((f: any) => {
+        return data.map((f) => {
           return <Product><unknown>{
             id:f.id,
             guid:f.guid,

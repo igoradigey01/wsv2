@@ -2,11 +2,11 @@ import { Injectable, signal, computed } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { ApiService } from '@wsv2/app-config';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { UserManagerService } from '@wsv2/account-service';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { Brand, Message, Status } from '@wsv2/app-common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, of, tap, Observable, shareReplay } from 'rxjs';
@@ -129,9 +129,7 @@ export class BrandService {
         },
       });
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Create$ = (item: Brand): Observable<any> => {
+  private Create$ = (item: Brand): Observable<unknown> => {
    //debugger
     this.url.Controller = 'Brand';
     this.url.Action = 'Create';
@@ -141,9 +139,7 @@ export class BrandService {
       Accept: 'application/json',
       Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this._http.post<any>(this.url.Url, item, {
+    return this._http.post<unknown>(this.url.Url, item, {
      
       headers,
     });
@@ -193,8 +189,7 @@ export class BrandService {
       },
     });
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Update$ = (item: Brand): Observable<any> => {
+  private Update$ = (item: Brand): Observable<unknown> => {
     // throw new Error("not implemint exeption");
     this.url.Controller = 'Brand';
     this.url.Action = 'Update';
@@ -207,8 +202,7 @@ export class BrandService {
     });
 
     //new Response(fd).text().then(console.log);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this._http.put<any>(this.url.Url, item, {
+    return this._http.put<unknown>(this.url.Url, item, {
       headers,
     });
   };
@@ -262,9 +256,7 @@ export class BrandService {
       },
     });
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Delete$ = (id: number): Observable<any> => {
+  private Delete$ = (id: number): Observable<unknown> => {
     this.url.Controller = 'Brand';
     this.url.Action = 'Delete';
     this.url.ID = id;

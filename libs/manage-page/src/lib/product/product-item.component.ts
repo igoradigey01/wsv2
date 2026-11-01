@@ -16,15 +16,15 @@ import { Brand } from '@wsv2/app-common';
 import { Article } from '@wsv2/app-common';
 import { EmitData, StateView } from './product-shell.component';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { ImgRenderComponent } from '@wsv2/ui';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { ImgManagerService } from '@wsv2/ui';
 
 import { Input, Output, EventEmitter } from '@angular/core';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { DtoImage } from '@wsv2/ui';
 
 //mport { HttpEvent, HttpEventType } from '@angular/common/http';
@@ -155,7 +155,7 @@ export class ProductItemComponent {
   ) // private _imgManager: ImgManagerService
   {}
 
-  public onBrandChange(event: any) {
+  public onBrandChange(event: Event) {
     this.state.update((state) => ({
       ...state,
       brandName: this.BrandItmes().find((d) => d.id === this.state().brandId)
@@ -163,7 +163,7 @@ export class ProductItemComponent {
     }));
   }
 
-  public onColorChange(event: any) {
+  public onColorChange(event: Event) {
     this.state.update((state) => ({
       ...state,
       colorName: this.ColorItmes().find((d) => d.id === this.state().colorId)
@@ -171,7 +171,7 @@ export class ProductItemComponent {
     }));
   }
 
-  public onArticleChange(event: any) {
+  public onArticleChange(event: Event) {
     this.state.update((state) => ({
       ...state,
       articleName: this.ArticleItmes().find(

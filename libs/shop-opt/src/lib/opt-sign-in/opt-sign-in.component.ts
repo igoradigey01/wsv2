@@ -3,7 +3,7 @@ import type { OnInit } from '@angular/core';
 
 
 import { OptManagerService } from '../_shared/services/opt-manager.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, type Params } from '@angular/router';
 
 @Component({
     selector: 'wsv2-opt-sign-in',
@@ -20,8 +20,7 @@ export class OptSignInComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.route.queryParams.subscribe((queryParam: any) => {
+    this.route.queryParams.subscribe((queryParam: Params) => {
       const param = queryParam['user'];
       if (param && param === 'opt1') {
         this.optManager.setValidOpt();

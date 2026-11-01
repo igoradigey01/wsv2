@@ -1,10 +1,10 @@
 import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { ProductType, StateView } from '@wsv2/app-common';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { Brand } from '@wsv2/app-common';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { BrandService} from '@wsv2/shop-content';
 import { ProductTypeService } from '@wsv2/shop-content';
 import {BrandListComponent } from './brand-list.component';

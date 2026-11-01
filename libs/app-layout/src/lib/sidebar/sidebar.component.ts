@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Output, EventEmitter, Input, signal, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import {IMenyItem} from '@wsv2/app-config'
@@ -16,7 +16,7 @@ import {UserRole} from '@wsv2/app-common'
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnDestroy {
 
   private _userRole: UserRole = UserRole.default;
 

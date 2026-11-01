@@ -41,6 +41,13 @@ export default [
               onlyDependOnLibsWithTags: ['scope:hadjoh01', 'type:01-lib'],
             },
             {
+              sourceTag: 'scope:presentation01',
+              onlyDependOnLibsWithTags: [
+                'scope:presentation01',
+                'type:01-lib',
+              ],
+            },
+            {
               sourceTag: 'scope:01account-lib',
               onlyDependOnLibsWithTags: ['scope:01account-lib', 'type:01-lib'],
             },

@@ -1,12 +1,13 @@
 import { Injectable, signal, computed } from '@angular/core';
 
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import type { HttpResponse } from '@angular/common/http';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { ApiService } from '@wsv2/app-config';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { UserManagerService } from '@wsv2/account-service';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { Katalog, Message, Status } from '@wsv2/app-common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -101,14 +102,16 @@ export class KatlogService {
       .pipe(
         shareReplay(1), // последнее для всех (один раз!!! )item довавить в state
         tap((data) => {
-          if (data.body) {
+          const res = data as HttpResponse<Katalog>;
+          if (res.body) {
+            const body = res.body;
             this.state.update((state) => ({
               ...state,
-              catalogItems: [...state.catalogItems, data.body as Katalog],
+              catalogItems: [...state.catalogItems, body],
               state: Status.load,
             }));
 
-            //  console.log('(data-tap -catalog-1)' + JSON.stringify(data.body));
+            //  console.log('(data-tap -catalog-1)' + JSON.stringify(res.body));
           }
         })
       )
@@ -144,8 +147,7 @@ export class KatlogService {
       });
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Create$ = (item: Katalog): Observable<any> => {
+  private Create$ = (item: Katalog): Observable<unknown> => {
     this.url.Controller = 'Catalog';
     this.url.Action = 'Create';
     this.url.ID = null;
@@ -156,8 +158,7 @@ export class KatlogService {
       Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this._http.post<any>(this.url.Url, item, {
+    return this._http.post<Record<string, unknown>>(this.url.Url, item, {
       reportProgress: true,
       observe: 'events',
       headers,
@@ -209,8 +210,7 @@ export class KatlogService {
       },
     });
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Update$ = (item: Katalog): Observable<any> => {
+  private Update$ = (item: Katalog): Observable<unknown> => {
     // throw new Error("not implemint exeption");
     this.url.Controller = 'Catalog';
     this.url.Action = 'Update';
@@ -223,8 +223,7 @@ export class KatlogService {
     });
 
     //new Response(fd).text().then(console.log);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this._http.put<any>(this.url.Url, item, {
+    return this._http.put<unknown>(this.url.Url, item, {
       headers,
     });
   };
@@ -279,8 +278,7 @@ export class KatlogService {
     });
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Delete$ = (id: number): Observable<any> => {
+  private Delete$ = (id: number): Observable<unknown> => {
     this.url.Controller = 'Catalog';
     this.url.Action = 'Delete';
     this.url.ID = id;

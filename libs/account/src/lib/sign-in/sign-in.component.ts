@@ -28,7 +28,7 @@ import {Message} from '@wsv2/app-common'
 
 
 @Component({
-    selector: '@wsv2-app-sign-in',
+    selector: 'wsv2-app-sign-in',
     templateUrl: './sign-in.component.html',
     styleUrls: ['./sign-in.component.scss'],
     providers: [],
@@ -200,9 +200,9 @@ export class SignInComponent implements OnInit, OnDestroy {
     // this.router.navigate(['/auth/sing-off']);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onFileInput(event: any) {
-    const data = event.target.files[0];
+  onFileInput(event: Event) {
+    const data = (event.target as HTMLInputElement).files?.[0];
+    if (!data) return;
 
     const fr = new FileReader();
     fr.readAsText(data);
@@ -245,7 +245,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     }
     if (err.status === 404) {
 
-      this.error_state.update((m) => ({ ...m, error: true, message: "404 not Found" }));;
+      this.error_state.update((m) => ({ ...m, error: true, message: "404 not Found" }));
       
 
 

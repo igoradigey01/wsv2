@@ -32,7 +32,6 @@ const THUMBUP_ICON = `
 `;
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'wsv2-user-profile',
     imports: [
     MatCardModule,

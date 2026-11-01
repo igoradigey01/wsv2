@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import type { AuthResponseDto } from '../_interfaces/AuthResponseDto.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {UserTelegramDto} from '../_interfaces/user-telegramDto.model'
 import { ApiService } from '@wsv2/app-config';
@@ -53,11 +54,11 @@ export class TelegramLoginWidgetService {
         this.script.loaded = true;
       };
 
-      scriptElement.onerror = (error: any) => {
+      scriptElement.onerror = (error: unknown) => {
         console.error("Couldn't load script telegram_widget" + error);
       };
 
-      document.getElementsByTagName('x01-v1-telegram-login-widget')[0].appendChild(scriptElement);
+      document.getElementsByTagName('wsv2-telegram-login-widget')[0].appendChild(scriptElement);
     }
   }
 
@@ -71,7 +72,7 @@ export class TelegramLoginWidgetService {
       'Authorization': 'Bearer ' + '',
     });
     const credentials=JSON.stringify(user);
-    return this.http.post(this.url.AuthUrl, credentials, { headers });
+    return this.http.post<AuthResponseDto>(this.url.AuthUrl, credentials, { headers });
 
    }
 }

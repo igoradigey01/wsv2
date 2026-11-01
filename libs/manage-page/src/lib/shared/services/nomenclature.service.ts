@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import { map} from 'rxjs/operators';
 import { HttpEventType } from '@angular/common/http';
 import type { HttpEvent } from '@angular/common/http';
-import { Nomenclature} from 'apps/xf01/src/app/_shared/_interfaces/nomenclature.model';
-import { KatalogN } from 'apps/xf01/src/app/_shared/_interfaces/katalog-n.model';
-import { Article } from 'apps/xf01/src/app/_shared/_interfaces/article.model';
-import {Brand} from 'apps/xf01/src/app/_shared/_interfaces/brand.model'
-import {Color} from  'apps/xf01/src/app/_shared/_interfaces/color.model'
+import { Nomenclature} from '@wsv2/xf-shared';
+import { KatalogN } from '@wsv2/xf-shared';
+import { Article } from '@wsv2/xf-shared';
+import {Brand} from '@wsv2/xf-shared'
+import {Color} from '@wsv2/xf-shared'
 import { HttpClient, HttpHeaders,  HttpParams } from '@angular/common/http';
 
 import { ManagerServiceModule } from './maneger-service.module';
@@ -16,9 +16,9 @@ import { KatalogNService} from './katalog-n.service';
 import {ArticleNService} from './article-n.service';
 import {BrandNService} from './brand-n.service';
 import {ColorNService} from './color-n.service'
-import { RouteApiService } from 'apps/xf01/src/app/_shared/services/route-api.service';
-import { TokenService } from 'apps/xf01/src/app/_shared/services/token.service';
-import { CategoriaN } from 'apps/xf01/src/app/_shared/_interfaces/categoria-n.model';
+import { RouteApiService } from '@wsv2/xf-shared';
+import { TokenService } from '@wsv2/xf-shared';
+import { CategoriaN } from '@wsv2/xf-shared';
 import {PriceN} from './../_interfaces/price-n.model'
 
 enum FlagSendData {
@@ -33,7 +33,7 @@ enum FlagSendData {
 export class NomenclatureService {
 
 
-  _nameKatalog: any = '';
+  _nameKatalog = '';
   //readonly _url:string="Type";
 
   get WWWroot(): string {
@@ -89,17 +89,17 @@ export class NomenclatureService {
     this._url.ID=idKatlaog;
 
 
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       //  Authorization: 'Bearer ' + token,
     });
-    let params:HttpParams=new HttpParams().set('postavchikId',this._url.PostavchikId)
+    const params:HttpParams=new HttpParams().set('postavchikId',this._url.PostavchikId)
 
     const httpOptions={headers,params}
     return this._http.get<Nomenclature[]>(this._url.Url, httpOptions) .pipe(
-      map((data: any) => {
+      map((data) => {
         //  console.log(JSON.stringify(data))
-        return data.map((f: any) => {
+        return data.map((f) => {
           return <Nomenclature>{
             id:f.id,
             articleId:f. articleId,
@@ -127,9 +127,9 @@ export class NomenclatureService {
 
          /**data.map((f: any)*/
    /*  this._http.get<Product[]>(url, { headers }).pipe(
-      map((data: any) => {
+      map((data) => {
         //  console.log(JSON.stringify(data))
-        return data.map((f: any) => {
+        return data.map((f) => {
           return <Product>{
             id: f.id,
             name: f.name,
@@ -154,15 +154,15 @@ export class NomenclatureService {
     this._url.Action = 'NomenclaturePs';
     this._url.ID=this._url.PostavchikId;
    // debugger
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       //  Authorization: 'Bearer ' + token,
     });
     return this._http.get<Nomenclature[]>(this._url.Url, { headers })
     .pipe(
-      map((data: any) => {
+      map((data) => {
         //  console.log(JSON.stringify(data))
-        return data.map((f: any) => {
+        return data.map((f) => {
           return <Nomenclature>{
             id:f.id,
             articleId:f. articleId,
@@ -188,7 +188,7 @@ export class NomenclatureService {
   };
 
   //---------------
-  public Create = (item: Nomenclature): Observable<any> => {
+  public Create = (item: Nomenclature): Observable<HttpEvent<unknown>> => {
     // debugger
     // throw new Error('not implemint exeption');
     this._url.Controller = 'Nomenclature';
@@ -196,12 +196,12 @@ export class NomenclatureService {
     this._url.ID=null;
     item.postavchikId=this._url.PostavchikId;
     // debugger
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this._token.AccessToken,
     });
 
-    let fd = this.createFormData(item,FlagSendData.all);
+    const fd = this.createFormData(item,FlagSendData.all);
 
     //!!!!!!--  new Response(fd).text().then(console.log);--!!!!!!!!!!!!
     return this._http.post(this._url.Url, fd, {
@@ -217,17 +217,17 @@ export class NomenclatureService {
 
 
   //--------------
-  public UpdateAll = (item: Nomenclature): Observable<any> => {
+  public UpdateAll = (item: Nomenclature): Observable<HttpEvent<unknown>> => {
     // debugger
     this._url.Controller = 'Nomenclature';
     this._url.Action = 'UpdateAll';
     this._url.ID=item.id;
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this._token.AccessToken,
     });
 
-    let fd = this.createFormData(item,FlagSendData.all);
+    const fd = this.createFormData(item,FlagSendData.all);
 
   //!!!!  new Response(fd).text().then(console.log);
 
@@ -238,13 +238,13 @@ export class NomenclatureService {
     });
   };
 
-  public UpdatePrice=(items:PriceN[]):Observable<any> =>{
+  public UpdatePrice=(items:PriceN[]):Observable<unknown> =>{
 
       // debugger
       this._url.Controller = 'Nomenclature';
       this._url.Action = 'UpdateDataPrice';
       this._url.ID=null;
-      let headers: HttpHeaders = new HttpHeaders({
+      const headers: HttpHeaders = new HttpHeaders({
         Accept: 'application/json',
         Authorization: 'Bearer ' + this._token.AccessToken,
       });
@@ -259,17 +259,17 @@ export class NomenclatureService {
 
   }
 
-  public UpdateOnlyImg = (item: Nomenclature): Observable<any> => {
+  public UpdateOnlyImg = (item: Nomenclature): Observable<HttpEvent<unknown>> => {
     this._url.Controller = 'Nomenclature';
     this._url.Action = 'UpdateOnlyImg';
     this._url.ID=null;
 
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this._token.AccessToken,
     });
 
-    let fd = this.createFormData(item,FlagSendData.img);
+    const fd = this.createFormData(item,FlagSendData.img);
 
    new Response(fd).text().then(console.log);
 
@@ -280,17 +280,17 @@ export class NomenclatureService {
     });
   };
 
-  public UpdateIgnoreImg = (item: Nomenclature): Observable<any> => {
+  public UpdateIgnoreImg = (item: Nomenclature): Observable<HttpEvent<unknown>> => {
     this._url.Controller = 'Nomenclature';
     this._url.Action = 'UpdateIgnoreImg';
     this._url.ID=item.id;
 
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this._token.AccessToken,
     });
      //   debugger
-    let fd = this.createFormData(item,FlagSendData.date);
+    const fd = this.createFormData(item,FlagSendData.date);
 
    // !!! new Response(fd).text().then(console.log);
 
@@ -301,11 +301,11 @@ export class NomenclatureService {
     });
   };
   //--------------------------
-  public Delete = (id: number): Observable<any> => {
+  public Delete = (id: number): Observable<HttpEvent<unknown>> => {
     this._url.Controller = 'product';
     this._url.Action = 'Delete';
 
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this._token.AccessToken,
     });
@@ -321,13 +321,13 @@ export class NomenclatureService {
     this._url.Action = '';
     // return this.http.get(src,{responseType: 'blob'});
 
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
       //  Authorization: 'Bearer ' + token,
     });
 
-    let url: string = this._url.Url + '/' + name;
+    const url: string = this._url.Url + '/' + name;
 
     return this._http.get<Blob>(url, {
       headers,
@@ -337,7 +337,7 @@ export class NomenclatureService {
   };
 
   private createFormData(item: Nomenclature, flag: FlagSendData): FormData {
-   let formData = new FormData();
+   const formData = new FormData();
 
     const entries = Object.entries(item);
     if (flag == FlagSendData.all) {
@@ -351,7 +351,7 @@ export class NomenclatureService {
         if (key == 'rootImgSrc') return;
         if (key == 'imageBase64') return;
         if (key == 'imageWebp') {
-          let f = value as File;
+          const f = value as File;
           formData.append('file', f, f.name);
           return;
         }
@@ -395,7 +395,7 @@ export class NomenclatureService {
         }
 
         if (key == 'imageWebp') {
-          let f = value as File;
+          const f = value as File;
           formData.append('file', f, f.name);
           return;
         }

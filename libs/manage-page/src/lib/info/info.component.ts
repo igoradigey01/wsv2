@@ -6,7 +6,7 @@ import {VersionInfoComponent} from '@wsv2/app-common'
 
 
 @Component({
-    selector: '@wsv2-manager-info',
+    selector: 'wsv2-manager-info',
     templateUrl: './info.component.html',
     styleUrls: ['./info.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,

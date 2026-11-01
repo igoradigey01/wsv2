@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { FormsModule } from '@angular/forms';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { SubKatalog, Katalog } from '@wsv2/app-common';
 import { EmitData, StateView } from './sub-catalog-shell.component';
 import { Input, Output, EventEmitter } from '@angular/core';

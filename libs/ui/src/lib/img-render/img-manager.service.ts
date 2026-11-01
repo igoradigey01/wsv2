@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ImgManagerService {
-  private _base64String: any;
+  private _base64String: string | ArrayBuffer | null = null;
   private _error='';
   private _flagError=false;
 
@@ -19,7 +19,7 @@ export class ImgManagerService {
   public testImgManagerLoad(): string {
     return 'ImgManager  Load  --ok';
   }
-  public get ImgBase64FromUrl(): any {
+  public get ImgBase64FromUrl(): string | ArrayBuffer | null {
     return this._base64String;
   }
 
@@ -43,7 +43,7 @@ export class ImgManagerService {
         const oFileReader = new FileReader();
         oFileReader.onloadend = function (e) {
            const base64 = e.target;
-          self._base64String = (<any>base64).result;
+          self._base64String = (<FileReader>base64).result;
           // debugger
           //   console.log("method one----", base64)
         };

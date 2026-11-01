@@ -1,10 +1,10 @@
 import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { ProductType, StateView } from '@wsv2/app-common';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { Color } from '@wsv2/app-common';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { ColorService} from '@wsv2/shop-content';
 import { ProductTypeService } from '@wsv2/shop-content';
 import {ColorListComponent } from './color-list.component';

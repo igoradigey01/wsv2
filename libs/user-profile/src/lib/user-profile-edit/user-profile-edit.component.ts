@@ -16,7 +16,6 @@ import { ProfileService } from '../_shared/services/profile.service';
 import { StateView } from '@wsv2/app-common';
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'wsv2-user-profile-edit',
     imports: [
     MatCardModule,

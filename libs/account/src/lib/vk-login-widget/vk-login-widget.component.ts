@@ -3,7 +3,7 @@ import type { OnInit } from '@angular/core';
 import {VkLoginWidgetService} from '../_shared/services/vk-login-widger.service'
 
 @Component({
-    selector: 'x01-v1-VK-login-widget',
+    selector: 'wsv2-vk-login-widget',
     templateUrl: './vk-login-widget.component.html',
     styleUrls: ['./vk-login-widget.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,

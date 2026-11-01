@@ -3,6 +3,7 @@ import type { OnInit, OnDestroy } from '@angular/core';
 import { Router ,ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserManagerService } from '@wsv2/account-service';
+import type { AuthResponseDto } from '../_shared/_interfaces/AuthResponseDto.model';
 import {EnvironmentService} from '@wsv2/app-config'
 import { HttpUrlEncodingCodec, HttpErrorResponse } from '@angular/common/http'
 import {VkLoginWidgetService} from '../_shared/services/vk-login-widger.service'
@@ -10,7 +11,7 @@ import {UserVkDto} from '../_shared/_interfaces/user-vkDto.model'
 
 
 @Component({
-    selector: '@wsv2-app-auth-callback-vk',
+    selector: 'wsv2-app-auth-callback-vk',
     templateUrl: './auth-callback-vk.component.html',
     styleUrls: ['./auth-callback-vk.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -66,7 +67,7 @@ export class AuthCallbackVkComponent implements OnInit , OnDestroy {
 
     const subLogin=  this.repozitory.CheckUser(this.user).subscribe(
       {
-        next: (d:any) => {
+        next: (d: AuthResponseDto) => {
         
          // this._userManager.setInvalidLogin$(false, d.access_token);
          this._userManager.SetAccessToken( d.access_token);

@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'skladhs',
   preset: '../../jest.preset.js',

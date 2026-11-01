@@ -1,18 +1,17 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import type { OnInit } from '@angular/core';
 import {CompanyInformationService} from '@wsv2/app-config';
 import {IWorkTime} from '@wsv2/app-config'
 
 @Component({
-    selector: 'app-oplata-i-dostavka',
+    selector: 'wsv2-oplata-i-dostavka',
     templateUrl: './oplata-i-dostavka.component.html',
     styleUrls: ['./oplata-i-dostavka.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class OplataIDostavkaComponent implements OnInit {
+export class OplataIDostavkaComponent {
 
-  public product_delivery:boolean=false;
+  public product_delivery=false;
   public work_time:IWorkTime;
   public work_time_timeSaturdaySunday:IWorkTime|undefined;
   public company_day_off:string|undefined;
@@ -31,12 +30,9 @@ export class OplataIDostavkaComponent implements OnInit {
         this.company_day_off+=","+repository.company_day_off[1];
 
       }
-      }; 
+      } 
       
     //this.company_day_off=repository.company_day_off;
-  }
-
-  ngOnInit(): void {
   }
 
 }

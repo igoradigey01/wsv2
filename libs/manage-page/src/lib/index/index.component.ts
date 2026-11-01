@@ -3,7 +3,7 @@ import type { OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AppLayoutModule } from '@wsv2/app-layout';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 //import { AppHeaderLayoutComponent } from '@wsv2/ui'
 //import { MaterialModule } from '../material.module'
 import {

@@ -7,9 +7,6 @@ import {ManagerServiceModule} from './maneger-service.module'
   providedIn: ManagerServiceModule
 })
 export class PasswordConfirmationValidatorService {
-
-  constructor() { }
-
   public validateConfirmPassword = (passwordControl: AbstractControl): ValidatorFn => {
     return (confirmationControl: AbstractControl) : { [key: string]: boolean } | null => {
 

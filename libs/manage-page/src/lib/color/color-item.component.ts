@@ -7,11 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 
 import { FormsModule } from '@angular/forms';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { Color } from '@wsv2/app-common';
 import {ProductType} from '@wsv2/app-common' 
 import { EmitData } from './color-shell.component';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { StateView } from '@wsv2/app-common';
 
 import { Input, Output, EventEmitter } from '@angular/core';
@@ -38,7 +38,7 @@ export class ColorItemComponent {
   });
   private _falg = StateView.edit;
 
-  private _product_typeIds:Signal< ProductType[]>=signal<ProductType[]>([]);;
+  private _product_typeIds:Signal< ProductType[]>=signal<ProductType[]>([]);
 
   @Output() public catalogModified = new EventEmitter<EmitData>();
 

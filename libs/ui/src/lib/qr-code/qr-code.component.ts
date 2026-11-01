@@ -182,7 +182,7 @@ export class QrCodeComponent  {
 
   }
 
-  private  getBase64Canvas(canvas:any):string{
+  private  getBase64Canvas(canvas: HTMLCanvasElement):string{
     const dataURL =<string> canvas.toDataURL("image/png");
     return dataURL;
 

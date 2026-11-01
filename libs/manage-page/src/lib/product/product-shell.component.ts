@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { KatalogComponent } from '@wsv2/ui';
 import { ProductItemComponent } from './product-item.component';
 

@@ -18,7 +18,7 @@ export class AppComponent {
    
    // просто делаем старт загрузки CompanyInformationService 
    // если не зделать здесь то в  yandex map не сможет не расрабатывае нуженa rezolve data
-   (<any>window).geoX=repository.yandex_point.x;
+   (window as unknown as { geoX: unknown }).geoX = repository.yandex_point.x;
    //(<any>window).geoY=repository.yandex_point.y;
   }
 }

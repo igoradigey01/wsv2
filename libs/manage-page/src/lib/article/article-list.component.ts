@@ -6,9 +6,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {EmitData} from './article-shell.component'
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { StateView } from '@wsv2/app-common';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { Article } from '@wsv2/app-common';
 
 @Component({

@@ -13,8 +13,7 @@ import { UserManagerService } from '@wsv2/account-service';
 
 //https://metanit.com/sharp/aspnet5/16.6.php
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'app-reset-password-from-mail',
+    selector: 'wsv2-reset-password-from-mail',
     templateUrl: './reset-password-from-mail.component.html',
     styleUrls: ['./reset-password-from-mail.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,

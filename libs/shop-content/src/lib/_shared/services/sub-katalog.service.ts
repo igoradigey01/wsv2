@@ -4,11 +4,11 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, catchError, of, shareReplay, tap } from 'rxjs';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { ApiService } from '@wsv2/app-config';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { SubKatalog, Message, Status } from '@wsv2/app-common';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { UserManagerService } from '@wsv2/account-service';
 
 interface SubCatalogListState {
@@ -119,8 +119,7 @@ export class SubKatalogService {
     this.Create$(item)
       .pipe(
         shareReplay(1),// последнее для всех (один раз!!! )item довавить в state
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        tap((data: any) => {
+        tap((data) => {
           //console.log('(data-tap -sub-catalog-1 data' +JSON.stringify(data));
           if (data) {
 
@@ -173,8 +172,7 @@ export class SubKatalogService {
   };
 
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Create$ = (item: SubKatalog): Observable<any> => {
+  private Create$ = (item: SubKatalog): Observable<unknown> => {
     this.url.Controller = 'SubCatalog';
     this.url.Action = 'Create';
     this.url.ID = null;
@@ -185,8 +183,7 @@ export class SubKatalogService {
       Authorization: 'Bearer ' + this.userManager.AccessToken(),
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this._http.post<any>(this.url.Url, item, {
+    return this._http.post<unknown>(this.url.Url, item, {
 
       headers,
     });
@@ -239,8 +236,7 @@ export class SubKatalogService {
       },
     });
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Update$ = (item: SubKatalog): Observable<any> => {
+  private Update$ = (item: SubKatalog): Observable<unknown> => {
     // throw new Error("not implemint exeption");
     this.url.Controller = 'SubCatalog';
     this.url.Action = 'Update';
@@ -253,8 +249,7 @@ export class SubKatalogService {
     });
 
     //new Response(fd).text().then(console.log);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this._http.put<any>(this.url.Url, item, {
+    return this._http.put<unknown>(this.url.Url, item, {
       headers,
     });
   };
@@ -326,8 +321,7 @@ export class SubKatalogService {
     });
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Delete$ = (id: number): Observable<any> => {
+  private Delete$ = (id: number): Observable<unknown> => {
     this.url.Controller = 'SubCatalog';
     this.url.Action = 'Delete';
     this.url.ID = id;

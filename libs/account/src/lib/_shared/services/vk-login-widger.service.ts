@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import type { AuthResponseDto } from '../_interfaces/AuthResponseDto.model';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {UserVkDto} from '../_interfaces/user-vkDto.model'
@@ -50,7 +51,7 @@ export class VkLoginWidgetService {
        //elemet.a
      //  if(elemet) elemet.parentNode?.childNodes(div)
 
-      // document.getElementsByTagName('x01-v1-VK-login-widget')[0].appendChild(div);
+      // document.getElementsByTagName('wsv2-vk-login-widget')[0].appendChild(div);
 
       const scriptElement1 = document.createElement('script');
      // debugger
@@ -65,7 +66,7 @@ export class VkLoginWidgetService {
        // this.script.loaded = true;
       };
 
-      scriptElement1.onerror = (error: any) => {
+      scriptElement1.onerror = (error: unknown) => {
         this.script.loaded =false;
         console.error("Couldn't load script openapi.js" + error);
       };
@@ -80,13 +81,13 @@ export class VkLoginWidgetService {
        // this.script.loaded = true;
       };
 
-      scriptElement2.onerror = (error: any) => {
+      scriptElement2.onerror = (error: unknown) => {
         this.script.loaded =false;
         console.error("Couldn't load script VK.init" + error);
       };
       
       elemetParent.parentNode?.appendChild(scriptElement2)
-      //document.getElementsByTagName('x01-v1-VK-login-widget')[0].appendChild(scriptElement2);
+      //document.getElementsByTagName('wsv2-vk-login-widget')[0].appendChild(scriptElement2);
        
 
       const scriptElement3=document.createElement('script');
@@ -97,7 +98,7 @@ export class VkLoginWidgetService {
         this.script.loaded = true;
       };
 
-      scriptElement3.onerror = (error: any) => {
+      scriptElement3.onerror = (error: unknown) => {
         this.script.loaded =false;
         console.error("Couldn't load script VK.init" + error);
       };
@@ -106,7 +107,7 @@ export class VkLoginWidgetService {
       
       elemetParent.parentNode?.appendChild(scriptElement3)
      
-     // document.getElementsByTagName('x01-v1-VK-login-widget')[0].appendChild(scriptElement3);
+     // document.getElementsByTagName('wsv2-vk-login-widget')[0].appendChild(scriptElement3);
     }}
   }
 
@@ -120,7 +121,7 @@ export class VkLoginWidgetService {
       'Authorization': 'Bearer ' + '',
     });
     //var credentials=JSON.stringify(user);
-    return this.http.post(this.url.AuthUrl, user, { headers });
+    return this.http.post<AuthResponseDto>(this.url.AuthUrl, user, { headers });
 
    }
 

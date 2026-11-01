@@ -7,5 +7,5 @@ export interface User {
   address?: string;
   role?: string;
   description?: string;
-  image?: any;
+  image?: string;
 }

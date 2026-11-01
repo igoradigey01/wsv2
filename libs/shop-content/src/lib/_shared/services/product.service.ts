@@ -4,12 +4,12 @@ import { HttpClient, HttpHeaders,
 // HttpParams,
 HttpErrorResponse, HttpParams } from '@angular/common/http';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { ApiService } from '@wsv2/app-config';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { UserManagerService } from '@wsv2/account-service';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { Product, Status, Message } from '@wsv2/app-common';
 //import {Brand, Color,} from '@wsv2/shop-content'
 import { SubKatalogService } from './sub-katalog.service';
@@ -117,14 +117,12 @@ export class ProductService {
     this._http
       .get<Product[]>(this.apiService.Url, httpOptions)
       .pipe(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        map((data: any) => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          return data.map((f: any) => {
+        map((data) => {
+          return data.map((f) => {
             return <Product>(<unknown>{
               id: f.id,
               guid: f.guid,
-              img_guids: f.img_guids ? [...f.img_guids.push(f.guid)] : [f.guid],
+              img_guids: f.img_guids ? [...f.img_guids, f.guid] : [f.guid],
               hidden: f.hidden,
               ownerId: f.ownerId,
               product_typeId: f.product_typeId,
@@ -221,8 +219,7 @@ export class ProductService {
       });
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Create$ = (item: Product): Observable<any> => {
+  private Create$ = (item: Product): Observable<unknown> => {
     // debugger
     this.apiService.Controller = 'Product';
     this.apiService.Action = 'Create';
@@ -238,8 +235,7 @@ export class ProductService {
     // new Response(fd).text().then(console.log)
     // console.log(fd);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this._http.post<any>(this.apiService.Url, fd, {
+    return this._http.post<unknown>(this.apiService.Url, fd, {
       headers,
     });
   };
@@ -288,8 +284,7 @@ export class ProductService {
       },
     });
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private UpdateAll$ = (item: Product): Observable<any> => {
+  private UpdateAll$ = (item: Product): Observable<unknown> => {
     // throw new Error("not implemint exeption");
     this.apiService.Controller = 'Product';
     this.apiService.Action = 'Update';
@@ -302,7 +297,7 @@ export class ProductService {
     });
 
     const fd = this.createFormData(item, FlagSendData.all);
-    return this._http.put<any>(this.apiService.Url, fd, {
+    return this._http.put<unknown>(this.apiService.Url, fd, {
       headers,
     });
   };
@@ -351,7 +346,7 @@ export class ProductService {
     });
   };
 
-  private UpdateIgnoreImg$ = (item: Product): Observable<any> => {
+  private UpdateIgnoreImg$ = (item: Product): Observable<unknown> => {
     // throw new Error("not implemint exeption");
     this.apiService.Controller = 'Product';
     this.apiService.Action = 'UpdateIgnoreImg';
@@ -364,7 +359,7 @@ export class ProductService {
     });
 
     const fd = this.createFormData(item, FlagSendData.date);
-    return this._http.put<any>(this.apiService.Url, fd, {
+    return this._http.put<unknown>(this.apiService.Url, fd, {
       headers,
     });
   };
@@ -413,7 +408,7 @@ export class ProductService {
       },
     });
   };
-  private UpdateOnlyImg$ = (item: Product): Observable<any> => {
+  private UpdateOnlyImg$ = (item: Product): Observable<unknown> => {
     // throw new Error("not implemint exeption");
     this.apiService.Controller = 'Product';
     this.apiService.Action = 'UpdateOnlyImg';
@@ -426,7 +421,7 @@ export class ProductService {
     });
 
     const fd = this.createFormData(item, FlagSendData.img);
-    return this._http.put<any>(this.apiService.Url, fd, {
+    return this._http.put<unknown>(this.apiService.Url, fd, {
       headers,
     });
   };
@@ -481,8 +476,7 @@ export class ProductService {
     });
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private Delete$ = (id: number): Observable<any> => {
+  private Delete$ = (id: number): Observable<unknown> => {
     this.apiService.Controller = 'Product';
     this.apiService.Action = 'Delete';
     this.apiService.ID = id;

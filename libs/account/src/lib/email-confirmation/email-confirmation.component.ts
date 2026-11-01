@@ -5,14 +5,14 @@ import { AccountService } from '../_shared/services/account.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-    selector: 'app-email-confirmation',
+    selector: 'wsv2-email-confirmation',
     templateUrl: './email-confirmation.component.html',
     styleUrls: ['./email-confirmation.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EmailConfirmationComponent implements OnInit {
-  public showSuccess: boolean = false;
+  public showSuccess = false;
   public _errorMgs: string[] = [];
 
   constructor(

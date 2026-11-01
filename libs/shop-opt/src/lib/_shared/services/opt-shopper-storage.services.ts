@@ -26,7 +26,7 @@ export class OptShopperStorage{
 
     public   get Get():string|null{
         
-        return  localStorage.getItem( optSorageKey["optShopper"]);;
+        return  localStorage.getItem( optSorageKey["optShopper"]);
      }
     public set Set(opt_var_value:string|null){
         if(opt_var_value)

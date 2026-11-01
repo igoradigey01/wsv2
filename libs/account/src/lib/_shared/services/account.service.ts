@@ -6,13 +6,13 @@ import { Observable, } from 'rxjs';
 
 
 import { ApiService } from '@wsv2/app-config';
+import type { AuthResponseDto } from '../_interfaces/AuthResponseDto.model';
 import { RegistrationResponseDto } from '../_interfaces/registration-responseDto.model';
 import { UserRegistrationDto } from '../_interfaces/user-registrationDto.model';
 import { ForgotPasswordDto } from '../_interfaces/forgot-passwordDto.model';
 import { UrlEncoder } from '../class/url-encoder.class';
 import { ResetPasswordMailDto } from '../_interfaces/reset-passwordDto.model';
 import { ExternalAuthSocialDto } from '../_interfaces/ExternalAuthSocialDto.model';
-import { AuthResponseDto } from '../_interfaces/AuthResponseDto.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,14 +35,14 @@ export class AccountService {
   constructor(private http: HttpClient, private url: ApiService) {}
 
   /** Get token login pass */
-  public login = (credentials: string): Observable<any> => {
+  public login = (credentials: string): Observable<AuthResponseDto> => {
     // debugger
     this.url.Controller = 'Account';
     this.url.Action = 'Login';
     this.url.ID = null;
 
     //  console.log('login-credentials = '+credentials);
-    return this.http.post(this.url.AuthUrl, credentials, {
+    return this.http.post<AuthResponseDto>(this.url.AuthUrl, credentials, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }), withCredentials: true   // использовать  cookie для refreshToken

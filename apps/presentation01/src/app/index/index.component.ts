@@ -29,7 +29,7 @@ export class IndexComponent {
 
   private _cartItemsCount = 0; // haader
   
-  _flagPanel: boolean = true; // sidenav 
+  _flagPanel = true; // sidenav 
   _flagSideBarHiden = false; //sidenav
 
 
@@ -41,12 +41,12 @@ export class IndexComponent {
   
 
   title = ''; // not relize
-  public _srcLogo: string = '';
+  public _srcLogo = '';
   public _menuItems: IMenyItem[] = [];
   public _company_name_1: string | undefined;
-  public _company_name_2: string = ""
-  public _company_phone: string = '';
-  public _company_normalize_phone: string = '';
+  public _company_name_2 = ""
+  public _company_phone = '';
+  public _company_normalize_phone = '';
   //public is_shop = true;
   public roleUser =signal<UserRole>( UserRole.admin);
   public roles=['default', 'opt','shoper','shoperOpt','manager','admin'] 

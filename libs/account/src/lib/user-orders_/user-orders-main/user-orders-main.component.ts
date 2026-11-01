@@ -1,18 +1,14 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import type { OnInit } from '@angular/core';
 import {StateView} from '../../_shared/_interfaces/state-view'
 
 @Component({
-    selector: 'x01-v1-user-orders-main',
+    selector: 'wsv2-user-orders-main',
     templateUrl: './user-orders-main.component.html',
     styleUrls: ['./user-orders-main.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class UserOrdersMainComponent implements OnInit {
+export class UserOrdersMainComponent {
 
   public _flagViewState:StateView=StateView.default;
-  constructor() {}
-
-  ngOnInit(): void {}
 }

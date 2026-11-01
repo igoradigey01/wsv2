@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import type { HttpEvent } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 //import { environment } from 'apps/xf01/src/environments/environment';
 import { ManagerServiceModule } from './maneger-service.module';
-import {Brand} from 'apps/xf01/src/app/_shared/_interfaces/brand.model';
+import {Brand} from '@wsv2/xf-shared';
 import { Observable } from 'rxjs';
-import {TokenService} from 'apps/xf01/src/app/_shared/services/token.service';
-import { RouteApiService } from 'apps/xf01/src/app/_shared/services/route-api.service';
+import {TokenService} from '@wsv2/xf-shared';
+import { RouteApiService } from '@wsv2/xf-shared';
 
 @Injectable({
   providedIn: ManagerServiceModule
@@ -27,7 +28,7 @@ export class BrandNService {
     this._url.Controller = 'BrandN';
     this._url.Action = 'getPostavchik';
     this._url.ID=this._url.PostavchikId;
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
        Authorization: 'Bearer ' + this._token.AccessToken,
     });
@@ -40,18 +41,18 @@ export class BrandNService {
 
   //------------------------------------------------
 
-  public Create = (item: Brand): Observable<any> => {
+  public Create = (item: Brand): Observable<HttpEvent<unknown>> => {
   //debugger
     this._url.Controller = 'BrandN';
     this._url.Action = 'Create';
     this._url.ID=null
     item.postavchikId=this._url.PostavchikId;
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this._token.AccessToken,
     });
  // debugger
-    let fd = this.createFormData(item);
+    const fd = this.createFormData(item);
 
     new Response(fd).text().then(console.log);
 
@@ -64,18 +65,18 @@ export class BrandNService {
 
   //-----------------------------------
 
-  public Update = (item: Brand): Observable<any> => {
+  public Update = (item: Brand): Observable<HttpEvent<unknown>> => {
    // throw new Error("not implemint exeption");
    this._url.Controller = 'BrandN';
    this._url.Action = 'Update';
    this._url.ID=item.id;
    item.postavchikId=this._url.PostavchikId;
  //  debugger
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this._token.AccessToken,
     });
-    let fd = this.createFormData(item);
+    const fd = this.createFormData(item);
 
     new Response(fd).text().then(console.log);
     return this._http.put(this._url.Url, fd,{
@@ -86,17 +87,17 @@ export class BrandNService {
   }
   //-------------------
 
-  public Delete = (id: number): Observable<any> => {
+  public Delete = (id: number): Observable<HttpEvent<unknown>> => {
     this._url.Controller = 'BrandN';
     this._url.Action = 'delete';
     this._url.ID=id;
 
 
-    let headers: HttpHeaders = new HttpHeaders({
+    const headers: HttpHeaders = new HttpHeaders({
       Accept: 'application/json',
       Authorization: 'Bearer ' + this._token.AccessToken,
     });
-    let url: string = this._url.Url+'/'+id;
+    const url: string = this._url.Url+'/'+id;
     return this._http.delete(url,{
       reportProgress: true,
       observe: 'events',
@@ -106,7 +107,7 @@ export class BrandNService {
 
 
   private createFormData(item: Brand ): FormData {
-    let formData = new FormData();
+    const formData = new FormData();
 
     const entries = Object.entries(item);
 

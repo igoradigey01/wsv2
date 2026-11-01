@@ -5,7 +5,7 @@ import { ActivatedRoute , Router } from '@angular/router';
 import { ProductService } from '../_shared/services/product.service';
 import { StateView, Product, } from '@wsv2/app-common';
 import {CartService } from '@wsv2/shop-cart'
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { KatalogImgComponent, CardProductComponent } from '@wsv2/ui';
 
 

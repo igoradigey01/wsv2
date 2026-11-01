@@ -9,10 +9,4 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./page-not-found.component.scss']
 })
-export class PageNotFoundComponent  {
-
-  constructor() { }
-
- 
-
-}
+export class PageNotFoundComponent  {}

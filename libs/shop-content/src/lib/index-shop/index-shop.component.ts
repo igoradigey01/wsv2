@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, computed } from '@angular/core';
 import type { OnInit } from '@angular/core';
-import { Router ,ActivatedRoute} from '@angular/router';
+import { Router ,ActivatedRoute, type Params } from '@angular/router';
 //import { HttpErrorResponse } from '@angular/common/http';
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { KatalogComponent } from '@wsv2/ui';
 import { IButton ,UserRole} from '@wsv2/app-common';
 import {UserManagerService} from '@wsv2/account-service'
@@ -49,8 +49,7 @@ export class IndexShopComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.queryParams.subscribe(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (queryParam: any) => {
+      (queryParam: Params) => {
           const opt = queryParam['opt'];
           if(opt){
             this.userManager.SetCustomerOpt(true);

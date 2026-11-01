@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 export default {
   displayName: 'manage-page',
   preset: '../../jest.preset.js',

@@ -4,7 +4,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {VersionInfoService} from '@wsv2/app-config'
 
 @Component({
-    selector: '@wsv2-version-info',
+    selector: 'wsv2-version-info',
     templateUrl: './version-info.component.html',
     styleUrls: ['./version-info.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,

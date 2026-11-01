@@ -4,9 +4,9 @@ import type { OnInit } from '@angular/core';
 import { Router ,ActivatedRoute } from '@angular/router';
 
 
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import { KatalogComponent } from '@wsv2/ui';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+ 
 import {IButton} from '@wsv2/app-common'
 import { SubKatalogService } from '../_shared/services/sub-katalog.service'
 
@@ -24,7 +24,7 @@ export class SubCatalogComponent  implements OnInit{
 
     subkatalogsSelect = computed(() =>
     this._repository.SubCatalogs().filter((f) => f.catalogId === +this.idKatatlog)
-  );;
+  );
     idKatatlog=-1;
 
 

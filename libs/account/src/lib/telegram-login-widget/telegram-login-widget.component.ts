@@ -6,7 +6,7 @@ import {TelegramLoginWidgetService} from '../_shared/services/telegram-login-wid
 //https://github.com/angular/components/tree/main/src/google-maps#readme
 
 @Component({
-    selector: 'x01-v1-telegram-login-widget',
+    selector: 'wsv2-telegram-login-widget',
     templateUrl: './telegram-login-widget.component.html',
     styleUrls: ['./telegram-login-widget.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -15,7 +15,7 @@ import {TelegramLoginWidgetService} from '../_shared/services/telegram-login-wid
 export class TelegramLoginWidgetComponent implements OnInit {
   
 
-  private script:string=''
+  private script=''
 
   constructor(
     private repozitory:TelegramLoginWidgetService

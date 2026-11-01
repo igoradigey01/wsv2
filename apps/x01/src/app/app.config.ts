@@ -8,6 +8,7 @@ import {
   EnvironmentService,
   CompanyInformationService,
   ICompanyInformation,
+  IMenyItem,
 } from '@wsv2/app-config';
 import { tap } from 'rxjs/operators';
 import { environment } from '../environments/environment';
@@ -36,7 +37,7 @@ export const appConfig: ApplicationConfig = {
             http
               .get('assets/meny_items_assembly/index-meny-items.json')
               .pipe(
-                tap((data: any) => {
+                tap((data: IMenyItem[]) => {
                   menyItemsService.shopMenyItems = data;
                   console.log('--promise is ok--');
                   resolve(true);
@@ -60,7 +61,7 @@ export const appConfig: ApplicationConfig = {
             http
               .get('assets/meny_items_assembly/manager-meny-items.json')
               .pipe(
-                tap((data: any) => {
+                tap((data: IMenyItem[]) => {
                   menyItemsService.managerMenyItems = data;
                   console.log('--promise is ok--');
                   resolve(true);
@@ -84,7 +85,7 @@ export const appConfig: ApplicationConfig = {
             http
               .get('assets/meny_items_assembly/admin-meny-items.json')
               .pipe(
-                tap((data: any) => {
+                tap((data: IMenyItem[]) => {
                   menyItemsService.adminMenyItems = data;
                  // console.log('--promise is ok--');
                   resolve(true);

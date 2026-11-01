@@ -1,19 +1,18 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import type { OnInit } from '@angular/core';
 import {CompanyInformationService} from '@wsv2/app-config'
 
 @Component({
-    selector: 'x01-v1-footer',
+    selector: 'wsv2-footer',
     templateUrl: './footer.component.html',
     styleUrls: ['./footer.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
   company_activities ='';  //  'ЛДСП && МДФ Ханская';  //виды деятельности компании
-  company_time_create:string= '';  //год создания   new Date(2022,8,14).getFullYear();
-  company_copyright:string=  '';    //" ИП Дячук "; //авторские права
+  company_time_create= '';  //год создания   new Date(2022,8,14).getFullYear();
+  company_copyright=  '';    //" ИП Дячук "; //авторские права
 
   constructor(
     private repository:CompanyInformationService
@@ -23,5 +22,4 @@ export class FooterComponent implements OnInit {
     this.company_copyright=repository.company_copyright;
   }
 
-  ngOnInit(): void {}
 }

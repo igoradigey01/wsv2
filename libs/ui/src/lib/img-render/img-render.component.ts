@@ -130,7 +130,7 @@ export class ImgRenderComponent  {
     });
   }
 
-  public onSetFilePhoto(event: any): void {
+  public onSetFilePhoto(event: Event): void {
     this._flagPhoto = true;
     //  this._select_obj= URL.createObjectURL(event.files[0])
     this.imageChangedEvent = event;
