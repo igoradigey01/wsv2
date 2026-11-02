@@ -155,7 +155,7 @@ export class ProductItemComponent {
   ) // private _imgManager: ImgManagerService
   {}
 
-  public onBrandChange(event: Event) {
+  public onBrandChange(_event: unknown) {
     this.state.update((state) => ({
       ...state,
       brandName: this.BrandItmes().find((d) => d.id === this.state().brandId)
@@ -163,7 +163,7 @@ export class ProductItemComponent {
     }));
   }
 
-  public onColorChange(event: Event) {
+  public onColorChange(_event: unknown) {
     this.state.update((state) => ({
       ...state,
       colorName: this.ColorItmes().find((d) => d.id === this.state().colorId)
@@ -171,7 +171,7 @@ export class ProductItemComponent {
     }));
   }
 
-  public onArticleChange(event: Event) {
+  public onArticleChange(_event: unknown) {
     this.state.update((state) => ({
       ...state,
       articleName: this.ArticleItmes().find(

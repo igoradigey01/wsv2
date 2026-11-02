@@ -35,7 +35,7 @@ export const appConfig: ApplicationConfig = {
             // load settings for a local app
             //console.log("--promise is ok--")
             http
-              .get('assets/meny_items_assembly/index-meny-items.json')
+              .get<IMenyItem[]>('assets/meny_items_assembly/index-meny-items.json')
               .pipe(
                 tap((data: IMenyItem[]) => {
                   menyItemsService.shopMenyItems = data;
@@ -59,7 +59,7 @@ export const appConfig: ApplicationConfig = {
             // load settings for a local app
             //console.log("--promise is ok--")
             http
-              .get('assets/meny_items_assembly/manager-meny-items.json')
+              .get<IMenyItem[]>('assets/meny_items_assembly/manager-meny-items.json')
               .pipe(
                 tap((data: IMenyItem[]) => {
                   menyItemsService.managerMenyItems = data;
@@ -83,7 +83,7 @@ export const appConfig: ApplicationConfig = {
             // load settings for a local app
             //console.log("--promise is ok--")
             http
-              .get('assets/meny_items_assembly/admin-meny-items.json')
+              .get<IMenyItem[]>('assets/meny_items_assembly/admin-meny-items.json')
               .pipe(
                 tap((data: IMenyItem[]) => {
                   menyItemsService.adminMenyItems = data;

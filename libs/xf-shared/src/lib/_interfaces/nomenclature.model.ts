@@ -20,5 +20,5 @@ export interface Nomenclature {
   postavchikId?: number;
   wwwroot?: string;
   imageWebp?: Blob | File;
-  [key: string]: any;
+  [key: string]: unknown;
 }

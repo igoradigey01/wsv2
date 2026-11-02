@@ -5,5 +5,5 @@ export interface Color {
   id: number;
   name: string;
   postavchikId?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }

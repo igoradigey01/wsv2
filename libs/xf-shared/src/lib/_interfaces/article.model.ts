@@ -5,5 +5,5 @@ export interface Article {
   id: number;
   name: string;
   postavchikId?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
