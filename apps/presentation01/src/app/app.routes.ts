@@ -1,85 +1,78 @@
 import type { Route } from '@angular/router';
 
-import  {IndexComponent} from './index/index.component';
-//import {PageNotFoundComponent} from '@wsv2/app-common'
+import { IndexComponent } from './index/index.component';
 
-
+// Маршруты зеркалируют эталонные приложения (x01/xf01/xl-01).
+// presentation01 — демо-витрина: работает только на чтение/моках, БД не меняет.
 export const appRoutes: Route[] = [
-         
-  { path: '',   redirectTo: 'index', pathMatch: 'full' },
-   
-     // {
-     //   path: 'index',              
-     //  component:IndexComponent,
-      //  children: [
-      //   {
-      //     path: '',
-      //     loadComponent: () =>
-      //     // eslint-disable-next-line @nx/enforce-module-boundaries
-      //     import('@wsv2/shop-content').then((m) => m.IndexShopComponent)
-      //   },
-      //   {
-      //     path: 'account',              
-      //     loadChildren: () =>
-      //       import('@wsv2/account').then((m) => m.AccountModule)
-      //   },
-      //   {
-      //     path: 'cart',              
-      //     loadComponent: () =>
-      //       import('@wsv2/shop-cart').then((m) => m.ShopShellComponent)
-      //   },
-      //   {
-      //     path: 'order',              
-      //     loadComponent: () =>
-      //       import('@wsv2/shop-order').then((m) => m.OrdersShellComponent)
-      //   },
-    
-    
-    
-      //   {
-      //     path: 'menu',
-      //     loadChildren: () =>
-      //       import('@wsv2/shop-information').then(
-      //         (m) => m.ShopInformationModule
-      //       ),
-      //   } ,
+  { path: '', redirectTo: 'index', pathMatch: 'full' },
 
-      //   // {
-      //   //   path:'test',
-      //   //   loadComponent: () =>
-      //   //   import('@wsv2/ui').then((m) => m.KatalogComponent)
-      //   // },
-      //   // {
-      //   //   path: 'content',
-      //   //   loadChildren: () =>
-      //   //     import('@x01-v1/xl01/content-section').then(
-      //   //       (module) => module.Xl01ContentSectionModule
-      //   //     ),
-      //   // },
-      //   {
-      //     path: '**',
-      //   loadComponent: () =>
-      //   import('@wsv2/app-common').then((c) => c.PageNotFoundComponent)
-      //   }
-      // ],
-       
-      // },
-      
-     
-      // {
-      //   path: 'manager',              
-      //   loadComponent: () =>
-      //     import('@wsv2/manage-page').then((m) => m.IndexComponent)
-      // },
-      
-      // {
-      //   path: 'admin',              
-      //   loadComponent: () =>
-      //     import('@wsv2/admin-page').then((m) => m.IndexComponent)
-      // },
-      // { path: '**',   redirectTo: 'index/**', pathMatch: 'full' },
-   
-      
-    
+  {
+    path: 'index',
+    component: IndexComponent,
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('@wsv2/shop-content').then((m) => m.IndexShopComponent),
+      },
+      {
+        path: 'katalogs/:id',
+        loadComponent: () =>
+          import('@wsv2/shop-content').then((m) => m.SubCatalogComponent),
+      },
+      {
+        path: 'katalogs/:id/products/:id',
+        loadComponent: () =>
+          import('@wsv2/shop-content').then((m) => m.ProductComponent),
+      },
+      {
+        path: 'account',
+        loadChildren: () =>
+          import('@wsv2/account').then((m) => m.AccountModule),
+      },
+      {
+        path: 'user-profile',
+        loadComponent: () =>
+          import('@wsv2/user-profile').then((m) => m.UserProfileShellComponent),
+      },
+      {
+        path: 'cart',
+        loadComponent: () =>
+          import('@wsv2/shop-cart').then((m) => m.CartShellComponent),
+      },
+      {
+        path: 'order',
+        loadComponent: () =>
+          import('@wsv2/shop-order').then((m) => m.OrdersShellComponent),
+      },
+      {
+        path: 'opt',
+        loadComponent: () =>
+          import('@wsv2/shop-opt').then((m) => m.OptSignInComponent),
+      },
+      {
+        path: 'menu',
+        loadChildren: () =>
+          import('@wsv2/shop-information').then((m) => m.ShopInformationModule),
+      },
+      {
+        path: '**',
+        loadComponent: () =>
+          import('@wsv2/app-common').then((c) => c.PageNotFoundComponent),
+      },
+    ],
+  },
+
+  {
+    path: 'manager',
+    loadComponent: () =>
+      import('@wsv2/manage-page').then((m) => m.IndexComponent),
+  },
+  {
+    path: 'admin',
+    loadComponent: () =>
+      import('@wsv2/admin-page').then((m) => m.IndexComponent),
+  },
+  { path: '**', redirectTo: 'index/**', pathMatch: 'full' },
 ];
-

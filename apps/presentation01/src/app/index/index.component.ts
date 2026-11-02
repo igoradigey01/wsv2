@@ -6,7 +6,9 @@ import { MaterialModule } from '../material.module'
 import { RouterModule } from "@angular/router";
 import { CompanyInformationService, MenyItemsService, IMenyItem } from '@wsv2/app-config'
 import { KatalogComponent, AppHeaderLayoutComponent } from '@wsv2/ui'
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { IButton } from '@wsv2/app-common'
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { UserRole } from '@wsv2/app-common'
 import { NgClass } from '@angular/common';
 
