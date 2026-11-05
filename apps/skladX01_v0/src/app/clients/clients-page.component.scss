@@ -1,0 +1,59 @@
+.clients-page {
+  padding: 1rem;
+  font-family: system-ui, sans-serif;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: 26rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+
+  input {
+    padding: 0.4rem 0.5rem;
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+  }
+}
+
+.grid {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 0.375rem 0.5rem;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+    font-size: 0.875rem;
+  }
+
+  th button {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  tbody tr {
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid #1a55d6;
+      outline-offset: -2px;
+    }
+  }
+}
+
+.state {
+  padding: 0.5rem 0;
+  color: #555;
+
+  &--error {
+    color: #b3261e;
+  }
+}

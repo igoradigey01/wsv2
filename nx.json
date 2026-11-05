@@ -30,6 +30,11 @@
     },
     "e2e-ci--**/**": {
       "dependsOn": ["^skladhs:build"]
+    },
+    "@angular/build:application": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "namedInputs": {
@@ -137,6 +142,7 @@
         "apps/hadjoh01/**/*",
         "apps/presentation01/**/*",
         "apps/shagen01/**/*",
+        "apps/skladX01_v0/**/*",
         "apps/skladsh/**/*",
         "apps/x01/**/*",
         "apps/xf01/**/*",
@@ -172,6 +178,7 @@
         "apps/hadjoh01-e2e/**/*",
         "apps/presentation01-e2e/**/*",
         "apps/shagen01-e2e/**/*",
+        "apps/skladX01_v0-e2e/**/*",
         "apps/x01-e2e/**/*",
         "apps/xf01-e2e/**/*",
         "apps/xl-01-e2e/**/*"
@@ -189,6 +196,8 @@
         "apps/presentation01-e2e/**/*",
         "apps/shagen01/**/*",
         "apps/shagen01-e2e/**/*",
+        "apps/skladX01_v0/**/*",
+        "apps/skladX01_v0-e2e/**/*",
         "apps/skladsh/**/*",
         "apps/x01/**/*",
         "apps/x01-e2e/**/*",
@@ -215,5 +224,6 @@
         "libs/user-profile/**/*"
       ]
     }
-  ]
+  ],
+  "analytics": true
 }

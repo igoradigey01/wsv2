@@ -1,0 +1,83 @@
+{
+  "name": "skladX01_v0",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/skladX01_v0/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/skladX01_v0",
+        "browser": "apps/skladX01_v0/src/main.ts",
+        "tsConfig": "apps/skladX01_v0/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/skladX01_v0/public"
+          }
+        ],
+        "styles": ["apps/skladX01_v0/src/styles.scss"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "readyWhen": {
+        "signal": true
+      },
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/skladX01_v0/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "skladX01_v0:build:production"
+        },
+        "development": {
+          "buildTarget": "skladX01_v0:build:development"
+        }
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "readyWhen": {
+        "signal": true
+      },
+      "dependsOn": ["build"],
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "skladX01_v0:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/skladX01_v0/browser",
+        "spa": true
+      }
+    }
+  }
+}

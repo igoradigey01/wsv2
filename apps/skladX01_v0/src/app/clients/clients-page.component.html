@@ -1,0 +1,75 @@
+<section class="clients-page">
+  <h1>Клиенты</h1>
+
+  <label class="search">
+    <span>Поиск: телефон, имя или псевдоним</span>
+    <input
+      type="search"
+      name="q"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearchChange()"
+      autocomplete="off"
+      placeholder="Например: Туапсе или 8918"
+    />
+  </label>
+
+  @if (loading()) {
+    <p class="state">Загрузка…</p>
+  } @else if (error()) {
+    <p class="state state--error">
+      {{ error() }}
+      <button type="button" (click)="retry()">Повторить</button>
+    </p>
+  } @else if (clients().length === 0) {
+    <p class="state">Ничего не найдено. Измените запрос.</p>
+  } @else {
+    <table class="grid">
+      <thead>
+        <tr>
+          <th [attr.aria-sort]="ariaSort('alias')">
+            <button type="button" (click)="toggleSort('alias')">
+              Псевдоним <span aria-hidden="true">{{ arrow('alias') }}</span>
+            </button>
+          </th>
+          <th [attr.aria-sort]="ariaSort('name')">
+            <button type="button" (click)="toggleSort('name')">
+              ФИО <span aria-hidden="true">{{ arrow('name') }}</span>
+            </button>
+          </th>
+          <th [attr.aria-sort]="ariaSort('phone')">
+            <button type="button" (click)="toggleSort('phone')">
+              Телефон <span aria-hidden="true">{{ arrow('phone') }}</span>
+            </button>
+          </th>
+          <th [attr.aria-sort]="ariaSort('city')">
+            <button type="button" (click)="toggleSort('city')">
+              Город <span aria-hidden="true">{{ arrow('city') }}</span>
+            </button>
+          </th>
+          <th [attr.aria-sort]="ariaSort('id')">
+            <button type="button" (click)="toggleSort('id')">
+              Id <span aria-hidden="true">{{ arrow('id') }}</span>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (client of clients(); track client.id) {
+          <tr
+            role="button"
+            tabindex="0"
+            (click)="open(client)"
+            (keyup.enter)="open(client)"
+            (keyup.space)="open(client)"
+          >
+            <td>{{ client.alias }}</td>
+            <td>{{ client.fullName }}</td>
+            <td>{{ client.phone }}</td>
+            <td>{{ client.city }}</td>
+            <td>{{ client.id }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

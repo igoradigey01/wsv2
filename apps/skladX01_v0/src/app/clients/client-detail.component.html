@@ -1,0 +1,228 @@
+<section class="detail">
+  <a class="back" routerLink="/clients">← К клиентам</a>
+
+  @if (loading()) {
+    <p class="state">Загрузка…</p>
+  } @else if (notFound()) {
+    <p class="state state--error">Клиент не найден.</p>
+  } @else if (error()) {
+    <p class="state state--error">
+      {{ error() }}
+      <button type="button" (click)="retry()">Повторить</button>
+    </p>
+  } @else if (client(); as c) {
+    <header class="card">
+      <div class="card__title">
+        <h1>{{ c.alias }}</h1>
+        <p class="muted">
+          Клиент #{{ c.id }} · {{ c.active ? 'активен' : 'неактивен' }}
+        </p>
+      </div>
+
+      <dl class="facts">
+        <dt>ФИО</dt>
+        <dd>{{ c.fullName }}</dd>
+        <dt>Телефон</dt>
+        <dd>{{ c.phone }}</dd>
+        <dt>Город</dt>
+        <dd>{{ c.city }}</dd>
+        <dt>Предел кредита</dt>
+        <dd>{{ c.creditLimit | number: '1.2-2' }}</dd>
+      </dl>
+
+      @if (summary(); as s) {
+        <dl class="facts">
+          <dt>Долг</dt>
+          <dd>{{ s.debt | number: '1.2-2' }}</dd>
+          <dt>Переплата</dt>
+          <dd>{{ s.overpayment | number: '1.2-2' }}</dd>
+          <dt>Сделок</dt>
+          <dd>{{ s.deals }} (активных: {{ s.activeDeals }})</dd>
+        </dl>
+
+        @if (s.limitExceeded) {
+          <p class="warning">Превышен предел кредита</p>
+        }
+      }
+
+      <div class="actions">
+        <a class="action" [routerLink]="['/clients', c.id, 'invoice', 'new']">
+          Выписать накладную
+        </a>
+        <a class="action" [routerLink]="['/clients', c.id, 'payment', 'new']">
+          Принять деньги
+        </a>
+      </div>
+    </header>
+
+    <div class="blocks">
+      <section class="block">
+        <h2>Метка расчёт (сверка)</h2>
+
+        @if (marks().length === 0) {
+          <p class="state">У клиента нет меток расчёта.</p>
+        } @else {
+          <table class="grid grid--selectable">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>№</th>
+                <th class="num">Долг</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (mark of marks(); track mark.id) {
+                <tr
+                  role="button"
+                  tabindex="0"
+                  [class.grid__row--active]="selectedMarkId() === mark.id"
+                  [attr.aria-pressed]="selectedMarkId() === mark.id"
+                  (click)="selectMark(mark)"
+                  (keyup.enter)="selectMark(mark)"
+                  (keyup.space)="selectMark(mark)"
+                >
+                  <td data-label="id">{{ mark.id }}</td>
+                  <td data-label="№">{{ mark.number }}</td>
+                  <td class="num" data-label="Долг">
+                    {{ mark.debt | number: '1.2-2' }}
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+          <p class="total">
+            <span>меток: {{ marks().length }}</span>
+            <span>Долг: <strong>{{ marksDebt() | number: '1.2-2' }}</strong></span>
+          </p>
+        }
+      </section>
+
+      <section class="block">
+        <h2>Отпущенный товар</h2>
+
+        @if (selectedMark(); as mark) {
+          <p class="muted">Метка №{{ mark.number }}</p>
+
+          <label class="filter">
+            <span>начиная</span>
+            <input
+              type="date"
+              [value]="fromDate()"
+              (input)="setFromDate($event)"
+            />
+          </label>
+
+          @if (productsLoading()) {
+            <p class="state">Загрузка…</p>
+          } @else if (productsError()) {
+            <p class="state state--error">
+              {{ productsError() }}
+              <button type="button" (click)="retryProducts()">Повторить</button>
+            </p>
+          } @else if (filteredProducts().length === 0) {
+            <p class="state">Нет отгруженных товаров.</p>
+          } @else {
+            <table class="grid">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>№</th>
+                  <th>дата</th>
+                  <th class="num">Сумма</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (product of filteredProducts(); track product.id) {
+                  <tr>
+                    <td data-label="id">{{ product.id }}</td>
+                    <td data-label="№">{{ product.number }}</td>
+                    <td data-label="дата">
+                      {{ product.date | date: 'dd.MM.yyyy' }}
+                    </td>
+                    <td class="num" data-label="Сумма">
+                      {{ product.amount | number: '1.2-2' }}
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+
+            <p class="total">
+              <span>всего: {{ filteredProducts().length }}</span>
+              <span>
+                Итого: <strong>{{ productsTotal() | number: '1.2-2' }}</strong>
+              </span>
+            </p>
+          }
+        } @else if (marks().length === 0) {
+          <p class="state">У клиента нет меток расчёта.</p>
+        } @else {
+          <p class="state">Выберите метку расчёта.</p>
+        }
+      </section>
+
+      <section class="block">
+        <h2>Принятые деньги</h2>
+
+        @if (selectedMark(); as mark) {
+          <p class="muted">Метка №{{ mark.number }}</p>
+
+          <label class="filter">
+            <span>начиная</span>
+            <input
+              type="date"
+              [value]="fromDate()"
+              (input)="setFromDate($event)"
+            />
+          </label>
+
+          @if (paymentsLoading()) {
+            <p class="state">Загрузка…</p>
+          } @else if (paymentsError()) {
+            <p class="state state--error">
+              {{ paymentsError() }}
+              <button type="button" (click)="retryPayments()">Повторить</button>
+            </p>
+          } @else if (filteredPayments().length === 0) {
+            <p class="state">Нет принятых денег.</p>
+          } @else {
+            <table class="grid">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>дата</th>
+                  <th class="num">Сумма</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (payment of filteredPayments(); track payment.id) {
+                  <tr>
+                    <td data-label="id">{{ payment.id }}</td>
+                    <td data-label="дата">
+                      {{ payment.date | date: 'dd.MM.yyyy' }}
+                    </td>
+                    <td class="num" data-label="Сумма">
+                      {{ payment.amount | number: '1.2-2' }}
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+
+            <p class="total">
+              <span>всего: {{ filteredPayments().length }}</span>
+              <span>
+                Итого: <strong>{{ paymentsTotal() | number: '1.2-2' }}</strong>
+              </span>
+            </p>
+          }
+        } @else if (marks().length === 0) {
+          <p class="state">У клиента нет меток расчёта.</p>
+        } @else {
+          <p class="state">Выберите метку расчёта.</p>
+        }
+      </section>
+    </div>
+  }
+</section>
