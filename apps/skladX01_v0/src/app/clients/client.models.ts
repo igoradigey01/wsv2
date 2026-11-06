@@ -36,14 +36,14 @@ export interface IShippedGoodApi {
   номер: string;
   дата: string;
   сумма: number;
-  меткаId: string;
+  сделкаId: string;
 }
 
 export interface IPaymentApi {
   id: number;
   дата: string;
   сумма: number;
-  меткаId: string;
+  сделкаId: string;
 }
 
 export interface IClient {
@@ -67,14 +67,14 @@ export interface IShippedGood {
   number: string;
   date: string;
   amount: number;
-  markId: string;
+  dealId: string;
 }
 
 export interface IPayment {
   id: number;
   date: string;
   amount: number;
-  markId: string;
+  dealId: string;
 }
 
 export interface IClientSummary {

@@ -142,7 +142,7 @@
             <a
               class="action"
               [routerLink]="['/clients', c.id, 'invoice', 'new']"
-              [queryParams]="{ markId: mark.id }"
+              [queryParams]="{ dealId: mark.id }"
             >
               Выписать накладную
             </a>
@@ -223,7 +223,7 @@
             <a
               class="action"
               [routerLink]="['/clients', c.id, 'payment', 'new']"
-              [queryParams]="{ markId: mark.id }"
+              [queryParams]="{ dealId: mark.id }"
             >
               Принять деньги
             </a>

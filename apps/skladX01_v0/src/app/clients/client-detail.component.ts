@@ -293,18 +293,18 @@ export class ClientDetailComponent implements OnInit {
     }
   }
 
-  private loadProducts(markId: string): void {
+  private loadProducts(dealId: string): void {
     this.productsSub?.unsubscribe();
     this.products.set([]);
     this.productsError.set(null);
     this.productsLoading.set(true);
 
     this.productsSub = this.clientService
-      .getProducts(markId)
+      .getProducts(dealId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (products) => {
-          if (this.selectedMarkId() !== markId) {
+          if (this.selectedMarkId() !== dealId) {
             return;
           }
 
@@ -318,18 +318,18 @@ export class ClientDetailComponent implements OnInit {
       });
   }
 
-  private loadPayments(markId: string): void {
+  private loadPayments(dealId: string): void {
     this.paymentsSub?.unsubscribe();
     this.payments.set([]);
     this.paymentsError.set(null);
     this.paymentsLoading.set(true);
 
     this.paymentsSub = this.clientService
-      .getPayments(markId)
+      .getPayments(dealId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (payments) => {
-          if (this.selectedMarkId() !== markId) {
+          if (this.selectedMarkId() !== dealId) {
             return;
           }
 

@@ -100,24 +100,24 @@ describe('ClientService', () => {
     service.getMarks(14).subscribe((value) => (marks = value));
 
     const req = httpMock.expectOne('/api/clients/14/marks');
-    req.flush([{ id: 4, номер: 'R-000002', долг: -10300 }]);
+    req.flush([{ id: 'd4', номер: 'R-000002', долг: -10300 }]);
 
-    expect(marks).toEqual([{ id: 4, number: 'R-000002', debt: -10300 }]);
+    expect(marks).toEqual([{ id: 'd4', number: 'R-000002', debt: -10300 }]);
   });
 
   it('переводит отгруженные товары в модель', () => {
     let products: unknown[] = [];
 
-    service.getProducts(4).subscribe((value) => (products = value));
+    service.getProducts('d4').subscribe((value) => (products = value));
 
-    const req = httpMock.expectOne('/api/clients/marks/4/products');
+    const req = httpMock.expectOne('/api/clients/marks/d4/products');
     req.flush([
       {
         id: 124,
         номер: '33',
         дата: '2023-10-23T00:00:00',
         сумма: 12750,
-        меткаId: 4,
+        сделкаId: 'd4',
       },
     ]);
 
@@ -127,7 +127,7 @@ describe('ClientService', () => {
         number: '33',
         date: '2023-10-23T00:00:00',
         amount: 12750,
-        markId: 4,
+        dealId: 'd4',
       },
     ]);
   });
@@ -135,11 +135,11 @@ describe('ClientService', () => {
   it('переводит принятые деньги в модель', () => {
     let payments: unknown[] = [];
 
-    service.getPayments(4).subscribe((value) => (payments = value));
+    service.getPayments('d4').subscribe((value) => (payments = value));
 
-    const req = httpMock.expectOne('/api/clients/marks/4/payments');
+    const req = httpMock.expectOne('/api/clients/marks/d4/payments');
     req.flush([
-      { id: 121, дата: '2023-10-23T00:00:00', сумма: 20000, меткаId: 4 },
+      { id: 121, дата: '2023-10-23T00:00:00', сумма: 20000, сделкаId: 'd4' },
     ]);
 
     expect(payments).toEqual([
@@ -147,7 +147,7 @@ describe('ClientService', () => {
         id: 121,
         date: '2023-10-23T00:00:00',
         amount: 20000,
-        markId: 4,
+        dealId: 'd4',
       },
     ]);
   });

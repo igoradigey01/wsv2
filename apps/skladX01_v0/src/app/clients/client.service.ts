@@ -73,7 +73,7 @@ export function mapShippedGood(raw: IShippedGoodApi): IShippedGood {
     number: raw.номер,
     date: raw.дата,
     amount: raw.сумма,
-    markId: raw.меткаId,
+    dealId: raw.сделкаId,
   };
 }
 
@@ -82,7 +82,7 @@ export function mapPayment(raw: IPaymentApi): IPayment {
     id: raw.id,
     date: raw.дата,
     amount: raw.сумма,
-    markId: raw.меткаId,
+    dealId: raw.сделкаId,
   };
 }
 
@@ -128,15 +128,15 @@ export class ClientService {
       .pipe(map((marks) => marks.map(mapMark)));
   }
 
-  getProducts(markId: string): Observable<IShippedGood[]> {
+  getProducts(dealId: string): Observable<IShippedGood[]> {
     return this.http
-      .get<IShippedGoodApi[]>(`${API}/marks/${markId}/products`)
+      .get<IShippedGoodApi[]>(`${API}/marks/${dealId}/products`)
       .pipe(map((products) => products.map(mapShippedGood)));
   }
 
-  getPayments(markId: string): Observable<IPayment[]> {
+  getPayments(dealId: string): Observable<IPayment[]> {
     return this.http
-      .get<IPaymentApi[]>(`${API}/marks/${markId}/payments`)
+      .get<IPaymentApi[]>(`${API}/marks/${dealId}/payments`)
       .pipe(map((payments) => payments.map(mapPayment)));
   }
 }
