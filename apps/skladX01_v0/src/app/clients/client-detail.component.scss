@@ -262,6 +262,20 @@
   margin: 0.5rem 0;
 }
 
+.toolbar__input {
+  flex: 1 1 12rem;
+  min-width: 0;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #c4c4c4;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.action:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .action--ghost {
   border: 1px solid #1a55d6;
   background: #fff;

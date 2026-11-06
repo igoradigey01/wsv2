@@ -74,13 +74,25 @@
             <p class="state">У клиента нет сделок.</p>
           } @else {
             <div class="toolbar">
-              <a
-                class="action action--ghost"
-                [routerLink]="['/clients', c.id, 'deal', 'new']"
+              <input
+                class="toolbar__input"
+                type="text"
+                placeholder="Комментарий (необязательно)"
+                [value]="newComment()"
+                (input)="setNewComment($event)"
+              />
+              <button
+                type="button"
+                class="action"
+                [disabled]="creating()"
+                (click)="createDeal()"
               >
-                Создать новую сделку
-              </a>
+                {{ creating() ? 'Создаём…' : 'Создать новую сделку' }}
+              </button>
               <span class="muted">выбрана №{{ selectedMark()?.number }}</span>
+              @if (createError()) {
+                <span class="state state--error">{{ createError() }}</span>
+              }
             </div>
 
             <table class="grid grid--selectable">

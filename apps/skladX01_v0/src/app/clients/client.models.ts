@@ -26,7 +26,7 @@ export interface IClientSummaryApi {
 }
 
 export interface IMarkApi {
-  id: number;
+  id: string;
   номер: string;
   долг: number;
 }
@@ -36,14 +36,14 @@ export interface IShippedGoodApi {
   номер: string;
   дата: string;
   сумма: number;
-  меткаId: number;
+  меткаId: string;
 }
 
 export interface IPaymentApi {
   id: number;
   дата: string;
   сумма: number;
-  меткаId: number;
+  меткаId: string;
 }
 
 export interface IClient {
@@ -57,7 +57,7 @@ export interface IClient {
 }
 
 export interface IMark {
-  id: number;
+  id: string;
   number: string;
   debt: number;
 }
@@ -67,14 +67,14 @@ export interface IShippedGood {
   number: string;
   date: string;
   amount: number;
-  markId: number;
+  markId: string;
 }
 
 export interface IPayment {
   id: number;
   date: string;
   amount: number;
-  markId: number;
+  markId: string;
 }
 
 export interface IClientSummary {

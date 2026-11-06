@@ -20,6 +20,11 @@ import type {
 
 const API = '/api/clients';
 
+export interface ICreateDealRequest {
+  дата?: string;
+  комментарий?: string;
+}
+
 export interface IClientQuery {
   q?: string;
   sort: ClientSortKey;
@@ -111,19 +116,25 @@ export class ClientService {
       .pipe(map(mapClient));
   }
 
+  createMark(clientId: number, body: ICreateDealRequest): Observable<IMark> {
+    return this.http
+      .post<IMarkApi>(`${API}/${clientId}/marks`, body)
+      .pipe(map(mapMark));
+  }
+
   getMarks(clientId: number): Observable<IMark[]> {
     return this.http
       .get<IMarkApi[]>(`${API}/${clientId}/marks`)
       .pipe(map((marks) => marks.map(mapMark)));
   }
 
-  getProducts(markId: number): Observable<IShippedGood[]> {
+  getProducts(markId: string): Observable<IShippedGood[]> {
     return this.http
       .get<IShippedGoodApi[]>(`${API}/marks/${markId}/products`)
       .pipe(map((products) => products.map(mapShippedGood)));
   }
 
-  getPayments(markId: number): Observable<IPayment[]> {
+  getPayments(markId: string): Observable<IPayment[]> {
     return this.http
       .get<IPaymentApi[]>(`${API}/marks/${markId}/payments`)
       .pipe(map((payments) => payments.map(mapPayment)));

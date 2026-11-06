@@ -53,7 +53,11 @@ export class ClientDetailComponent implements OnInit {
   readonly client = signal<IClient | null>(null);
   readonly summary = signal<IClientSummary | null>(null);
   readonly marks = signal<IMark[]>([]);
-  readonly selectedMarkId = signal<number | null>(null);
+  readonly selectedMarkId = signal<string | null>(null);
+
+  readonly creating = signal(false);
+  readonly createError = signal<string | null>(null);
+  readonly newComment = signal('');
 
   readonly products = signal<IShippedGood[]>([]);
   readonly payments = signal<IPayment[]>([]);
@@ -77,12 +81,12 @@ export class ClientDetailComponent implements OnInit {
     () => this.marks().find((mark) => mark.id === this.selectedMarkId()) ?? null,
   );
 
-  readonly lastMark = computed<IMark | null>(() =>
-    this.marks().reduce<IMark | null>(
-      (last, mark) => (last === null || mark.id > last.id ? mark : last),
-      null,
-    ),
-  );
+  // API отдаёт сделки по возрастанию НомерСделки, поэтому «последняя» — хвост массива.
+  readonly lastMark = computed<IMark | null>(() => {
+    const marks = this.marks();
+
+    return marks.length > 0 ? marks[marks.length - 1] : null;
+  });
 
   readonly marksDebt = computed(() =>
     this.marks().reduce((total, mark) => total + mark.debt, 0),
@@ -148,6 +152,38 @@ export class ClientDetailComponent implements OnInit {
 
   toggleDeals(): void {
     this.dealsOpen.update((open) => !open);
+  }
+
+  setNewComment(event: Event): void {
+    this.newComment.set((event.target as HTMLInputElement).value);
+  }
+
+  createDeal(): void {
+    if (this.currentId === null || this.creating()) {
+      return;
+    }
+
+    const comment = this.newComment().trim();
+
+    this.creating.set(true);
+    this.createError.set(null);
+
+    this.clientService
+      .createMark(this.currentId, { комментарий: comment || undefined })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (mark) => {
+          this.creating.set(false);
+          this.newComment.set('');
+          this.dealsOpen.set(true);
+          this.marks.update((marks) => [...marks, mark]);
+          this.selectMark(mark);
+        },
+        error: () => {
+          this.creating.set(false);
+          this.createError.set('Не удалось создать сделку. Проверьте SkladApi.');
+        },
+      });
   }
 
   toggleDemoProduct(): void {
@@ -257,7 +293,7 @@ export class ClientDetailComponent implements OnInit {
     }
   }
 
-  private loadProducts(markId: number): void {
+  private loadProducts(markId: string): void {
     this.productsSub?.unsubscribe();
     this.products.set([]);
     this.productsError.set(null);
@@ -282,7 +318,7 @@ export class ClientDetailComponent implements OnInit {
       });
   }
 
-  private loadPayments(markId: number): void {
+  private loadPayments(markId: string): void {
     this.paymentsSub?.unsubscribe();
     this.payments.set([]);
     this.paymentsError.set(null);
