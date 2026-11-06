@@ -1,5 +1,5 @@
 ## gitHub format
- * [help]( https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+ * [help](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
 ## Настраиваем firewall
 ```
@@ -49,7 +49,7 @@ https://ruvds.com/ru/helpcenter/telegram-bot-dlya-ruvds/
 
 ## Изменить Владельца
   - chown 
-  - see documentation ![список значений прав доступа](../docs/assets/permission-file.png)
+  - see documentation ![список значений прав доступа](permission-file.png)
 
 ## установка и удаление программ
  1. пакетный менежер apt

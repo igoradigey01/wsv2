@@ -1,3 +1,8 @@
+# Шпаргалка: ветки git в wsv3
+
+Рабочая ветка — `developer`, крупные изменения вливаются в `main`.
+
+```bash
 git switch -c developer
 git branch
 git add --dry-run . | head -50
@@ -12,3 +17,4 @@ git switch main
 git merge developer
 # 3. Переключиться на developer
 git switch developer
+```
