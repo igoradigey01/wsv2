@@ -19,7 +19,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
       }
 
       a {
-        color: #1a55d6;
+        color: var(--c-primary);
       }
     `,
   ],

@@ -256,4 +256,30 @@ describe('ClientDetailComponent', () => {
     expect(fixture.componentInstance.marks().length).toBe(2);
     expect(fixture.componentInstance.selectedMarkId()).toBe('d2');
   });
+
+  it('подсвечивает отрицательный долг', () => {
+    setup('7');
+
+    httpMock.expectOne('/api/clients/7').flush({
+      id: 7,
+      псевдоним: 'Тестовый клиент',
+      фио: 'Иванов',
+      телефон: '123',
+      город: 'Туапсе',
+      пределКредита: 1000,
+      активен: true,
+    });
+    httpMock.expectOne('/api/clients/7/summary').flush({});
+    httpMock
+      .expectOne('/api/clients/7/marks')
+      .flush([{ id: 'd1', номер: 'R-000002', долг: -10300 }]);
+    httpMock.expectOne('/api/clients/marks/d1/products').flush([]);
+    httpMock.expectOne('/api/clients/marks/d1/payments').flush([]);
+
+    fixture.componentInstance.toggleDeals();
+    fixture.detectChanges();
+
+    const negative = fixture.nativeElement.querySelectorAll('td.num--negative');
+    expect(negative.length).toBe(1);
+  });
 });

@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+/* Глобальные токены оформления. Компоненты используют только var(--…). */
+:root {
+  --c-primary: #1a55d6;
+  --c-border: #e0e0e0;
+  --c-muted: #666;
+  --c-muted-strong: #555;
+  --c-surface: #fff;
+  --c-danger: #b3261e;
+  --c-danger-bg: #fdecea;
+  --c-changed: #fff4e5;
+  --c-changed-line: #d98324;
+  --c-paid: #e8f5e9;
+  --c-paid-line: #2e7d32;
+  --c-active-row: #eef4ff;
+  --c-input-border: #c4c4c4;
+  --c-disabled-bg: #f4f4f4;
+  --radius: 8px;
+}
