@@ -26,6 +26,14 @@ export const appRoutes: Route[] = [
     data: { title: 'Приём денег' },
   },
   {
+    path: 'clients/:id/deal/new',
+    loadComponent: () =>
+      import('./coming-soon/coming-soon.component').then(
+        (m) => m.ComingSoonComponent,
+      ),
+    data: { title: 'Новая сделка' },
+  },
+  {
     path: 'clients/:id',
     loadComponent: () =>
       import('./clients/client-detail.component').then(

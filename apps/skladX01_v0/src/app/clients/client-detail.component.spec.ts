@@ -74,35 +74,35 @@ describe('ClientDetailComponent', () => {
         { id: 2, номер: 'R-000002', долг: 0 },
       ]);
 
-    httpMock.expectOne('/api/clients/marks/1/products').flush([
+    httpMock.expectOne('/api/clients/marks/2/products').flush([
       {
         id: 10,
         номер: '5',
         дата: '2023-10-23T00:00:00',
         сумма: 100,
-        меткаId: 1,
+        меткаId: 2,
       },
       {
         id: 11,
         номер: '6',
         дата: '2024-05-01T00:00:00',
         сумма: 200,
-        меткаId: 1,
+        меткаId: 2,
       },
     ]);
 
-    httpMock.expectOne('/api/clients/marks/1/payments').flush([
-      { id: 20, дата: '2024-06-01T00:00:00', сумма: 300, меткаId: 1 },
+    httpMock.expectOne('/api/clients/marks/2/payments').flush([
+      { id: 20, дата: '2024-06-01T00:00:00', сумма: 300, меткаId: 2 },
     ]);
 
     fixture.detectChanges();
 
-    expect(fixture.componentInstance.selectedMarkId()).toBe(1);
+    expect(fixture.componentInstance.selectedMarkId()).toBe(2);
     expect(fixture.componentInstance.productsTotal()).toBe(300);
 
     const text = fixture.nativeElement.textContent as string;
     expect(text).toContain('Тестовый клиент');
-    expect(text).toContain('R-000001');
+    expect(text).toContain('R-000002');
     expect(text).toContain('23.10.2023');
     expect(text).toContain('Итого:');
   });
@@ -173,5 +173,43 @@ describe('ClientDetailComponent', () => {
 
     expect(fixture.componentInstance.notFound()).toBe(true);
     expect(fixture.nativeElement.textContent).toContain('Клиент не найден');
+  });
+
+  it('блок «КодСделки» свернут и показывает последнюю сделку', () => {
+    setup('7');
+
+    httpMock.expectOne('/api/clients/7').flush({
+      id: 7,
+      псевдоним: 'Тестовый клиент',
+      фио: 'Иванов',
+      телефон: '123',
+      город: 'Туапсе',
+      пределКредита: 1000,
+      активен: true,
+    });
+    httpMock.expectOne('/api/clients/7/summary').flush({});
+    httpMock.expectOne('/api/clients/7/marks').flush([
+      { id: 1, номер: 'R-000001', долг: 200 },
+      { id: 2, номер: 'R-000002', долг: 0 },
+    ]);
+    httpMock.expectOne('/api/clients/marks/2/products').flush([]);
+    httpMock.expectOne('/api/clients/marks/2/payments').flush([]);
+
+    fixture.detectChanges();
+
+    const text = fixture.nativeElement.textContent as string;
+    expect(text).toContain('КодСделки');
+    expect(text).toContain('№R-000002');
+    expect(fixture.componentInstance.dealsOpen()).toBe(false);
+    expect(fixture.nativeElement.querySelector('.grid--selectable')).toBeNull();
+
+    const head = fixture.nativeElement.querySelector(
+      '.block__head',
+    ) as HTMLElement;
+    head.click();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.dealsOpen()).toBe(true);
+    expect(fixture.nativeElement.querySelector('.grid--selectable')).not.toBeNull();
   });
 });

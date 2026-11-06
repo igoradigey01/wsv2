@@ -69,8 +69,19 @@ export class ClientDetailComponent implements OnInit {
 
   readonly fromDate = signal('');
 
+  readonly dealsOpen = signal(false);
+  readonly changedProductIds = signal<ReadonlySet<number>>(new Set<number>());
+  readonly changedPaymentIds = signal<ReadonlySet<number>>(new Set<number>());
+
   readonly selectedMark = computed(
     () => this.marks().find((mark) => mark.id === this.selectedMarkId()) ?? null,
+  );
+
+  readonly lastMark = computed<IMark | null>(() =>
+    this.marks().reduce<IMark | null>(
+      (last, mark) => (last === null || mark.id > last.id ? mark : last),
+      null,
+    ),
   );
 
   readonly marksDebt = computed(() =>
@@ -133,6 +144,39 @@ export class ClientDetailComponent implements OnInit {
     this.selectedMarkId.set(mark.id);
     this.loadProducts(mark.id);
     this.loadPayments(mark.id);
+  }
+
+  toggleDeals(): void {
+    this.dealsOpen.update((open) => !open);
+  }
+
+  toggleDemoProduct(): void {
+    const first = this.filteredProducts()[0];
+    if (!first) {
+      return;
+    }
+
+    this.changedProductIds.update((ids) => this.toggleId(ids, first.id));
+  }
+
+  toggleDemoPayment(): void {
+    const first = this.filteredPayments()[0];
+    if (!first) {
+      return;
+    }
+
+    this.changedPaymentIds.update((ids) => this.toggleId(ids, first.id));
+  }
+
+  private toggleId(ids: ReadonlySet<number>, id: number): ReadonlySet<number> {
+    const next = new Set(ids);
+    if (next.has(id)) {
+      next.delete(id);
+    } else {
+      next.add(id);
+    }
+
+    return next;
   }
 
   setFromDate(event: Event): void {
@@ -207,9 +251,9 @@ export class ClientDetailComponent implements OnInit {
     this.summary.set(result.summary);
     this.marks.set(result.marks);
 
-    const first = result.marks[0];
-    if (first) {
-      this.selectMark(first);
+    const latest = this.lastMark();
+    if (latest) {
+      this.selectMark(latest);
     }
   }
 

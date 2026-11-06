@@ -44,57 +44,79 @@
           <p class="warning">Превышен предел кредита</p>
         }
       }
-
-      <div class="actions">
-        <a class="action" [routerLink]="['/clients', c.id, 'invoice', 'new']">
-          Выписать накладную
-        </a>
-        <a class="action" [routerLink]="['/clients', c.id, 'payment', 'new']">
-          Принять деньги
-        </a>
-      </div>
     </header>
 
     <div class="blocks">
       <section class="block">
-        <h2>Метка расчёт (сверка)</h2>
+        <div
+          class="block__head"
+          [class.block__head--open]="dealsOpen()"
+          role="button"
+          tabindex="0"
+          [attr.aria-expanded]="dealsOpen()"
+          (click)="toggleDeals()"
+          (keyup.enter)="toggleDeals()"
+          (keyup.space)="toggleDeals()"
+        >
+          <h2>КодСделки</h2>
+          <span class="block__last">
+            @if (lastMark(); as last) {
+              последняя: №{{ last.number }}
+            } @else {
+              нет сделок
+            }
+          </span>
+          <span class="block__chevron" aria-hidden="true">▾</span>
+        </div>
 
-        @if (marks().length === 0) {
-          <p class="state">У клиента нет меток расчёта.</p>
-        } @else {
-          <table class="grid grid--selectable">
-            <thead>
-              <tr>
-                <th>id</th>
-                <th>№</th>
-                <th class="num">Долг</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (mark of marks(); track mark.id) {
-                <tr
-                  role="button"
-                  tabindex="0"
-                  [class.grid__row--active]="selectedMarkId() === mark.id"
-                  [attr.aria-pressed]="selectedMarkId() === mark.id"
-                  (click)="selectMark(mark)"
-                  (keyup.enter)="selectMark(mark)"
-                  (keyup.space)="selectMark(mark)"
-                >
-                  <td data-label="id">{{ mark.id }}</td>
-                  <td data-label="№">{{ mark.number }}</td>
-                  <td class="num" data-label="Долг">
-                    {{ mark.debt | number: '1.2-2' }}
-                  </td>
+        @if (dealsOpen()) {
+          @if (marks().length === 0) {
+            <p class="state">У клиента нет сделок.</p>
+          } @else {
+            <div class="toolbar">
+              <a
+                class="action action--ghost"
+                [routerLink]="['/clients', c.id, 'deal', 'new']"
+              >
+                Создать новую сделку
+              </a>
+              <span class="muted">выбрана №{{ selectedMark()?.number }}</span>
+            </div>
+
+            <table class="grid grid--selectable">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>№</th>
+                  <th class="num">Долг</th>
                 </tr>
-              }
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                @for (mark of marks(); track mark.id) {
+                  <tr
+                    role="button"
+                    tabindex="0"
+                    [class.grid__row--active]="selectedMarkId() === mark.id"
+                    [attr.aria-pressed]="selectedMarkId() === mark.id"
+                    (click)="selectMark(mark)"
+                    (keyup.enter)="selectMark(mark)"
+                    (keyup.space)="selectMark(mark)"
+                  >
+                    <td data-label="id">{{ mark.id }}</td>
+                    <td data-label="№">{{ mark.number }}</td>
+                    <td class="num" data-label="Долг">
+                      {{ mark.debt | number: '1.2-2' }}
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
 
-          <p class="total">
-            <span>меток: {{ marks().length }}</span>
-            <span>Долг: <strong>{{ marksDebt() | number: '1.2-2' }}</strong></span>
-          </p>
+            <p class="total">
+              <span>сделок: {{ marks().length }}</span>
+              <span>Долг: <strong>{{ marksDebt() | number: '1.2-2' }}</strong></span>
+            </p>
+          }
         }
       </section>
 
@@ -102,7 +124,24 @@
         <h2>Отпущенный товар</h2>
 
         @if (selectedMark(); as mark) {
-          <p class="muted">Метка №{{ mark.number }}</p>
+          <p class="muted">Сделка №{{ mark.number }}</p>
+
+          <div class="toolbar">
+            <a
+              class="action"
+              [routerLink]="['/clients', c.id, 'invoice', 'new']"
+              [queryParams]="{ markId: mark.id }"
+            >
+              Выписать накладную
+            </a>
+            <button
+              type="button"
+              class="action action--ghost"
+              (click)="toggleDemoProduct()"
+            >
+              Демо: подсветить
+            </button>
+          </div>
 
           <label class="filter">
             <span>начиная</span>
@@ -134,7 +173,7 @@
               </thead>
               <tbody>
                 @for (product of filteredProducts(); track product.id) {
-                  <tr>
+                  <tr [class.grid__row--changed]="changedProductIds().has(product.id)">
                     <td data-label="id">{{ product.id }}</td>
                     <td data-label="№">{{ product.number }}</td>
                     <td data-label="дата">
@@ -156,9 +195,9 @@
             </p>
           }
         } @else if (marks().length === 0) {
-          <p class="state">У клиента нет меток расчёта.</p>
+          <p class="state">У клиента нет сделок.</p>
         } @else {
-          <p class="state">Выберите метку расчёта.</p>
+          <p class="state">Выберите сделку.</p>
         }
       </section>
 
@@ -166,7 +205,24 @@
         <h2>Принятые деньги</h2>
 
         @if (selectedMark(); as mark) {
-          <p class="muted">Метка №{{ mark.number }}</p>
+          <p class="muted">Сделка №{{ mark.number }}</p>
+
+          <div class="toolbar">
+            <a
+              class="action"
+              [routerLink]="['/clients', c.id, 'payment', 'new']"
+              [queryParams]="{ markId: mark.id }"
+            >
+              Принять деньги
+            </a>
+            <button
+              type="button"
+              class="action action--ghost"
+              (click)="toggleDemoPayment()"
+            >
+              Демо: подсветить
+            </button>
+          </div>
 
           <label class="filter">
             <span>начиная</span>
@@ -197,7 +253,7 @@
               </thead>
               <tbody>
                 @for (payment of filteredPayments(); track payment.id) {
-                  <tr>
+                  <tr [class.grid__row--paid]="changedPaymentIds().has(payment.id)">
                     <td data-label="id">{{ payment.id }}</td>
                     <td data-label="дата">
                       {{ payment.date | date: 'dd.MM.yyyy' }}
@@ -218,9 +274,9 @@
             </p>
           }
         } @else if (marks().length === 0) {
-          <p class="state">У клиента нет меток расчёта.</p>
+          <p class="state">У клиента нет сделок.</p>
         } @else {
-          <p class="state">Выберите метку расчёта.</p>
+          <p class="state">Выберите сделку.</p>
         }
       </section>
     </div>
