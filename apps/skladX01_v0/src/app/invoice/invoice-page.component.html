@@ -1,0 +1,146 @@
+<section class="invoice">
+  <a class="back" [routerLink]="['/clients', clientId()]">← К клиенту</a>
+
+  @if (loading()) {
+    <p class="state">Загрузка…</p>
+  } @else if (error()) {
+    <p class="state state--error">{{ error() }}</p>
+  } @else if (client(); as c) {
+    <header class="card">
+      <h1>Накладная</h1>
+      <p class="muted">
+        {{ c.alias }} · клиент #{{ c.id }}
+        @if (deal(); as d) {
+          · сделка №{{ d.number }}
+        }
+      </p>
+
+      @if (!deal()) {
+        <p class="warning">
+          Сделка не выбрана — откройте накладную из карточки клиента.
+        </p>
+      }
+
+      <div class="fields">
+        <label>
+          <span>Номер</span>
+          <input type="text" value="выдаётся при сохранении" disabled />
+        </label>
+        <label>
+          <span>Дата</span>
+          <input type="date" [value]="date()" (input)="setDate($event)" />
+        </label>
+        <label>
+          <span>Комментарий</span>
+          <input
+            type="text"
+            [value]="comment()"
+            (input)="setComment($event)"
+          />
+        </label>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Голосовой ввод</h2>
+      <textarea
+        rows="3"
+        placeholder="Продиктуйте накладную: «Цемент 50 кг, 20 мешков, 350 рублей»"
+        [value]="voiceText()"
+        (input)="setVoiceText($event)"
+      ></textarea>
+      <p class="hint">
+        Распознавание появится вместе с API (задача 17). Пока строки вводятся
+        вручную.
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="toolbar">
+        <h2>Товары</h2>
+        <button type="button" class="action action--ghost" (click)="addRow()">
+          Добавить строку
+        </button>
+      </div>
+
+      <table class="grid">
+        <thead>
+          <tr>
+            <th>Наименование</th>
+            <th class="num">Кол-во</th>
+            <th class="num">Цена</th>
+            <th class="num">Сумма</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of rows(); track row.id) {
+            <tr>
+              <td data-label="Наименование">
+                <input
+                  type="text"
+                  [value]="row.name"
+                  (input)="setRowName(row.id, $event)"
+                />
+              </td>
+              <td class="num" data-label="Кол-во">
+                <input
+                  type="number"
+                  min="0"
+                  step="0.001"
+                  [value]="row.qty"
+                  (input)="setRowQty(row.id, $event)"
+                />
+              </td>
+              <td class="num" data-label="Цена">
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  [value]="row.price"
+                  (input)="setRowPrice(row.id, $event)"
+                />
+              </td>
+              <td class="num" data-label="Сумма">
+                {{ row.qty * row.price | number: '1.2-2' }}
+              </td>
+              <td class="num">
+                <button
+                  type="button"
+                  class="remove"
+                  aria-label="Удалить строку"
+                  [disabled]="rows().length <= 1"
+                  (click)="removeRow(row.id)"
+                >
+                  ✕
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <p class="total">
+        <span>позиций: {{ rows().length }}</span>
+        <span>
+          Итого: <strong>{{ total() | number: '1.2-2' }}</strong>
+        </span>
+      </p>
+
+      <div class="actions">
+        <button
+          type="button"
+          class="action"
+          disabled
+          title="Сохранение появится после API записи накладной"
+        >
+          Сохранить
+        </button>
+      </div>
+      <p class="hint">
+        Сохранение пока недоступно: в SkladApi нет POST накладной, данные не
+        уходят на сервер.
+      </p>
+    </section>
+  }
+</section>

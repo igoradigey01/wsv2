@@ -12,10 +12,9 @@ export const appRoutes: Route[] = [
   {
     path: 'clients/:id/invoice/new',
     loadComponent: () =>
-      import('./coming-soon/coming-soon.component').then(
-        (m) => m.ComingSoonComponent,
+      import('./invoice/invoice-page.component').then(
+        (m) => m.InvoicePageComponent,
       ),
-    data: { title: 'Выписка накладной' },
   },
   {
     path: 'clients/:id/payment/new',
