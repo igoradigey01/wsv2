@@ -29,6 +29,7 @@ export interface IMarkApi {
   id: string;
   номер: string;
   долг: number;
+  комментарий?: string | null;
 }
 
 export interface IShippedGoodApi {
@@ -60,6 +61,7 @@ export interface IMark {
   id: string;
   number: string;
   debt: number;
+  comment: string | null;
 }
 
 export interface IShippedGood {

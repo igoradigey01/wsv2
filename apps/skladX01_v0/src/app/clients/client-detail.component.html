@@ -49,7 +49,7 @@
     </header>
 
     <div class="blocks">
-      <section class="block">
+      <section class="block block--deals">
         <div
           class="block__head"
           [class.block__head--open]="dealsOpen()"
@@ -91,6 +91,13 @@
               >
                 {{ creating() ? 'Создаём…' : 'Создать новую сделку' }}
               </button>
+              <button
+                type="button"
+                class="action action--ghost"
+                (click)="toggleDeals()"
+              >
+                Свернуть
+              </button>
               <span class="muted">выбрана №{{ selectedMark()?.number }}</span>
               @if (createError()) {
                 <span class="state state--error">{{ createError() }}</span>
@@ -100,9 +107,10 @@
             <table class="grid grid--selectable">
               <thead>
                 <tr>
-                  <th>id</th>
+                  <th class="col-id">id</th>
                   <th>№</th>
                   <th class="num">Долг</th>
+                  <th>Комментарий</th>
                 </tr>
               </thead>
               <tbody>
@@ -116,7 +124,7 @@
                     (keyup.enter)="selectMark(mark)"
                     (keyup.space)="selectMark(mark)"
                   >
-                    <td data-label="id">{{ mark.id }}</td>
+                    <td class="col-id" data-label="id">{{ mark.id }}</td>
                     <td data-label="№">{{ mark.number }}</td>
                     <td
                       class="num"
@@ -125,6 +133,7 @@
                     >
                       {{ mark.debt | number: '1.2-2' }}
                     </td>
+                    <td data-label="Комментарий">{{ mark.comment || '—' }}</td>
                   </tr>
                 }
               </tbody>

@@ -88,8 +88,8 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
+  .block--deals {
+    grid-column: 1 / -1;
   }
 }
 
@@ -197,6 +197,10 @@
       content: none;
     }
   }
+}
+
+.grid .col-id {
+  display: none;
 }
 
 .num {

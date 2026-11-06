@@ -100,9 +100,13 @@ describe('ClientService', () => {
     service.getMarks(14).subscribe((value) => (marks = value));
 
     const req = httpMock.expectOne('/api/clients/14/marks');
-    req.flush([{ id: 'd4', номер: 'R-000002', долг: -10300 }]);
+    req.flush([
+      { id: 'd4', номер: 'R-000002', долг: -10300, комментарий: 'Аванс' },
+    ]);
 
-    expect(marks).toEqual([{ id: 'd4', number: 'R-000002', debt: -10300 }]);
+    expect(marks).toEqual([
+      { id: 'd4', number: 'R-000002', debt: -10300, comment: 'Аванс' },
+    ]);
   });
 
   it('переводит отгруженные товары в модель', () => {

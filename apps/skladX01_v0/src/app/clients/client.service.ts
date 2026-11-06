@@ -64,6 +64,7 @@ export function mapMark(raw: IMarkApi): IMark {
     id: raw.id,
     number: raw.номер,
     debt: raw.долг,
+    comment: raw.комментарий ?? null,
   };
 }
 

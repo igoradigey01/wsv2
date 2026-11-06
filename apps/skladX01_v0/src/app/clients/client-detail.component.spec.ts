@@ -190,7 +190,12 @@ describe('ClientDetailComponent', () => {
     httpMock.expectOne('/api/clients/7/summary').flush({});
     httpMock.expectOne('/api/clients/7/marks').flush([
       { id: 'd1', номер: 'R-000001', долг: 200 },
-      { id: 'd2', номер: 'R-000002', долг: 0 },
+      {
+        id: 'd2',
+        номер: 'R-000002',
+        долг: 0,
+        комментарий: 'Оплачено полностью',
+      },
     ]);
     httpMock.expectOne('/api/clients/marks/d2/products').flush([]);
     httpMock.expectOne('/api/clients/marks/d2/payments').flush([]);
@@ -211,6 +216,7 @@ describe('ClientDetailComponent', () => {
 
     expect(fixture.componentInstance.dealsOpen()).toBe(true);
     expect(fixture.nativeElement.querySelector('.grid--selectable')).not.toBeNull();
+    expect(fixture.nativeElement.textContent).toContain('Оплачено полностью');
   });
 
   it('создаёт сделку через POST и выбирает её', () => {
