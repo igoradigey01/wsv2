@@ -85,7 +85,8 @@
   margin-top: 1rem;
 
   @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    /* «Отпущенный товар» — 2/3 ширины, «Принятые деньги» — 1/3. */
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   }
 
   .block--deals {
