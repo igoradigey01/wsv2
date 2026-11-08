@@ -103,4 +103,46 @@ describe('InvoicePageComponent', () => {
 
     expect(component.rows().length).toBe(1);
   });
+
+  it('заполняет строки по распознанному тексту', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    component.voiceText.set('Цемент 20 мешков');
+    fixture.detectChanges();
+
+    component.parseVoice();
+
+    httpMock
+      .expectOne({ method: 'POST', url: '/api/invoice/parse-voice' })
+      .flush([
+        {
+          productId: 1,
+          productSku: 'CEM500',
+          dbName: 'Цемент М-500 (50кг)',
+          voiceName: 'Цемент',
+          quantity: 20,
+          unit: 'мешков',
+          matchConfidence: 80,
+        },
+        {
+          productId: null,
+          productSku: '',
+          dbName: 'НЕ НАЙДЕНО В БД',
+          voiceName: 'Песок',
+          quantity: 3,
+          unit: 'т',
+          matchConfidence: 0,
+        },
+      ]);
+
+    fixture.detectChanges();
+
+    const rows = component.rows();
+    expect(rows.length).toBe(2);
+    expect(rows[0].name).toBe('Цемент М-500 (50кг)');
+    expect(rows[0].qty).toBe(20);
+    expect(rows[1].name).toBe('Песок');
+  });
 });

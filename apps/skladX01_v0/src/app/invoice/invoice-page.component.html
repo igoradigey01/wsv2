@@ -49,9 +49,24 @@
         [value]="voiceText()"
         (input)="setVoiceText($event)"
       ></textarea>
+
+      <div class="toolbar">
+        <button
+          type="button"
+          class="action"
+          [disabled]="parsing() || voiceText().trim().length === 0"
+          (click)="parseVoice()"
+        >
+          {{ parsing() ? 'Распознаём…' : 'Заполнить по тексту' }}
+        </button>
+        @if (parseError()) {
+          <span class="state state--error">{{ parseError() }}</span>
+        }
+      </div>
+
       <p class="hint">
-        Распознавание появится вместе с API (задача 17). Пока строки вводятся
-        вручную.
+        Модель qwen2.5:7b-instruct на ks34 разбирает текст, а сопоставление
+        с номенклатурой идёт без ИИ — по расстоянию Левенштейна.
       </p>
     </section>
 

@@ -15,6 +15,7 @@ import { map } from 'rxjs/operators';
 
 import { ClientService } from '../clients/client.service';
 import type { IClient, IMark } from '../clients/client.models';
+import { InvoiceService } from './invoice.service';
 
 export interface IInvoiceRow {
   id: number;
@@ -33,6 +34,7 @@ export interface IInvoiceRow {
 export class InvoicePageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly clientService = inject(ClientService);
+  private readonly invoiceService = inject(InvoiceService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly clientId = signal<number | null>(null);
@@ -45,6 +47,9 @@ export class InvoicePageComponent implements OnInit {
   readonly date = signal(new Date().toISOString().slice(0, 10));
   readonly comment = signal('');
   readonly voiceText = signal('');
+
+  readonly parsing = signal(false);
+  readonly parseError = signal<string | null>(null);
 
   readonly rows = signal<IInvoiceRow[]>([
     { id: 1, name: '', qty: 1, price: 0 },
@@ -94,6 +99,47 @@ export class InvoicePageComponent implements OnInit {
           this.client.set(result.client);
           this.deal.set(result.deal);
         }
+      });
+  }
+
+  parseVoice(): void {
+    const text = this.voiceText().trim();
+
+    if (text.length === 0 || this.parsing()) {
+      return;
+    }
+
+    this.parsing.set(true);
+    this.parseError.set(null);
+
+    this.invoiceService
+      .parseVoice(text)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (parsed) => {
+          this.parsing.set(false);
+
+          if (parsed.length === 0) {
+            this.parseError.set('В тексте не нашлось ни одной позиции.');
+            return;
+          }
+
+          this.rows.set(
+            parsed.map((row, index) => ({
+              id: index + 1,
+              name: row.name,
+              qty: row.qty,
+              price: 0,
+            })),
+          );
+          this.lastRowId.set(parsed.length);
+        },
+        error: () => {
+          this.parsing.set(false);
+          this.parseError.set(
+            'Сервис распознавания недоступен. Проверьте Ollama на ks34 и SQL Server.',
+          );
+        },
       });
   }
 
