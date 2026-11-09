@@ -97,6 +97,21 @@
                   [value]="row.name"
                   (input)="setRowName(row.id, $event)"
                 />
+                @if (!row.productId && row.candidatesLoading) {
+                  <span class="hint">подбираем позиции…</span>
+                } @else if (!row.productId && row.candidates.length > 0) {
+                  <select
+                    class="candidates"
+                    (change)="chooseCandidate(row.id, $event)"
+                  >
+                    <option value="">— выбрать позицию —</option>
+                    @for (candidate of row.candidates; track candidate.id) {
+                      <option [value]="candidate.id">
+                        {{ candidate.name }} · {{ candidate.score }}%
+                      </option>
+                    }
+                  </select>
+                }
               </td>
               <td class="num" data-label="Кол-во">
                 <input

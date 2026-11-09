@@ -16,12 +16,17 @@ import { map } from 'rxjs/operators';
 import { ClientService } from '../clients/client.service';
 import type { IClient, IMark } from '../clients/client.models';
 import { InvoiceService } from './invoice.service';
+import type { ICandidate } from './invoice.service';
 
 export interface IInvoiceRow {
   id: number;
+  productId: number | null;
   name: string;
   qty: number;
+  unit: string | null;
   price: number;
+  candidates: ICandidate[];
+  candidatesLoading: boolean;
 }
 
 @Component({
@@ -52,7 +57,16 @@ export class InvoicePageComponent implements OnInit {
   readonly parseError = signal<string | null>(null);
 
   readonly rows = signal<IInvoiceRow[]>([
-    { id: 1, name: '', qty: 1, price: 0 },
+    {
+      id: 1,
+      productId: null,
+      name: '',
+      qty: 1,
+      unit: null,
+      price: 0,
+      candidates: [],
+      candidatesLoading: false,
+    },
   ]);
   private readonly lastRowId = signal(1);
 
@@ -127,12 +141,17 @@ export class InvoicePageComponent implements OnInit {
           this.rows.set(
             parsed.map((row, index) => ({
               id: index + 1,
+              productId: row.productId,
               name: row.name,
               qty: row.qty,
+              unit: row.unit,
               price: 0,
+              candidates: [],
+              candidatesLoading: false,
             })),
           );
           this.lastRowId.set(parsed.length);
+          this.loadCandidatesForUnmatched();
         },
         error: () => {
           this.parsing.set(false);
@@ -146,7 +165,76 @@ export class InvoicePageComponent implements OnInit {
   addRow(): void {
     const id = this.lastRowId() + 1;
     this.lastRowId.set(id);
-    this.rows.update((rows) => [...rows, { id, name: '', qty: 1, price: 0 }]);
+    this.rows.update((rows) => [
+      ...rows,
+      {
+        id,
+        productId: null,
+        name: '',
+        qty: 1,
+        unit: null,
+        price: 0,
+        candidates: [],
+        candidatesLoading: false,
+      },
+    ]);
+  }
+
+  chooseCandidate(rowId: number, event: Event): void {
+    const id = Number((event.target as HTMLSelectElement).value);
+    const row = this.rows().find((item) => item.id === rowId);
+    const candidate = row?.candidates.find((item) => item.id === id);
+
+    if (!candidate) {
+      return;
+    }
+
+    this.rows.update((rows) =>
+      rows.map((item) =>
+        item.id === rowId
+          ? {
+              ...item,
+              productId: candidate.id,
+              name: candidate.name,
+              price: candidate.price ?? item.price,
+            }
+          : item,
+      ),
+    );
+  }
+
+  private loadCandidatesForUnmatched(): void {
+    for (const row of this.rows()) {
+      if (row.productId === null && row.name.trim().length > 0) {
+        this.loadCandidates(row.id, row.name);
+      }
+    }
+  }
+
+  private loadCandidates(rowId: number, query: string): void {
+    this.rows.update((rows) =>
+      rows.map((row) => (row.id === rowId ? { ...row, candidatesLoading: true } : row)),
+    );
+
+    this.invoiceService
+      .candidates(query)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (candidates) => {
+          this.rows.update((rows) =>
+            rows.map((row) =>
+              row.id === rowId ? { ...row, candidates, candidatesLoading: false } : row,
+            ),
+          );
+        },
+        error: () => {
+          this.rows.update((rows) =>
+            rows.map((row) =>
+              row.id === rowId ? { ...row, candidatesLoading: false } : row,
+            ),
+          );
+        },
+      });
   }
 
   removeRow(id: number): void {

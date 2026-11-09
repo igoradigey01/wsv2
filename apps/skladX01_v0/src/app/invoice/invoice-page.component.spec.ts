@@ -137,6 +137,15 @@ describe('InvoicePageComponent', () => {
         },
       ]);
 
+    // для ненайденной строки страница сама запрашивает кандидатов
+    const candidatesRequest = httpMock.expectOne(
+      (request) => request.url === '/api/nomenclature/candidates',
+    );
+    expect(candidatesRequest.request.params.get('q')).toBe('Песок');
+    candidatesRequest.flush([
+      { id: 5, name: 'Песок строительный', price: 300, score: 71.2, cosine: 0.8, lexical: 60 },
+    ]);
+
     fixture.detectChanges();
 
     const rows = component.rows();
@@ -144,5 +153,20 @@ describe('InvoicePageComponent', () => {
     expect(rows[0].name).toBe('Цемент М-500 (50кг)');
     expect(rows[0].qty).toBe(20);
     expect(rows[1].name).toBe('Песок');
+    expect(rows[1].candidates.length).toBe(1);
+
+    const select = fixture.nativeElement.querySelector(
+      'select.candidates',
+    ) as HTMLSelectElement;
+    expect(select).toBeTruthy();
+
+    select.value = '5';
+    select.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+
+    const chosen = component.rows()[1];
+    expect(chosen.productId).toBe(5);
+    expect(chosen.name).toBe('Песок строительный');
+    expect(chosen.price).toBe(300);
   });
 });

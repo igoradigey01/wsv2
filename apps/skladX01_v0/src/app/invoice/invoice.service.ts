@@ -24,11 +24,27 @@ export interface IParsedVoiceRow {
   matched: boolean;
 }
 
+export interface ICandidate {
+  id: number;
+  name: string;
+  price: number | null;
+  score: number;
+  cosine: number;
+  lexical: number;
+}
+
 const NOT_FOUND = 'НЕ НАЙДЕНО В БД';
 
 @Injectable({ providedIn: 'root' })
 export class InvoiceService {
   private readonly http = inject(HttpClient);
+
+  /** Кандидаты номенклатуры для ручного выбора, отсортированные по гибридному скору. */
+  candidates(q: string, limit = 5): Observable<ICandidate[]> {
+    return this.http.get<ICandidate[]>('/api/nomenclature/candidates', {
+      params: { q, limit },
+    });
+  }
 
   /** Отправляет продиктованный текст в SkladApi, возвращает позиции с сопоставлением. */
   parseVoice(rawText: string): Observable<IParsedVoiceRow[]> {
