@@ -14,6 +14,7 @@ import type {
   IClient,
   SortDirection,
 } from './client.models';
+import type { IClientCandidate } from './client.service';
 
 const SEARCH_DEBOUNCE_MS = 300;
 
@@ -35,12 +36,51 @@ export class ClientsPageComponent implements OnInit {
   readonly sortKey = signal<ClientSortKey>('alias');
   readonly dir = signal<SortDirection>('asc');
 
+  readonly voiceText = signal('');
+  readonly voiceLoading = signal(false);
+  readonly voiceError = signal<string | null>(null);
+  readonly voiceCandidates = signal<IClientCandidate[]>([]);
+
   searchTerm = '';
 
   private searchTimer: ReturnType<typeof setTimeout> | null = null;
 
   ngOnInit(): void {
     this.load();
+  }
+
+  setVoiceText(event: Event): void {
+    this.voiceText.set((event.target as HTMLTextAreaElement).value);
+  }
+
+  searchByVoice(): void {
+    const text = this.voiceText().trim();
+
+    if (text.length === 0 || this.voiceLoading()) {
+      return;
+    }
+
+    this.voiceLoading.set(true);
+    this.voiceError.set(null);
+
+    this.clientService.voiceSearch(text).subscribe({
+      next: (candidates) => {
+        this.voiceLoading.set(false);
+        this.voiceCandidates.set(candidates);
+
+        if (candidates.length === 0) {
+          this.voiceError.set('Клиент не найден. Уточните имя, город или телефон.');
+        }
+      },
+      error: () => {
+        this.voiceLoading.set(false);
+        this.voiceError.set('Поиск недоступен. Проверьте SkladApi.');
+      },
+    });
+  }
+
+  openClient(id: number): void {
+    this.router.navigate(['/clients', id]);
   }
 
   onSearchChange(): void {

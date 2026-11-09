@@ -155,4 +155,28 @@ describe('ClientService', () => {
       },
     ]);
   });
+
+  it('ищет клиента по голосовому тексту', () => {
+    let candidates: unknown[] = [];
+
+    service.voiceSearch('алишер из родников').subscribe((value) => (candidates = value));
+
+    const request = httpMock.expectOne('/api/clients/voice-search');
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual({ rawText: 'алишер из родников' });
+
+    const candidate = {
+      id: 33,
+      alias: 'Алишер  Белоречка',
+      fullName: 'none',
+      phone: '89182507671',
+      city: 'Родники',
+      score: 95,
+      matchedField: 'city',
+    };
+
+    request.flush([candidate]);
+
+    expect(candidates).toEqual([candidate]);
+  });
 });

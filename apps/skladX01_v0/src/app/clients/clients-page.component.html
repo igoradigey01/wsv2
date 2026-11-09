@@ -13,6 +13,47 @@
     />
   </label>
 
+  <section class="voice">
+    <label class="voice__field">
+      <span>Голосовой поиск: имя, город или телефон</span>
+      <textarea
+        rows="2"
+        placeholder="Например: клиент Алишер из Родников"
+        [value]="voiceText()"
+        (input)="setVoiceText($event)"
+      ></textarea>
+    </label>
+
+    <button
+      type="button"
+      class="voice__button"
+      [disabled]="voiceLoading() || voiceText().trim().length === 0"
+      (click)="searchByVoice()"
+    >
+      {{ voiceLoading() ? 'Ищем…' : 'Найти по голосу' }}
+    </button>
+
+    @if (voiceError()) {
+      <p class="state state--error">{{ voiceError() }}</p>
+    }
+
+    @if (voiceCandidates().length > 0) {
+      <ul class="voice__results">
+        @for (candidate of voiceCandidates(); track candidate.id) {
+          <li>
+            <button type="button" (click)="openClient(candidate.id)">
+              <strong>{{ candidate.alias }}</strong>
+              <span class="voice__meta">
+                {{ candidate.phone }} · {{ candidate.city }}
+              </span>
+              <span class="voice__score">{{ candidate.score }}%</span>
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+
   @if (loading()) {
     <p class="state">Загрузка…</p>
   } @else if (error()) {

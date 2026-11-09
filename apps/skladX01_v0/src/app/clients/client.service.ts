@@ -20,6 +20,16 @@ import type {
 
 const API = '/api/clients';
 
+export interface IClientCandidate {
+  id: number;
+  alias: string;
+  fullName: string;
+  phone: string;
+  city: string;
+  score: number;
+  matchedField: string;
+}
+
 export interface ICreateDealRequest {
   дата?: string;
   комментарий?: string;
@@ -103,6 +113,11 @@ export class ClientService {
     return this.http
       .get<IClientApi[]>(API, { params })
       .pipe(map((clients) => clients.map(mapClient)));
+  }
+
+  /** Поиск клиента по продиктованному тексту. */
+  voiceSearch(rawText: string): Observable<IClientCandidate[]> {
+    return this.http.post<IClientCandidate[]>(`${API}/voice-search`, { rawText });
   }
 
   getSummary(clientId: number): Observable<IClientSummary> {
