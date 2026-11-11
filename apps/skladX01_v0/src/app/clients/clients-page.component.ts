@@ -41,6 +41,8 @@ export class ClientsPageComponent implements OnInit {
   readonly voiceError = signal<string | null>(null);
   readonly voiceCandidates = signal<IClientCandidate[]>([]);
 
+  readonly aiMode = signal(true);
+
   searchTerm = '';
 
   private searchTimer: ReturnType<typeof setTimeout> | null = null;
@@ -51,6 +53,10 @@ export class ClientsPageComponent implements OnInit {
 
   setVoiceText(event: Event): void {
     this.voiceText.set((event.target as HTMLTextAreaElement).value);
+  }
+
+  onAiModeChange(event: Event): void {
+    this.aiMode.set((event.target as HTMLInputElement).checked);
   }
 
   searchByVoice(): void {
