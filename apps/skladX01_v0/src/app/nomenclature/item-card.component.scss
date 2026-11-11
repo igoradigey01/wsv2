@@ -1,0 +1,235 @@
+.item-card {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 46rem;
+  padding: 0.75rem;
+  font-family: system-ui, sans-serif;
+  font-size: 0.875rem;
+}
+
+.item-card__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+
+  h1 {
+    margin: 0;
+    font-size: 1.125rem;
+  }
+}
+
+.item-card__actions {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+}
+
+.item-card__button {
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--c-input-border);
+  border-radius: 4px;
+  background: var(--c-surface);
+  font: inherit;
+  cursor: pointer;
+
+  &--primary {
+    background: var(--c-primary);
+    border-color: var(--c-primary);
+    color: var(--c-surface);
+  }
+
+  &--danger {
+    color: var(--c-danger);
+    border-color: var(--c-danger);
+  }
+
+  &--wide {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  &:disabled {
+    background: var(--c-disabled-bg);
+    border-color: var(--c-border);
+    color: var(--c-muted);
+    cursor: default;
+  }
+}
+
+.item-card__active {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+  color: var(--c-muted);
+
+  input {
+    margin: 0;
+    accent-color: var(--c-primary);
+  }
+}
+
+.item-card__notice {
+  margin: 0;
+  color: var(--c-muted-strong);
+}
+
+.state {
+  color: var(--c-muted-strong);
+}
+
+.item-card__tabs {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--c-border);
+
+  button {
+    padding: 0.375rem 0.75rem;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    border-radius: var(--radius) var(--radius) 0 0;
+    background: none;
+    font: inherit;
+    color: var(--c-muted);
+    cursor: pointer;
+
+    &.active {
+      background: var(--c-surface);
+      border-color: var(--c-border);
+      font-weight: 600;
+      color: var(--c-primary);
+    }
+  }
+}
+
+.item-card__columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.item-card__group {
+  display: grid;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0.5rem 0.625rem 0.625rem;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+
+  legend {
+    padding: 0 0.25rem;
+    color: var(--c-muted);
+    font-size: 0.75rem;
+  }
+}
+
+.item-card__field {
+  display: grid;
+  gap: 0.125rem;
+
+  span {
+    color: var(--c-muted);
+    font-size: 0.75rem;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.3125rem 0.5rem;
+    border: 1px solid var(--c-input-border);
+    border-radius: 4px;
+    font: inherit;
+  }
+
+  &--required {
+    span::after {
+      content: ' *';
+      color: var(--c-danger);
+    }
+  }
+
+  &--wide {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 0.5rem;
+
+    span {
+      padding-top: 0.5rem;
+    }
+  }
+}
+
+.item-card__photo {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+
+  button {
+    padding: 0.3125rem 0.625rem;
+    border: 1px solid var(--c-input-border);
+    border-radius: 4px;
+    background: var(--c-surface);
+    font: inherit;
+    cursor: pointer;
+  }
+}
+
+.item-card__photo-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  border: 1px dashed var(--c-input-border);
+  border-radius: 4px;
+  color: var(--c-muted);
+  font-size: 0.75rem;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.item-card__grid {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 0.25rem 0.375rem;
+    border-bottom: 1px solid var(--c-border);
+    text-align: left;
+  }
+
+  .num {
+    width: 2rem;
+    text-align: center;
+  }
+
+  select,
+  input {
+    width: 100%;
+    padding: 0.3125rem 0.5rem;
+    border: 1px solid var(--c-input-border);
+    border-radius: 4px;
+    font: inherit;
+  }
+}
+
+.item-card__empty {
+  color: var(--c-muted);
+  text-align: center;
+}
+
+.item-card__remove {
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--c-danger);
+  font: inherit;
+  cursor: pointer;
+}

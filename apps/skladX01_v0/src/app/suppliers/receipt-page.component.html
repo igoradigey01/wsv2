@@ -1,0 +1,153 @@
+<section class="receipt">
+  <a class="back" routerLink="/suppliers">← К поставщикам</a>
+
+  @if (loading()) {
+    <p class="state">Загрузка…</p>
+  } @else if (error()) {
+    <p class="state state--error">{{ error() }}</p>
+  } @else if (supplier(); as s) {
+    <header class="card">
+      <h1>Приход товара</h1>
+      <p class="muted">
+        {{ s.name }}
+        @if (s.city) {
+          · {{ s.city }}
+        }
+        @if (s.phone) {
+          · {{ s.phone }}
+        }
+      </p>
+
+      <div class="fields">
+        <label>
+          <span>Склад</span>
+          <select
+            [value]="warehouseId() ?? ''"
+            (change)="setWarehouse($event)"
+          >
+            <option value="">— не выбран —</option>
+            @for (warehouse of warehouses(); track warehouse.id) {
+              <option [value]="warehouse.id">{{ warehouse.name }}</option>
+            }
+          </select>
+        </label>
+        <label>
+          <span>Дата</span>
+          <input type="date" [value]="date()" (input)="setDate($event)" />
+        </label>
+        <label>
+          <span>Комментарий</span>
+          <input
+            type="text"
+            [value]="comment()"
+            (input)="setComment($event)"
+          />
+        </label>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="toolbar">
+        <h2>Товары по накладной</h2>
+        <button type="button" class="action action--ghost" (click)="addRow()">
+          Добавить строку
+        </button>
+      </div>
+
+      <table class="grid">
+        <thead>
+          <tr>
+            <th>Наименование</th>
+            <th class="num">Кол-во</th>
+            <th class="num">Цена</th>
+            <th class="num">Сумма</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of rows(); track row.id) {
+            <tr>
+              <td data-label="Наименование">
+                <input
+                  type="text"
+                  [value]="row.name"
+                  placeholder="Например: Цемент М500"
+                  (input)="setRowName(row.id, $event)"
+                />
+                @if (!row.productId && row.candidatesLoading) {
+                  <span class="hint">подбираем позиции…</span>
+                } @else if (!row.productId && row.candidates.length > 0) {
+                  <select
+                    class="candidates"
+                    (change)="chooseCandidate(row.id, $event)"
+                  >
+                    <option value="">— выбрать позицию —</option>
+                    @for (candidate of row.candidates; track candidate.id) {
+                      <option [value]="candidate.id">
+                        {{ candidate.name }} · {{ candidate.score }}%
+                      </option>
+                    }
+                  </select>
+                }
+              </td>
+              <td class="num" data-label="Кол-во">
+                <input
+                  type="number"
+                  min="0"
+                  step="0.001"
+                  [value]="row.qty"
+                  (input)="setRowQty(row.id, $event)"
+                />
+              </td>
+              <td class="num" data-label="Цена">
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  [value]="row.price"
+                  (input)="setRowPrice(row.id, $event)"
+                />
+              </td>
+              <td class="num" data-label="Сумма">
+                {{ row.qty * row.price | number: '1.2-2' }}
+              </td>
+              <td class="num">
+                <button
+                  type="button"
+                  class="remove"
+                  aria-label="Удалить строку"
+                  [disabled]="rows().length <= 1"
+                  (click)="removeRow(row.id)"
+                >
+                  ✕
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <p class="total">
+        <span>позиций: {{ rows().length }}</span>
+        <span>
+          Итого: <strong>{{ total() | number: '1.2-2' }}</strong>
+        </span>
+      </p>
+
+      <div class="actions">
+        <button
+          type="button"
+          class="action"
+          disabled
+          title="Сохранение появится после API записи прихода"
+        >
+          Сохранить
+        </button>
+      </div>
+      <p class="hint">
+        Сохранение пока недоступно: в SkladApi нет POST прихода в dbo.Приход,
+        данные не уходят на сервер.
+      </p>
+    </section>
+  }
+</section>

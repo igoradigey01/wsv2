@@ -1,0 +1,300 @@
+<section class="item-card">
+  <div class="item-card__toolbar">
+    <h1>Карточка товара</h1>
+    <div class="item-card__actions">
+      <button
+        type="button"
+        class="item-card__button item-card__button--primary"
+        [disabled]="!hasName()"
+        (click)="save()"
+      >
+        Сохранить
+      </button>
+      <button type="button" class="item-card__button" (click)="cancel()">
+        Отмена
+      </button>
+      <button
+        type="button"
+        class="item-card__button item-card__button--danger"
+        (click)="remove()"
+      >
+        Удалить
+      </button>
+      <label class="item-card__active">
+        <input
+          type="checkbox"
+          [checked]="item().active"
+          (change)="onActiveChange($event)"
+        />
+        <span>Активен</span>
+      </label>
+    </div>
+  </div>
+
+  @if (notice()) {
+    <p class="state item-card__notice">{{ notice() }}</p>
+  }
+
+  <nav class="item-card__tabs">
+    <button
+      type="button"
+      [class.active]="activeTab() === 'general'"
+      (click)="selectTab('general')"
+    >
+      Основные
+    </button>
+    <button
+      type="button"
+      [class.active]="activeTab() === 'pricing'"
+      (click)="selectTab('pricing')"
+    >
+      Цены и запасы
+    </button>
+    <button
+      type="button"
+      [class.active]="activeTab() === 'variants'"
+      (click)="selectTab('variants')"
+    >
+      Характеристики
+    </button>
+  </nav>
+
+  @switch (activeTab()) {
+    @case ('general') {
+      <div class="item-card__columns">
+        <fieldset class="item-card__group">
+          <legend>Идентификация</legend>
+          <label class="item-card__field">
+            <span>Код</span>
+            <input
+              type="text"
+              [value]="item().code"
+              (input)="onTextChange('code', $event)"
+            />
+          </label>
+          <label class="item-card__field">
+            <span>Артикул</span>
+            <input
+              type="text"
+              [value]="item().article"
+              (input)="onTextChange('article', $event)"
+            />
+          </label>
+          <label class="item-card__field item-card__field--required">
+            <span>Наименование</span>
+            <input
+              type="text"
+              [value]="item().name"
+              (input)="onTextChange('name', $event)"
+            />
+          </label>
+          <label class="item-card__field">
+            <span>Краткое наименование</span>
+            <input
+              type="text"
+              [value]="item().shortName"
+              (input)="onTextChange('shortName', $event)"
+            />
+          </label>
+        </fieldset>
+
+        <fieldset class="item-card__group">
+          <legend>Классификация</legend>
+          <label class="item-card__field">
+            <span>Группа</span>
+            <select
+              [value]="item().groupId ?? ''"
+              (change)="setSelect('groupId', $event)"
+            >
+              <option value="">— не выбрана —</option>
+              @for (group of groups; track group.id) {
+                <option [value]="group.id">{{ group.name }}</option>
+              }
+            </select>
+          </label>
+          <label class="item-card__field">
+            <span>Вид номенклатуры</span>
+            <select
+              [value]="item().typeId ?? ''"
+              (change)="setSelect('typeId', $event)"
+            >
+              <option value="">— не выбран —</option>
+              @for (type of types; track type.id) {
+                <option [value]="type.id">{{ type.name }}</option>
+              }
+            </select>
+          </label>
+          <label class="item-card__field item-card__field--required">
+            <span>Базовая единица</span>
+            <select
+              [value]="item().unitId ?? ''"
+              (change)="setSelect('unitId', $event)"
+            >
+              <option value="">— не выбрана —</option>
+              @for (unit of units; track unit.id) {
+                <option [value]="unit.id">{{ unit.name }}</option>
+              }
+            </select>
+          </label>
+          <label class="item-card__field">
+            <span>Страна происхождения</span>
+            <input
+              type="text"
+              [value]="item().country"
+              (input)="onTextChange('country', $event)"
+            />
+          </label>
+          <div class="item-card__field">
+            <span>Фото</span>
+            <div class="item-card__photo">
+              <div class="item-card__photo-preview">
+                @if (item().photoUrl) {
+                  <img [src]="item().photoUrl" alt="Фото товара" />
+                } @else {
+                  <span>нет фото</span>
+                }
+              </div>
+              <button type="button" (click)="uploadPhoto()">Загрузить</button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    }
+    @case ('pricing') {
+      <div class="item-card__columns">
+        <fieldset class="item-card__group">
+          <legend>Цены</legend>
+          <label class="item-card__field">
+            <span>Цена закупочная</span>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              [value]="item().purchasePrice"
+              (input)="onNumberChange('purchasePrice', $event)"
+            />
+          </label>
+          <label class="item-card__field">
+            <span>Цена продажная</span>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              [value]="item().salePrice"
+              (input)="onNumberChange('salePrice', $event)"
+            />
+          </label>
+          <label class="item-card__field">
+            <span>Цена оптовая</span>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              [value]="item().wholesalePrice"
+              (input)="onNumberChange('wholesalePrice', $event)"
+            />
+          </label>
+        </fieldset>
+
+        <fieldset class="item-card__group">
+          <legend>Склад</legend>
+          <label class="item-card__field">
+            <span>Минимальный остаток</span>
+            <input
+              type="number"
+              min="0"
+              [value]="item().minStock"
+              (input)="onNumberChange('minStock', $event)"
+            />
+          </label>
+          <label class="item-card__field">
+            <span>Максимальный остаток</span>
+            <input
+              type="number"
+              min="0"
+              [value]="item().maxStock"
+              (input)="onNumberChange('maxStock', $event)"
+            />
+          </label>
+          <label class="item-card__field">
+            <span>Срок годности, дней</span>
+            <input
+              type="number"
+              min="0"
+              [value]="item().shelfLifeDays"
+              (input)="onNumberChange('shelfLifeDays', $event)"
+            />
+          </label>
+        </fieldset>
+      </div>
+      <label class="item-card__field item-card__field--wide">
+        <span>Описание</span>
+        <textarea
+          rows="4"
+          [value]="item().description"
+          (input)="onTextChange('description', $event)"
+        ></textarea>
+      </label>
+    }
+    @case ('variants') {
+      <table class="item-card__grid">
+        <thead>
+          <tr>
+            <th>Характеристика</th>
+            <th>Значение</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of variants(); track row.id) {
+            <tr>
+              <td>
+                <select
+                  [value]="row.characteristicId ?? ''"
+                  (change)="onVariantCharacteristic(row.id, $event)"
+                >
+                  <option value="">— не выбрана —</option>
+                  @for (characteristic of characteristics; track characteristic.id) {
+                    <option [value]="characteristic.id">
+                      {{ characteristic.name }}
+                    </option>
+                  }
+                </select>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  [value]="row.value"
+                  (input)="onVariantValue(row.id, $event)"
+                />
+              </td>
+              <td class="num">
+                <button
+                  type="button"
+                  class="item-card__remove"
+                  aria-label="Удалить характеристику"
+                  (click)="removeVariant(row.id)"
+                >
+                  ✕
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="3" class="item-card__empty">
+                Характеристики не заданы.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <button
+        type="button"
+        class="item-card__button item-card__button--wide"
+        (click)="addVariant()"
+      >
+        + Добавить характеристику
+      </button>
+    }
+  }
+</section>

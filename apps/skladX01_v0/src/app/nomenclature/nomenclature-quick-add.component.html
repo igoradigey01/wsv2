@@ -1,0 +1,88 @@
+<section class="quick-add">
+  <h1>Быстрый ввод позиции</h1>
+  <p class="hint">
+    Демо-режим: поиск по локальным мок-данным, отправки в накладную нет.
+  </p>
+
+  <div class="quick-add__search">
+    <input
+      type="text"
+      #searchInput
+      placeholder="Поиск по наименованию, коду или штрихкоду…"
+      autocomplete="off"
+      [value]="query()"
+      (input)="onQueryChange($event)"
+      (keydown.enter)="selectFirst()"
+    />
+
+    @if (query().trim().length > 0 && filtered().length > 0) {
+      <ul class="quick-add__results" role="listbox">
+        @for (item of filtered(); track item.id) {
+          <li>
+            <button type="button" (click)="select(item)">
+              <span class="quick-add__code">{{ item.code }}</span>
+              <span class="quick-add__name">{{ item.name }}</span>
+              <span class="quick-add__unit">{{ item.unit }}</span>
+              <span class="quick-add__stock">
+                {{ item.stock | number }}
+              </span>
+              <span class="quick-add__price">
+                {{ item.price | number: '1.2-2' }}
+              </span>
+            </button>
+          </li>
+        }
+      </ul>
+    } @else if (query().trim().length > 0 && filtered().length === 0) {
+      <p class="state">Ничего не найдено. Измените запрос.</p>
+    }
+  </div>
+
+  @if (selectedItem(); as item) {
+    <div class="quick-add__selected">
+      <span class="quick-add__selected-name">
+        {{ item.name }} · {{ item.unit }}
+      </span>
+
+      <label class="quick-add__field">
+        <span>Кол-во</span>
+        <input
+          type="number"
+          min="0"
+          step="0.001"
+          [value]="qty()"
+          (input)="onQtyChange($event)"
+          (keydown.enter)="addToInvoice()"
+        />
+      </label>
+
+      <label class="quick-add__field">
+        <span>Цена</span>
+        <input
+          type="number"
+          min="0"
+          step="0.01"
+          [value]="price()"
+          (input)="onPriceChange($event)"
+        />
+      </label>
+
+      <span class="quick-add__total">
+        Итого: <strong>{{ total() | number: '1.2-2' }}</strong>
+      </span>
+
+      <button
+        type="button"
+        class="quick-add__button"
+        [disabled]="!canAdd()"
+        (click)="addToInvoice()"
+      >
+        Добавить в накладную
+      </button>
+    </div>
+  }
+
+  @if (lastAdded()) {
+    <p class="state state--added">Добавлено: {{ lastAdded() }}</p>
+  }
+</section>

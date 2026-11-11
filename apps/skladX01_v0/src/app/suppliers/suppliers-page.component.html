@@ -1,0 +1,65 @@
+<section class="suppliers-page">
+  <h1>Поставщики</h1>
+
+  <label class="search">
+    <span>Поиск: название, город или телефон</span>
+    <input
+      type="search"
+      name="q"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearchChange()"
+      autocomplete="off"
+      placeholder="Например: Родники или 8918"
+    />
+  </label>
+
+  @if (loading()) {
+    <p class="state">Загрузка…</p>
+  } @else if (error()) {
+    <p class="state state--error">
+      {{ error() }}
+      <button type="button" (click)="retry()">Повторить</button>
+    </p>
+  } @else if (suppliers().length === 0) {
+    <p class="state">Ничего не найдено. Измените запрос.</p>
+  } @else {
+    <table class="grid">
+      <thead>
+        <tr>
+          <th [attr.aria-sort]="ariaSort('id')">
+            <button type="button" (click)="toggleSort('id')">
+              Id <span aria-hidden="true">{{ arrow('id') }}</span>
+            </button>
+          </th>
+          <th [attr.aria-sort]="ariaSort('name')">
+            <button type="button" (click)="toggleSort('name')">
+              Название <span aria-hidden="true">{{ arrow('name') }}</span>
+            </button>
+          </th>
+          <th [attr.aria-sort]="ariaSort('city')">
+            <button type="button" (click)="toggleSort('city')">
+              Город <span aria-hidden="true">{{ arrow('city') }}</span>
+            </button>
+          </th>
+          <th>Телефон</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (supplier of suppliers(); track supplier.id) {
+          <tr
+            role="button"
+            tabindex="0"
+            (click)="open(supplier)"
+            (keyup.enter)="open(supplier)"
+            (keyup.space)="open(supplier)"
+          >
+            <td>{{ supplier.id }}</td>
+            <td>{{ supplier.name }}</td>
+            <td>{{ supplier.city }}</td>
+            <td>{{ supplier.phone }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

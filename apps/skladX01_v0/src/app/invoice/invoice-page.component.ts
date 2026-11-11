@@ -257,6 +257,15 @@ export class InvoicePageComponent implements OnInit {
     this.voiceText.set((event.target as HTMLTextAreaElement).value);
   }
 
+  clearVoice(): void {
+    if (this.parsing()) {
+      return;
+    }
+
+    this.voiceText.set('');
+    this.parseError.set(null);
+  }
+
   setRowName(id: number, event: Event): void {
     const name = (event.target as HTMLInputElement).value;
     this.rows.update((rows) =>

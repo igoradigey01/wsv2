@@ -51,14 +51,24 @@
       ></textarea>
 
       <div class="toolbar">
-        <button
-          type="button"
-          class="action"
-          [disabled]="parsing() || voiceText().trim().length === 0"
-          (click)="parseVoice()"
-        >
-          {{ parsing() ? 'Распознаём…' : 'Заполнить по тексту' }}
-        </button>
+        <div class="toolbar__group">
+          <button
+            type="button"
+            class="action"
+            [disabled]="parsing() || voiceText().trim().length === 0"
+            (click)="parseVoice()"
+          >
+            {{ parsing() ? 'Распознаём…' : 'Заполнить по тексту' }}
+          </button>
+          <button
+            type="button"
+            class="action action--ghost"
+            [disabled]="parsing() || voiceText().trim().length === 0"
+            (click)="clearVoice()"
+          >
+            Очистить
+          </button>
+        </div>
         @if (parseError()) {
           <span class="state state--error">{{ parseError() }}</span>
         }
