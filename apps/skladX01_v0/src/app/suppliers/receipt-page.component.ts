@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  HostListener,
   OnInit,
   computed,
   inject,
@@ -12,8 +13,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { catchError, forkJoin, of } from 'rxjs';
 
-import { InvoiceService } from '../invoice/invoice.service';
-import type { ICandidate } from '../invoice/invoice.service';
+import { QuickCreateItemComponent } from '../nomenclature/quick-create-item.component';
+import { NomenclatureService } from '../nomenclature/nomenclature.service';
+import type { INomenclatureQuick } from '../nomenclature/nomenclature.service';
 import { SupplierService } from './supplier.service';
 import type { ISupplier, IWarehouse } from './supplier.models';
 
@@ -24,15 +26,18 @@ export interface IReceiptRow {
   unit: string | null;
   qty: number;
   price: number;
-  candidates: ICandidate[];
-  candidatesLoading: boolean;
+  suggestions: INomenclatureQuick[];
+  suggestionsLoading: boolean;
+  suggestionsOpen: boolean;
+  activeIndex: number;
 }
 
-const CANDIDATES_DEBOUNCE_MS = 400;
+/** Клавиатурный поиск: SQL LIKE, дебаунс на ввод. */
+const QUICK_SEARCH_DEBOUNCE_MS = 200;
 
 @Component({
   selector: 'app-receipt-page',
-  imports: [DecimalPipe, RouterModule],
+  imports: [DecimalPipe, RouterModule, QuickCreateItemComponent],
   templateUrl: './receipt-page.component.html',
   styleUrl: './receipt-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,7 +45,7 @@ const CANDIDATES_DEBOUNCE_MS = 400;
 export class ReceiptPageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly supplierService = inject(SupplierService);
-  private readonly invoiceService = inject(InvoiceService);
+  private readonly nomenclatureService = inject(NomenclatureService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly supplierId = signal<number | null>(null);
@@ -54,21 +59,14 @@ export class ReceiptPageComponent implements OnInit {
   readonly date = signal(new Date().toISOString().slice(0, 10));
   readonly comment = signal('');
 
-  readonly rows = signal<IReceiptRow[]>([
-    {
-      id: 1,
-      productId: null,
-      name: '',
-      unit: null,
-      qty: 1,
-      price: 0,
-      candidates: [],
-      candidatesLoading: false,
-    },
-  ]);
+  readonly rows = signal<IReceiptRow[]>([this.createRow(1)]);
   private readonly lastRowId = signal(1);
 
-  private readonly candidateTimers = new Map<number, ReturnType<typeof setTimeout>>();
+  /** Строка, для которой открыта модалка быстрого создания. */
+  readonly quickCreateRowId = signal<number | null>(null);
+  readonly quickCreateName = signal('');
+
+  private readonly searchTimers = new Map<number, ReturnType<typeof setTimeout>>();
 
   readonly total = computed(() =>
     this.rows().reduce((sum, row) => sum + row.qty * row.price, 0),
@@ -111,6 +109,21 @@ export class ReceiptPageComponent implements OnInit {
       });
   }
 
+  @HostListener('document:click', ['$event.target'])
+  closeListsOnOutsideClick(target: EventTarget | null): void {
+    const element = target as HTMLElement | null;
+
+    if (element?.closest('[data-suggest]')) {
+      return;
+    }
+
+    this.rows.update((rows) =>
+      rows.map((row) =>
+        row.suggestionsOpen ? { ...row, suggestionsOpen: false } : row,
+      ),
+    );
+  }
+
   setDate(event: Event): void {
     this.date.set((event.target as HTMLInputElement).value);
   }
@@ -128,19 +141,7 @@ export class ReceiptPageComponent implements OnInit {
   addRow(): void {
     const id = this.lastRowId() + 1;
     this.lastRowId.set(id);
-    this.rows.update((rows) => [
-      ...rows,
-      {
-        id,
-        productId: null,
-        name: '',
-        unit: null,
-        qty: 1,
-        price: 0,
-        candidates: [],
-        candidatesLoading: false,
-      },
-    ]);
+    this.rows.update((rows) => [...rows, this.createRow(id)]);
   }
 
   removeRow(id: number): void {
@@ -148,65 +149,129 @@ export class ReceiptPageComponent implements OnInit {
       return;
     }
 
-    const timer = this.candidateTimers.get(id);
-
-    if (timer !== undefined) {
-      clearTimeout(timer);
-      this.candidateTimers.delete(id);
-    }
-
+    this.clearTimer(id);
     this.rows.update((rows) => rows.filter((row) => row.id !== id));
   }
 
+  /** Ввод в поле наименования — клавиатурный поиск (SQL LIKE), не вектор. */
   setRowName(id: number, event: Event): void {
     const name = (event.target as HTMLInputElement).value;
 
     this.rows.update((rows) =>
       rows.map((row) =>
         row.id === id
-          ? { ...row, name, productId: null, candidates: [] }
+          ? {
+              ...row,
+              name,
+              productId: null,
+              unit: null,
+              suggestions: [],
+              suggestionsOpen: name.trim().length >= 2,
+              suggestionsLoading: name.trim().length >= 2,
+              activeIndex: 0,
+            }
           : row,
       ),
     );
 
-    const timer = this.candidateTimers.get(id);
+    this.clearTimer(id);
 
-    if (timer !== undefined) {
-      clearTimeout(timer);
-    }
+    const query = name.trim();
 
-    if (name.trim().length < 2) {
+    if (query.length < 2) {
+      this.rows.update((rows) =>
+        rows.map((row) =>
+          row.id === id ? { ...row, suggestions: [], suggestionsLoading: false } : row,
+        ),
+      );
       return;
     }
 
-    this.candidateTimers.set(
+    this.searchTimers.set(
       id,
-      setTimeout(() => this.loadCandidates(id, name.trim()), CANDIDATES_DEBOUNCE_MS),
+      setTimeout(() => this.loadSuggestions(id, query), QUICK_SEARCH_DEBOUNCE_MS),
     );
   }
 
-  chooseCandidate(rowId: number, event: Event): void {
-    const id = Number((event.target as HTMLSelectElement).value);
-    const row = this.rows().find((item) => item.id === rowId);
-    const candidate = row?.candidates.find((item) => item.id === id);
+  onRowKeydown(id: number, event: KeyboardEvent): void {
+    const row = this.rows().find((item) => item.id === id);
 
-    if (!candidate) {
+    if (!row) {
       return;
     }
 
+    switch (event.key) {
+      case 'ArrowDown':
+        if (row.suggestions.length === 0) {
+          return;
+        }
+        event.preventDefault();
+        this.moveActive(id, 1);
+        break;
+      case 'ArrowUp':
+        if (row.suggestions.length === 0) {
+          return;
+        }
+        event.preventDefault();
+        this.moveActive(id, -1);
+        break;
+      case 'Enter':
+        if (!row.suggestionsOpen || row.suggestions.length === 0) {
+          return;
+        }
+        event.preventDefault();
+        this.chooseSuggestion(id, row.suggestions[row.activeIndex]);
+        break;
+      case 'Escape':
+        if (row.suggestionsOpen) {
+          event.stopPropagation();
+          this.closeSuggestions(id);
+        }
+        break;
+    }
+  }
+
+  chooseSuggestion(rowId: number, suggestion: INomenclatureQuick): void {
     this.rows.update((rows) =>
-      rows.map((item) =>
-        item.id === rowId
+      rows.map((row) =>
+        row.id === rowId
           ? {
-              ...item,
-              productId: candidate.id,
-              name: candidate.name,
-              price: candidate.price ?? item.price,
-              candidates: [],
+              ...row,
+              productId: suggestion.id,
+              name: suggestion.name,
+              unit: suggestion.unit,
+              price: suggestion.purchasePrice ?? row.price,
+              suggestions: [],
+              suggestionsOpen: false,
+              suggestionsLoading: false,
+              activeIndex: 0,
             }
-          : item,
+          : row,
       ),
     );
+  }
+
+  openQuickCreate(rowId: number): void {
+    const row = this.rows().find((item) => item.id === rowId);
+
+    this.quickCreateName.set(row?.name ?? '');
+    this.quickCreateRowId.set(rowId);
+  }
+
+  onQuickCreated(item: INomenclatureQuick): void {
+    const rowId = this.quickCreateRowId();
+
+    this.quickCreateRowId.set(null);
+
+    if (rowId === null) {
+      return;
+    }
+
+    this.chooseSuggestion(rowId, item);
+  }
+
+  closeQuickCreate(): void {
+    this.quickCreateRowId.set(null);
   }
 
   setRowQty(id: number, event: Event): void {
@@ -233,22 +298,68 @@ export class ReceiptPageComponent implements OnInit {
     );
   }
 
-  private loadCandidates(rowId: number, query: string): void {
+  private createRow(id: number): IReceiptRow {
+    return {
+      id,
+      productId: null,
+      name: '',
+      unit: null,
+      qty: 1,
+      price: 0,
+      suggestions: [],
+      suggestionsLoading: false,
+      suggestionsOpen: false,
+      activeIndex: 0,
+    };
+  }
+
+  private moveActive(id: number, delta: number): void {
+    this.rows.update((rows) =>
+      rows.map((row) => {
+        if (row.id !== id || row.suggestions.length === 0) {
+          return row;
+        }
+
+        const count = row.suggestions.length;
+        const activeIndex = (row.activeIndex + delta + count) % count;
+
+        return { ...row, activeIndex, suggestionsOpen: true };
+      }),
+    );
+  }
+
+  private closeSuggestions(id: number): void {
     this.rows.update((rows) =>
       rows.map((row) =>
-        row.id === rowId ? { ...row, candidatesLoading: true } : row,
+        row.id === id ? { ...row, suggestionsOpen: false } : row,
       ),
     );
+  }
 
-    this.invoiceService
-      .candidates(query)
+  private clearTimer(id: number): void {
+    const timer = this.searchTimers.get(id);
+
+    if (timer !== undefined) {
+      clearTimeout(timer);
+      this.searchTimers.delete(id);
+    }
+  }
+
+  private loadSuggestions(rowId: number, query: string): void {
+    this.nomenclatureService
+      .quickSearch(query)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (candidates) => {
+        next: (suggestions) => {
           this.rows.update((rows) =>
             rows.map((row) =>
               row.id === rowId
-                ? { ...row, candidates, candidatesLoading: false }
+                ? {
+                    ...row,
+                    suggestions,
+                    suggestionsLoading: false,
+                    activeIndex: 0,
+                  }
                 : row,
             ),
           );
@@ -256,7 +367,9 @@ export class ReceiptPageComponent implements OnInit {
         error: () => {
           this.rows.update((rows) =>
             rows.map((row) =>
-              row.id === rowId ? { ...row, candidatesLoading: false } : row,
+              row.id === rowId
+                ? { ...row, suggestions: [], suggestionsLoading: false }
+                : row,
             ),
           );
         },

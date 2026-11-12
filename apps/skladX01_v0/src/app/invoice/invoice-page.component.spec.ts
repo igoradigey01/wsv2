@@ -169,4 +169,50 @@ describe('InvoicePageComponent', () => {
     expect(chosen.name).toBe('Песок строительный');
     expect(chosen.price).toBe(300);
   });
+
+  it('ищет номенклатуру с клавиатуры через quick-search', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+
+    jest.useFakeTimers();
+    component.setRowName(1, {
+      target: { value: 'Песок' },
+    } as unknown as Event);
+    fixture.detectChanges();
+
+    jest.advanceTimersByTime(200);
+    jest.useRealTimers();
+
+    const quickRequest = httpMock.expectOne(
+      (request) => request.url === '/api/nomenclature/quick-search',
+    );
+    expect(quickRequest.request.params.get('q')).toBe('Песок');
+    quickRequest.flush([
+      {
+        id: 12,
+        код: 'НМ-00012',
+        артикул: null,
+        название: 'Песок строительный',
+        едИзм: 'т',
+        ценаЗакупочная: 250,
+        ценаПродажная: 300,
+      },
+    ]);
+
+    fixture.detectChanges();
+
+    const row = component.rows()[0];
+    expect(row.suggestions.length).toBe(1);
+
+    component.chooseSuggestion(1, row.suggestions[0]);
+    fixture.detectChanges();
+
+    const chosen = component.rows()[0];
+    expect(chosen.productId).toBe(12);
+    expect(chosen.name).toBe('Песок строительный');
+    expect(chosen.unit).toBe('т');
+    expect(chosen.price).toBe(300);
+  });
 });

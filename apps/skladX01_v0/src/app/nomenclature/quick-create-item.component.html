@@ -1,0 +1,220 @@
+<div class="overlay" role="dialog" aria-modal="true" aria-labelledby="quick-create-title">
+  <div class="dialog">
+    <header class="dialog__head">
+      <h2 id="quick-create-title">Быстрое создание номенклатуры</h2>
+      <button
+        type="button"
+        class="dialog__close"
+        aria-label="Закрыть"
+        [disabled]="saving()"
+        (click)="close()"
+      >
+        ✕
+      </button>
+    </header>
+
+    @if (loading()) {
+      <p class="state">Загрузка справочников…</p>
+    } @else {
+      <div class="dialog__body">
+        <div class="fields">
+          <label class="span-2">
+            <span>Название *</span>
+            <input
+              type="text"
+              [value]="name()"
+              placeholder="Например: Болт М12х60 нерж."
+              (input)="setText('name', $event)"
+            />
+          </label>
+
+          <label>
+            <span>Краткое название</span>
+            <input
+              type="text"
+              [value]="shortName()"
+              (input)="setText('shortName', $event)"
+            />
+          </label>
+
+          <label>
+            <span>Код *</span>
+            <input
+              type="text"
+              [value]="code()"
+              placeholder="НМ-00215"
+              (input)="setText('code', $event)"
+            />
+          </label>
+
+          <label>
+            <span>Артикул</span>
+            <input
+              type="text"
+              [value]="article()"
+              (input)="setText('article', $event)"
+            />
+          </label>
+
+          <label>
+            <span>Группа</span>
+            <select [value]="groupId() ?? ''" (change)="setSelect('groupId', $event)">
+              <option value="">— не выбрана —</option>
+              @for (group of references().groups; track group.id) {
+                <option [value]="group.id">{{ group.name }}</option>
+              }
+            </select>
+          </label>
+
+          <label>
+            <span>Категория</span>
+            <select
+              [value]="categoryId() ?? ''"
+              (change)="setSelect('categoryId', $event)"
+            >
+              <option value="">— не выбрана —</option>
+              @for (category of references().categories; track category.id) {
+                <option [value]="category.id">{{ category.name }}</option>
+              }
+            </select>
+          </label>
+
+          <label>
+            <span>Вид номенклатуры</span>
+            <select [value]="kindId() ?? ''" (change)="setKind($event)">
+              <option value="">— не выбран —</option>
+              @for (kind of references().kinds; track kind.id) {
+                <option [value]="kind.id">{{ kind.name }}</option>
+              }
+            </select>
+          </label>
+
+          <label>
+            <span>Тип</span>
+            <select [value]="typeId()" (change)="setSelect('typeId', $event)">
+              <option [value]="1">Товар</option>
+              <option [value]="2">Услуга</option>
+              <option [value]="3">Материал</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Базовая ед. изм. *</span>
+            <select [value]="unitId()" (change)="setSelect('unitId', $event)">
+              <option [value]="0">— не выбрана —</option>
+              @for (unit of references().units; track unit.id) {
+                <option [value]="unit.id">{{ unit.name }}</option>
+              }
+            </select>
+          </label>
+
+          <label>
+            <span>Цена закупочная</span>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              [value]="purchasePrice() ?? ''"
+              (input)="setNumber('purchasePrice', $event)"
+            />
+          </label>
+
+          <label>
+            <span>Цена продажная</span>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              [value]="salePrice() ?? ''"
+              (input)="setNumber('salePrice', $event)"
+            />
+          </label>
+        </div>
+
+        @if (characteristics().length > 0) {
+          <fieldset class="characteristics">
+            <legend>Характеристики вида</legend>
+
+            <div class="fields">
+              @for (characteristic of characteristics(); track characteristic.id) {
+                <div class="field">
+                  <span>
+                    {{ characteristic.name }}
+                    @if (characteristic.required) {
+                      *
+                    }
+                  </span>
+
+                  @switch (characteristic.valueType) {
+                    @case ('List') {
+                      <select
+                        [value]="values()[characteristic.id] ?? ''"
+                        (change)="setCharacteristicValue(characteristic.id, $event)"
+                      >
+                        <option value="">— не выбрано —</option>
+                        @for (value of characteristic.listValues; track value) {
+                          <option [value]="value">{{ value }}</option>
+                        }
+                      </select>
+                    }
+                    @case ('Number') {
+                      <input
+                        type="number"
+                        [min]="characteristic.min ?? 0"
+                        [max]="characteristic.max ?? null"
+                        [step]="'0.001'"
+                        [value]="values()[characteristic.id] ?? ''"
+                        (input)="setCharacteristicValue(characteristic.id, $event)"
+                      />
+                    }
+                    @case ('Bool') {
+                      <select
+                        [value]="values()[characteristic.id] ?? ''"
+                        (change)="setCharacteristicValue(characteristic.id, $event)"
+                      >
+                        <option value="">— не выбрано —</option>
+                        <option value="Да">Да</option>
+                        <option value="Нет">Нет</option>
+                      </select>
+                    }
+                    @default {
+                      <input
+                        type="text"
+                        [attr.maxlength]="characteristic.maxLength ?? 500"
+                        [value]="values()[characteristic.id] ?? ''"
+                        (input)="setCharacteristicValue(characteristic.id, $event)"
+                      />
+                    }
+                  }
+                </div>
+              }
+            </div>
+          </fieldset>
+        }
+
+        @if (error(); as message) {
+          <p class="state state--error">{{ message }}</p>
+        }
+      </div>
+
+      <footer class="dialog__foot">
+        <button
+          type="button"
+          class="action action--ghost"
+          [disabled]="saving()"
+          (click)="close()"
+        >
+          Отмена
+        </button>
+        <button
+          type="button"
+          class="action"
+          [disabled]="saving()"
+          (click)="save()"
+        >
+          {{ saving() ? 'Сохранение…' : 'Сохранить и выбрать' }}
+        </button>
+      </footer>
+    }
+  </div>
+</div>

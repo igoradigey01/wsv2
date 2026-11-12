@@ -40,6 +40,7 @@
           <input
             type="text"
             [value]="comment()"
+            placeholder="Накладная поставщика №…"
             (input)="setComment($event)"
           />
         </label>
@@ -54,10 +55,16 @@
         </button>
       </div>
 
+      <p class="hint hint--top">
+        Начните печатать в поле «Наименование» — поиск идёт по коду, артикулу
+        и названию. Enter — выбрать строку, ↑/↓ — навигация, Esc — закрыть.
+      </p>
+
       <table class="grid">
         <thead>
           <tr>
             <th>Наименование</th>
+            <th>Ед.</th>
             <th class="num">Кол-во</th>
             <th class="num">Цена</th>
             <th class="num">Сумма</th>
@@ -67,29 +74,73 @@
         <tbody>
           @for (row of rows(); track row.id) {
             <tr>
-              <td data-label="Наименование">
-                <input
-                  type="text"
-                  [value]="row.name"
-                  placeholder="Например: Цемент М500"
-                  (input)="setRowName(row.id, $event)"
-                />
-                @if (!row.productId && row.candidatesLoading) {
-                  <span class="hint">подбираем позиции…</span>
-                } @else if (!row.productId && row.candidates.length > 0) {
-                  <select
-                    class="candidates"
-                    (change)="chooseCandidate(row.id, $event)"
-                  >
-                    <option value="">— выбрать позицию —</option>
-                    @for (candidate of row.candidates; track candidate.id) {
-                      <option [value]="candidate.id">
-                        {{ candidate.name }} · {{ candidate.score }}%
-                      </option>
-                    }
-                  </select>
-                }
+              <td data-label="Наименование" class="name-cell">
+                <div class="suggest" data-suggest>
+                  <input
+                    type="text"
+                    [value]="row.name"
+                    placeholder="Например: Цемент М500"
+                    autocomplete="off"
+                    (input)="setRowName(row.id, $event)"
+                    (keydown)="onRowKeydown(row.id, $event)"
+                  />
+
+                  @if (row.suggestionsOpen) {
+                    <div class="suggest__panel" data-suggest>
+                      @if (row.suggestionsLoading) {
+                        <p class="suggest__state">поиск…</p>
+                      } @else {
+                        @if (row.suggestions.length > 0) {
+                          <table class="suggest__table">
+                            <thead>
+                              <tr>
+                                <th>Код</th>
+                                <th>Артикул</th>
+                                <th>Название</th>
+                                <th>Ед.</th>
+                                <th class="num">Цена</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @for (
+                                item of row.suggestions;
+                                track item.id;
+                                let index = $index
+                              ) {
+                                <tr
+                                  [class.is-active]="index === row.activeIndex"
+                                  (mousedown)="$event.preventDefault()"
+                                  (click)="chooseSuggestion(row.id, item)"
+                                >
+                                  <td class="mono">{{ item.code }}</td>
+                                  <td class="mono">{{ item.article || '—' }}</td>
+                                  <td>{{ item.name }}</td>
+                                  <td>{{ item.unit }}</td>
+                                  <td class="num">
+                                    {{ item.purchasePrice ?? item.salePrice ?? 0 | number: '1.2-2' }}
+                                  </td>
+                                </tr>
+                              }
+                            </tbody>
+                          </table>
+                        } @else {
+                          <p class="suggest__state">Ничего не найдено</p>
+                        }
+
+                        <button
+                          type="button"
+                          class="suggest__create"
+                          (mousedown)="$event.preventDefault()"
+                          (click)="openQuickCreate(row.id)"
+                        >
+                          ➕ Создать новую{{ row.name ? ' «' + row.name + '»' : '' }}
+                        </button>
+                      }
+                    </div>
+                  }
+                </div>
               </td>
+              <td data-label="Ед.">{{ row.unit || '—' }}</td>
               <td class="num" data-label="Кол-во">
                 <input
                   type="number"
@@ -149,5 +200,13 @@
         данные не уходят на сервер.
       </p>
     </section>
+
+    @if (quickCreateRowId() !== null) {
+      <app-quick-create-item
+        [initialName]="quickCreateName()"
+        (created)="onQuickCreated($event)"
+        (closed)="closeQuickCreate()"
+      />
+    }
   }
 </section>

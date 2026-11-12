@@ -88,6 +88,12 @@
         </button>
       </div>
 
+      <p class="hint hint--top">
+        Ввод с клавиатуры ищет по коду, артикулу и названию (SQL).
+        Голосовой разбор («Заполнить по тексту») использует векторный поиск —
+        его варианты показываются отдельным списком под полем.
+      </p>
+
       <table class="grid">
         <thead>
           <tr>
@@ -101,20 +107,74 @@
         <tbody>
           @for (row of rows(); track row.id) {
             <tr>
-              <td data-label="Наименование">
-                <input
-                  type="text"
-                  [value]="row.name"
-                  (input)="setRowName(row.id, $event)"
-                />
+              <td data-label="Наименование" class="name-cell">
+                <div class="suggest" data-suggest>
+                  <input
+                    type="text"
+                    [value]="row.name"
+                    placeholder="Начните печатать: название, код или артикул"
+                    autocomplete="off"
+                    (input)="setRowName(row.id, $event)"
+                    (keydown)="onRowKeydown(row.id, $event)"
+                  />
+
+                  @if (row.suggestionsOpen) {
+                    <div class="suggest__panel" data-suggest>
+                      @if (row.suggestionsLoading) {
+                        <p class="suggest__state">поиск…</p>
+                      } @else {
+                        @if (row.suggestions.length > 0) {
+                          <table class="suggest__table">
+                            <thead>
+                              <tr>
+                                <th>Код</th>
+                                <th>Артикул</th>
+                                <th>Название</th>
+                                <th>Ед.</th>
+                                <th class="num">Цена</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @for (
+                                item of row.suggestions;
+                                track item.id;
+                                let index = $index
+                              ) {
+                                <tr
+                                  [class.is-active]="index === row.activeIndex"
+                                  (mousedown)="$event.preventDefault()"
+                                  (click)="chooseSuggestion(row.id, item)"
+                                >
+                                  <td class="mono">{{ item.code }}</td>
+                                  <td class="mono">{{ item.article || '—' }}</td>
+                                  <td>{{ item.name }}</td>
+                                  <td>{{ item.unit }}</td>
+                                  <td class="num">
+                                    {{ item.salePrice ?? item.purchasePrice ?? 0 | number: '1.2-2' }}
+                                  </td>
+                                </tr>
+                              }
+                            </tbody>
+                          </table>
+                        } @else {
+                          <p class="suggest__state">Ничего не найдено</p>
+                        }
+                      }
+                    </div>
+                  }
+                </div>
+
                 @if (!row.productId && row.candidatesLoading) {
-                  <span class="hint">подбираем позиции…</span>
-                } @else if (!row.productId && row.candidates.length > 0) {
+                  <span class="hint">голос: подбираем позиции…</span>
+                } @else if (
+                  !row.productId && !row.suggestionsOpen && row.candidates.length > 0
+                ) {
                   <select
                     class="candidates"
+                    aria-label="Варианты из голосового разбора"
                     (change)="chooseCandidate(row.id, $event)"
                   >
-                    <option value="">— выбрать позицию —</option>
+                    <option value="">— голос: выбрать позицию —</option>
                     @for (candidate of row.candidates; track candidate.id) {
                       <option [value]="candidate.id">
                         {{ candidate.name }} · {{ candidate.score }}%

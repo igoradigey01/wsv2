@@ -91,7 +91,7 @@ describe('ReceiptPageComponent', () => {
     expect(component.rows().length).toBe(1);
   });
 
-  it('подбирает номенклатуру и подставляет цену', () => {
+  it('ищет номенклатуру с клавиатуры и подставляет цену', () => {
     flushHeader();
 
     const component = fixture.componentInstance;
@@ -102,36 +102,108 @@ describe('ReceiptPageComponent', () => {
     } as unknown as Event);
     fixture.detectChanges();
 
-    jest.advanceTimersByTime(400);
+    jest.advanceTimersByTime(200);
     jest.useRealTimers();
 
-    const candidatesRequest = httpMock.expectOne(
-      (request) => request.url === '/api/nomenclature/candidates',
+    const quickRequest = httpMock.expectOne(
+      (request) => request.url === '/api/nomenclature/quick-search',
     );
-    expect(candidatesRequest.request.params.get('q')).toBe('Цемент');
-    candidatesRequest.flush([
+    expect(quickRequest.request.params.get('q')).toBe('Цемент');
+    quickRequest.flush([
       {
         id: 5,
-        name: 'Цемент М500',
-        price: 450,
-        score: 88,
-        cosine: 0.9,
-        lexical: 80,
+        код: 'НМ-00005',
+        артикул: 'CEM500',
+        название: 'Цемент М500',
+        едИзм: 'кг',
+        ценаЗакупочная: 450,
+        ценаПродажная: 600,
       },
     ]);
 
     fixture.detectChanges();
 
-    const select = fixture.nativeElement.querySelector(
-      'select.candidates',
-    ) as HTMLSelectElement;
-    select.value = '5';
-    select.dispatchEvent(new Event('change'));
+    const rows = fixture.nativeElement.querySelectorAll(
+      '.suggest__table tbody tr',
+    ) as NodeListOf<HTMLElement>;
+    expect(rows.length).toBe(1);
+
+    rows[0].click();
     fixture.detectChanges();
 
     const row = component.rows()[0];
     expect(row.productId).toBe(5);
     expect(row.name).toBe('Цемент М500');
+    expect(row.unit).toBe('кг');
     expect(row.price).toBe(450);
+    expect(row.suggestionsOpen).toBe(false);
+  });
+
+  it('выбирает первую подсказку по Enter', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.rows.update((rows) =>
+      rows.map((row) =>
+        row.id === 1
+          ? {
+              ...row,
+              suggestionsOpen: true,
+              suggestions: [
+                {
+                  id: 9,
+                  code: 'НМ-00009',
+                  article: '',
+                  name: 'Песок',
+                  unit: 'т',
+                  purchasePrice: 300,
+                  salePrice: 400,
+                },
+              ],
+            }
+          : row,
+      ),
+    );
+    fixture.detectChanges();
+
+    const input = fixture.nativeElement.querySelector(
+      'tbody input[type="text"]',
+    ) as HTMLInputElement;
+
+    input.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+    );
+    fixture.detectChanges();
+
+    const row = component.rows()[0];
+    expect(row.productId).toBe(9);
+    expect(row.unit).toBe('т');
+    expect(row.price).toBe(300);
+  });
+
+  it('открывает модалку быстрого создания из строки «Создать новую»', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.rows.update((rows) =>
+      rows.map((row) =>
+        row.id === 1 ? { ...row, name: 'Несуществующая позиция' } : row,
+      ),
+    );
+    component.openQuickCreate(1);
+    fixture.detectChanges();
+
+    expect(component.quickCreateRowId()).toBe(1);
+    expect(component.quickCreateName()).toBe('Несуществующая позиция');
+
+    httpMock.expectOne('/api/nomenclature/references').flush({
+      группы: [],
+      виды: [],
+      категории: [],
+      единицы: [{ id: 3, название: 'шт' }],
+    });
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('app-quick-create-item')).toBeTruthy();
   });
 });

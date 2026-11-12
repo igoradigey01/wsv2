@@ -16,3 +16,95 @@
   --c-disabled-bg: #f4f4f4;
   --radius: 8px;
 }
+
+/* Grid Lookup: подсказки номенклатуры в строках документов.
+   Общие стили для накладной и прихода (клавиатурный поиск). */
+.name-cell {
+  position: relative;
+}
+
+.suggest {
+  position: relative;
+  width: 100%;
+}
+
+.suggest__panel {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 2px);
+  left: 0;
+  width: max(100%, 32rem);
+  max-width: 90vw;
+  padding: 0.25rem;
+  border: 1px solid var(--c-border);
+  border-radius: 4px;
+  background: var(--c-surface);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 14%);
+}
+
+.suggest__state {
+  margin: 0;
+  padding: 0.4rem 0.5rem;
+  color: var(--c-muted);
+  font-size: 0.8125rem;
+}
+
+table.suggest__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+
+  th {
+    padding: 0.25rem 0.4rem;
+    border-bottom: 1px solid var(--c-border);
+    color: var(--c-muted);
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  td {
+    display: table-cell;
+    padding: 0.3rem 0.4rem;
+    border-bottom: 1px solid var(--c-border);
+    text-align: left;
+
+    &::before {
+      content: none;
+    }
+  }
+
+  tbody tr {
+    cursor: pointer;
+
+    &:hover,
+    &.is-active {
+      background: var(--c-active-row);
+    }
+  }
+}
+
+.mono {
+  font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  color: var(--c-muted-strong);
+  white-space: nowrap;
+}
+
+.suggest__create {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px dashed var(--c-primary);
+  border-radius: 4px;
+  background: var(--c-surface);
+  color: var(--c-primary);
+  font: inherit;
+  font-size: 0.8125rem;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--c-active-row);
+  }
+}

@@ -4,6 +4,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  HostListener,
   inject,
   OnInit,
   signal,
@@ -15,6 +16,8 @@ import { map } from 'rxjs/operators';
 
 import { ClientService } from '../clients/client.service';
 import type { IClient, IMark } from '../clients/client.models';
+import { NomenclatureService } from '../nomenclature/nomenclature.service';
+import type { INomenclatureQuick } from '../nomenclature/nomenclature.service';
 import { InvoiceService } from './invoice.service';
 import type { ICandidate } from './invoice.service';
 
@@ -25,9 +28,18 @@ export interface IInvoiceRow {
   qty: number;
   unit: string | null;
   price: number;
+  /** Голос: вектор + Левенштейн (только для распознанного текста). */
   candidates: ICandidate[];
   candidatesLoading: boolean;
+  /** Клавиатура: SQL LIKE по коду/артикулу/названию. */
+  suggestions: INomenclatureQuick[];
+  suggestionsOpen: boolean;
+  suggestionsLoading: boolean;
+  activeIndex: number;
 }
+
+/** Клавиатурный поиск: SQL LIKE, дебаунс на ввод. */
+const QUICK_SEARCH_DEBOUNCE_MS = 200;
 
 @Component({
   selector: 'app-invoice-page',
@@ -40,6 +52,7 @@ export class InvoicePageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly clientService = inject(ClientService);
   private readonly invoiceService = inject(InvoiceService);
+  private readonly nomenclatureService = inject(NomenclatureService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly clientId = signal<number | null>(null);
@@ -56,19 +69,10 @@ export class InvoicePageComponent implements OnInit {
   readonly parsing = signal(false);
   readonly parseError = signal<string | null>(null);
 
-  readonly rows = signal<IInvoiceRow[]>([
-    {
-      id: 1,
-      productId: null,
-      name: '',
-      qty: 1,
-      unit: null,
-      price: 0,
-      candidates: [],
-      candidatesLoading: false,
-    },
-  ]);
+  readonly rows = signal<IInvoiceRow[]>([this.createRow(1)]);
   private readonly lastRowId = signal(1);
+
+  private readonly searchTimers = new Map<number, ReturnType<typeof setTimeout>>();
 
   readonly total = computed(() =>
     this.rows().reduce((sum, row) => sum + row.qty * row.price, 0),
@@ -116,6 +120,21 @@ export class InvoicePageComponent implements OnInit {
       });
   }
 
+  @HostListener('document:click', ['$event.target'])
+  closeListsOnOutsideClick(target: EventTarget | null): void {
+    const element = target as HTMLElement | null;
+
+    if (element?.closest('[data-suggest]')) {
+      return;
+    }
+
+    this.rows.update((rows) =>
+      rows.map((row) =>
+        row.suggestionsOpen ? { ...row, suggestionsOpen: false } : row,
+      ),
+    );
+  }
+
   parseVoice(): void {
     const text = this.voiceText().trim();
 
@@ -140,14 +159,12 @@ export class InvoicePageComponent implements OnInit {
 
           this.rows.set(
             parsed.map((row, index) => ({
-              id: index + 1,
+              ...this.createRow(index + 1),
               productId: row.productId,
               name: row.name,
               qty: row.qty,
               unit: row.unit,
               price: 0,
-              candidates: [],
-              candidatesLoading: false,
             })),
           );
           this.lastRowId.set(parsed.length);
@@ -165,21 +182,10 @@ export class InvoicePageComponent implements OnInit {
   addRow(): void {
     const id = this.lastRowId() + 1;
     this.lastRowId.set(id);
-    this.rows.update((rows) => [
-      ...rows,
-      {
-        id,
-        productId: null,
-        name: '',
-        qty: 1,
-        unit: null,
-        price: 0,
-        candidates: [],
-        candidatesLoading: false,
-      },
-    ]);
+    this.rows.update((rows) => [...rows, this.createRow(id)]);
   }
 
+  /** Голос: выбор из векторных кандидатов. */
   chooseCandidate(rowId: number, event: Event): void {
     const id = Number((event.target as HTMLSelectElement).value);
     const row = this.rows().find((item) => item.id === rowId);
@@ -197,10 +203,77 @@ export class InvoicePageComponent implements OnInit {
               productId: candidate.id,
               name: candidate.name,
               price: candidate.price ?? item.price,
+              candidates: [],
+              suggestions: [],
+              suggestionsOpen: false,
             }
           : item,
       ),
     );
+  }
+
+  /** Клавиатура: выбор из быстрого SQL-поиска. */
+  chooseSuggestion(rowId: number, suggestion: INomenclatureQuick): void {
+    this.rows.update((rows) =>
+      rows.map((row) =>
+        row.id === rowId
+          ? {
+              ...row,
+              productId: suggestion.id,
+              name: suggestion.name,
+              unit: suggestion.unit,
+              price: suggestion.salePrice ?? row.price,
+              candidates: [],
+              suggestions: [],
+              suggestionsOpen: false,
+              suggestionsLoading: false,
+              activeIndex: 0,
+            }
+          : row,
+      ),
+    );
+  }
+
+  onRowKeydown(id: number, event: KeyboardEvent): void {
+    const row = this.rows().find((item) => item.id === id);
+
+    if (!row) {
+      return;
+    }
+
+    switch (event.key) {
+      case 'ArrowDown':
+        if (row.suggestions.length === 0) {
+          return;
+        }
+        event.preventDefault();
+        this.moveActive(id, 1);
+        break;
+      case 'ArrowUp':
+        if (row.suggestions.length === 0) {
+          return;
+        }
+        event.preventDefault();
+        this.moveActive(id, -1);
+        break;
+      case 'Enter':
+        if (!row.suggestionsOpen || row.suggestions.length === 0) {
+          return;
+        }
+        event.preventDefault();
+        this.chooseSuggestion(id, row.suggestions[row.activeIndex]);
+        break;
+      case 'Escape':
+        if (row.suggestionsOpen) {
+          event.stopPropagation();
+          this.rows.update((rows) =>
+            rows.map((item) =>
+              item.id === id ? { ...item, suggestionsOpen: false } : item,
+            ),
+          );
+        }
+        break;
+    }
   }
 
   private loadCandidatesForUnmatched(): void {
@@ -242,6 +315,7 @@ export class InvoicePageComponent implements OnInit {
       return;
     }
 
+    this.clearTimer(id);
     this.rows.update((rows) => rows.filter((row) => row.id !== id));
   }
 
@@ -266,10 +340,41 @@ export class InvoicePageComponent implements OnInit {
     this.parseError.set(null);
   }
 
+  /** Ввод с клавиатуры — быстрый SQL-поиск (не вектор и не Ollama). */
   setRowName(id: number, event: Event): void {
     const name = (event.target as HTMLInputElement).value;
+    const query = name.trim();
+
     this.rows.update((rows) =>
-      rows.map((row) => (row.id === id ? { ...row, name } : row)),
+      rows.map((row) =>
+        row.id === id
+          ? {
+              ...row,
+              name,
+              productId: null,
+              suggestions: [],
+              suggestionsOpen: query.length >= 2,
+              suggestionsLoading: query.length >= 2,
+              activeIndex: 0,
+            }
+          : row,
+      ),
+    );
+
+    this.clearTimer(id);
+
+    if (query.length < 2) {
+      this.rows.update((rows) =>
+        rows.map((row) =>
+          row.id === id ? { ...row, suggestions: [], suggestionsLoading: false } : row,
+        ),
+      );
+      return;
+    }
+
+    this.searchTimers.set(
+      id,
+      setTimeout(() => this.loadSuggestions(id, query), QUICK_SEARCH_DEBOUNCE_MS),
     );
   }
 
@@ -293,5 +398,77 @@ export class InvoicePageComponent implements OnInit {
     this.rows.update((rows) =>
       rows.map((row) => (row.id === id ? { ...row, price } : row)),
     );
+  }
+
+  private createRow(id: number): IInvoiceRow {
+    return {
+      id,
+      productId: null,
+      name: '',
+      qty: 1,
+      unit: null,
+      price: 0,
+      candidates: [],
+      candidatesLoading: false,
+      suggestions: [],
+      suggestionsOpen: false,
+      suggestionsLoading: false,
+      activeIndex: 0,
+    };
+  }
+
+  private moveActive(id: number, delta: number): void {
+    this.rows.update((rows) =>
+      rows.map((row) => {
+        if (row.id !== id || row.suggestions.length === 0) {
+          return row;
+        }
+
+        const count = row.suggestions.length;
+        const activeIndex = (row.activeIndex + delta + count) % count;
+
+        return { ...row, activeIndex, suggestionsOpen: true };
+      }),
+    );
+  }
+
+  private clearTimer(id: number): void {
+    const timer = this.searchTimers.get(id);
+
+    if (timer !== undefined) {
+      clearTimeout(timer);
+      this.searchTimers.delete(id);
+    }
+  }
+
+  private loadSuggestions(rowId: number, query: string): void {
+    this.nomenclatureService
+      .quickSearch(query)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (suggestions) => {
+          this.rows.update((rows) =>
+            rows.map((row) =>
+              row.id === rowId
+                ? {
+                    ...row,
+                    suggestions,
+                    suggestionsLoading: false,
+                    activeIndex: 0,
+                  }
+                : row,
+            ),
+          );
+        },
+        error: () => {
+          this.rows.update((rows) =>
+            rows.map((row) =>
+              row.id === rowId
+                ? { ...row, suggestions: [], suggestionsLoading: false }
+                : row,
+            ),
+          );
+        },
+      });
   }
 }
