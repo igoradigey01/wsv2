@@ -159,6 +159,15 @@
                         } @else {
                           <p class="suggest__state">Ничего не найдено</p>
                         }
+
+                        <button
+                          type="button"
+                          class="suggest__create"
+                          (mousedown)="$event.preventDefault()"
+                          (click)="openQuickCreate(row.id)"
+                        >
+                          ➕ Создать новую{{ row.name ? ' «' + row.name + '»' : '' }}
+                        </button>
                       }
                     </div>
                   }
@@ -242,5 +251,13 @@
         уходят на сервер.
       </p>
     </section>
+
+    @if (quickCreateRowId() !== null) {
+      <app-quick-create-item
+        [initialName]="quickCreateName()"
+        (created)="onQuickCreated($event)"
+        (closed)="closeQuickCreate()"
+      />
+    }
   }
 </section>

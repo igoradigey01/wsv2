@@ -16,6 +16,7 @@ import { map } from 'rxjs/operators';
 
 import { ClientService } from '../clients/client.service';
 import type { IClient, IMark } from '../clients/client.models';
+import { QuickCreateItemComponent } from '../nomenclature/quick-create-item.component';
 import { NomenclatureService } from '../nomenclature/nomenclature.service';
 import type { INomenclatureQuick } from '../nomenclature/nomenclature.service';
 import { InvoiceService } from './invoice.service';
@@ -43,7 +44,7 @@ const QUICK_SEARCH_DEBOUNCE_MS = 200;
 
 @Component({
   selector: 'app-invoice-page',
-  imports: [DecimalPipe, RouterModule],
+  imports: [DecimalPipe, RouterModule, QuickCreateItemComponent],
   templateUrl: './invoice-page.component.html',
   styleUrl: './invoice-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -71,6 +72,10 @@ export class InvoicePageComponent implements OnInit {
 
   readonly rows = signal<IInvoiceRow[]>([this.createRow(1)]);
   private readonly lastRowId = signal(1);
+
+  /** Строка, для которой открыта модалка быстрого создания. */
+  readonly quickCreateRowId = signal<number | null>(null);
+  readonly quickCreateName = signal('');
 
   private readonly searchTimers = new Map<number, ReturnType<typeof setTimeout>>();
 
@@ -232,6 +237,29 @@ export class InvoicePageComponent implements OnInit {
           : row,
       ),
     );
+  }
+
+  openQuickCreate(rowId: number): void {
+    const row = this.rows().find((item) => item.id === rowId);
+
+    this.quickCreateName.set(row?.name ?? '');
+    this.quickCreateRowId.set(rowId);
+  }
+
+  onQuickCreated(item: INomenclatureQuick): void {
+    const rowId = this.quickCreateRowId();
+
+    this.quickCreateRowId.set(null);
+
+    if (rowId === null) {
+      return;
+    }
+
+    this.chooseSuggestion(rowId, item);
+  }
+
+  closeQuickCreate(): void {
+    this.quickCreateRowId.set(null);
   }
 
   onRowKeydown(id: number, event: KeyboardEvent): void {

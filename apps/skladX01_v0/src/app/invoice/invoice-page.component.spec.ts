@@ -215,4 +215,58 @@ describe('InvoicePageComponent', () => {
     expect(chosen.unit).toBe('т');
     expect(chosen.price).toBe(300);
   });
+
+  it('открывает модалку быстрого создания из строки «Создать новую»', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    component.rows.update((rows) =>
+      rows.map((row) =>
+        row.id === 1 ? { ...row, name: 'Несуществующая позиция' } : row,
+      ),
+    );
+    component.openQuickCreate(1);
+    fixture.detectChanges();
+
+    expect(component.quickCreateRowId()).toBe(1);
+    expect(component.quickCreateName()).toBe('Несуществующая позиция');
+
+    httpMock.expectOne('/api/nomenclature/references').flush({
+      группы: [],
+      виды: [],
+      категории: [],
+      единицы: [{ id: 3, название: 'шт' }],
+    });
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('app-quick-create-item')).toBeTruthy();
+  });
+
+  it('подставляет созданную позицию в строку накладной', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    component.openQuickCreate(1);
+
+    component.onQuickCreated({
+      id: 99,
+      code: 'НМ-00099',
+      article: '',
+      name: 'Новая позиция',
+      unit: 'шт',
+      purchasePrice: 100,
+      salePrice: 150,
+    });
+
+    fixture.detectChanges();
+
+    const row = component.rows()[0];
+    expect(component.quickCreateRowId()).toBeNull();
+    expect(row.productId).toBe(99);
+    expect(row.name).toBe('Новая позиция');
+    expect(row.unit).toBe('шт');
+    expect(row.price).toBe(150);
+  });
 });
