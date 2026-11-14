@@ -108,3 +108,50 @@ table.suggest__table {
     background: var(--c-active-row);
   }
 }
+
+/* Вкладки карточек (клиент, поставщик) на узких экранах.
+   Своя реализация без Angular Material — см. shared/tabs.component.ts. */
+.tabs {
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  overflow: hidden;
+}
+
+.tabs__bar {
+  display: flex;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.tabs__tab {
+  flex: 1 1 auto;
+  padding: 0.6rem 0.75rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--c-muted-strong);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.tabs__tab.is-active {
+  border-bottom-color: var(--c-primary);
+  color: var(--c-primary);
+  font-weight: 600;
+}
+
+.tabs__tab:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: -2px;
+}
+
+.tabs__panel {
+  padding: 0.75rem;
+}
+
+/* Внутри вкладки блок уже обрамлён вкладками — убираем двойную рамку. */
+.tabs__panel > .block {
+  padding: 0;
+  border: 0;
+}

@@ -3,6 +3,7 @@ import {
   HttpTestingController,
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   ActivatedRoute,
@@ -17,7 +18,7 @@ describe('ClientDetailComponent', () => {
   let fixture: ComponentFixture<ClientDetailComponent>;
   let httpMock: HttpTestingController;
 
-  function setup(clientId: string): void {
+  function setup(clientId: string, narrow = false): void {
     TestBed.configureTestingModule({
       imports: [ClientDetailComponent],
       providers: [
@@ -27,6 +28,10 @@ describe('ClientDetailComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: { paramMap: of(convertToParamMap({ id: clientId })) },
+        },
+        {
+          provide: BreakpointObserver,
+          useValue: { observe: () => of({ matches: narrow, breakpoints: {} }) },
         },
       ],
     });
@@ -287,5 +292,69 @@ describe('ClientDetailComponent', () => {
 
     const negative = fixture.nativeElement.querySelectorAll('td.num--negative');
     expect(negative.length).toBe(1);
+  });
+
+  it('на узком экране прячет блоки «Отпущенный товар» и «Принятые деньги» во вкладки', () => {
+    setup('7', true);
+
+    httpMock.expectOne('/api/clients/7').flush({
+      id: 7,
+      псевдоним: 'Тестовый клиент',
+      фио: 'Иванов',
+      телефон: '123',
+      город: 'Туапсе',
+      пределКредита: 1000,
+      активен: true,
+    });
+    httpMock.expectOne('/api/clients/7/summary').flush({});
+    httpMock
+      .expectOne('/api/clients/7/marks')
+      .flush([{ id: 'd1', номер: 'R-000001', долг: 200 }]);
+    httpMock.expectOne('/api/clients/marks/d1/products').flush([]);
+    httpMock.expectOne('/api/clients/marks/d1/payments').flush([]);
+
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement as HTMLElement;
+    const tabs = element.querySelectorAll('app-tabs [role="tab"]');
+
+    expect(tabs.length).toBe(2);
+    expect(tabs[0].textContent).toContain('Отпущенный товар');
+    expect(tabs[1].textContent).toContain('Принятые деньги');
+
+    // Внутри панели вкладок — ровно один блок, снаружи остаётся только «КодСделки».
+    expect(element.querySelectorAll('.tabs__panel section.block').length).toBe(1);
+    expect(
+      element.querySelectorAll('.blocks > section.block').length,
+    ).toBe(1);
+  });
+
+  it('на широком экране показывает оба блока без вкладок', () => {
+    setup('7');
+
+    httpMock.expectOne('/api/clients/7').flush({
+      id: 7,
+      псевдоним: 'Тестовый клиент',
+      фио: 'Иванов',
+      телефон: '123',
+      город: 'Туапсе',
+      пределКредита: 1000,
+      активен: true,
+    });
+    httpMock.expectOne('/api/clients/7/summary').flush({});
+    httpMock
+      .expectOne('/api/clients/7/marks')
+      .flush([{ id: 'd1', номер: 'R-000001', долг: 200 }]);
+    httpMock.expectOne('/api/clients/marks/d1/products').flush([]);
+    httpMock.expectOne('/api/clients/marks/d1/payments').flush([]);
+
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement as HTMLElement;
+
+    expect(element.querySelector('app-tabs')).toBeNull();
+    expect(
+      element.querySelectorAll('.blocks > section.block').length,
+    ).toBe(3);
   });
 });

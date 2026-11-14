@@ -79,7 +79,7 @@ export class SuppliersPageComponent implements OnInit {
   }
 
   open(supplier: ISupplier): void {
-    void this.router.navigate(['/suppliers', supplier.id, 'receipt', 'new']);
+    void this.router.navigate(['/suppliers', supplier.id]);
   }
 
   retry(): void {

@@ -1,0 +1,82 @@
+<section class="detail">
+  <a class="back" routerLink="/suppliers">← К поставщикам</a>
+
+  @if (loading()) {
+    <p class="state">Загрузка…</p>
+  } @else if (notFound()) {
+    <p class="state state--error">Поставщик не найден.</p>
+  } @else if (error()) {
+    <p class="state state--error">{{ error() }}</p>
+  } @else if (supplier(); as s) {
+    <header class="card">
+      <h1>{{ s.name }}</h1>
+      <p class="muted">Поставщик #{{ s.id }}</p>
+
+      <dl class="facts">
+        <dt>Город</dt>
+        <dd>{{ s.city || '—' }}</dd>
+        <dt>Телефон</dt>
+        <dd>{{ s.phone || '—' }}</dd>
+      </dl>
+
+      <div class="toolbar">
+        <a
+          class="action"
+          [routerLink]="['/suppliers', s.id, 'receipt', 'new']"
+        >
+          Принять товар
+        </a>
+        <button
+          type="button"
+          class="action action--ghost"
+          disabled
+          title="Выплаты поставщику появятся после API выплат"
+        >
+          Выплатить
+        </button>
+      </div>
+    </header>
+
+    <div class="blocks">
+      @if (isNarrow()) {
+        <app-tabs
+          [tabs]="[
+            { id: 'receipts', label: 'Полученный товар', template: receiptsBlock },
+            { id: 'payments', label: 'Отданные деньги', template: paymentsBlock }
+          ]"
+        />
+      } @else {
+        <ng-container [ngTemplateOutlet]="receiptsBlock" />
+        <ng-container [ngTemplateOutlet]="paymentsBlock" />
+      }
+    </div>
+
+    <ng-template #receiptsBlock>
+      <section class="block">
+        <h2>Полученный товар</h2>
+        <p class="muted">Приходные накладные поставщика.</p>
+        <p class="state">
+          Данных пока нет — в SkladApi нет эндпоинта приходов поставщика.
+        </p>
+        <div class="toolbar">
+          <a
+            class="action"
+            [routerLink]="['/suppliers', s.id, 'receipt', 'new']"
+          >
+            Принять товар
+          </a>
+        </div>
+      </section>
+    </ng-template>
+
+    <ng-template #paymentsBlock>
+      <section class="block">
+        <h2>Отданные деньги</h2>
+        <p class="muted">Выплаты поставщику по приходам.</p>
+        <p class="state">
+          Данных пока нет — в SkladApi нет эндпоинта выплат поставщику.
+        </p>
+      </section>
+    </ng-template>
+  }
+</section>

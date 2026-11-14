@@ -152,6 +152,20 @@
         }
       </section>
 
+      @if (isNarrow()) {
+        <app-tabs
+          [tabs]="[
+            { id: 'products', label: 'Отпущенный товар', template: productBlock },
+            { id: 'payments', label: 'Принятые деньги', template: paymentBlock }
+          ]"
+        />
+      } @else {
+        <ng-container [ngTemplateOutlet]="productBlock" />
+        <ng-container [ngTemplateOutlet]="paymentBlock" />
+      }
+    </div>
+
+    <ng-template #productBlock>
       <section class="block">
         <h2>Отпущенный товар</h2>
 
@@ -233,6 +247,9 @@
         }
       </section>
 
+    </ng-template>
+
+    <ng-template #paymentBlock>
       <section class="block">
         <h2>Принятые деньги</h2>
 
@@ -311,6 +328,6 @@
           <p class="state">Выберите сделку.</p>
         }
       </section>
-    </div>
+    </ng-template>
   }
 </section>

@@ -1,4 +1,5 @@
-import { DatePipe, DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe, NgTemplateOutlet } from '@angular/common';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,7 +9,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { forkJoin, of } from 'rxjs';
 import type { Subscription } from 'rxjs';
@@ -22,6 +23,7 @@ import type {
   IPayment,
   IShippedGood,
 } from './client.models';
+import { TabsComponent } from '../shared/tabs.component';
 
 interface IClientLoadResult {
   client: IClient;
@@ -40,7 +42,7 @@ function statusOf(error: unknown): number | null {
 
 @Component({
   selector: 'app-client-detail',
-  imports: [DatePipe, DecimalPipe, RouterModule],
+  imports: [DatePipe, DecimalPipe, NgTemplateOutlet, RouterModule, TabsComponent],
   templateUrl: './client-detail.component.html',
   styleUrl: './client-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -49,6 +51,15 @@ export class ClientDetailComponent implements OnInit {
   private readonly clientService = inject(ClientService);
   private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly breakpoints = inject(BreakpointObserver);
+
+  /** Узкий экран: блоки «Отпущенный товар» и «Принятые деньги» идут вкладками. */
+  readonly isNarrow = toSignal(
+    this.breakpoints
+      .observe('(max-width: 767.98px)')
+      .pipe(map((state) => state.matches)),
+    { initialValue: false },
+  );
 
   readonly client = signal<IClient | null>(null);
   readonly summary = signal<IClientSummary | null>(null);

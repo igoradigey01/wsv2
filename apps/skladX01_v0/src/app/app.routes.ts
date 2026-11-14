@@ -25,6 +25,14 @@ export const appRoutes: Route[] = [
     data: { title: 'Поставщики' },
   },
   {
+    path: 'suppliers/:id',
+    loadComponent: () =>
+      import('./suppliers/supplier-detail.component').then(
+        (m) => m.SupplierDetailComponent,
+      ),
+    data: { title: 'Поставщик' },
+  },
+  {
     path: 'suppliers/:id/receipt/new',
     loadComponent: () =>
       import('./suppliers/receipt-page.component').then(
