@@ -180,13 +180,7 @@
             >
               Выписать накладную
             </a>
-            <button
-              type="button"
-              class="action action--ghost"
-              (click)="toggleDemoProduct()"
-            >
-              Демо: подсветить
-            </button>
+            <span class="muted">двойной клик по строке — редактировать</span>
           </div>
 
           <label class="filter">
@@ -219,7 +213,16 @@
               </thead>
               <tbody>
                 @for (product of filteredProducts(); track product.id) {
-                  <tr [class.grid__row--changed]="changedProductIds().has(product.id)">
+                  <tr
+                    role="button"
+                    tabindex="0"
+                    [class.grid__row--active]="selectedProductId() === product.id"
+                    [attr.aria-pressed]="selectedProductId() === product.id"
+                    (click)="selectProduct(product)"
+                    (dblclick)="editProduct(product)"
+                    (keyup.enter)="editProduct(product)"
+                    (keyup.space)="selectProduct(product)"
+                  >
                     <td data-label="id">{{ product.id }}</td>
                     <td data-label="№">{{ product.number }}</td>
                     <td data-label="дата">
@@ -264,13 +267,7 @@
             >
               Принять деньги
             </a>
-            <button
-              type="button"
-              class="action action--ghost"
-              (click)="toggleDemoPayment()"
-            >
-              Демо: подсветить
-            </button>
+            <span class="muted">двойной клик по строке — редактировать</span>
           </div>
 
           <label class="filter">
@@ -302,7 +299,16 @@
               </thead>
               <tbody>
                 @for (payment of filteredPayments(); track payment.id) {
-                  <tr [class.grid__row--paid]="changedPaymentIds().has(payment.id)">
+                  <tr
+                    role="button"
+                    tabindex="0"
+                    [class.grid__row--active]="selectedPaymentId() === payment.id"
+                    [attr.aria-pressed]="selectedPaymentId() === payment.id"
+                    (click)="selectPayment(payment)"
+                    (dblclick)="editPayment(payment)"
+                    (keyup.enter)="editPayment(payment)"
+                    (keyup.space)="selectPayment(payment)"
+                  >
                     <td data-label="id">{{ payment.id }}</td>
                     <td data-label="дата">
                       {{ payment.date | date: 'dd.MM.yyyy' }}
@@ -329,5 +335,17 @@
         }
       </section>
     </ng-template>
+
+    @if (editing(); as edit) {
+      <app-record-edit-dialog
+        [dealId]="edit.dealId"
+        [kind]="edit.kind"
+        [recordId]="edit.id"
+        [title]="edit.title"
+        [amount]="edit.amount"
+        (saved)="applySaved($event)"
+        (closed)="closeEditor()"
+      />
+    }
   }
 </section>

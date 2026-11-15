@@ -9,6 +9,9 @@ import type {
   IClientApi,
   IClientSummary,
   IClientSummaryApi,
+  IInvoiceRow,
+  IInvoiceRowApi,
+  IInvoiceRowUpdate,
   IMark,
   IMarkApi,
   IPayment,
@@ -97,6 +100,17 @@ export function mapPayment(raw: IPaymentApi): IPayment {
   };
 }
 
+export function mapInvoiceRow(raw: IInvoiceRowApi): IInvoiceRow {
+  return {
+    id: raw.id,
+    nomenclatureId: raw.номенклатураId,
+    name: raw.номенклатура,
+    quantity: raw.количество,
+    price: raw.цена,
+    amount: raw.сумма,
+  };
+}
+
 @Injectable({ providedIn: 'root' })
 export class ClientService {
   private readonly http = inject(HttpClient);
@@ -154,5 +168,46 @@ export class ClientService {
     return this.http
       .get<IPaymentApi[]>(`${API}/marks/${dealId}/payments`)
       .pipe(map((payments) => payments.map(mapPayment)));
+  }
+
+  /** Строки накладной — количество и цена редактируются. */
+  getInvoiceRows(dealId: string, invoiceId: number): Observable<IInvoiceRow[]> {
+    return this.http
+      .get<IInvoiceRowApi[]>(`${API}/marks/${dealId}/products/${invoiceId}/rows`)
+      .pipe(map((rows) => rows.map(mapInvoiceRow)));
+  }
+
+  updateInvoiceRows(
+    dealId: string,
+    invoiceId: number,
+    rows: IInvoiceRowUpdate[],
+  ): Observable<IInvoiceRow[]> {
+    const body = {
+      строки: rows.map((row) => ({
+        id: row.id,
+        количество: row.quantity,
+        цена: row.price,
+      })),
+    };
+
+    return this.http
+      .put<IInvoiceRowApi[]>(
+        `${API}/marks/${dealId}/products/${invoiceId}`,
+        body,
+      )
+      .pipe(map((updated) => updated.map(mapInvoiceRow)));
+  }
+
+  /** Меняется только сумма платежа. */
+  updatePayment(
+    dealId: string,
+    paymentId: number,
+    amount: number,
+  ): Observable<IPayment> {
+    return this.http
+      .put<IPaymentApi>(`${API}/marks/${dealId}/payments/${paymentId}`, {
+        сумма: amount,
+      })
+      .pipe(map(mapPayment));
   }
 }

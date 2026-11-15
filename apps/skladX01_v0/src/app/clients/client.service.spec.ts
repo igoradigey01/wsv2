@@ -156,8 +156,7 @@ describe('ClientService', () => {
     ]);
   });
 
-  it('ищет клиента по голосовому тексту', () => {
-    let candidates: unknown[] = [];
+  it('ищет клиента по голосовому тексту', () => {    let candidates: unknown[] = [];
 
     service.voiceSearch('алишер из родников').subscribe((value) => (candidates = value));
 
@@ -178,5 +177,82 @@ describe('ClientService', () => {
     request.flush([candidate]);
 
     expect(candidates).toEqual([candidate]);
+  });
+
+  it('читает строки накладной и переводит кириллические ключи', () => {
+    let rows: unknown[] = [];
+
+    service
+      .getInvoiceRows('d4', 1201)
+      .subscribe((value) => (rows = value));
+
+    const request = httpMock.expectOne(
+      '/api/clients/marks/d4/products/1201/rows',
+    );
+    expect(request.request.method).toBe('GET');
+
+    request.flush([
+      {
+        id: 3753,
+        номенклатураId: 171,
+        номенклатура: 'Фанера 3 мм',
+        количество: 15,
+        цена: 330,
+        сумма: 4950,
+      },
+    ]);
+
+    expect(rows).toEqual([
+      {
+        id: 3753,
+        nomenclatureId: 171,
+        name: 'Фанера 3 мм',
+        quantity: 15,
+        price: 330,
+        amount: 4950,
+      },
+    ]);
+  });
+
+  it('отправляет строки накладной кириллическими ключами', () => {
+    service
+      .updateInvoiceRows('d4', 1201, [
+        { id: 3753, quantity: 16, price: 330 },
+      ])
+      .subscribe();
+
+    const request = httpMock.expectOne('/api/clients/marks/d4/products/1201');
+    expect(request.request.method).toBe('PUT');
+    expect(request.request.body).toEqual({
+      строки: [{ id: 3753, количество: 16, цена: 330 }],
+    });
+
+    request.flush([]);
+  });
+
+  it('меняет только сумму платежа', () => {
+    let payment: unknown = null;
+
+    service
+      .updatePayment('d4', 121, 10700)
+      .subscribe((value) => (payment = value));
+
+    const request = httpMock.expectOne('/api/clients/marks/d4/payments/121');
+    expect(request.request.method).toBe('PUT');
+    expect(request.request.body).toEqual({ сумма: 10700 });
+
+    request.flush({
+      id: 121,
+      дата: '2023-10-23T00:00:00',
+      сумма: 10700,
+      сделкаId: 'd4',
+    });
+
+    expect(payment).toEqual({
+      id: 121,
+      date: '2023-10-23T00:00:00',
+      amount: 10700,
+      dealId: 'd4',
+    });
   });
 });

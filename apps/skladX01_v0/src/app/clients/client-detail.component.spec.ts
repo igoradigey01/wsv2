@@ -329,8 +329,7 @@ describe('ClientDetailComponent', () => {
     ).toBe(1);
   });
 
-  it('на широком экране показывает оба блока без вкладок', () => {
-    setup('7');
+  it('на широком экране показывает оба блока без вкладок', () => {    setup('7');
 
     httpMock.expectOne('/api/clients/7').flush({
       id: 7,
@@ -356,5 +355,115 @@ describe('ClientDetailComponent', () => {
     expect(
       element.querySelectorAll('.blocks > section.block').length,
     ).toBe(3);
+  });
+
+  function flushBase(): void {
+    httpMock.expectOne('/api/clients/7').flush({
+      id: 7,
+      псевдоним: 'Тестовый клиент',
+      фио: 'Иванов',
+      телефон: '123',
+      город: 'Туапсе',
+      пределКредита: 1000,
+      активен: true,
+    });
+    httpMock.expectOne('/api/clients/7/summary').flush({
+      клиентId: 7,
+      псевдоним: 'Тестовый клиент',
+      пределКредита: 1000,
+      активен: true,
+      сделок: 1,
+      активныхСделок: 1,
+      отгружено: 100,
+      оплачено: 300,
+      долг: -200,
+      переплата: 200,
+      превышенЛимит: false,
+    });
+    httpMock
+      .expectOne('/api/clients/7/marks')
+      .flush([{ id: 'd1', номер: 'R-000001', долг: -200 }]);
+    httpMock.expectOne('/api/clients/marks/d1/products').flush([
+      {
+        id: 10,
+        номер: '5',
+        дата: '2023-10-23T00:00:00',
+        сумма: 100,
+        сделкаId: 'd1',
+      },
+    ]);
+    httpMock.expectOne('/api/clients/marks/d1/payments').flush([
+      { id: 20, дата: '2023-12-01T00:00:00', сумма: 300, сделкаId: 'd1' },
+    ]);
+
+    fixture.detectChanges();
+  }
+
+  it('выбирает строку кликом и открывает окно редактирования двойным кликом', () => {
+    setup('7');
+    flushBase();
+
+    const element = fixture.nativeElement as HTMLElement;
+    const rows = element
+      .querySelectorAll('table.grid')[0]
+      .querySelectorAll('tbody tr');
+    const firstRow = rows[0] as HTMLElement;
+
+    firstRow.click();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.selectedProductId()).toBe(10);
+    expect(firstRow.classList).toContain('grid__row--active');
+
+    firstRow.dispatchEvent(new MouseEvent('dblclick'));
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.editing()).toEqual({
+      kind: 'product',
+      dealId: 'd1',
+      id: 10,
+      title: 'Накладная №5',
+      amount: 100,
+    });
+
+    httpMock.expectOne('/api/clients/marks/d1/products/10/rows').flush([]);
+    httpMock.expectOne('/api/audit/invoice/10?limit=50').flush([]);
+    fixture.detectChanges();
+
+    expect(element.querySelector('app-record-edit-dialog')).not.toBeNull();
+  });
+
+  it('после сохранения обновляет сумму и перечитывает долг', () => {
+    setup('7');
+    flushBase();
+
+    fixture.componentInstance.applySaved({
+      kind: 'payment',
+      id: 20,
+      amount: 450,
+    });
+
+    httpMock.expectOne('/api/clients/7/summary').flush({
+      клиентId: 7,
+      псевдоним: 'Тестовый клиент',
+      пределКредита: 1000,
+      активен: true,
+      сделок: 1,
+      активныхСделок: 1,
+      отгружено: 100,
+      оплачено: 450,
+      долг: -350,
+      переплата: 350,
+      превышенЛимит: false,
+    });
+    httpMock
+      .expectOne('/api/clients/7/marks')
+      .flush([{ id: 'd1', номер: 'R-000001', долг: -350 }]);
+
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.payments()[0].amount).toBe(450);
+    expect(fixture.componentInstance.paymentsTotal()).toBe(450);
+    expect(fixture.componentInstance.summary()?.debt).toBe(-350);
   });
 });

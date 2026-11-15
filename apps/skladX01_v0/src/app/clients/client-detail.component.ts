@@ -24,11 +24,25 @@ import type {
   IShippedGood,
 } from './client.models';
 import { TabsComponent } from '../shared/tabs.component';
+import { RecordEditDialogComponent } from './record-edit-dialog.component';
+import type {
+  EditableRecordKind,
+  IRecordSaved,
+} from './record-edit-dialog.component';
 
 interface IClientLoadResult {
   client: IClient;
   summary: IClientSummary | null;
   marks: IMark[];
+}
+
+/** Открытое окно редактирования записи. */
+interface IEditingRecord {
+  kind: EditableRecordKind;
+  dealId: string;
+  id: number;
+  title: string;
+  amount: number;
 }
 
 function statusOf(error: unknown): number | null {
@@ -42,7 +56,14 @@ function statusOf(error: unknown): number | null {
 
 @Component({
   selector: 'app-client-detail',
-  imports: [DatePipe, DecimalPipe, NgTemplateOutlet, RouterModule, TabsComponent],
+  imports: [
+    DatePipe,
+    DecimalPipe,
+    NgTemplateOutlet,
+    RouterModule,
+    TabsComponent,
+    RecordEditDialogComponent,
+  ],
   templateUrl: './client-detail.component.html',
   styleUrl: './client-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -85,8 +106,11 @@ export class ClientDetailComponent implements OnInit {
   readonly fromDate = signal('');
 
   readonly dealsOpen = signal(false);
-  readonly changedProductIds = signal<ReadonlySet<number>>(new Set<number>());
-  readonly changedPaymentIds = signal<ReadonlySet<number>>(new Set<number>());
+
+  /** Выбранная строка таблицы (клик) и открытое окно редактирования (двойной клик). */
+  readonly selectedProductId = signal<number | null>(null);
+  readonly selectedPaymentId = signal<number | null>(null);
+  readonly editing = signal<IEditingRecord | null>(null);
 
   readonly selectedMark = computed(
     () => this.marks().find((mark) => mark.id === this.selectedMarkId()) ?? null,
@@ -197,33 +221,68 @@ export class ClientDetailComponent implements OnInit {
       });
   }
 
-  toggleDemoProduct(): void {
-    const first = this.filteredProducts()[0];
-    if (!first) {
+  selectProduct(product: IShippedGood | null): void {
+    this.selectedProductId.set(product?.id ?? null);
+  }
+
+  selectPayment(payment: IPayment | null): void {
+    this.selectedPaymentId.set(payment?.id ?? null);
+  }
+
+  /** Двойной клик по строке открывает окно редактирования. */
+  editProduct(product: IShippedGood): void {
+    const mark = this.selectedMark();
+    if (!mark) {
       return;
     }
 
-    this.changedProductIds.update((ids) => this.toggleId(ids, first.id));
+    this.selectedProductId.set(product.id);
+    this.editing.set({
+      kind: 'product',
+      dealId: mark.id,
+      id: product.id,
+      title: `Накладная №${product.number}`,
+      amount: product.amount,
+    });
   }
 
-  toggleDemoPayment(): void {
-    const first = this.filteredPayments()[0];
-    if (!first) {
+  editPayment(payment: IPayment): void {
+    const mark = this.selectedMark();
+    if (!mark) {
       return;
     }
 
-    this.changedPaymentIds.update((ids) => this.toggleId(ids, first.id));
+    this.selectedPaymentId.set(payment.id);
+    this.editing.set({
+      kind: 'payment',
+      dealId: mark.id,
+      id: payment.id,
+      title: 'Принятые деньги',
+      amount: payment.amount,
+    });
   }
 
-  private toggleId(ids: ReadonlySet<number>, id: number): ReadonlySet<number> {
-    const next = new Set(ids);
-    if (next.has(id)) {
-      next.delete(id);
+  closeEditor(): void {
+    this.editing.set(null);
+  }
+
+  /** После сохранения обновляем суммы в списках, долг клиента и сделки. */
+  applySaved(saved: IRecordSaved): void {
+    if (saved.kind === 'product') {
+      this.products.update((products) =>
+        products.map((product) =>
+          product.id === saved.id ? { ...product, amount: saved.amount } : product,
+        ),
+      );
     } else {
-      next.add(id);
+      this.payments.update((payments) =>
+        payments.map((payment) =>
+          payment.id === saved.id ? { ...payment, amount: saved.amount } : payment,
+        ),
+      );
     }
 
-    return next;
+    this.refreshTotals();
   }
 
   setFromDate(event: Event): void {
@@ -354,10 +413,39 @@ export class ClientDetailComponent implements OnInit {
       });
   }
 
+  /** Долг и суммы сделок пересчитываются на сервере — перечитываем их. */
+  private refreshTotals(): void {
+    if (this.currentId === null) {
+      return;
+    }
+
+    forkJoin({
+      summary: this.clientService
+        .getSummary(this.currentId)
+        .pipe(catchError(() => of(null))),
+      marks: this.clientService
+        .getMarks(this.currentId)
+        .pipe(catchError(() => of([]))),
+    })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((result) => {
+        if (result.summary) {
+          this.summary.set(result.summary);
+        }
+
+        if (result.marks.length > 0) {
+          this.marks.set(result.marks);
+        }
+      });
+  }
+
   private resetDetails(): void {
     this.productsSub?.unsubscribe();
     this.paymentsSub?.unsubscribe();
     this.selectedMarkId.set(null);
+    this.selectedProductId.set(null);
+    this.selectedPaymentId.set(null);
+    this.editing.set(null);
     this.products.set([]);
     this.payments.set([]);
     this.productsLoading.set(false);

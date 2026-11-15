@@ -47,6 +47,15 @@ export interface IPaymentApi {
   сделкаId: string;
 }
 
+export interface IInvoiceRowApi {
+  id: number;
+  номенклатураId: number;
+  номенклатура: string;
+  количество: number;
+  цена: number;
+  сумма: number;
+}
+
 export interface IClient {
   id: number;
   alias: string;
@@ -77,6 +86,23 @@ export interface IPayment {
   date: string;
   amount: number;
   dealId: string;
+}
+
+/** Строка накладной для окна редактирования (количество и цена меняются). */
+export interface IInvoiceRow {
+  id: number;
+  nomenclatureId: number;
+  name: string;
+  quantity: number;
+  price: number;
+  amount: number;
+}
+
+/** Тело PUT: сервер сам пересчитывает сумму строки. */
+export interface IInvoiceRowUpdate {
+  id: number;
+  quantity: number;
+  price: number;
 }
 
 export interface IClientSummary {

@@ -290,22 +290,12 @@
   color: var(--c-primary);
 }
 
-.grid__row--changed {
-  background-color: var(--c-changed);
-  background-image: linear-gradient(
-    to right,
-    var(--c-changed-line) 0 3px,
-    transparent 3px
-  );
-}
+.grid tbody tr[role='button'] {
+  cursor: pointer;
 
-.grid__row--paid {
-  background-color: var(--c-paid);
-  background-image: linear-gradient(
-    to right,
-    var(--c-paid-line) 0 3px,
-    transparent 3px
-  );
+  &:hover {
+    background: var(--c-active-row);
+  }
 }
 
 .num--negative {
