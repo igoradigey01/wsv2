@@ -16,6 +16,12 @@ import type { Subscription } from 'rxjs';
 import { catchError, distinctUntilChanged, map } from 'rxjs/operators';
 
 import { TabsComponent } from '../shared/tabs.component';
+import { formatDay } from '../shared/date-format';
+import { RecordEditDialogComponent } from '../clients/record-edit-dialog.component';
+import type {
+  EditableRecordKind,
+  IRecordSaved,
+} from '../clients/record-edit-dialog.component';
 import { SupplierService } from './supplier.service';
 import type {
   IReceivedGood,
@@ -31,6 +37,16 @@ interface ISupplierLoadResult {
   deals: ISupplierDeal[];
 }
 
+/** Открытое окно редактирования записи поставщика. */
+interface IEditingRecord {
+  kind: EditableRecordKind;
+  dealId: string;
+  id: number | string;
+  auditId: number | null;
+  title: string;
+  amount: number;
+}
+
 function statusOf(error: unknown): number | null {
   if (typeof error === 'object' && error !== null && 'status' in error) {
     const status = (error as { status?: unknown }).status;
@@ -42,7 +58,14 @@ function statusOf(error: unknown): number | null {
 
 @Component({
   selector: 'app-supplier-detail',
-  imports: [DatePipe, DecimalPipe, NgTemplateOutlet, RouterModule, TabsComponent],
+  imports: [
+    DatePipe,
+    DecimalPipe,
+    NgTemplateOutlet,
+    RouterModule,
+    TabsComponent,
+    RecordEditDialogComponent,
+  ],
   templateUrl: './supplier-detail.component.html',
   styleUrl: './supplier-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -65,6 +88,10 @@ export class SupplierDetailComponent implements OnInit {
   readonly summary = signal<ISupplierSummary | null>(null);
   readonly deals = signal<ISupplierDeal[]>([]);
   readonly selectedDealId = signal<string | null>(null);
+
+  readonly selectedProductId = signal<string | null>(null);
+  readonly selectedPaymentId = signal<number | null>(null);
+  readonly editing = signal<IEditingRecord | null>(null);
 
   readonly products = signal<IReceivedGood[]>([]);
   readonly payments = signal<ISupplierPayment[]>([]);
@@ -153,6 +180,78 @@ export class SupplierDetailComponent implements OnInit {
     this.selectedDealId.set(deal.id);
     this.loadProducts(deal.id);
     this.loadPayments(deal.id);
+  }
+
+  selectProduct(product: IReceivedGood): void {
+    this.selectedProductId.set(product.id);
+  }
+
+  selectPayment(payment: ISupplierPayment): void {
+    this.selectedPaymentId.set(payment.id);
+  }
+
+  /** Двойной клик по строке открывает окно редактирования. */
+  editProduct(product: IReceivedGood): void {
+    const deal = this.selectedDeal();
+    if (!deal) {
+      return;
+    }
+
+    this.selectedProductId.set(product.id);
+    this.editing.set({
+      kind: 'product',
+      dealId: deal.id,
+      id: product.id,
+      auditId: product.auditId,
+      title: `Приход №${product.number}`,
+      amount: product.amount,
+    });
+  }
+
+  editPayment(payment: ISupplierPayment): void {
+    const deal = this.selectedDeal();
+    if (!deal) {
+      return;
+    }
+
+    const day = formatDay(payment.date);
+
+    this.selectedPaymentId.set(payment.id);
+    this.editing.set({
+      kind: 'payment',
+      dealId: deal.id,
+      id: payment.id,
+      auditId: null,
+      title: day ? `Отданные деньги (${day})` : 'Отданные деньги',
+      amount: payment.amount,
+    });
+  }
+
+  closeEditor(): void {
+    this.editing.set(null);
+  }
+
+  /** После сохранения обновляем суммы в списках и сводку поставщика. */
+  applySaved(saved: IRecordSaved): void {
+    if (saved.kind === 'product') {
+      this.products.update((products) =>
+        products.map((product) =>
+          product.id === saved.id
+            ? { ...product, amount: saved.amount }
+            : product,
+        ),
+      );
+    } else {
+      this.payments.update((payments) =>
+        payments.map((payment) =>
+          payment.id === saved.id
+            ? { ...payment, amount: saved.amount }
+            : payment,
+        ),
+      );
+    }
+
+    this.refreshTotals();
   }
 
   toggleDeals(): void {
@@ -287,10 +386,39 @@ export class SupplierDetailComponent implements OnInit {
       });
   }
 
+  /** Долг и суммы сделок пересчитываются на сервере — перечитываем их. */
+  private refreshTotals(): void {
+    if (this.currentId === null) {
+      return;
+    }
+
+    forkJoin({
+      summary: this.supplierService
+        .getSummary(this.currentId)
+        .pipe(catchError(() => of(null))),
+      deals: this.supplierService
+        .getDeals(this.currentId)
+        .pipe(catchError(() => of([]))),
+    })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((result) => {
+        if (result.summary) {
+          this.summary.set(result.summary);
+        }
+
+        if (result.deals.length > 0) {
+          this.deals.set(result.deals);
+        }
+      });
+  }
+
   private resetDetails(): void {
     this.productsSub?.unsubscribe();
     this.paymentsSub?.unsubscribe();
     this.selectedDealId.set(null);
+    this.selectedProductId.set(null);
+    this.selectedPaymentId.set(null);
+    this.editing.set(null);
     this.products.set([]);
     this.payments.set([]);
     this.productsLoading.set(false);

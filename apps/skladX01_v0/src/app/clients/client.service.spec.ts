@@ -132,6 +132,7 @@ describe('ClientService', () => {
         date: '2023-10-23T00:00:00',
         amount: 12750,
         dealId: 'd4',
+        edited: false,
       },
     ]);
   });
@@ -152,6 +153,7 @@ describe('ClientService', () => {
         date: '2023-10-23T00:00:00',
         amount: 20000,
         dealId: 'd4',
+        edited: false,
       },
     ]);
   });
@@ -253,6 +255,7 @@ describe('ClientService', () => {
       date: '2023-10-23T00:00:00',
       amount: 10700,
       dealId: 'd4',
+      edited: false,
     });
   });
 });

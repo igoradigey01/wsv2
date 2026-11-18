@@ -45,6 +45,8 @@ const PRODUCTS = [
     дата: '2023-10-23T00:00:00',
     сумма: 100,
     сделкаId: 'd2',
+    auditId: 11,
+    изменялась: true,
   },
   {
     id: 'a2',
@@ -52,11 +54,19 @@ const PRODUCTS = [
     дата: '2024-05-01T00:00:00',
     сумма: 200,
     сделкаId: 'd2',
+    auditId: 12,
+    изменялась: false,
   },
 ];
 
 const PAYMENTS = [
-  { id: 20, дата: '2024-06-01T00:00:00', сумма: 300, сделкаId: 'd2' },
+  {
+    id: 20,
+    дата: '2024-06-01T00:00:00',
+    сумма: 300,
+    сделкаId: 'd2',
+    изменялась: true,
+  },
 ];
 
 describe('SupplierDetailComponent', () => {
@@ -131,8 +141,68 @@ describe('SupplierDetailComponent', () => {
     expect(receiptLink).toBeTruthy();
   });
 
-  it('фильтрует принятый товар и отданные деньги по дате «начиная»', () => {
+  it('двойной клик по приходу открывает окно редактирования', () => {
     setup('2');
+    flushSupplier();
+    flushLatestDealData();
+
+    const row = fixture.nativeElement.querySelector(
+      'table.grid tbody tr',
+    ) as HTMLElement;
+    row.dispatchEvent(new MouseEvent('dblclick'));
+    fixture.detectChanges();
+
+    const editing = fixture.componentInstance.editing();
+    expect(editing?.kind).toBe('product');
+    expect(editing?.dealId).toBe('d2');
+    expect(editing?.id).toBe('a1');
+    expect(editing?.auditId).toBe(11);
+
+    httpMock.expectOne('/api/suppliers/deals/d2/receipts/a1/rows').flush([]);
+    httpMock.expectOne('/api/audit/supplier-invoice/11?limit=50').flush([]);
+  });
+
+  it('подсвечивает только строки, которые правились', () => {
+    setup('2');
+    flushSupplier();
+    flushLatestDealData();
+
+    const tables = (fixture.nativeElement as HTMLElement).querySelectorAll(
+      'table.grid',
+    );
+    const productRows = tables[0].querySelectorAll('tbody tr');
+    const paymentRow = tables[1].querySelector('tbody tr') as HTMLElement;
+
+    expect((productRows[0] as HTMLElement).classList).toContain(
+      'grid__row--edited',
+    );
+    expect((productRows[1] as HTMLElement).classList).not.toContain(
+      'grid__row--edited',
+    );
+    expect(paymentRow.classList).toContain('grid__row--edited');
+  });
+
+  it('показывает дату выплаты в заголовке окна', () => {
+    setup('2');
+    flushSupplier();
+    flushLatestDealData();
+
+    const tables = (fixture.nativeElement as HTMLElement).querySelectorAll(
+      'table.grid',
+    );
+    const paymentRow = tables[1].querySelector('tbody tr') as HTMLElement;
+
+    paymentRow.dispatchEvent(new MouseEvent('dblclick'));
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.editing()?.title).toBe(
+      'Отданные деньги (01.06.2024)',
+    );
+
+    httpMock.expectOne('/api/audit/supplier-payment/20?limit=50').flush([]);
+  });
+
+  it('фильтрует принятый товар и отданные деньги по дате «начиная»', () => {    setup('2');
     flushSupplier();
     flushLatestDealData();
 

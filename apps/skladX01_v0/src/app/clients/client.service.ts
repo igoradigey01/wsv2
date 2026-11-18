@@ -88,6 +88,7 @@ export function mapShippedGood(raw: IShippedGoodApi): IShippedGood {
     date: raw.дата,
     amount: raw.сумма,
     dealId: raw.сделкаId,
+    edited: raw.изменялась ?? false,
   };
 }
 
@@ -97,6 +98,7 @@ export function mapPayment(raw: IPaymentApi): IPayment {
     date: raw.дата,
     amount: raw.сумма,
     dealId: raw.сделкаId,
+    edited: raw.изменялась ?? false,
   };
 }
 

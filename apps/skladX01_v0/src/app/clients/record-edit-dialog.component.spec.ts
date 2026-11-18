@@ -16,17 +16,58 @@ describe('RecordEditDialogComponent', () => {
     kind: 'product' | 'payment',
     amount = 100,
   ): ComponentFixture<RecordEditDialogComponent> {
+    return setupWith({
+      dealId: 'd1',
+      kind,
+      recordId: kind === 'payment' ? 20 : 10,
+      title: 'Накладная №5',
+      amount,
+    });
+  }
+
+  function setupSupplier(
+    kind: 'product' | 'payment',
+    amount = 100,
+  ): ComponentFixture<RecordEditDialogComponent> {
+    return setupWith({
+      dealId: 'd1',
+      kind,
+      recordId: kind === 'payment' ? 20 : 'r1',
+      auditId: kind === 'product' ? 294 : null,
+      source: 'supplier',
+      title: kind === 'product' ? 'Приход №П-000005' : 'Отданные деньги',
+      amount,
+    });
+  }
+
+  function setupWith(inputs: {
+    dealId: string;
+    kind: 'product' | 'payment';
+    recordId: number | string;
+    auditId?: number | null;
+    source?: 'client' | 'supplier';
+    title: string;
+    amount: number;
+  }): ComponentFixture<RecordEditDialogComponent> {
     TestBed.configureTestingModule({
       imports: [RecordEditDialogComponent],
       providers: [provideHttpClient(), provideHttpClientTesting()],
     });
 
     const fixture = TestBed.createComponent(RecordEditDialogComponent);
-    fixture.componentRef.setInput('dealId', 'd1');
-    fixture.componentRef.setInput('kind', kind);
-    fixture.componentRef.setInput('recordId', kind === 'payment' ? 20 : 10);
-    fixture.componentRef.setInput('title', 'Накладная №5');
-    fixture.componentRef.setInput('amount', amount);
+    fixture.componentRef.setInput('dealId', inputs.dealId);
+    fixture.componentRef.setInput('kind', inputs.kind);
+    fixture.componentRef.setInput('recordId', inputs.recordId);
+    fixture.componentRef.setInput('title', inputs.title);
+    fixture.componentRef.setInput('amount', inputs.amount);
+
+    if (inputs.source) {
+      fixture.componentRef.setInput('source', inputs.source);
+    }
+
+    if (inputs.auditId != null) {
+      fixture.componentRef.setInput('auditId', inputs.auditId);
+    }
 
     httpMock = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
@@ -274,5 +315,124 @@ describe('RecordEditDialogComponent', () => {
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
 
     expect(closed).toHaveLength(1);
+  });
+
+  it('для прихода поставщика грузит строки и историю по auditId', () => {
+    const fixture = setupSupplier('product');
+
+    httpMock
+      .expectOne('/api/suppliers/deals/d1/receipts/r1/rows')
+      .flush([
+        {
+          id: 294,
+          номенклатураId: 5,
+          номенклатура: 'Фанера 3 мм',
+          количество: 10,
+          цена: 100,
+          сумма: 1000,
+        },
+      ]);
+    httpMock.expectOne('/api/audit/supplier-invoice/294?limit=50').flush([]);
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.rows()).toHaveLength(1);
+    expect(fixture.componentInstance.total()).toBe(1000);
+    expect(fixture.nativeElement.textContent).toContain('Фанера 3 мм');
+    expect(fixture.nativeElement.textContent).toContain('Принятый товар');
+  });
+
+  it('сохраняет строки прихода через эндпоинт поставщика', () => {
+    const fixture = setupSupplier('product');
+    const saved: IRecordSaved[] = [];
+    fixture.componentInstance.saved.subscribe((value) => saved.push(value));
+
+    httpMock
+      .expectOne('/api/suppliers/deals/d1/receipts/r1/rows')
+      .flush([
+        {
+          id: 294,
+          номенклатураId: 5,
+          номенклатура: 'Фанера 3 мм',
+          количество: 10,
+          цена: 100,
+          сумма: 1000,
+        },
+      ]);
+    httpMock.expectOne('/api/audit/supplier-invoice/294?limit=50').flush([]);
+    fixture.detectChanges();
+
+    const quantity = fixture.nativeElement.querySelector(
+      'table.rows tbody tr input',
+    ) as HTMLInputElement;
+    quantity.value = '12';
+    quantity.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    const saveButton = Array.from(
+      fixture.nativeElement.querySelectorAll('button') as NodeListOf<HTMLButtonElement>,
+    ).find((button) => button.textContent?.includes('Сохранить'));
+    saveButton?.click();
+
+    const put = httpMock.expectOne({
+      method: 'PUT',
+      url: '/api/suppliers/deals/d1/receipts/r1',
+    });
+    expect(put.request.body).toEqual({
+      строки: [{ id: 294, количество: 12, цена: 100 }],
+    });
+
+    put.flush([
+      {
+        id: 294,
+        номенклатураId: 5,
+        номенклатура: 'Фанера 3 мм',
+        количество: 12,
+        цена: 100,
+        сумма: 1200,
+      },
+    ]);
+    httpMock.expectOne('/api/audit/supplier-invoice/294?limit=50').flush([]);
+    fixture.detectChanges();
+
+    expect(saved).toEqual([{ kind: 'product', id: 'r1', amount: 1200 }]);
+  });
+
+  it('сохраняет выплату поставщику и грузит её историю', () => {
+    const fixture = setupSupplier('payment', 1000);
+    const saved: IRecordSaved[] = [];
+    fixture.componentInstance.saved.subscribe((value) => saved.push(value));
+
+    httpMock.expectOne('/api/audit/supplier-payment/20?limit=50').flush([]);
+    fixture.detectChanges();
+
+    const input = fixture.nativeElement.querySelector(
+      'input[type="number"]',
+    ) as HTMLInputElement;
+    input.value = '750';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    const saveButton = Array.from(
+      fixture.nativeElement.querySelectorAll('button') as NodeListOf<HTMLButtonElement>,
+    ).find((button) => button.textContent?.includes('Сохранить'));
+    saveButton?.click();
+
+    const put = httpMock.expectOne({
+      method: 'PUT',
+      url: '/api/suppliers/deals/d1/payments/20',
+    });
+    expect(put.request.body).toEqual({ сумма: 750 });
+
+    put.flush({
+      id: 20,
+      дата: '2024-06-20T00:00:00',
+      сумма: 750,
+      сделкаId: 'd1',
+    });
+    httpMock.expectOne('/api/audit/supplier-payment/20?limit=50').flush([]);
+    fixture.detectChanges();
+
+    expect(saved).toEqual([{ kind: 'payment', id: 20, amount: 750 }]);
+    expect(fixture.nativeElement.textContent).toContain('Отданные деньги');
   });
 });

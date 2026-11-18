@@ -38,6 +38,7 @@ export interface IShippedGoodApi {
   дата: string;
   сумма: number;
   сделкаId: string;
+  изменялась?: boolean;
 }
 
 export interface IPaymentApi {
@@ -45,6 +46,7 @@ export interface IPaymentApi {
   дата: string;
   сумма: number;
   сделкаId: string;
+  изменялась?: boolean;
 }
 
 export interface IInvoiceRowApi {
@@ -79,6 +81,8 @@ export interface IShippedGood {
   date: string;
   amount: number;
   dealId: string;
+  /** Документ правился — строка подсвечивается лёгким фоном. */
+  edited: boolean;
 }
 
 export interface IPayment {
@@ -86,6 +90,8 @@ export interface IPayment {
   date: string;
   amount: number;
   dealId: string;
+  /** Документ правился — строка подсвечивается лёгким фоном. */
+  edited: boolean;
 }
 
 /** Строка накладной для окна редактирования (количество и цена меняются). */

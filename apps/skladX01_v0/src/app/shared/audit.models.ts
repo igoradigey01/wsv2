@@ -1,5 +1,9 @@
-/** Тип сущности в журнале аудита: накладная или платёж. */
-export type AuditEntityType = 'invoice' | 'payment';
+/** Тип сущности в журнале аудита: накладная или платёж клиента/поставщика. */
+export type AuditEntityType =
+  | 'invoice'
+  | 'payment'
+  | 'supplier-invoice'
+  | 'supplier-payment';
 
 /** Сырой ответ `/api/audit/{entityType}/{entityId}`. */
 export interface IAuditEntryApi {

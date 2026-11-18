@@ -12,7 +12,11 @@
           {{ title() || (kind() === 'payment' ? 'Платёж' : 'Накладная') }}
         </h2>
         <p class="dialog__sub">
-          {{ kind() === 'payment' ? 'Принятые деньги' : 'Отпущенный товар' }}
+          @if (source() === 'supplier') {
+            {{ kind() === 'payment' ? 'Отданные деньги' : 'Принятый товар' }}
+          } @else {
+            {{ kind() === 'payment' ? 'Принятые деньги' : 'Отпущенный товар' }}
+          }
         </p>
       </div>
       <button type="button" class="dialog__close" aria-label="Закрыть" (click)="close()">

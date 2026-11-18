@@ -101,38 +101,36 @@
               <span class="muted">выбрана №{{ selectedDeal()?.number }}</span>
             </div>
 
-            <table class="grid grid--selectable">
-              <thead>
-                <tr>
-                  <th>№</th>
-                  <th class="num">Долг</th>
-                  <th>Комментарий</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (deal of deals(); track deal.id) {
-                  <tr
-                    role="button"
-                    tabindex="0"
-                    [class.grid__row--active]="selectedDealId() === deal.id"
-                    [attr.aria-pressed]="selectedDealId() === deal.id"
-                    (click)="selectDeal(deal)"
-                    (keyup.enter)="selectDeal(deal)"
-                    (keyup.space)="selectDeal(deal)"
-                  >
-                    <td data-label="№">{{ deal.number }}</td>
-                    <td
-                      class="num"
-                      data-label="Долг"
-                      [class.num--negative]="deal.debt < 0"
-                    >
-                      {{ deal.debt | number: '1.2-2' }}
-                    </td>
-                    <td data-label="Комментарий">{{ deal.comment || '—' }}</td>
+            <div class="table-scroll">
+              <table class="grid grid--selectable">
+                <thead>
+                  <tr>
+                    <th>№</th>
+                    <th class="num">Долг</th>
+                    <th>Комментарий</th>
                   </tr>
-                }
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  @for (deal of deals(); track deal.id) {
+                    <tr
+                      role="button"
+                      tabindex="0"
+                      [class.grid__row--active]="selectedDealId() === deal.id"
+                      [attr.aria-pressed]="selectedDealId() === deal.id"
+                      (click)="selectDeal(deal)"
+                      (keyup.enter)="selectDeal(deal)"
+                      (keyup.space)="selectDeal(deal)"
+                    >
+                      <td>{{ deal.number }}</td>
+                      <td class="num" [class.num--negative]="deal.debt < 0">
+                        {{ deal.debt | number: '1.2-2' }}
+                      </td>
+                      <td>{{ deal.comment || '—' }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
 
             <p class="total">
               <span>сделок: {{ deals().length }}</span>
@@ -175,6 +173,7 @@
             >
               Принять товар
             </a>
+            <span class="muted">двойной клик по строке — редактировать</span>
           </div>
 
           <label class="filter">
@@ -196,28 +195,39 @@
           } @else if (filteredProducts().length === 0) {
             <p class="state">Нет принятого товара.</p>
           } @else {
-            <table class="grid">
-              <thead>
-                <tr>
-                  <th>№</th>
-                  <th>дата</th>
-                  <th class="num">Сумма</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (product of filteredProducts(); track product.id) {
+            <div class="table-scroll">
+              <table class="grid">
+                <thead>
                   <tr>
-                    <td data-label="№">{{ product.number }}</td>
-                    <td data-label="дата">
-                      {{ product.date | date: 'dd.MM.yyyy' }}
-                    </td>
-                    <td class="num" data-label="Сумма">
-                      {{ product.amount | number: '1.2-2' }}
-                    </td>
+                    <th>№</th>
+                    <th>дата</th>
+                    <th class="num">Сумма</th>
                   </tr>
-                }
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  @for (product of filteredProducts(); track product.id) {
+                    <tr
+                      role="button"
+                      tabindex="0"
+                      [class.grid__row--active]="selectedProductId() === product.id"
+                      [class.grid__row--edited]="product.edited"
+                      [attr.aria-pressed]="selectedProductId() === product.id"
+                      [title]="product.edited ? 'Данные изменялись' : ''"
+                      (click)="selectProduct(product)"
+                      (dblclick)="editProduct(product)"
+                      (keyup.enter)="editProduct(product)"
+                      (keyup.space)="selectProduct(product)"
+                    >
+                      <td>{{ product.number }}</td>
+                      <td>{{ product.date | date: 'dd.MM.yyyy' }}</td>
+                      <td class="num">
+                        {{ product.amount | number: '1.2-2' }}
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
 
             <p class="total">
               <span>всего: {{ filteredProducts().length }}</span>
@@ -241,6 +251,10 @@
         @if (selectedDeal(); as deal) {
           <p class="muted">Сделка №{{ deal.number }}</p>
 
+          <div class="toolbar">
+            <span class="muted">двойной клик по строке — редактировать</span>
+          </div>
+
           <label class="filter">
             <span>начиная</span>
             <input
@@ -260,28 +274,37 @@
           } @else if (filteredPayments().length === 0) {
             <p class="state">Нет отданных денег.</p>
           } @else {
-            <table class="grid">
-              <thead>
-                <tr>
-                  <th>id</th>
-                  <th>дата</th>
-                  <th class="num">Сумма</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (payment of filteredPayments(); track payment.id) {
+            <div class="table-scroll">
+              <table class="grid">
+                <thead>
                   <tr>
-                    <td data-label="id">{{ payment.id }}</td>
-                    <td data-label="дата">
-                      {{ payment.date | date: 'dd.MM.yyyy' }}
-                    </td>
-                    <td class="num" data-label="Сумма">
-                      {{ payment.amount | number: '1.2-2' }}
-                    </td>
+                    <th>дата</th>
+                    <th class="num">Сумма</th>
                   </tr>
-                }
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  @for (payment of filteredPayments(); track payment.id) {
+                    <tr
+                      role="button"
+                      tabindex="0"
+                      [class.grid__row--active]="selectedPaymentId() === payment.id"
+                      [class.grid__row--edited]="payment.edited"
+                      [attr.aria-pressed]="selectedPaymentId() === payment.id"
+                      [title]="payment.edited ? 'Данные изменялись' : ''"
+                      (click)="selectPayment(payment)"
+                      (dblclick)="editPayment(payment)"
+                      (keyup.enter)="editPayment(payment)"
+                      (keyup.space)="selectPayment(payment)"
+                    >
+                      <td>{{ payment.date | date: 'dd.MM.yyyy' }}</td>
+                      <td class="num">
+                        {{ payment.amount | number: '1.2-2' }}
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
 
             <p class="total">
               <span>всего: {{ filteredPayments().length }}</span>
@@ -297,5 +320,19 @@
         }
       </section>
     </ng-template>
+
+    @if (editing(); as edit) {
+      <app-record-edit-dialog
+        source="supplier"
+        [dealId]="edit.dealId"
+        [kind]="edit.kind"
+        [recordId]="edit.id"
+        [auditId]="edit.auditId"
+        [title]="edit.title"
+        [amount]="edit.amount"
+        (saved)="applySaved($event)"
+        (closed)="closeEditor()"
+      />
+    }
   }
 </section>

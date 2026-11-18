@@ -6,6 +6,9 @@ import { map } from 'rxjs/operators';
 import type {
   IReceivedGood,
   IReceivedGoodApi,
+  IReceiptRow,
+  IReceiptRowApi,
+  IReceiptRowUpdate,
   ISupplier,
   ISupplierApi,
   ISupplierDeal,
@@ -71,8 +74,22 @@ export function mapReceivedGood(raw: IReceivedGoodApi): IReceivedGood {
     date: raw.дата,
     amount: raw.сумма,
     dealId: raw.сделкаId,
+    auditId: raw.auditId,
+    edited: raw.изменялась ?? false,
   };
 }
+
+export function mapReceiptRow(raw: IReceiptRowApi): IReceiptRow {
+  return {
+    id: raw.id,
+    nomenclatureId: raw.номенклатураId,
+    name: raw.номенклатура,
+    quantity: raw.количество,
+    price: raw.цена,
+    amount: raw.сумма,
+  };
+}
+
 
 export function mapSupplierPayment(
   raw: ISupplierPaymentApi,
@@ -82,6 +99,7 @@ export function mapSupplierPayment(
     date: raw.дата,
     amount: raw.сумма,
     dealId: raw.сделкаId,
+    edited: raw.изменялась ?? false,
   };
 }
 
@@ -132,6 +150,53 @@ export class SupplierService {
       .get<ISupplierPaymentApi[]>(`${API}/deals/${dealId}/payments`)
       .pipe(map((payments) => payments.map(mapSupplierPayment)));
   }
+
+  /** Строки приходной накладной для окна редактирования. */
+  getReceiptRows(
+    dealId: string,
+    receiptId: string,
+  ): Observable<IReceiptRow[]> {
+    return this.http
+      .get<IReceiptRowApi[]>(
+        `${API}/deals/${dealId}/receipts/${receiptId}/rows`,
+      )
+      .pipe(map((rows) => rows.map(mapReceiptRow)));
+  }
+
+  updateReceiptRows(
+    dealId: string,
+    receiptId: string,
+    rows: IReceiptRowUpdate[],
+  ): Observable<IReceiptRow[]> {
+    const body = {
+      строки: rows.map((row) => ({
+        id: row.id,
+        количество: row.quantity,
+        цена: row.price,
+      })),
+    };
+
+    return this.http
+      .put<IReceiptRowApi[]>(
+        `${API}/deals/${dealId}/receipts/${receiptId}`,
+        body,
+      )
+      .pipe(map((result) => result.map(mapReceiptRow)));
+  }
+
+  updateSupplierPayment(
+    dealId: string,
+    paymentId: number,
+    amount: number,
+  ): Observable<ISupplierPayment> {
+    return this.http
+      .put<ISupplierPaymentApi>(
+        `${API}/deals/${dealId}/payments/${paymentId}`,
+        { сумма: amount },
+      )
+      .pipe(map(mapSupplierPayment));
+  }
+
 
   getWarehouses(): Observable<IWarehouse[]> {
     return this.http

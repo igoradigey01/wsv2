@@ -154,72 +154,61 @@
   border-collapse: collapse;
   font-size: 0.875rem;
 
-  thead {
-    display: none;
-  }
-
-  tbody tr {
-    display: block;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--c-border);
-
-    &:focus-visible {
-      outline: 2px solid var(--c-primary);
-      outline-offset: -2px;
-    }
-  }
-
+  th,
   td {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.125rem 0;
+    padding: 0.375rem 0.5rem;
+    border-bottom: 1px solid var(--c-border);
+    text-align: left;
+    vertical-align: top;
+  }
 
-    &::before {
-      content: attr(data-label);
-      color: var(--c-muted);
-    }
+  th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--c-surface);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  tbody tr:focus-visible {
+    outline: 2px solid var(--c-primary);
+    outline-offset: -2px;
   }
 
   &--selectable tbody tr {
     cursor: pointer;
   }
 
+  &__row--edited {
+    background: var(--c-changed);
+  }
+
   &__row--active {
     background: var(--c-active-row);
   }
 
-  @media (min-width: 768px) {
-    thead {
-      display: table-header-group;
-    }
+  // На узком экране раскладка таблицы не меняется: сверху шапка
+  // (№ / дата / Сумма), ниже строки данных. Только плотнее шрифт —
+  // при нехватке ширины таблица скроллится в .table-scroll.
+  @media (max-width: 767.98px) {
+    font-size: 0.75rem;
 
     th,
     td {
-      display: table-cell;
-      padding: 0.375rem 0.5rem;
-      border-bottom: 1px solid var(--c-border);
-      text-align: left;
-      vertical-align: top;
+      padding: 0.25rem 0.35rem;
+      white-space: nowrap;
     }
+  }
+}
 
-    th {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      background: var(--c-surface);
-      font-weight: 600;
-    }
-
-    tbody tr {
-      display: table-row;
-      padding: 0;
-      border: 0;
-    }
-
-    td::before {
-      content: none;
-    }
+.table-scroll {
+  // Горизонтальная прокрутка нужна только на узком экране. На широком
+  // обёртка не создаёт scroll-контейнер, поэтому sticky-шапка таблицы
+  // продолжает работать при прокрутке страницы.
+  @media (max-width: 767.98px) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 

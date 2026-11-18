@@ -4,10 +4,12 @@ import {
   Component,
   computed,
   DestroyRef,
+  ElementRef,
   HostListener,
   inject,
   OnInit,
   signal,
+  viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -77,7 +79,17 @@ export class InvoicePageComponent implements OnInit {
   readonly quickCreateRowId = signal<number | null>(null);
   readonly quickCreateName = signal('');
 
+  /** Поле быстрого добавления товара в конце таблицы. */
+  readonly quickAddQuery = signal('');
+  readonly quickAddSuggestions = signal<INomenclatureQuick[]>([]);
+  readonly quickAddOpen = signal(false);
+  readonly quickAddLoading = signal(false);
+  readonly quickAddActiveIndex = signal(0);
+  private readonly quickAddInput =
+    viewChild<ElementRef<HTMLInputElement>>('quickAddInput');
+
   private readonly searchTimers = new Map<number, ReturnType<typeof setTimeout>>();
+  private quickAddTimer: ReturnType<typeof setTimeout> | undefined;
 
   readonly total = computed(() =>
     this.rows().reduce((sum, row) => sum + row.qty * row.price, 0),
@@ -138,6 +150,7 @@ export class InvoicePageComponent implements OnInit {
         row.suggestionsOpen ? { ...row, suggestionsOpen: false } : row,
       ),
     );
+    this.quickAddOpen.set(false);
   }
 
   parseVoice(): void {
@@ -162,18 +175,27 @@ export class InvoicePageComponent implements OnInit {
             return;
           }
 
-          this.rows.set(
-            parsed.map((row, index) => ({
-              ...this.createRow(index + 1),
-              productId: row.productId,
-              name: row.name,
-              qty: row.qty,
-              unit: row.unit,
-              price: 0,
-            })),
-          );
-          this.lastRowId.set(parsed.length);
-          this.loadCandidatesForUnmatched();
+          // Распознанные позиции дописываются к накладной, а не заменяют её:
+          // если товар уже введён, он остаётся, а голос добавляет новую строку.
+          let nextId = this.lastRowId();
+          const parsedRows = parsed.map((row) => ({
+            ...this.createRow(++nextId),
+            productId: row.productId,
+            name: row.name,
+            qty: row.qty,
+            unit: row.unit,
+            price: 0,
+          }));
+
+          this.lastRowId.set(nextId);
+          this.rows.update((rows) => [
+            // Пустые заготовки строк не нужны — сохраняем только заполненные.
+            ...rows.filter(
+              (row) => row.productId !== null || row.name.trim().length > 0,
+            ),
+            ...parsedRows,
+          ]);
+          this.loadCandidatesForUnmatched(parsedRows);
         },
         error: () => {
           this.parsing.set(false);
@@ -237,6 +259,98 @@ export class InvoicePageComponent implements OnInit {
           : row,
       ),
     );
+  }
+
+  /** Поле в конце таблицы: начали печатать — товар добавляется новой строкой. */
+  setQuickAdd(event: Event): void {
+    const query = (event.target as HTMLInputElement).value;
+
+    this.quickAddQuery.set(query);
+    this.quickAddActiveIndex.set(0);
+
+    if (this.quickAddTimer !== undefined) {
+      clearTimeout(this.quickAddTimer);
+      this.quickAddTimer = undefined;
+    }
+
+    const trimmed = query.trim();
+
+    if (trimmed.length < 2) {
+      this.quickAddSuggestions.set([]);
+      this.quickAddOpen.set(false);
+      this.quickAddLoading.set(false);
+      return;
+    }
+
+    this.quickAddOpen.set(true);
+    this.quickAddLoading.set(true);
+    this.quickAddTimer = setTimeout(
+      () => this.loadQuickAdd(trimmed),
+      QUICK_SEARCH_DEBOUNCE_MS,
+    );
+  }
+
+  onQuickAddKeydown(event: KeyboardEvent): void {
+    const suggestions = this.quickAddSuggestions();
+
+    switch (event.key) {
+      case 'ArrowDown':
+        if (suggestions.length === 0) {
+          return;
+        }
+        event.preventDefault();
+        this.quickAddActiveIndex.update(
+          (index) => (index + 1) % suggestions.length,
+        );
+        break;
+      case 'ArrowUp':
+        if (suggestions.length === 0) {
+          return;
+        }
+        event.preventDefault();
+        this.quickAddActiveIndex.update(
+          (index) => (index - 1 + suggestions.length) % suggestions.length,
+        );
+        break;
+      case 'Enter':
+        if (!this.quickAddOpen() || suggestions.length === 0) {
+          return;
+        }
+        event.preventDefault();
+        this.chooseQuickAdd(suggestions[this.quickAddActiveIndex()]);
+        break;
+      case 'Escape':
+        if (this.quickAddOpen()) {
+          event.stopPropagation();
+          this.quickAddOpen.set(false);
+        }
+        break;
+    }
+  }
+
+  /** Выбранный товар становится новой строкой в конце накладной. */
+  chooseQuickAdd(item: INomenclatureQuick): void {
+    const id = this.lastRowId() + 1;
+    this.lastRowId.set(id);
+
+    this.rows.update((rows) => [
+      ...rows,
+      {
+        ...this.createRow(id),
+        productId: item.id,
+        name: item.name,
+        unit: item.unit,
+        price: item.salePrice ?? item.purchasePrice ?? 0,
+      },
+    ]);
+
+    this.quickAddQuery.set('');
+    this.quickAddSuggestions.set([]);
+    this.quickAddOpen.set(false);
+    this.quickAddLoading.set(false);
+    this.quickAddActiveIndex.set(0);
+
+    this.quickAddInput()?.nativeElement.focus();
   }
 
   openQuickCreate(rowId: number): void {
@@ -304,8 +418,8 @@ export class InvoicePageComponent implements OnInit {
     }
   }
 
-  private loadCandidatesForUnmatched(): void {
-    for (const row of this.rows()) {
+  private loadCandidatesForUnmatched(rows: IInvoiceRow[]): void {
+    for (const row of rows) {
       if (row.productId === null && row.name.trim().length > 0) {
         this.loadCandidates(row.id, row.name);
       }
@@ -467,6 +581,29 @@ export class InvoicePageComponent implements OnInit {
       clearTimeout(timer);
       this.searchTimers.delete(id);
     }
+  }
+
+  private loadQuickAdd(query: string): void {
+    this.nomenclatureService
+      .quickSearch(query)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (suggestions) => {
+          // Пока шёл запрос, пользователь мог продолжить печатать.
+          if (this.quickAddQuery().trim() !== query) {
+            return;
+          }
+
+          this.quickAddSuggestions.set(suggestions);
+          this.quickAddLoading.set(false);
+          this.quickAddOpen.set(true);
+          this.quickAddActiveIndex.set(0);
+        },
+        error: () => {
+          this.quickAddSuggestions.set([]);
+          this.quickAddLoading.set(false);
+        },
+      });
   }
 
   private loadSuggestions(rowId: number, query: string): void {

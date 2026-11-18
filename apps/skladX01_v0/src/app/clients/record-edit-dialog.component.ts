@@ -16,19 +16,33 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import type { IInvoiceRow, IInvoiceRowUpdate } from './client.models';
+import type { IInvoiceRowUpdate } from './client.models';
 import { ClientService } from './client.service';
-import type { IAuditEntry } from '../shared/audit.models';
+import { SupplierService } from '../suppliers/supplier.service';
+import type { IAuditEntry, AuditEntityType } from '../shared/audit.models';
 import { actionLabel, paymentSums } from '../shared/audit.models';
 import { AuditService } from '../shared/audit.service';
 import { ToastService } from '../shared/toast.service';
+import type { Observable } from 'rxjs';
 
 export type EditableRecordKind = 'product' | 'payment';
 
+/** Чей документ редактируется: клиента или поставщика. */
+export type RecordSource = 'client' | 'supplier';
+
 export interface IRecordSaved {
   kind: EditableRecordKind;
-  id: number;
+  id: number | string;
   /** Новая сумма накладной или платежа. */
+  amount: number;
+}
+
+/** Общая форма строки накладной и прихода. */
+interface IRowResult {
+  id: number;
+  name: string;
+  quantity: number;
+  price: number;
   amount: number;
 }
 
@@ -67,13 +81,18 @@ function readNumber(event: Event): number | null {
 })
 export class RecordEditDialogComponent implements OnInit, AfterViewInit {
   private readonly clientService = inject(ClientService);
+  private readonly supplierService = inject(SupplierService);
   private readonly auditService = inject(AuditService);
   private readonly toast = inject(ToastService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly dealId = input.required<string>();
   readonly kind = input.required<EditableRecordKind>();
-  readonly recordId = input.required<number>();
+  /** У клиента — int, у поставщика накладная — Guid строкой. */
+  readonly recordId = input.required<number | string>();
+  /** Числовой ключ для истории: у прихода это первая строка, а не UETR. */
+  readonly auditId = input<number | null>(null);
+  readonly source = input<RecordSource>('client');
   readonly title = input('');
   readonly amount = input(0);
 
@@ -215,11 +234,19 @@ export class RecordEditDialogComponent implements OnInit, AfterViewInit {
       price: row.price,
     }));
 
+    const request$: Observable<IRowResult[]> =
+      this.source() === 'supplier'
+        ? this.rowsRequest(updates)
+        : this.clientService.updateInvoiceRows(
+            this.dealId(),
+            Number(this.recordId()),
+            updates,
+          );
+
     this.saving.set(true);
     this.saveError.set(null);
 
-    this.clientService
-      .updateInvoiceRows(this.dealId(), this.recordId(), updates)
+    request$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (rows) => this.finishRowsSave(rows),
@@ -232,7 +259,15 @@ export class RecordEditDialogComponent implements OnInit, AfterViewInit {
       });
   }
 
-  private finishRowsSave(rows: IInvoiceRow[]): void {
+  private rowsRequest(updates: IInvoiceRowUpdate[]): Observable<IRowResult[]> {
+    return this.supplierService.updateReceiptRows(
+      this.dealId(),
+      String(this.recordId()),
+      updates,
+    );
+  }
+
+  private finishRowsSave(rows: IRowResult[]): void {
     this.rows.set(
       rows.map((row) => ({
         id: row.id,
@@ -260,8 +295,20 @@ export class RecordEditDialogComponent implements OnInit, AfterViewInit {
     this.saving.set(true);
     this.saveError.set(null);
 
-    this.clientService
-      .updatePayment(this.dealId(), this.recordId(), this.paymentAmount())
+    const request$: Observable<{ amount: number; id: number | string }> =
+      this.source() === 'supplier'
+        ? this.supplierService.updateSupplierPayment(
+            this.dealId(),
+            Number(this.recordId()),
+            this.paymentAmount(),
+          )
+        : this.clientService.updatePayment(
+            this.dealId(),
+            Number(this.recordId()),
+            this.paymentAmount(),
+          );
+
+    request$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (payment) => {
@@ -288,8 +335,18 @@ export class RecordEditDialogComponent implements OnInit, AfterViewInit {
     this.loading.set(true);
     this.loadError.set(null);
 
-    this.clientService
-      .getInvoiceRows(this.dealId(), this.recordId())
+    const request$: Observable<IRowResult[]> =
+      this.source() === 'supplier'
+        ? this.supplierService.getReceiptRows(
+            this.dealId(),
+            String(this.recordId()),
+          )
+        : this.clientService.getInvoiceRows(
+            this.dealId(),
+            Number(this.recordId()),
+          );
+
+    request$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (rows) => {
@@ -312,13 +369,25 @@ export class RecordEditDialogComponent implements OnInit, AfterViewInit {
 
   /** История грузится при открытии окна и повторно — после сохранения. */
   private loadHistory(): void {
-    const entityType = this.kind() === 'payment' ? 'payment' : 'invoice';
+    const entityType: AuditEntityType =
+      this.source() === 'supplier'
+        ? this.kind() === 'payment'
+          ? 'supplier-payment'
+          : 'supplier-invoice'
+        : this.kind() === 'payment'
+          ? 'payment'
+          : 'invoice';
+
+    const entityId =
+      this.source() === 'supplier' && this.kind() === 'product'
+        ? this.auditId() ?? 0
+        : Number(this.recordId());
 
     this.historyLoading.set(true);
     this.historyError.set(null);
 
     this.auditService
-      .getHistory(entityType, this.recordId())
+      .getHistory(entityType, entityId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (entries) => {

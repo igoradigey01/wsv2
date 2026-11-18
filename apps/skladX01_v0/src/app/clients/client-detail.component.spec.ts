@@ -329,6 +329,25 @@ describe('ClientDetailComponent', () => {
     ).toBe(1);
   });
 
+  it('оставляет табличную раскладку: шапка сверху, без подписей data-label', () => {
+    setup('7', true);
+    flushBase();
+
+    fixture.componentInstance.toggleDeals();
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement as HTMLElement;
+    const tables = element.querySelectorAll('table.grid');
+
+    expect(tables.length).toBeGreaterThan(0);
+
+    tables.forEach((table) => {
+      expect(table.querySelector('thead th')).not.toBeNull();
+      expect(table.parentElement?.classList).toContain('table-scroll');
+      expect(table.querySelector('[data-label]')).toBeNull();
+    });
+  });
+
   it('на широком экране показывает оба блока без вкладок', () => {    setup('7');
 
     httpMock.expectOne('/api/clients/7').flush({
@@ -390,10 +409,17 @@ describe('ClientDetailComponent', () => {
         дата: '2023-10-23T00:00:00',
         сумма: 100,
         сделкаId: 'd1',
+        изменялась: true,
       },
     ]);
     httpMock.expectOne('/api/clients/marks/d1/payments').flush([
-      { id: 20, дата: '2023-12-01T00:00:00', сумма: 300, сделкаId: 'd1' },
+      {
+        id: 20,
+        дата: '2023-12-01T00:00:00',
+        сумма: 300,
+        сделкаId: 'd1',
+        изменялась: true,
+      },
     ]);
 
     fixture.detectChanges();
@@ -431,6 +457,40 @@ describe('ClientDetailComponent', () => {
     fixture.detectChanges();
 
     expect(element.querySelector('app-record-edit-dialog')).not.toBeNull();
+  });
+
+  it('подсвечивает строки, которые правились', () => {
+    setup('7');
+    flushBase();
+
+    const tables = (fixture.nativeElement as HTMLElement).querySelectorAll(
+      'table.grid',
+    );
+    const productRow = tables[0].querySelector('tbody tr') as HTMLElement;
+    const paymentRow = tables[1].querySelector('tbody tr') as HTMLElement;
+
+    expect(productRow.classList).toContain('grid__row--edited');
+    expect(paymentRow.classList).toContain('grid__row--edited');
+    expect(productRow.getAttribute('title')).toBe('Данные изменялись');
+  });
+
+  it('показывает дату платежа в заголовке окна', () => {
+    setup('7');
+    flushBase();
+
+    const tables = (fixture.nativeElement as HTMLElement).querySelectorAll(
+      'table.grid',
+    );
+    const paymentRow = tables[1].querySelector('tbody tr') as HTMLElement;
+
+    paymentRow.dispatchEvent(new MouseEvent('dblclick'));
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.editing()?.title).toBe(
+      'Принятые деньги (01.12.2023)',
+    );
+
+    httpMock.expectOne('/api/audit/payment/20?limit=50').flush([]);
   });
 
   it('после сохранения обновляет сумму и перечитывает долг', () => {

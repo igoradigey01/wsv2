@@ -39,13 +39,32 @@ export interface IReceivedGoodApi {
   дата: string;
   сумма: number;
   сделкаId: string;
+  auditId: number;
+  изменялась?: boolean;
 }
+
+export interface IReceiptRowApi {
+  id: number;
+  номенклатураId: number;
+  номенклатура: string;
+  количество: number;
+  цена: number;
+  сумма: number;
+}
+
+export interface IReceiptRowUpdate {
+  id: number;
+  quantity: number;
+  price: number;
+}
+
 
 export interface ISupplierPaymentApi {
   id: number;
   дата: string;
   сумма: number;
   сделкаId: string;
+  изменялась?: boolean;
 }
 
 export interface ISupplier {
@@ -86,13 +105,29 @@ export interface IReceivedGood {
   date: string;
   amount: number;
   dealId: string;
+  /** Числовой ключ первой строки прихода — для журнала аудита. */
+  auditId: number;
+  /** Документ правился — строка подсвечивается лёгким фоном. */
+  edited: boolean;
 }
+
+export interface IReceiptRow {
+  id: number;
+  nomenclatureId: number;
+  name: string;
+  quantity: number;
+  price: number;
+  amount: number;
+}
+
 
 export interface ISupplierPayment {
   id: number;
   date: string;
   amount: number;
   dealId: string;
+  /** Документ правился — строка подсвечивается лёгким фоном. */
+  edited: boolean;
 }
 
 export type SupplierSortKey = 'id' | 'name' | 'city';

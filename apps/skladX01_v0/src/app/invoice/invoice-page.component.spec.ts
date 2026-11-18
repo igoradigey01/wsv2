@@ -170,6 +170,60 @@ describe('InvoicePageComponent', () => {
     expect(chosen.price).toBe(300);
   });
 
+  it('дописывает распознанные позиции к уже введённым строкам', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    component.rows.update((rows) =>
+      rows.map((row) =>
+        row.id === 1
+          ? { ...row, productId: 77, name: 'Гвозди 2,5х50', qty: 2, price: 50 }
+          : row,
+      ),
+    );
+    component.voiceText.set('шайба цинк 10, 10 штук; шайба цинк 10, 5 штук');
+    fixture.detectChanges();
+
+    component.parseVoice();
+
+    httpMock
+      .expectOne({ method: 'POST', url: '/api/invoice/parse-voice' })
+      .flush([
+        {
+          productId: 141,
+          productSku: '',
+          dbName: 'Шайба Цинк_10',
+          voiceName: 'шайба цинк 10',
+          quantity: 10,
+          unit: 'штук',
+          matchConfidence: 100,
+        },
+        {
+          productId: 141,
+          productSku: '',
+          dbName: 'Шайба Цинк_10',
+          voiceName: 'шайба цинк 10',
+          quantity: 5,
+          unit: 'штук',
+          matchConfidence: 100,
+        },
+      ]);
+
+    fixture.detectChanges();
+
+    const rows = component.rows();
+    expect(rows.length).toBe(3);
+    expect(rows[0].name).toBe('Гвозди 2,5х50');
+    expect(rows[0].productId).toBe(77);
+    expect(rows[0].qty).toBe(2);
+    expect(rows[1].productId).toBe(141);
+    expect(rows[1].qty).toBe(10);
+    expect(rows[2].productId).toBe(141);
+    expect(rows[2].qty).toBe(5);
+    expect(new Set(rows.map((row) => row.id)).size).toBe(3);
+  });
+
   it('ищет номенклатуру с клавиатуры через quick-search', () => {
     setup('d1');
     flushClientAndDeals();
@@ -214,6 +268,62 @@ describe('InvoicePageComponent', () => {
     expect(chosen.name).toBe('Песок строительный');
     expect(chosen.unit).toBe('т');
     expect(chosen.price).toBe(300);
+  });
+
+  it('добавляет товар новой строкой из поля в конце таблицы', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    const input = fixture.nativeElement.querySelector(
+      '.quick-add input',
+    ) as HTMLInputElement;
+
+    expect(input).toBeTruthy();
+
+    jest.useFakeTimers();
+    input.value = 'Песок';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    jest.advanceTimersByTime(200);
+    jest.useRealTimers();
+
+    const quickRequest = httpMock.expectOne(
+      (request) => request.url === '/api/nomenclature/quick-search',
+    );
+    expect(quickRequest.request.params.get('q')).toBe('Песок');
+    quickRequest.flush([
+      {
+        id: 12,
+        код: 'НМ-00012',
+        артикул: null,
+        название: 'Песок строительный',
+        едИзм: 'т',
+        ценаЗакупочная: 250,
+        ценаПродажная: 300,
+      },
+    ]);
+
+    fixture.detectChanges();
+
+    const panelRow = fixture.nativeElement.querySelector(
+      '.quick-add .suggest__table tbody tr',
+    ) as HTMLElement;
+
+    expect(panelRow).toBeTruthy();
+
+    panelRow.click();
+    fixture.detectChanges();
+
+    const rows = component.rows();
+    expect(rows.length).toBe(2);
+    expect(rows[1].productId).toBe(12);
+    expect(rows[1].name).toBe('Песок строительный');
+    expect(rows[1].unit).toBe('т');
+    expect(rows[1].qty).toBe(1);
+    expect(rows[1].price).toBe(300);
+    expect(component.quickAddQuery()).toBe('');
   });
 
   it('открывает модалку быстрого создания из строки «Создать новую»', () => {

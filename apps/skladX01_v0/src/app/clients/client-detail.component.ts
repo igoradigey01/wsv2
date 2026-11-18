@@ -24,6 +24,7 @@ import type {
   IShippedGood,
 } from './client.models';
 import { TabsComponent } from '../shared/tabs.component';
+import { formatDay } from '../shared/date-format';
 import { RecordEditDialogComponent } from './record-edit-dialog.component';
 import type {
   EditableRecordKind,
@@ -246,18 +247,21 @@ export class ClientDetailComponent implements OnInit {
     });
   }
 
+  /** Двойной клик по строке открывает окно редактирования. */
   editPayment(payment: IPayment): void {
     const mark = this.selectedMark();
     if (!mark) {
       return;
     }
 
+    const day = formatDay(payment.date);
+
     this.selectedPaymentId.set(payment.id);
     this.editing.set({
       kind: 'payment',
       dealId: mark.id,
       id: payment.id,
-      title: 'Принятые деньги',
+      title: day ? `Принятые деньги (${day})` : 'Принятые деньги',
       amount: payment.amount,
     });
   }
