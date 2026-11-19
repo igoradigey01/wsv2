@@ -62,6 +62,17 @@
         },
         "development": {
           "buildTarget": "skladX01_v0:build:development"
+        },
+        "mobile": {
+          "buildTarget": "skladX01_v0:build:development",
+          "host": "0.0.0.0",
+          "port": 4200,
+          "ssl": true
+        },
+        "mobile-http": {
+          "buildTarget": "skladX01_v0:build:development",
+          "host": "0.0.0.0",
+          "port": 4301
         }
       }
     },

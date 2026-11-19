@@ -49,6 +49,79 @@
 
     <section class="card">
       <div class="toolbar">
+        <h2>Фото накладной + голос приёмщика</h2>
+      </div>
+
+      <p class="hint hint--top">
+        Сфотографируйте накладную и продиктуйте, что фактически приняли
+        («две банки брак», «плёнку 5 рулонов»). Сервер сверит документ с голосом
+        и подставит позиции в таблицу.
+      </p>
+
+      <div class="fields">
+        <label>
+          <span>Фото накладной</span>
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            (change)="onImageSelected($event)"
+          />
+        </label>
+        <div class="field">
+          <span>Голос приёмщика</span>
+          <button
+            type="button"
+            class="action action--ghost record"
+            [class.record--on]="recording()"
+            (click)="toggleRecording()"
+          >
+            @if (recording()) {
+              ■ Стоп ({{ formatSeconds(recordSeconds()) }})
+            } @else {
+              ● Записать
+            }
+          </button>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button
+          type="button"
+          class="action"
+          [disabled]="recognizing() || !imageFile() || !audioBlob()"
+          (click)="recognize()"
+        >
+          {{ recognizing() ? 'Распознаём…' : 'Распознать накладную' }}
+        </button>
+        <span class="muted">
+          {{ audioBlob() ? 'запись готова' : 'записи нет' }}
+        </span>
+      </div>
+
+      @if (recognized(); as doc) {
+        <p class="state state--ok">
+          Распознано: {{ doc.number || 'номер не найден' }}
+          @if (doc.date) {
+            от {{ doc.date }}
+          }
+          @if (doc.supplier) {
+            · {{ doc.supplier }}
+          }
+          · позиций: {{ doc.items.length }}
+        </p>
+        @if (doc.comment) {
+          <p class="hint">{{ doc.comment }}</p>
+        }
+      }
+
+      @if (recognizeError()) {
+        <p class="state state--error">{{ recognizeError() }}</p>
+      }
+    </section>
+
+    <section class="card">
+      <div class="toolbar">
         <h2>Товары по накладной</h2>
         <button type="button" class="action action--ghost" (click)="addRow()">
           Добавить строку
@@ -139,6 +212,12 @@
                     </div>
                   }
                 </div>
+                @if (row.extra) {
+                  <span class="badge">нет в накладной</span>
+                }
+                @if (row.comment) {
+                  <span class="row-comment">{{ row.comment }}</span>
+                }
               </td>
               <td data-label="Ед.">{{ row.unit || '—' }}</td>
               <td class="num" data-label="Кол-во">

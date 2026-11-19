@@ -139,6 +139,146 @@ describe('ReceiptPageComponent', () => {
     expect(row.suggestionsOpen).toBe(false);
   });
 
+
+  it('распознаёт накладную по фото и голосу и заполняет строки', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.imageFile.set(
+      new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
+        type: 'image/jpeg',
+      }),
+    );
+    component.audioBlob.set(new Blob([new Uint8Array(100)], { type: 'audio/wav' }));
+    component.recognize();
+
+    httpMock.expectOne({ method: 'POST', url: '/api/recognition/parse' }).flush({
+      document_number: '1042',
+      document_date: '19.11.2026',
+      supplier_name: 'ООО "СтройБаза"',
+      general_comment: null,
+      items: [
+        {
+          line_number: 1,
+          article: null,
+          name: 'Шайба цинк 10',
+          unit: 'шт',
+          price: 12.5,
+          qty_doc: 10,
+          qty_fact: 100,
+          is_extra: false,
+          item_comment: 'приняли сто штук',
+        },
+        {
+          line_number: null,
+          article: null,
+          name: 'плёнка',
+          unit: 'рулон',
+          price: null,
+          qty_doc: 0,
+          qty_fact: 5,
+          is_extra: true,
+          item_comment: null,
+        },
+      ],
+    });
+
+    fixture.detectChanges();
+
+    const rows = component.rows();
+    expect(rows.length).toBe(2);
+
+    // Количество берём фактическое — то, что назвал приёмщик.
+    expect(rows[0].name).toBe('Шайба цинк 10');
+    expect(rows[0].qty).toBe(100);
+    expect(rows[0].price).toBe(12.5);
+    expect(rows[0].comment).toBe('приняли сто штук');
+
+    expect(rows[1].extra).toBe(true);
+    expect(rows[1].qty).toBe(5);
+    expect(rows[1].price).toBe(0);
+
+    expect(component.comment()).toBe('№ 1042 от 19.11.2026');
+
+    const text = fixture.nativeElement.textContent as string;
+    expect(text).toContain('нет в накладной');
+    expect(text).toContain('Распознано: 1042');
+  });
+
+  it('не добавляет строку из позиции без наименования', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.imageFile.set(
+      new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
+        type: 'image/jpeg',
+      }),
+    );
+    component.audioBlob.set(new Blob([new Uint8Array(100)], { type: 'audio/wav' }));
+    component.recognize();
+
+    httpMock.expectOne({ method: 'POST', url: '/api/recognition/parse' }).flush({
+      document_number: null,
+      document_date: null,
+      supplier_name: null,
+      general_comment: null,
+      items: [
+        {
+          line_number: 1,
+          article: null,
+          name: 'Шайба цинк 10',
+          unit: 'шт',
+          price: 12.5,
+          qty_doc: 10,
+          qty_fact: 10,
+          is_extra: false,
+          item_comment: null,
+        },
+        {
+          line_number: null,
+          article: null,
+          name: '',
+          unit: null,
+          price: null,
+          qty_doc: 1,
+          qty_fact: 1,
+          is_extra: false,
+          item_comment: null,
+        },
+      ],
+    });
+
+    fixture.detectChanges();
+
+    const rows = component.rows();
+    expect(rows.length).toBe(1);
+    expect(rows[0].name).toBe('Шайба цинк 10');
+  });
+
+  it('объясняет отказ 415 по формату файлов', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.imageFile.set(new File([new Uint8Array([1])], 'i.png', { type: 'image/png' }));
+    component.audioBlob.set(new Blob([new Uint8Array(100)], { type: 'audio/wav' }));
+    component.recognize();
+
+    httpMock
+      .expectOne({ method: 'POST', url: '/api/recognition/parse' })
+      .flush({ error: 'нужен WAV' }, { status: 415, statusText: 'Unsupported Media Type' });
+
+    expect(component.recognizeError()).toContain('WAV 16 кГц');
+  });
+
+  it('не отправляет запрос без фото или записи', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.recognize();
+
+    httpMock.expectNone('/api/recognition/parse');
+  });
+
   it('выбирает первую подсказку по Enter', () => {
     flushHeader();
 

@@ -16,6 +16,9 @@ import { catchError, forkJoin, of } from 'rxjs';
 import { QuickCreateItemComponent } from '../nomenclature/quick-create-item.component';
 import { NomenclatureService } from '../nomenclature/nomenclature.service';
 import type { INomenclatureQuick } from '../nomenclature/nomenclature.service';
+import { RecognitionService } from '../shared/recognition.service';
+import type { IRecognizedDocument } from '../shared/recognition.models';
+import { WavRecorder } from '../shared/wav-recorder';
 import { SupplierService } from './supplier.service';
 import type { ISupplier, IWarehouse } from './supplier.models';
 
@@ -26,6 +29,10 @@ export interface IReceiptRow {
   unit: string | null;
   qty: number;
   price: number;
+  /** Товар назван в голосе, но его нет в накладной. */
+  extra: boolean;
+  /** Расхождение или комментарий приёмщика по позиции. */
+  comment: string | null;
   suggestions: INomenclatureQuick[];
   suggestionsLoading: boolean;
   suggestionsOpen: boolean;
@@ -46,7 +53,11 @@ export class ReceiptPageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly supplierService = inject(SupplierService);
   private readonly nomenclatureService = inject(NomenclatureService);
+  private readonly recognition = inject(RecognitionService);
   private readonly destroyRef = inject(DestroyRef);
+
+  private readonly recorder = new WavRecorder();
+  private recordTimer: ReturnType<typeof setInterval> | undefined;
 
   readonly supplierId = signal<number | null>(null);
   readonly supplier = signal<ISupplier | null>(null);
@@ -62,6 +73,15 @@ export class ReceiptPageComponent implements OnInit {
   readonly rows = signal<IReceiptRow[]>([this.createRow(1)]);
   private readonly lastRowId = signal(1);
 
+  /** Распознавание по фото и голосу. */
+  readonly imageFile = signal<File | null>(null);
+  readonly audioBlob = signal<Blob | null>(null);
+  readonly recording = signal(false);
+  readonly recordSeconds = signal(0);
+  readonly recognizing = signal(false);
+  readonly recognizeError = signal<string | null>(null);
+  readonly recognized = signal<IRecognizedDocument | null>(null);
+
   /** Строка, для которой открыта модалка быстрого создания. */
   readonly quickCreateRowId = signal<number | null>(null);
   readonly quickCreateName = signal('');
@@ -73,6 +93,14 @@ export class ReceiptPageComponent implements OnInit {
   );
 
   ngOnInit(): void {
+    this.destroyRef.onDestroy(() => {
+      if (this.recordTimer !== undefined) {
+        clearInterval(this.recordTimer);
+      }
+
+      void this.recorder.cancel();
+    });
+
     const supplierId = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!Number.isFinite(supplierId)) {
@@ -136,6 +164,78 @@ export class ReceiptPageComponent implements OnInit {
     const raw = (event.target as HTMLSelectElement).value;
 
     this.warehouseId.set(raw === '' ? null : Number(raw));
+  }
+
+  /** Фото накладной: камера телефона или файл. */
+  onImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (file) {
+      this.imageFile.set(file);
+      this.recognizeError.set(null);
+    }
+  }
+
+  /** Старт/стоп записи голоса приёмщика. */
+  async toggleRecording(): Promise<void> {
+    if (this.recording()) {
+      await this.stopRecording();
+      return;
+    }
+
+    this.recognizeError.set(null);
+
+    try {
+      await this.recorder.start();
+      this.recording.set(true);
+      this.recordSeconds.set(0);
+      this.recordTimer = setInterval(
+        () => this.recordSeconds.update((value) => value + 1),
+        1000,
+      );
+    } catch (error) {
+      this.recording.set(false);
+      this.recognizeError.set(
+        error instanceof Error
+          ? error.message
+          : 'Не удалось включить микрофон.',
+      );
+    }
+  }
+
+  /** Отправляет фото и запись в SkladApi. */
+  recognize(): void {
+    const image = this.imageFile();
+    const audio = this.audioBlob();
+
+    if (!image || !audio || this.recognizing()) {
+      return;
+    }
+
+    this.recognizing.set(true);
+    this.recognizeError.set(null);
+
+    this.recognition
+      .parse(image, audio)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (document) => {
+          this.recognizing.set(false);
+          this.recognized.set(document);
+          this.applyRecognized(document);
+        },
+        error: (error: { status?: number }) => {
+          this.recognizing.set(false);
+          this.recognizeError.set(this.describeError(error));
+        },
+      });
+  }
+
+  formatSeconds(seconds: number): string {
+    const minutes = Math.floor(seconds / 60);
+
+    return `${minutes}:${String(seconds % 60).padStart(2, '0')}`;
   }
 
   addRow(): void {
@@ -298,6 +398,102 @@ export class ReceiptPageComponent implements OnInit {
     );
   }
 
+  private async stopRecording(): Promise<void> {
+    if (this.recordTimer !== undefined) {
+      clearInterval(this.recordTimer);
+      this.recordTimer = undefined;
+    }
+
+    this.recording.set(false);
+
+    const blob = await this.recorder.stop();
+
+    // Пустой WAV — это только заголовок в 44 байта.
+    if (blob.size > 44) {
+      this.audioBlob.set(blob);
+      return;
+    }
+
+    this.recognizeError.set('Запись пустая — запишите комментарий ещё раз.');
+  }
+
+  /**
+   * Переносит распознанные позиции в таблицу: количество берём фактическое
+   * (его назвал приёмщик), а если он позицию не упоминал — по документу.
+   */
+  private applyRecognized(document: IRecognizedDocument): void {
+    // Позиция без наименования — это не товар, а мусор распознавания:
+    // такая строка выглядела бы пустой заготовкой с кол-вом 1 и ценой 0.
+    const items = (document.items ?? []).filter(
+      (item) => item.name.trim().length > 0,
+    );
+
+    if (items.length === 0) {
+      this.recognizeError.set(
+        'Позиции не распознаны. Попробуйте более чёткое фото накладной.',
+      );
+      return;
+    }
+
+    let nextId = this.lastRowId();
+
+    const parsedRows: IReceiptRow[] = items.map((item) => ({
+      ...this.createRow(++nextId),
+      name: item.name,
+      unit: item.unit,
+      qty: item.qtyFact > 0 ? item.qtyFact : item.qtyDoc,
+      price: item.price ?? 0,
+      extra: item.extra,
+      comment: item.comment,
+    }));
+
+    this.lastRowId.set(nextId);
+
+    this.rows.update((rows) => [
+      ...this.pruneEmptyRows(rows),
+      ...parsedRows,
+    ]);
+
+    if (!this.comment().trim()) {
+      const header = [
+        document.number ? `№ ${document.number}` : '',
+        document.date ? `от ${document.date}` : '',
+      ]
+        .filter((part) => part.length > 0)
+        .join(' ');
+
+      if (header) {
+        this.comment.set(header);
+      }
+    }
+  }
+
+  private describeError(error: { status?: number }): string {
+    switch (error.status) {
+      case 415:
+        return 'Сервер не принял файл: фото — JPEG/PNG/WebP, аудио — WAV 16 кГц, моно.';
+      case 503:
+        return 'На сервере нет модели Whisper (Models/ggml-base.bin).';
+      case 502:
+      case 504:
+        return 'Модель не ответила. Проверьте Ollama на ks34.';
+      case 413:
+        return 'Файл слишком большой: фото до 15 МБ, аудио до 10 МБ.';
+      default:
+        return 'Не удалось распознать накладную. Проверьте, что SkladApi запущен на http://localhost:5240.';
+    }
+  }
+
+  /** Строка-заготовка: товар не выбран и наименование не введено. */
+  private isEmptyRow(row: IReceiptRow): boolean {
+    return row.productId === null && row.name.trim().length === 0;
+  }
+
+  /** Убирает из таблицы пустые строки-заготовки. */
+  private pruneEmptyRows(rows: IReceiptRow[]): IReceiptRow[] {
+    return rows.filter((row) => !this.isEmptyRow(row));
+  }
+
   private createRow(id: number): IReceiptRow {
     return {
       id,
@@ -306,6 +502,8 @@ export class ReceiptPageComponent implements OnInit {
       unit: null,
       qty: 1,
       price: 0,
+      extra: false,
+      comment: null,
       suggestions: [],
       suggestionsLoading: false,
       suggestionsOpen: false,

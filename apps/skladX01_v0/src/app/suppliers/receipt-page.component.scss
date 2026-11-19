@@ -54,7 +54,8 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  label {
+  label,
+  .field {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -236,4 +237,34 @@ textarea {
 
 .hint--top {
   margin: 0 0 0.5rem;
+}
+
+.state--ok {
+  color: var(--c-primary);
+}
+
+.record {
+  width: fit-content;
+}
+
+.record--on {
+  border-color: var(--c-danger);
+  color: var(--c-danger);
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: var(--c-warning-soft, #fff4d6);
+  color: var(--c-warning-strong, #8a6100);
+  font-size: 0.75rem;
+}
+
+.row-comment {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--c-muted-strong);
+  font-size: 0.75rem;
 }

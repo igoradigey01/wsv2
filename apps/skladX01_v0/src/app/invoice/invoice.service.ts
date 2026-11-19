@@ -3,6 +3,9 @@ import { inject, Injectable } from '@angular/core';
 import type { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+// SkladApi помечает несопоставленную позицию этой строкой (InvoiceController.Match).
+const NOT_FOUND = 'НЕ НАЙДЕНО В БД';
+
 export interface IParsedVoiceRowApi {
   productId: number | null;
   productSku: string;
@@ -13,7 +16,7 @@ export interface IParsedVoiceRowApi {
   matchConfidence: number;
 }
 
-export interface IParsedVoiceRow {
+export interface IMappedVoiceRow {
   productId: number | null;
   sku: string;
   name: string;
@@ -24,16 +27,13 @@ export interface IParsedVoiceRow {
   matched: boolean;
 }
 
+/** Ответ GET /api/nomenclature/candidates: гибрид косинуса и Левенштейна. */
 export interface ICandidate {
   id: number;
   name: string;
   price: number | null;
   score: number;
-  cosine: number;
-  lexical: number;
 }
-
-const NOT_FOUND = 'НЕ НАЙДЕНО В БД';
 
 @Injectable({ providedIn: 'root' })
 export class InvoiceService {
@@ -47,7 +47,7 @@ export class InvoiceService {
   }
 
   /** Отправляет продиктованный текст в SkladApi, возвращает позиции с сопоставлением. */
-  parseVoice(rawText: string): Observable<IParsedVoiceRow[]> {
+  parseVoice(rawText: string): Observable<IMappedVoiceRow[]> {
     return this.http
       .post<IParsedVoiceRowApi[]>('/api/invoice/parse-voice', { rawText })
       .pipe(
