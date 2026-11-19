@@ -224,6 +224,80 @@ describe('InvoicePageComponent', () => {
     expect(new Set(rows.map((row) => row.id)).size).toBe(3);
   });
 
+  it('не оставляет пустых строк-заготовок после голосового разбора', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    // Пользователь уже ввёл товар и оставил пустую строку под следующий.
+    component.rows.update((rows) => [
+      { ...rows[0], productId: 77, name: 'Гвозди 70', qty: 1, price: 100 },
+      { ...rows[0], id: 2 },
+    ]);
+
+    component.voiceText.set('Цемент 20 мешков');
+    component.parseVoice();
+
+    httpMock
+      .expectOne({ method: 'POST', url: '/api/invoice/parse-voice' })
+      .flush([
+        {
+          productId: 1,
+          productSku: 'CEM500',
+          dbName: 'Цемент М-500 (50кг)',
+          voiceName: 'Цемент',
+          quantity: 20,
+          unit: 'мешков',
+          matchConfidence: 80,
+        },
+      ]);
+
+    fixture.detectChanges();
+
+    const rows = component.rows();
+    expect(rows.length).toBe(2);
+    expect(rows.every((row) => row.name.trim().length > 0)).toBe(true);
+    expect(rows[1].name).toBe('Цемент М-500 (50кг)');
+  });
+
+  it('отбрасывает позицию без наименования из ответа модели', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    component.voiceText.set('Цемент 20 мешков');
+    component.parseVoice();
+
+    httpMock
+      .expectOne({ method: 'POST', url: '/api/invoice/parse-voice' })
+      .flush([
+        {
+          productId: 1,
+          productSku: 'CEM500',
+          dbName: 'Цемент М-500 (50кг)',
+          voiceName: 'Цемент',
+          quantity: 20,
+          unit: 'мешков',
+          matchConfidence: 80,
+        },
+        {
+          productId: null,
+          productSku: '',
+          dbName: '',
+          voiceName: '',
+          quantity: 1,
+          unit: null,
+          matchConfidence: 0,
+        },
+      ]);
+
+    fixture.detectChanges();
+
+    const rows = component.rows();
+    expect(rows.length).toBe(1);
+    expect(rows[0].name).toBe('Цемент М-500 (50кг)');
+  });
+
   it('ищет номенклатуру с клавиатуры через quick-search', () => {
     setup('d1');
     flushClientAndDeals();
@@ -268,62 +342,6 @@ describe('InvoicePageComponent', () => {
     expect(chosen.name).toBe('Песок строительный');
     expect(chosen.unit).toBe('т');
     expect(chosen.price).toBe(300);
-  });
-
-  it('добавляет товар новой строкой из поля в конце таблицы', () => {
-    setup('d1');
-    flushClientAndDeals();
-
-    const component = fixture.componentInstance;
-    const input = fixture.nativeElement.querySelector(
-      '.quick-add input',
-    ) as HTMLInputElement;
-
-    expect(input).toBeTruthy();
-
-    jest.useFakeTimers();
-    input.value = 'Песок';
-    input.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    jest.advanceTimersByTime(200);
-    jest.useRealTimers();
-
-    const quickRequest = httpMock.expectOne(
-      (request) => request.url === '/api/nomenclature/quick-search',
-    );
-    expect(quickRequest.request.params.get('q')).toBe('Песок');
-    quickRequest.flush([
-      {
-        id: 12,
-        код: 'НМ-00012',
-        артикул: null,
-        название: 'Песок строительный',
-        едИзм: 'т',
-        ценаЗакупочная: 250,
-        ценаПродажная: 300,
-      },
-    ]);
-
-    fixture.detectChanges();
-
-    const panelRow = fixture.nativeElement.querySelector(
-      '.quick-add .suggest__table tbody tr',
-    ) as HTMLElement;
-
-    expect(panelRow).toBeTruthy();
-
-    panelRow.click();
-    fixture.detectChanges();
-
-    const rows = component.rows();
-    expect(rows.length).toBe(2);
-    expect(rows[1].productId).toBe(12);
-    expect(rows[1].name).toBe('Песок строительный');
-    expect(rows[1].unit).toBe('т');
-    expect(rows[1].qty).toBe(1);
-    expect(rows[1].price).toBe(300);
-    expect(component.quickAddQuery()).toBe('');
   });
 
   it('открывает модалку быстрого создания из строки «Создать новую»', () => {

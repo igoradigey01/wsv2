@@ -186,26 +186,6 @@ textarea {
   text-align: right;
 }
 
-/* Строка быстрого добавления в конце таблицы. */
-.quick-add {
-  td {
-    background: var(--c-disabled-bg);
-
-    &::before {
-      content: none;
-    }
-  }
-
-  .suggest {
-    flex: 1 1 auto;
-  }
-
-  input {
-    width: 100%;
-    max-width: none;
-  }
-}
-
 .total {
   display: flex;
   flex-wrap: wrap;

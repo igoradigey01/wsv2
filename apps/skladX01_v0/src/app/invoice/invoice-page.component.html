@@ -228,66 +228,6 @@
             </tr>
           }
 
-          <tr class="quick-add">
-            <td colspan="5">
-              <div class="suggest" data-suggest>
-                <input
-                  #quickAddInput
-                  type="text"
-                  [value]="quickAddQuery()"
-                  placeholder="Добавить товар: начните печатать название, код или артикул"
-                  autocomplete="off"
-                  (input)="setQuickAdd($event)"
-                  (keydown)="onQuickAddKeydown($event)"
-                />
-
-                @if (quickAddOpen()) {
-                  <div class="suggest__panel" data-suggest>
-                    @if (quickAddLoading()) {
-                      <p class="suggest__state">поиск…</p>
-                    } @else {
-                      @if (quickAddSuggestions().length > 0) {
-                        <table class="suggest__table">
-                          <thead>
-                            <tr>
-                              <th>Код</th>
-                              <th>Артикул</th>
-                              <th>Название</th>
-                              <th>Ед.</th>
-                              <th class="num">Цена</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            @for (
-                              item of quickAddSuggestions();
-                              track item.id;
-                              let index = $index
-                            ) {
-                              <tr
-                                [class.is-active]="index === quickAddActiveIndex()"
-                                (mousedown)="$event.preventDefault()"
-                                (click)="chooseQuickAdd(item)"
-                              >
-                                <td class="mono">{{ item.code }}</td>
-                                <td class="mono">{{ item.article || '—' }}</td>
-                                <td>{{ item.name }}</td>
-                                <td>{{ item.unit }}</td>
-                                <td class="num">
-                                  {{ item.salePrice ?? item.purchasePrice ?? 0 | number: '1.2-2' }}
-                                </td>
-                              </tr>
-                            }
-                          </tbody>
-                        </table>
-                      } @else {
-                        <p class="suggest__state">Ничего не найдено</p>
-                      }
-                    }
-                  </div>
-                }
-              </div>
-            </td>
-          </tr>
         </tbody>
       </table>
 
