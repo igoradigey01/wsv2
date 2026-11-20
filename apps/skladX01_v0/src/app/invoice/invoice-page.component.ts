@@ -1,4 +1,5 @@
 import { DecimalPipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,8 +11,8 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { catchError, forkJoin, of } from 'rxjs';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { catchError, finalize, forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ClientService } from '../clients/client.service';
@@ -19,8 +20,9 @@ import type { IClient, IMark } from '../clients/client.models';
 import { QuickCreateItemComponent } from '../nomenclature/quick-create-item.component';
 import { NomenclatureService } from '../nomenclature/nomenclature.service';
 import type { INomenclatureQuick } from '../nomenclature/nomenclature.service';
+import { ToastService } from '../shared/toast.service';
 import { InvoiceService } from './invoice.service';
-import type { ICandidate } from './invoice.service';
+import type { ICandidate, ICreateInvoiceRow } from './invoice.service';
 
 export interface IInvoiceRow {
   id: number;
@@ -54,6 +56,8 @@ export class InvoicePageComponent implements OnInit {
   private readonly clientService = inject(ClientService);
   private readonly invoiceService = inject(InvoiceService);
   private readonly nomenclatureService = inject(NomenclatureService);
+  private readonly router = inject(Router);
+  private readonly toast = inject(ToastService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly clientId = signal<number | null>(null);
@@ -69,6 +73,9 @@ export class InvoicePageComponent implements OnInit {
 
   readonly parsing = signal(false);
   readonly parseError = signal<string | null>(null);
+
+  readonly saving = signal(false);
+  readonly saveError = signal<string | null>(null);
 
   readonly rows = signal<IInvoiceRow[]>([this.createRow(1)]);
   private readonly lastRowId = signal(1);
@@ -195,6 +202,83 @@ export class InvoicePageComponent implements OnInit {
           this.parseError.set(
             'Сервис распознавания недоступен. Проверьте Ollama на ks34 и SQL Server.',
           );
+        },
+      });
+  }
+
+  /** Сохраняет накладную: шапку и строки создаёт SkladApi. */
+  save(): void {
+    if (this.saving()) {
+      return;
+    }
+
+    const deal = this.deal();
+
+    if (!deal) {
+      return;
+    }
+
+    this.saveError.set(null);
+
+    const rows = this.pruneEmptyRows(this.rows());
+
+    if (rows.length === 0) {
+      this.saveError.set('Добавьте хотя бы одну позицию.');
+      return;
+    }
+
+    const строки: ICreateInvoiceRow[] = [];
+
+    for (const [index, row] of rows.entries()) {
+      const productId = row.productId;
+
+      if (productId === null) {
+        this.saveError.set(
+          `Строка ${index + 1}: выберите товар из номенклатуры.`,
+        );
+        return;
+      }
+
+      if (row.qty <= 0) {
+        this.saveError.set(
+          `Строка ${index + 1}: количество должно быть больше нуля.`,
+        );
+        return;
+      }
+
+      if (row.price < 0) {
+        this.saveError.set(
+          `Строка ${index + 1}: цена не может быть отрицательной.`,
+        );
+        return;
+      }
+
+      строки.push({
+        номенклатураId: productId,
+        количество: row.qty,
+        цена: row.price,
+      });
+    }
+
+    this.saving.set(true);
+
+    this.invoiceService
+      .createInvoice(deal.id, {
+        дата: this.date(),
+        комментарий: this.comment().trim() || null,
+        строки,
+      })
+      .pipe(
+        finalize(() => this.saving.set(false)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: () => {
+          this.toast.show('Накладная сохранена.');
+          void this.router.navigate(['/clients', this.clientId()]);
+        },
+        error: (error: unknown) => {
+          this.saveError.set(this.describeSaveError(error));
         },
       });
   }
@@ -441,6 +525,17 @@ export class InvoicePageComponent implements OnInit {
     this.rows.update((rows) =>
       rows.map((row) => (row.id === id ? { ...row, price } : row)),
     );
+  }
+
+  private describeSaveError(error: unknown): string {
+    if (
+      error instanceof HttpErrorResponse &&
+      typeof error.error?.error === 'string'
+    ) {
+      return error.error.error;
+    }
+
+    return 'Не удалось сохранить накладную. Проверьте SkladApi.';
   }
 
   /** Строка-заготовка: товар не выбран и наименование не введено. */

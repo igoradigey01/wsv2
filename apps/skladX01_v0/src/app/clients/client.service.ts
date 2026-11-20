@@ -38,6 +38,15 @@ export interface ICreateDealRequest {
   комментарий?: string;
 }
 
+/** Тело POST: приём денег от клиента по сделке. */
+export interface ICreatePaymentRequest {
+  дата: string;
+  сумма: number;
+  способОплаты: number;
+  номерДокумента: string | null;
+  комментарий: string | null;
+}
+
 export interface IClientQuery {
   q?: string;
   sort: ClientSortKey;
@@ -98,6 +107,9 @@ export function mapPayment(raw: IPaymentApi): IPayment {
     date: raw.дата,
     amount: raw.сумма,
     dealId: raw.сделкаId,
+    paymentMethod: raw.способОплаты ?? 1,
+    documentNumber: raw.номерДокумента ?? null,
+    comment: raw.комментарий ?? null,
     edited: raw.изменялась ?? false,
   };
 }
@@ -210,6 +222,16 @@ export class ClientService {
       .put<IPaymentApi>(`${API}/marks/${dealId}/payments/${paymentId}`, {
         сумма: amount,
       })
+      .pipe(map(mapPayment));
+  }
+
+  /** Принимает деньги от клиента по сделке. */
+  createPayment(
+    dealId: string,
+    body: ICreatePaymentRequest,
+  ): Observable<IPayment> {
+    return this.http
+      .post<IPaymentApi>(`${API}/marks/${dealId}/payments`, body)
       .pipe(map(mapPayment));
   }
 }

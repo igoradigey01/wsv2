@@ -59,8 +59,8 @@ export const appRoutes: Route[] = [
   {
     path: 'clients/:id/payment/new',
     loadComponent: () =>
-      import('./coming-soon/coming-soon.component').then(
-        (m) => m.ComingSoonComponent,
+      import('./clients/payment-page.component').then(
+        (m) => m.PaymentPageComponent,
       ),
     data: { title: 'Приём денег' },
   },

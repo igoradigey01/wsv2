@@ -1,0 +1,100 @@
+<section class="payment">
+  <a class="back" [routerLink]="['/clients', clientId()]">← К клиенту</a>
+
+  @if (loading()) {
+    <p class="state">Загрузка…</p>
+  } @else if (error()) {
+    <p class="state state--error">{{ error() }}</p>
+  } @else if (client(); as c) {
+    <header class="card">
+      <h1>Приём денег</h1>
+      <p class="muted">
+        {{ c.alias }} · клиент #{{ c.id }}
+        @if (deal(); as d) {
+          · сделка №{{ d.number }}
+        }
+      </p>
+
+      @if (!deal()) {
+        <p class="warning">
+          Сделка не выбрана — откройте приём денег из карточки клиента.
+        </p>
+      }
+
+      <div class="fields">
+        <label>
+          <span>Дата</span>
+          <input type="date" [value]="date()" (input)="setDate($event)" />
+        </label>
+        <label>
+          <span>Сумма</span>
+          <input
+            type="number"
+            min="0.01"
+            step="0.01"
+            inputmode="decimal"
+            placeholder="0.00"
+            [value]="amount()"
+            (input)="setAmount($event)"
+          />
+        </label>
+        <label>
+          <span>Способ оплаты</span>
+          <select [value]="paymentMethod()" (change)="setPaymentMethod($event)">
+            @for (method of methods; track method.id) {
+              <option [value]="method.id">{{ method.label }}</option>
+            }
+          </select>
+        </label>
+        <label>
+          <span>№ документа</span>
+          <input
+            type="text"
+            maxlength="30"
+            placeholder="ПКО, платёжное поручение"
+            [value]="documentNumber()"
+            (input)="setDocumentNumber($event)"
+          />
+        </label>
+        <label>
+          <span>Комментарий</span>
+          <input
+            type="text"
+            maxlength="500"
+            [value]="comment()"
+            (input)="setComment($event)"
+          />
+        </label>
+      </div>
+
+      @if (deal(); as d) {
+        <p class="debt">
+          Долг по сделке:
+          <strong [class.num--negative]="d.debt < 0">
+            {{ d.debt | number: '1.2-2' }}
+          </strong>
+          @if (debt() > 0) {
+            <button type="button" class="action action--ghost" (click)="fillDebt()">
+              Внести весь долг
+            </button>
+          }
+        </p>
+      }
+    </header>
+
+    @if (saveError()) {
+      <p class="state state--error">{{ saveError() }}</p>
+    }
+
+    <div class="actions">
+      <button
+        type="button"
+        class="action"
+        [disabled]="saving() || !deal()"
+        (click)="save()"
+      >
+        {{ saving() ? 'Сохраняем…' : 'Принять деньги' }}
+      </button>
+    </div>
+  }
+</section>

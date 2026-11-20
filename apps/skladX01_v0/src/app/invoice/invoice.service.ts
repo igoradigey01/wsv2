@@ -27,12 +27,32 @@ export interface IMappedVoiceRow {
   matched: boolean;
 }
 
+import type { ICandidate } from '../nomenclature/nomenclature.service';
+
 /** Ответ GET /api/nomenclature/candidates: гибрид косинуса и Левенштейна. */
-export interface ICandidate {
+export type { ICandidate };
+
+/** Строка новой накладной для POST /api/clients/marks/{dealId}/products. */
+export interface ICreateInvoiceRow {
+  номенклатураId: number;
+  количество: number;
+  цена: number;
+}
+
+export interface ICreateInvoiceRequest {
+  дата: string | null;
+  комментарий: string | null;
+  строки: ICreateInvoiceRow[];
+}
+
+/** Ответ POST: созданная шапка накладной (ОтпущенныйТоварDto). */
+export interface ICreatedInvoiceApi {
   id: number;
-  name: string;
-  price: number | null;
-  score: number;
+  номер: string;
+  дата: string;
+  сумма: number;
+  сделкаId: string;
+  изменялась: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -65,5 +85,16 @@ export class InvoiceService {
           })),
         ),
       );
+  }
+
+  /** Создаёт накладную клиента: шапку и строки на сервере. */
+  createInvoice(
+    dealId: string,
+    body: ICreateInvoiceRequest,
+  ): Observable<ICreatedInvoiceApi> {
+    return this.http.post<ICreatedInvoiceApi>(
+      `/api/clients/marks/${dealId}/products`,
+      body,
+    );
   }
 }

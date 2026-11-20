@@ -1,4 +1,4 @@
-// Ответ POST /api/recognition/parse (фото накладной + голос приёмщика).
+// Ответ POST /api/recognition/parse (фото накладной + текст приёмщика).
 // Ключи — snake_case, как задаёт JSON-схема модели; в шаблоны отдаём camelCase.
 
 export interface IRecognizedItemApi {

@@ -98,6 +98,14 @@ export interface ICreateNomenclatureResult {
   name: string;
 }
 
+/** Ответ GET /api/nomenclature/candidates: гибрид косинуса и Левенштейна. */
+export interface ICandidate {
+  id: number;
+  name: string;
+  price: number | null;
+  score: number;
+}
+
 function mapQuick(raw: INomenclatureQuickApi): INomenclatureQuick {
   return {
     id: raw.id,
@@ -130,7 +138,7 @@ function mapCharacteristic(raw: ICharacteristicApi): ICharacteristic {
 /**
  * Два разных способа поиска номенклатуры:
  *  • quickSearch — ввод с клавиатуры: SQL LIKE по Код/Артикул/Название, быстро;
- *  • InvoiceService.candidates — голосовой разбор: вектор + Левенштейн.
+ *  • candidates — распознанный текст/фото: вектор Ollama + Левенштейн.
  */
 @Injectable({ providedIn: 'root' })
 export class NomenclatureService {
@@ -142,6 +150,20 @@ export class NomenclatureService {
     return this.http
       .get<INomenclatureQuickApi[]>('/api/nomenclature/quick-search', { params })
       .pipe(map((rows) => rows.map(mapQuick)));
+  }
+
+  /** Векторные кандидаты для ручного выбора товара. */
+  candidates(query: string, limit = 5): Observable<ICandidate[]> {
+    const params = new HttpParams().set('q', query).set('limit', limit);
+
+    return this.http.get<ICandidate[]>('/api/nomenclature/candidates', { params });
+  }
+
+  /** Следующий свободный код вида НМ-00042. */
+  nextCode(): Observable<string> {
+    return this.http
+      .get<{ код: string }>('/api/nomenclature/next-code')
+      .pipe(map((response) => response.код));
   }
 
   getReferences(): Observable<INomenclatureReferences> {

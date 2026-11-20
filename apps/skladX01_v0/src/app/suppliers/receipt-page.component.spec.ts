@@ -140,7 +140,7 @@ describe('ReceiptPageComponent', () => {
   });
 
 
-  it('распознаёт накладную по фото и голосу и заполняет строки', () => {
+  it('распознаёт накладную по фото и тексту и заполняет строки', () => {
     flushHeader();
 
     const component = fixture.componentInstance;
@@ -149,10 +149,18 @@ describe('ReceiptPageComponent', () => {
         type: 'image/jpeg',
       }),
     );
-    component.audioBlob.set(new Blob([new Uint8Array(100)], { type: 'audio/wav' }));
+    component.voiceText.set('  шайба цинк 10 — сто штук, плёнку 5 рулонов  ');
     component.recognize();
 
-    httpMock.expectOne({ method: 'POST', url: '/api/recognition/parse' }).flush({
+    const request = httpMock.expectOne({
+      method: 'POST',
+      url: '/api/recognition/parse',
+    });
+    const body = request.request.body as FormData;
+    expect(body.get('text')).toBe('шайба цинк 10 — сто штук, плёнку 5 рулонов');
+    expect(body.get('audio')).toBeNull();
+
+    request.flush({
       document_number: '1042',
       document_date: '19.11.2026',
       supplier_name: 'ООО "СтройБаза"',
@@ -183,6 +191,17 @@ describe('ReceiptPageComponent', () => {
       ],
     });
 
+    // Для каждой распознанной строки страница запрашивает векторных кандидатов.
+    const candidates = httpMock.match(
+      (candidate) => candidate.url === '/api/nomenclature/candidates',
+    );
+    expect(candidates.length).toBe(2);
+    expect(candidates[0].request.params.get('q')).toBe('Шайба цинк 10');
+    candidates[0].flush([
+      { id: 141, name: 'Шайба Цинк_10', price: 280, score: 99.2 },
+    ]);
+    candidates[1].flush([]);
+
     fixture.detectChanges();
 
     const rows = component.rows();
@@ -193,16 +212,55 @@ describe('ReceiptPageComponent', () => {
     expect(rows[0].qty).toBe(100);
     expect(rows[0].price).toBe(12.5);
     expect(rows[0].comment).toBe('приняли сто штук');
+    expect(rows[0].candidates.length).toBe(1);
 
     expect(rows[1].extra).toBe(true);
     expect(rows[1].qty).toBe(5);
     expect(rows[1].price).toBe(0);
+    expect(rows[1].candidates.length).toBe(0);
 
     expect(component.comment()).toBe('№ 1042 от 19.11.2026');
 
     const text = fixture.nativeElement.textContent as string;
     expect(text).toContain('нет в накладной');
     expect(text).toContain('Распознано: 1042');
+    expect(text).toContain('Создать новую');
+  });
+
+  it('подставляет товар из векторного кандидата, не меняя цену документа', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.rows.update((rows) =>
+      rows.map((row) =>
+        row.id === 1
+          ? {
+              ...row,
+              name: 'шайба цинк 10',
+              price: 12.5,
+              candidates: [
+                { id: 141, name: 'Шайба Цинк_10', price: 280, score: 99.2 },
+              ],
+            }
+          : row,
+      ),
+    );
+    fixture.detectChanges();
+
+    const select = fixture.nativeElement.querySelector(
+      'select.candidates',
+    ) as HTMLSelectElement;
+    expect(select).toBeTruthy();
+
+    select.value = '141';
+    select.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+
+    const row = component.rows()[0];
+    expect(row.productId).toBe(141);
+    expect(row.name).toBe('Шайба Цинк_10');
+    expect(row.price).toBe(12.5);
+    expect(row.candidates.length).toBe(0);
   });
 
   it('не добавляет строку из позиции без наименования', () => {
@@ -214,7 +272,6 @@ describe('ReceiptPageComponent', () => {
         type: 'image/jpeg',
       }),
     );
-    component.audioBlob.set(new Blob([new Uint8Array(100)], { type: 'audio/wav' }));
     component.recognize();
 
     httpMock.expectOne({ method: 'POST', url: '/api/recognition/parse' }).flush({
@@ -250,27 +307,60 @@ describe('ReceiptPageComponent', () => {
 
     fixture.detectChanges();
 
+    httpMock
+      .match((request) => request.url === '/api/nomenclature/candidates')
+      .forEach((request) => request.flush([]));
+
     const rows = component.rows();
     expect(rows.length).toBe(1);
     expect(rows[0].name).toBe('Шайба цинк 10');
   });
 
-  it('объясняет отказ 415 по формату файлов', () => {
+  it('объясняет отказ 415 по формату фото', () => {
     flushHeader();
 
     const component = fixture.componentInstance;
     component.imageFile.set(new File([new Uint8Array([1])], 'i.png', { type: 'image/png' }));
-    component.audioBlob.set(new Blob([new Uint8Array(100)], { type: 'audio/wav' }));
     component.recognize();
 
     httpMock
       .expectOne({ method: 'POST', url: '/api/recognition/parse' })
-      .flush({ error: 'нужен WAV' }, { status: 415, statusText: 'Unsupported Media Type' });
+      .flush({ error: 'не картинка' }, { status: 415, statusText: 'Unsupported Media Type' });
 
-    expect(component.recognizeError()).toContain('WAV 16 кГц');
+    expect(component.recognizeError()).toContain('JPEG/PNG/WebP');
   });
 
-  it('не отправляет запрос без фото или записи', () => {
+  it('отправляет только фото, если текст не заполнен', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.imageFile.set(
+      new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
+        type: 'image/jpeg',
+      }),
+    );
+    component.voiceText.set('   ');
+    component.recognize();
+
+    const request = httpMock.expectOne({
+      method: 'POST',
+      url: '/api/recognition/parse',
+    });
+    const body = request.request.body as FormData;
+
+    expect(body.get('image')).toBeTruthy();
+    expect(body.get('text')).toBeNull();
+
+    request.flush({
+      document_number: null,
+      document_date: null,
+      supplier_name: null,
+      general_comment: null,
+      items: [],
+    });
+  });
+
+  it('не отправляет запрос без фото', () => {
     flushHeader();
 
     const component = fixture.componentInstance;
@@ -342,6 +432,7 @@ describe('ReceiptPageComponent', () => {
       категории: [],
       единицы: [{ id: 3, название: 'шт' }],
     });
+    httpMock.expectOne('/api/nomenclature/next-code').flush({ код: 'НМ-00042' });
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('app-quick-create-item')).toBeTruthy();

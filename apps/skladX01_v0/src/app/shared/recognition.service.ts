@@ -7,17 +7,22 @@ import { mapRecognizedDocument } from './recognition.models';
 import type { IRecognizedDocument, IRecognizedDocumentApi } from './recognition.models';
 
 /**
- * Приёмка накладной по фото и голосу.
- * Аудио — WAV 16 кГц, моно, 16 бит (см. wav-encoder.ts): другие форматы API отбивает 415.
+ * Приёмка накладной по фото и тексту приёмщика.
+ * Текст необязателен; устаревший аудиоканал (WAV 16 кГц) API всё ещё принимает.
  */
 @Injectable({ providedIn: 'root' })
 export class RecognitionService {
   private readonly http = inject(HttpClient);
 
-  parse(image: Blob, audio: Blob): Observable<IRecognizedDocument> {
+  parse(image: Blob, text?: string | null): Observable<IRecognizedDocument> {
     const form = new FormData();
     form.append('image', image, fileNameFor(image, 'invoice.jpg'));
-    form.append('audio', audio, fileNameFor(audio, 'voice.wav'));
+
+    const comment = text?.trim();
+
+    if (comment) {
+      form.append('text', comment);
+    }
 
     return this.http
       .post<IRecognizedDocumentApi>('/api/recognition/parse', form)

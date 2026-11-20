@@ -242,16 +242,15 @@
         <button
           type="button"
           class="action"
-          disabled
-          title="Сохранение появится после API записи накладной"
+          [disabled]="saving() || !deal()"
+          (click)="save()"
         >
-          Сохранить
+          {{ saving() ? 'Сохраняем…' : 'Сохранить' }}
         </button>
       </div>
-      <p class="hint">
-        Сохранение пока недоступно: в SkladApi нет POST накладной, данные не
-        уходят на сервер.
-      </p>
+      @if (saveError()) {
+        <p class="state state--error">{{ saveError() }}</p>
+      }
     </section>
 
     @if (quickCreateRowId() !== null) {

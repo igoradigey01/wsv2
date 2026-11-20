@@ -8,8 +8,10 @@ import {
   ActivatedRoute,
   convertToParamMap,
   provideRouter,
+  Router,
 } from '@angular/router';
 
+import { ToastService } from '../shared/toast.service';
 import { InvoicePageComponent } from './invoice-page.component';
 
 const CLIENT = {
@@ -25,6 +27,8 @@ const CLIENT = {
 describe('InvoicePageComponent', () => {
   let fixture: ComponentFixture<InvoicePageComponent>;
   let httpMock: HttpTestingController;
+  let router: Router;
+  let toast: ToastService;
 
   function setup(dealId: string | null): void {
     TestBed.configureTestingModule({
@@ -47,6 +51,8 @@ describe('InvoicePageComponent', () => {
 
     fixture = TestBed.createComponent(InvoicePageComponent);
     httpMock = TestBed.inject(HttpTestingController);
+    router = TestBed.inject(Router);
+    toast = TestBed.inject(ToastService);
     fixture.detectChanges();
   }
 
@@ -58,6 +64,18 @@ describe('InvoicePageComponent', () => {
     ]);
 
     fixture.detectChanges();
+  }
+
+  function saveButton(): HTMLButtonElement {
+    const buttons = Array.from(
+      fixture.nativeElement.querySelectorAll(
+        'button.action',
+      ) as NodeListOf<HTMLButtonElement>,
+    );
+
+    return buttons.find(
+      (button) => button.textContent?.trim() === 'Сохранить',
+    ) as HTMLButtonElement;
   }
 
   afterEach(() => {
@@ -366,6 +384,7 @@ describe('InvoicePageComponent', () => {
       категории: [],
       единицы: [{ id: 3, название: 'шт' }],
     });
+    httpMock.expectOne('/api/nomenclature/next-code').flush({ код: 'НМ-00042' });
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('app-quick-create-item')).toBeTruthy();
@@ -396,5 +415,110 @@ describe('InvoicePageComponent', () => {
     expect(row.name).toBe('Новая позиция');
     expect(row.unit).toBe('шт');
     expect(row.price).toBe(150);
+  });
+
+  it('сохраняет накладную и возвращает на карточку клиента', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    component.rows.set([
+      {
+        ...component.rows()[0],
+        productId: 139,
+        name: 'Шайба Цинк_10',
+        qty: 2,
+        price: 350.5,
+      },
+    ]);
+    component.setComment({
+      target: { value: '  Отгрузка  ' },
+    } as unknown as Event);
+    fixture.detectChanges();
+
+    const navigate = jest.spyOn(router, 'navigate').mockResolvedValue(true);
+    const show = jest.spyOn(toast, 'show');
+
+    saveButton().click();
+
+    const request = httpMock.expectOne('/api/clients/marks/d1/products');
+
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual({
+      дата: component.date(),
+      комментарий: 'Отгрузка',
+      строки: [{ номенклатураId: 139, количество: 2, цена: 350.5 }],
+    });
+
+    request.flush({
+      id: 501,
+      номер: 'О-ABC123',
+      дата: '2026-11-19T00:00:00',
+      сумма: 701,
+      сделкаId: 'd1',
+      изменялась: false,
+    });
+
+    expect(show).toHaveBeenCalledWith('Накладная сохранена.');
+    expect(navigate).toHaveBeenCalledWith(['/clients', 7]);
+    expect(component.saving()).toBe(false);
+  });
+
+  it('не отправляет строку без выбранного товара', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    component.rows.set([
+      { ...component.rows()[0], name: 'Песок', qty: 1, price: 10 },
+    ]);
+    fixture.detectChanges();
+
+    saveButton().click();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent).toContain(
+      'Строка 1: выберите товар из номенклатуры.',
+    );
+    httpMock.expectNone('/api/clients/marks/d1/products');
+  });
+
+  it('показывает ошибку сервера при сохранении', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    component.rows.set([
+      {
+        ...component.rows()[0],
+        productId: 139,
+        name: 'Шайба Цинк_10',
+        qty: 1,
+        price: 10,
+      },
+    ]);
+    fixture.detectChanges();
+
+    saveButton().click();
+
+    httpMock
+      .expectOne('/api/clients/marks/d1/products')
+      .flush(
+        { error: 'Номенклатура 999 не найдена.' },
+        { status: 400, statusText: 'Bad Request' },
+      );
+
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent).toContain(
+      'Номенклатура 999 не найдена.',
+    );
+  });
+
+  it('отключает сохранение без выбранной сделки', () => {
+    setup(null);
+    flushClientAndDeals();
+
+    expect(saveButton().disabled).toBe(true);
   });
 });

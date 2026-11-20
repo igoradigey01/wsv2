@@ -153,6 +153,9 @@ describe('ClientService', () => {
         date: '2023-10-23T00:00:00',
         amount: 20000,
         dealId: 'd4',
+        paymentMethod: 1,
+        documentNumber: null,
+        comment: null,
         edited: false,
       },
     ]);
@@ -255,6 +258,54 @@ describe('ClientService', () => {
       date: '2023-10-23T00:00:00',
       amount: 10700,
       dealId: 'd4',
+      paymentMethod: 1,
+      documentNumber: null,
+      comment: null,
+      edited: false,
+    });
+  });
+
+  it('принимает деньги по сделке', () => {
+    let payment: unknown = null;
+
+    service
+      .createPayment('d4', {
+        дата: '2026-11-19',
+        сумма: 1500,
+        способОплаты: 2,
+        номерДокумента: 'ПКО-1',
+        комментарий: 'Оплата по счёту',
+      })
+      .subscribe((value) => (payment = value));
+
+    const request = httpMock.expectOne('/api/clients/marks/d4/payments');
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual({
+      дата: '2026-11-19',
+      сумма: 1500,
+      способОплаты: 2,
+      номерДокумента: 'ПКО-1',
+      комментарий: 'Оплата по счёту',
+    });
+
+    request.flush({
+      id: 130,
+      дата: '2026-11-19T00:00:00',
+      сумма: 1500,
+      сделкаId: 'd4',
+      способОплаты: 2,
+      номерДокумента: 'ПКО-1',
+      комментарий: 'Оплата по счёту',
+    });
+
+    expect(payment).toEqual({
+      id: 130,
+      date: '2026-11-19T00:00:00',
+      amount: 1500,
+      dealId: 'd4',
+      paymentMethod: 2,
+      documentNumber: 'ПКО-1',
+      comment: 'Оплата по счёту',
       edited: false,
     });
   });

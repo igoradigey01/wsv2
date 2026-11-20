@@ -50,34 +50,41 @@ describe('QuickCreateItemComponent', () => {
     fixture = TestBed.createComponent(QuickCreateItemComponent);
     httpMock = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
-  });
 
-  function flushReferences(): void {
+    // Базовый экземпляр тоже запрашивает код и справочники.
     httpMock.expectOne('/api/nomenclature/references').flush(REFERENCES);
+    httpMock.expectOne('/api/nomenclature/next-code').flush({ код: 'НМ-00042' });
     fixture.detectChanges();
-  }
+  });
 
   afterEach(() => {
     httpMock.verify();
   });
 
-  it('загружает справочники и подставляет название из строки', () => {
-    httpMock.expectOne('/api/nomenclature/references').flush(REFERENCES);
-
+  it('загружает справочники и подставляет распознанную строку', () => {
     const fresh = TestBed.createComponent(QuickCreateItemComponent);
-    fresh.componentRef.setInput('initialName', 'Болт М12');
+    fresh.componentRef.setInput('initialName', 'Шайба Цинк_10');
+    fresh.componentRef.setInput('initialArticle', 'SH-10');
+    fresh.componentRef.setInput('initialUnit', 'штук');
+    fresh.componentRef.setInput('initialPurchasePrice', 12.5);
     fresh.detectChanges();
 
     httpMock.expectOne('/api/nomenclature/references').flush(REFERENCES);
+    httpMock.expectOne('/api/nomenclature/next-code').flush({ код: 'НМ-00042' });
     fresh.detectChanges();
 
-    expect(fresh.componentInstance.references().units.length).toBe(1);
-    expect(fresh.componentInstance.name()).toBe('Болт М12');
+    const component = fresh.componentInstance;
+    expect(component.references().units.length).toBe(1);
+    expect(component.name()).toBe('Шайба Цинк_10');
+    expect(component.article()).toBe('SH-10');
+    expect(component.purchasePrice()).toBe(12.5);
+    expect(component.unitId()).toBe(3);
+    expect(component.code()).toBe('НМ-00042');
     expect(fresh.nativeElement.textContent).toContain('Крепёж');
   });
 
   it('подгружает характеристики при выборе вида', () => {
-    flushReferences();
+
 
     const component = fixture.componentInstance;
     component.setKind({ target: { value: '2' } } as unknown as Event);
@@ -95,7 +102,7 @@ describe('QuickCreateItemComponent', () => {
   });
 
   it('создаёт позицию и отдаёт результат наружу', () => {
-    flushReferences();
+
 
     const component = fixture.componentInstance;
     let createdId: number | undefined;
@@ -122,7 +129,7 @@ describe('QuickCreateItemComponent', () => {
   });
 
   it('показывает ошибку, если код уже занят', () => {
-    flushReferences();
+
 
     const component = fixture.componentInstance;
     component.setText('name', { target: { value: 'Дубль' } } as unknown as Event);
@@ -137,5 +144,63 @@ describe('QuickCreateItemComponent', () => {
     fixture.detectChanges();
 
     expect(component.error()).toContain('уже существует');
+  });
+
+  it('не отправляет пустые характеристики («— не выбрано —»)', () => {
+    const component = fixture.componentInstance;
+    component.setKind({ target: { value: '2' } } as unknown as Event);
+
+    httpMock
+      .expectOne('/api/nomenclature/kinds/2/characteristics')
+      .flush(CHARACTERISTICS);
+
+    component.setText('name', { target: { value: 'Болт ТЕСТ' } } as unknown as Event);
+    component.setText('code', { target: { value: 'ТЕСТ-0002' } } as unknown as Event);
+    component.setSelect('unitId', { target: { value: '3' } } as unknown as Event);
+    component.setCharacteristicValue(11, {
+      target: { value: ' 60 ' },
+    } as unknown as Event);
+
+    component.save();
+
+    const request = httpMock.expectOne({ method: 'POST', url: '/api/nomenclature' });
+
+    expect(request.request.body.характеристики).toEqual([
+      { характеристикаId: 11, значение: '60' },
+    ]);
+
+    request.flush({ id: 43, код: 'ТЕСТ-0002', название: 'Болт ТЕСТ' });
+  });
+
+  it('показывает текст ошибки, если API ответил не JSON', () => {
+    const component = fixture.componentInstance;
+    component.setText('name', { target: { value: 'Болт ТЕСТ' } } as unknown as Event);
+    component.setText('code', { target: { value: 'ТЕСТ-0003' } } as unknown as Event);
+    component.setSelect('unitId', { target: { value: '3' } } as unknown as Event);
+    component.save();
+
+    httpMock.expectOne({ method: 'POST', url: '/api/nomenclature' }).flush(
+      'SqlException: Значение характеристики не соответствует её типу',
+      { status: 500, statusText: 'Internal Server Error' },
+    );
+    fixture.detectChanges();
+
+    expect(component.error()).toContain('Значение характеристики');
+  });
+
+  it('показывает detail из ProblemDetails', () => {
+    const component = fixture.componentInstance;
+    component.setText('name', { target: { value: 'Болт ТЕСТ' } } as unknown as Event);
+    component.setText('code', { target: { value: 'ТЕСТ-0004' } } as unknown as Event);
+    component.setSelect('unitId', { target: { value: '3' } } as unknown as Event);
+    component.save();
+
+    httpMock.expectOne({ method: 'POST', url: '/api/nomenclature' }).flush(
+      { title: 'Bad Request', detail: 'Связанный справочник не найден.', status: 400 },
+      { status: 400, statusText: 'Bad Request' },
+    );
+    fixture.detectChanges();
+
+    expect(component.error()).toBe('Связанный справочник не найден.');
   });
 });

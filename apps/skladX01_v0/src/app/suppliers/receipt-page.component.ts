@@ -15,10 +15,9 @@ import { catchError, forkJoin, of } from 'rxjs';
 
 import { QuickCreateItemComponent } from '../nomenclature/quick-create-item.component';
 import { NomenclatureService } from '../nomenclature/nomenclature.service';
-import type { INomenclatureQuick } from '../nomenclature/nomenclature.service';
+import type { ICandidate, INomenclatureQuick } from '../nomenclature/nomenclature.service';
 import { RecognitionService } from '../shared/recognition.service';
 import type { IRecognizedDocument } from '../shared/recognition.models';
-import { WavRecorder } from '../shared/wav-recorder';
 import { SupplierService } from './supplier.service';
 import type { ISupplier, IWarehouse } from './supplier.models';
 
@@ -26,6 +25,8 @@ export interface IReceiptRow {
   id: number;
   productId: number | null;
   name: string;
+  /** Артикул из накладной — пригодится при создании новой позиции. */
+  article: string | null;
   unit: string | null;
   qty: number;
   price: number;
@@ -37,6 +38,9 @@ export interface IReceiptRow {
   suggestionsLoading: boolean;
   suggestionsOpen: boolean;
   activeIndex: number;
+  /** Векторные кандидаты для распознанной позиции. */
+  candidates: ICandidate[];
+  candidatesLoading: boolean;
 }
 
 /** Клавиатурный поиск: SQL LIKE, дебаунс на ввод. */
@@ -56,9 +60,6 @@ export class ReceiptPageComponent implements OnInit {
   private readonly recognition = inject(RecognitionService);
   private readonly destroyRef = inject(DestroyRef);
 
-  private readonly recorder = new WavRecorder();
-  private recordTimer: ReturnType<typeof setInterval> | undefined;
-
   readonly supplierId = signal<number | null>(null);
   readonly supplier = signal<ISupplier | null>(null);
   readonly warehouses = signal<IWarehouse[]>([]);
@@ -73,11 +74,9 @@ export class ReceiptPageComponent implements OnInit {
   readonly rows = signal<IReceiptRow[]>([this.createRow(1)]);
   private readonly lastRowId = signal(1);
 
-  /** Распознавание по фото и голосу. */
+  /** Распознавание по фото и тексту приёмщика. */
   readonly imageFile = signal<File | null>(null);
-  readonly audioBlob = signal<Blob | null>(null);
-  readonly recording = signal(false);
-  readonly recordSeconds = signal(0);
+  readonly voiceText = signal('');
   readonly recognizing = signal(false);
   readonly recognizeError = signal<string | null>(null);
   readonly recognized = signal<IRecognizedDocument | null>(null);
@@ -85,6 +84,9 @@ export class ReceiptPageComponent implements OnInit {
   /** Строка, для которой открыта модалка быстрого создания. */
   readonly quickCreateRowId = signal<number | null>(null);
   readonly quickCreateName = signal('');
+  readonly quickCreateArticle = signal('');
+  readonly quickCreateUnit = signal('');
+  readonly quickCreatePrice = signal<number | null>(null);
 
   private readonly searchTimers = new Map<number, ReturnType<typeof setTimeout>>();
 
@@ -93,14 +95,6 @@ export class ReceiptPageComponent implements OnInit {
   );
 
   ngOnInit(): void {
-    this.destroyRef.onDestroy(() => {
-      if (this.recordTimer !== undefined) {
-        clearInterval(this.recordTimer);
-      }
-
-      void this.recorder.cancel();
-    });
-
     const supplierId = Number(this.route.snapshot.paramMap.get('id'));
 
     if (!Number.isFinite(supplierId)) {
@@ -177,39 +171,16 @@ export class ReceiptPageComponent implements OnInit {
     }
   }
 
-  /** Старт/стоп записи голоса приёмщика. */
-  async toggleRecording(): Promise<void> {
-    if (this.recording()) {
-      await this.stopRecording();
-      return;
-    }
-
-    this.recognizeError.set(null);
-
-    try {
-      await this.recorder.start();
-      this.recording.set(true);
-      this.recordSeconds.set(0);
-      this.recordTimer = setInterval(
-        () => this.recordSeconds.update((value) => value + 1),
-        1000,
-      );
-    } catch (error) {
-      this.recording.set(false);
-      this.recognizeError.set(
-        error instanceof Error
-          ? error.message
-          : 'Не удалось включить микрофон.',
-      );
-    }
+  /** Текст приёмщика: что фактически приняли (необязательно). */
+  setVoiceText(event: Event): void {
+    this.voiceText.set((event.target as HTMLTextAreaElement).value);
   }
 
-  /** Отправляет фото и запись в SkladApi. */
+  /** Отправляет фото и текст приёмщика в SkladApi. */
   recognize(): void {
     const image = this.imageFile();
-    const audio = this.audioBlob();
 
-    if (!image || !audio || this.recognizing()) {
+    if (!image || this.recognizing()) {
       return;
     }
 
@@ -217,7 +188,7 @@ export class ReceiptPageComponent implements OnInit {
     this.recognizeError.set(null);
 
     this.recognition
-      .parse(image, audio)
+      .parse(image, this.voiceText())
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (document) => {
@@ -230,12 +201,6 @@ export class ReceiptPageComponent implements OnInit {
           this.recognizeError.set(this.describeError(error));
         },
       });
-  }
-
-  formatSeconds(seconds: number): string {
-    const minutes = Math.floor(seconds / 60);
-
-    return `${minutes}:${String(seconds % 60).padStart(2, '0')}`;
   }
 
   addRow(): void {
@@ -269,6 +234,8 @@ export class ReceiptPageComponent implements OnInit {
               suggestionsOpen: name.trim().length >= 2,
               suggestionsLoading: name.trim().length >= 2,
               activeIndex: 0,
+              candidates: [],
+              candidatesLoading: false,
             }
           : row,
       ),
@@ -345,8 +312,36 @@ export class ReceiptPageComponent implements OnInit {
               suggestionsOpen: false,
               suggestionsLoading: false,
               activeIndex: 0,
+              candidates: [],
+              candidatesLoading: false,
             }
           : row,
+      ),
+    );
+  }
+
+  /** Выбор товара из векторных кандидатов (цена из накладной не меняется). */
+  chooseCandidate(rowId: number, event: Event): void {
+    const raw = (event.target as HTMLSelectElement).value;
+    const candidateId = raw === '' ? null : Number(raw);
+    const row = this.rows().find((item) => item.id === rowId);
+    const candidate = row?.candidates.find((item) => item.id === candidateId);
+
+    if (!candidate) {
+      return;
+    }
+
+    this.rows.update((rows) =>
+      rows.map((item) =>
+        item.id === rowId
+          ? {
+              ...item,
+              productId: candidate.id,
+              name: candidate.name,
+              candidates: [],
+              candidatesLoading: false,
+            }
+          : item,
       ),
     );
   }
@@ -355,6 +350,9 @@ export class ReceiptPageComponent implements OnInit {
     const row = this.rows().find((item) => item.id === rowId);
 
     this.quickCreateName.set(row?.name ?? '');
+    this.quickCreateArticle.set(row?.article ?? '');
+    this.quickCreateUnit.set(row?.unit ?? '');
+    this.quickCreatePrice.set(row && row.price > 0 ? row.price : null);
     this.quickCreateRowId.set(rowId);
   }
 
@@ -398,25 +396,6 @@ export class ReceiptPageComponent implements OnInit {
     );
   }
 
-  private async stopRecording(): Promise<void> {
-    if (this.recordTimer !== undefined) {
-      clearInterval(this.recordTimer);
-      this.recordTimer = undefined;
-    }
-
-    this.recording.set(false);
-
-    const blob = await this.recorder.stop();
-
-    // Пустой WAV — это только заголовок в 44 байта.
-    if (blob.size > 44) {
-      this.audioBlob.set(blob);
-      return;
-    }
-
-    this.recognizeError.set('Запись пустая — запишите комментарий ещё раз.');
-  }
-
   /**
    * Переносит распознанные позиции в таблицу: количество берём фактическое
    * (его назвал приёмщик), а если он позицию не упоминал — по документу.
@@ -440,6 +419,7 @@ export class ReceiptPageComponent implements OnInit {
     const parsedRows: IReceiptRow[] = items.map((item) => ({
       ...this.createRow(++nextId),
       name: item.name,
+      article: item.article,
       unit: item.unit,
       qty: item.qtyFact > 0 ? item.qtyFact : item.qtyDoc,
       price: item.price ?? 0,
@@ -453,6 +433,8 @@ export class ReceiptPageComponent implements OnInit {
       ...this.pruneEmptyRows(rows),
       ...parsedRows,
     ]);
+
+    this.loadCandidatesForUnmatched(parsedRows);
 
     if (!this.comment().trim()) {
       const header = [
@@ -471,14 +453,12 @@ export class ReceiptPageComponent implements OnInit {
   private describeError(error: { status?: number }): string {
     switch (error.status) {
       case 415:
-        return 'Сервер не принял файл: фото — JPEG/PNG/WebP, аудио — WAV 16 кГц, моно.';
-      case 503:
-        return 'На сервере нет модели Whisper (Models/ggml-base.bin).';
+        return 'Сервер не принял файл: фото должно быть JPEG/PNG/WebP.';
+      case 413:
+        return 'Файл слишком большой: фото до 15 МБ.';
       case 502:
       case 504:
         return 'Модель не ответила. Проверьте Ollama на ks34.';
-      case 413:
-        return 'Файл слишком большой: фото до 15 МБ, аудио до 10 МБ.';
       default:
         return 'Не удалось распознать накладную. Проверьте, что SkladApi запущен на http://localhost:5240.';
     }
@@ -499,6 +479,7 @@ export class ReceiptPageComponent implements OnInit {
       id,
       productId: null,
       name: '',
+      article: null,
       unit: null,
       qty: 1,
       price: 0,
@@ -508,6 +489,8 @@ export class ReceiptPageComponent implements OnInit {
       suggestionsLoading: false,
       suggestionsOpen: false,
       activeIndex: 0,
+      candidates: [],
+      candidatesLoading: false,
     };
   }
 
@@ -541,6 +524,45 @@ export class ReceiptPageComponent implements OnInit {
       clearTimeout(timer);
       this.searchTimers.delete(id);
     }
+  }
+
+  /** Для распознанных строк, где товар ещё не выбран, подбираем векторных кандидатов. */
+  private loadCandidatesForUnmatched(rows: IReceiptRow[]): void {
+    for (const row of rows) {
+      if (row.productId === null && row.name.trim().length > 0) {
+        this.loadCandidates(row.id, row.name.trim());
+      }
+    }
+  }
+
+  private loadCandidates(rowId: number, query: string): void {
+    this.rows.update((rows) =>
+      rows.map((row) =>
+        row.id === rowId ? { ...row, candidatesLoading: true } : row,
+      ),
+    );
+
+    this.nomenclatureService
+      .candidates(query)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (candidates) => {
+          this.rows.update((rows) =>
+            rows.map((row) =>
+              row.id === rowId
+                ? { ...row, candidates, candidatesLoading: false }
+                : row,
+            ),
+          );
+        },
+        error: () => {
+          this.rows.update((rows) =>
+            rows.map((row) =>
+              row.id === rowId ? { ...row, candidatesLoading: false } : row,
+            ),
+          );
+        },
+      });
   }
 
   private loadSuggestions(rowId: number, query: string): void {

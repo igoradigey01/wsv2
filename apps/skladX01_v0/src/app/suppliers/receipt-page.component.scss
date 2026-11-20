@@ -62,6 +62,12 @@
     color: var(--c-muted);
     font-size: 0.8125rem;
   }
+
+  .field--wide {
+    @media (min-width: 768px) {
+      grid-column: span 2;
+    }
+  }
 }
 
 input,
@@ -243,15 +249,6 @@ textarea {
   color: var(--c-primary);
 }
 
-.record {
-  width: fit-content;
-}
-
-.record--on {
-  border-color: var(--c-danger);
-  color: var(--c-danger);
-}
-
 .badge {
   display: inline-block;
   margin-top: 0.25rem;
@@ -267,4 +264,30 @@ textarea {
   margin-top: 0.15rem;
   color: var(--c-muted-strong);
   font-size: 0.75rem;
+}
+
+.candidates {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.3rem 0.4rem;
+  border: 1px solid var(--c-input-border);
+  border-radius: 4px;
+  font: inherit;
+  background: var(--c-surface);
+}
+
+.link-create {
+  margin-top: 0.25rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--c-primary);
+  font: inherit;
+  font-size: 0.8125rem;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

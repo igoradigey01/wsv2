@@ -89,4 +89,43 @@ describe('InvoiceService', () => {
       },
     ]);
   });
+
+  it('создаёт накладную и возвращает шапку', () => {
+    let created: unknown = null;
+
+    service
+      .createInvoice('d1', {
+        дата: '2026-11-19',
+        комментарий: null,
+        строки: [{ номенклатураId: 139, количество: 2, цена: 350.5 }],
+      })
+      .subscribe((value) => (created = value));
+
+    const request = httpMock.expectOne('/api/clients/marks/d1/products');
+
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual({
+      дата: '2026-11-19',
+      комментарий: null,
+      строки: [{ номенклатураId: 139, количество: 2, цена: 350.5 }],
+    });
+
+    request.flush({
+      id: 501,
+      номер: 'О-ABC123',
+      дата: '2026-11-19T00:00:00',
+      сумма: 701,
+      сделкаId: 'd1',
+      изменялась: false,
+    });
+
+    expect(created).toEqual({
+      id: 501,
+      номер: 'О-ABC123',
+      дата: '2026-11-19T00:00:00',
+      сумма: 701,
+      сделкаId: 'd1',
+      изменялась: false,
+    });
+  });
 });

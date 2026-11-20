@@ -156,6 +156,18 @@ export class ClientDetailComponent implements OnInit {
     this.filteredPayments().reduce((total, payment) => total + payment.amount, 0),
   );
 
+  /** Подпись способа оплаты: в БД лежит код 1–3. */
+  paymentMethodLabel(method: number): string {
+    switch (method) {
+      case 2:
+        return 'безнал';
+      case 3:
+        return 'карта';
+      default:
+        return 'наличные';
+    }
+  }
+
   private currentId: number | null = null;
   private clientSub: Subscription | null = null;
   private productsSub: Subscription | null = null;

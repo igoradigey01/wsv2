@@ -49,13 +49,14 @@
 
     <section class="card">
       <div class="toolbar">
-        <h2>Фото накладной + голос приёмщика</h2>
+        <h2>Фото накладной + текст приёмщика</h2>
       </div>
 
       <p class="hint hint--top">
-        Сфотографируйте накладную и продиктуйте, что фактически приняли
-        («две банки брак», «плёнку 5 рулонов»). Сервер сверит документ с голосом
-        и подставит позиции в таблицу.
+        Сфотографируйте накладную и напишите, что фактически приняли
+        («две банки брак», «плёнку 5 рулонов»). Сервер сверит документ с текстом
+        и подставит позиции в таблицу. Поле можно оставить пустым — тогда
+        приход разберётся только по фото.
       </p>
 
       <div class="fields">
@@ -68,34 +69,29 @@
             (change)="onImageSelected($event)"
           />
         </label>
-        <div class="field">
-          <span>Голос приёмщика</span>
-          <button
-            type="button"
-            class="action action--ghost record"
-            [class.record--on]="recording()"
-            (click)="toggleRecording()"
-          >
-            @if (recording()) {
-              ■ Стоп ({{ formatSeconds(recordSeconds()) }})
-            } @else {
-              ● Записать
-            }
-          </button>
-        </div>
+        <label class="field--wide">
+          <span>Что фактически приняли</span>
+          <textarea
+            rows="3"
+            maxlength="4000"
+            placeholder="Например: шайба цинк 10 — сто штук, цемента два мешка, ещё привезли плёнку 5 рулонов"
+            [value]="voiceText()"
+            (input)="setVoiceText($event)"
+          ></textarea>
+        </label>
       </div>
 
       <div class="toolbar">
         <button
           type="button"
           class="action"
-          [disabled]="recognizing() || !imageFile() || !audioBlob()"
+          [disabled]="recognizing() || !imageFile()"
           (click)="recognize()"
         >
           {{ recognizing() ? 'Распознаём…' : 'Распознать накладную' }}
         </button>
         <span class="muted">
-          {{ audioBlob() ? 'запись готова' : 'записи нет' }}
+          {{ voiceText().trim() ? 'текст добавлен' : 'без текста' }}
         </span>
       </div>
 
@@ -212,6 +208,36 @@
                     </div>
                   }
                 </div>
+
+                @if (row.candidatesLoading) {
+                  <span class="hint">вектор: подбираем позиции…</span>
+                } @else if (!row.productId && !row.suggestionsOpen) {
+                  @if (row.candidates.length > 0) {
+                    <select
+                      class="candidates"
+                      aria-label="Векторные кандидаты номенклатуры"
+                      (change)="chooseCandidate(row.id, $event)"
+                    >
+                      <option value="">— вектор: выбрать позицию —</option>
+                      @for (candidate of row.candidates; track candidate.id) {
+                        <option [value]="candidate.id">
+                          {{ candidate.name }} · {{ candidate.score }}%
+                        </option>
+                      }
+                    </select>
+                  }
+
+                  @if (row.name.trim().length > 0) {
+                    <button
+                      type="button"
+                      class="link-create"
+                      (click)="openQuickCreate(row.id)"
+                    >
+                      ➕ Создать новую «{{ row.name }}»
+                    </button>
+                  }
+                }
+
                 @if (row.extra) {
                   <span class="badge">нет в накладной</span>
                 }
@@ -283,6 +309,9 @@
     @if (quickCreateRowId() !== null) {
       <app-quick-create-item
         [initialName]="quickCreateName()"
+        [initialArticle]="quickCreateArticle()"
+        [initialUnit]="quickCreateUnit()"
+        [initialPurchasePrice]="quickCreatePrice()"
         (created)="onQuickCreated($event)"
         (closed)="closeQuickCreate()"
       />

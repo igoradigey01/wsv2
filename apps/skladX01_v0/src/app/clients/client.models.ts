@@ -46,6 +46,9 @@ export interface IPaymentApi {
   дата: string;
   сумма: number;
   сделкаId: string;
+  способОплаты?: number;
+  номерДокумента?: string | null;
+  комментарий?: string | null;
   изменялась?: boolean;
 }
 
@@ -90,6 +93,10 @@ export interface IPayment {
   date: string;
   amount: number;
   dealId: string;
+  /** 1 — наличные, 2 — безналичный расчёт, 3 — банковская карта. */
+  paymentMethod: number;
+  documentNumber: string | null;
+  comment: string | null;
   /** Документ правился — строка подсвечивается лёгким фоном. */
   edited: boolean;
 }

@@ -60,14 +60,13 @@ describe('RecognitionService', () => {
 
   afterEach(() => httpMock.verify());
 
-  it('отправляет фото и WAV в /api/recognition/parse', () => {
+  it('отправляет фото и текст в /api/recognition/parse', () => {
     const image = new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
       type: 'image/jpeg',
     });
-    const audio = new Blob([new Uint8Array(44)], { type: 'audio/wav' });
     let itemCount = -1;
 
-    service.parse(image, audio).subscribe((document) => {
+    service.parse(image, '  шайба сто штук  ').subscribe((document) => {
       itemCount = document.items.length;
     });
 
@@ -76,7 +75,8 @@ describe('RecognitionService', () => {
 
     const body = request.request.body as FormData;
     expect(body.get('image')).toBeTruthy();
-    expect(body.get('audio')).toBeTruthy();
+    expect(body.get('text')).toBe('шайба сто штук');
+    expect(body.get('audio')).toBeNull();
 
     request.flush({
       document_number: null,
@@ -87,5 +87,27 @@ describe('RecognitionService', () => {
     });
 
     expect(itemCount).toBe(0);
+  });
+
+  it('не отправляет пустой текст — только фото', () => {
+    const image = new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
+      type: 'image/jpeg',
+    });
+
+    service.parse(image, '   ').subscribe();
+
+    const request = httpMock.expectOne('/api/recognition/parse');
+    const body = request.request.body as FormData;
+
+    expect(body.get('image')).toBeTruthy();
+    expect(body.get('text')).toBeNull();
+
+    request.flush({
+      document_number: null,
+      document_date: null,
+      supplier_name: null,
+      general_comment: null,
+      items: [],
+    });
   });
 });
