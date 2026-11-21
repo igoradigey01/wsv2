@@ -4,6 +4,12 @@
   font-family: system-ui, sans-serif;
 }
 
+/* Вкладки «Голосовой ввод» / «Фото накладной»: отступ до таблицы товаров. */
+app-tabs {
+  display: block;
+  margin-bottom: 1rem;
+}
+
 .back {
   display: inline-block;
   margin-bottom: 1rem;
@@ -89,6 +95,42 @@ textarea {
   width: 100%;
   box-sizing: border-box;
   resize: vertical;
+}
+
+.voice-field {
+  position: relative;
+
+  textarea {
+    padding-right: 2.75rem;
+  }
+}
+
+.voice-btn {
+  position: absolute;
+  right: 0.4rem;
+  bottom: 0.5rem;
+  padding: 0.25rem 0.4rem;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &--listening {
+    background: var(--c-danger-bg);
+    animation: pulse 1s infinite alternate;
+  }
+}
+
+@keyframes pulse {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.55;
+  }
 }
 
 .toolbar {

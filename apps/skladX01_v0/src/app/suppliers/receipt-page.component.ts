@@ -1,23 +1,29 @@
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, NgTemplateOutlet } from '@angular/common';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  ElementRef,
   HostListener,
   OnInit,
   computed,
   inject,
   signal,
+  viewChild,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { catchError, forkJoin, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { QuickCreateItemComponent } from '../nomenclature/quick-create-item.component';
 import { NomenclatureService } from '../nomenclature/nomenclature.service';
 import type { ICandidate, INomenclatureQuick } from '../nomenclature/nomenclature.service';
 import { RecognitionService } from '../shared/recognition.service';
 import type { IRecognizedDocument } from '../shared/recognition.models';
+import { SpeechService } from '../shared/speech.service';
+import { TabsComponent } from '../shared/tabs.component';
 import { SupplierService } from './supplier.service';
 import type { ISupplier, IWarehouse } from './supplier.models';
 
@@ -48,7 +54,7 @@ const QUICK_SEARCH_DEBOUNCE_MS = 200;
 
 @Component({
   selector: 'app-receipt-page',
-  imports: [DecimalPipe, RouterModule, QuickCreateItemComponent],
+  imports: [DecimalPipe, NgTemplateOutlet, RouterModule, QuickCreateItemComponent, TabsComponent],
   templateUrl: './receipt-page.component.html',
   styleUrl: './receipt-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,6 +65,16 @@ export class ReceiptPageComponent implements OnInit {
   private readonly nomenclatureService = inject(NomenclatureService);
   private readonly recognition = inject(RecognitionService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly breakpoints = inject(BreakpointObserver);
+  readonly speech = inject(SpeechService);
+
+  /** Узкий экран: блоки идут вкладками. */
+  readonly isNarrow = toSignal(
+    this.breakpoints
+      .observe('(max-width: 767.98px)')
+      .pipe(map((state) => state.matches)),
+    { initialValue: false },
+  );
 
   readonly supplierId = signal<number | null>(null);
   readonly supplier = signal<ISupplier | null>(null);
@@ -77,9 +93,12 @@ export class ReceiptPageComponent implements OnInit {
   /** Распознавание по фото и тексту приёмщика. */
   readonly imageFile = signal<File | null>(null);
   readonly voiceText = signal('');
-  readonly recognizing = signal(false);
+  readonly recognizingPhoto = signal(false);
+  readonly recognizingText = signal(false);
   readonly recognizeError = signal<string | null>(null);
   readonly recognized = signal<IRecognizedDocument | null>(null);
+
+  private readonly photoInput = viewChild<ElementRef<HTMLInputElement>>('photoInput');
 
   /** Строка, для которой открыта модалка быстрого создания. */
   readonly quickCreateRowId = signal<number | null>(null);
@@ -176,28 +195,98 @@ export class ReceiptPageComponent implements OnInit {
     this.voiceText.set((event.target as HTMLTextAreaElement).value);
   }
 
-  /** Отправляет фото и текст приёмщика в SkladApi. */
-  recognize(): void {
-    const image = this.imageFile();
+  /** Голосовой ввод: распознанный текст дописывается к уже введённому. */
+  toggleSpeech(): void {
+    this.speech.toggle((text) => {
+      this.voiceText.update((current) =>
+        current.trim().length > 0 ? `${current.trim()} ${text}` : text,
+      );
+    });
+  }
 
-    if (!image || this.recognizing()) {
+  /** «Заполнить по тексту»: отправляет только текст приёмщика. */
+  parseVoice(): void {
+    const text = this.voiceText().trim();
+
+    if (text.length === 0 || this.recognizingText()) {
       return;
     }
 
-    this.recognizing.set(true);
+    this.sendByText(text);
+  }
+
+  /** «Распознать по фото»: отправляет только фото накладной. */
+  recognizeByPhoto(): void {
+    const image = this.imageFile();
+
+    if (!image || this.recognizingPhoto()) {
+      return;
+    }
+
+    this.sendByPhoto(image);
+  }
+
+  /** Очищает введённый текст и ошибку распознавания. */
+  clearVoice(): void {
+    if (this.recognizingText()) {
+      return;
+    }
+
+    this.voiceText.set('');
+    this.recognizeError.set(null);
+  }
+
+  /** Очищает выбранное фото и сбрасывает нативный input. */
+  clearPhoto(): void {
+    if (this.recognizingPhoto()) {
+      return;
+    }
+
+    this.imageFile.set(null);
+    this.recognizeError.set(null);
+
+    const input = this.photoInput()?.nativeElement;
+
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  private sendByPhoto(image: File): void {
+    this.recognizingPhoto.set(true);
     this.recognizeError.set(null);
 
     this.recognition
-      .parse(image, this.voiceText())
+      .parse(image)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (document) => {
-          this.recognizing.set(false);
+          this.recognizingPhoto.set(false);
           this.recognized.set(document);
           this.applyRecognized(document);
         },
         error: (error: { status?: number }) => {
-          this.recognizing.set(false);
+          this.recognizingPhoto.set(false);
+          this.recognizeError.set(this.describeError(error));
+        },
+      });
+  }
+
+  private sendByText(text: string): void {
+    this.recognizingText.set(true);
+    this.recognizeError.set(null);
+
+    this.recognition
+      .parse(text)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (document) => {
+          this.recognizingText.set(false);
+          this.recognized.set(document);
+          this.applyRecognized(document);
+        },
+        error: (error: { status?: number }) => {
+          this.recognizingText.set(false);
           this.recognizeError.set(this.describeError(error));
         },
       });

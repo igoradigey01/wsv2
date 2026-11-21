@@ -155,3 +155,10 @@ table.suggest__table {
   padding: 0;
   border: 0;
 }
+
+/* То же для карточек: на страницах приёмки и накладной блоки лежат в .card. */
+.tabs .tabs__panel > .card {
+  padding: 0;
+  margin-bottom: 0;
+  border: 0;
+}

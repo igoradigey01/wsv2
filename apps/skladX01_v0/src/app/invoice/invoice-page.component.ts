@@ -1,16 +1,19 @@
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, NgTemplateOutlet } from '@angular/common';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   computed,
   DestroyRef,
   HostListener,
   inject,
   OnInit,
   signal,
+  viewChild,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { catchError, finalize, forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -20,7 +23,11 @@ import type { IClient, IMark } from '../clients/client.models';
 import { QuickCreateItemComponent } from '../nomenclature/quick-create-item.component';
 import { NomenclatureService } from '../nomenclature/nomenclature.service';
 import type { INomenclatureQuick } from '../nomenclature/nomenclature.service';
+import { RecognitionService } from '../shared/recognition.service';
+import type { IRecognizedDocument } from '../shared/recognition.models';
+import { TabsComponent } from '../shared/tabs.component';
 import { ToastService } from '../shared/toast.service';
+import { SpeechService } from '../shared/speech.service';
 import { InvoiceService } from './invoice.service';
 import type { ICandidate, ICreateInvoiceRow } from './invoice.service';
 
@@ -46,7 +53,7 @@ const QUICK_SEARCH_DEBOUNCE_MS = 200;
 
 @Component({
   selector: 'app-invoice-page',
-  imports: [DecimalPipe, RouterModule, QuickCreateItemComponent],
+  imports: [DecimalPipe, NgTemplateOutlet, RouterModule, QuickCreateItemComponent, TabsComponent],
   templateUrl: './invoice-page.component.html',
   styleUrl: './invoice-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,6 +66,17 @@ export class InvoicePageComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly recognition = inject(RecognitionService);
+  private readonly breakpoints = inject(BreakpointObserver);
+  readonly speech = inject(SpeechService);
+
+  /** Узкий экран: блоки идут вкладками. */
+  readonly isNarrow = toSignal(
+    this.breakpoints
+      .observe('(max-width: 767.98px)')
+      .pipe(map((state) => state.matches)),
+    { initialValue: false },
+  );
 
   readonly clientId = signal<number | null>(null);
   readonly client = signal<IClient | null>(null);
@@ -73,6 +91,12 @@ export class InvoicePageComponent implements OnInit {
 
   readonly parsing = signal(false);
   readonly parseError = signal<string | null>(null);
+
+  /** Распознавание по фото. */
+  readonly imageFile = signal<File | null>(null);
+  readonly recognizingPhoto = signal(false);
+  readonly recognizeError = signal<string | null>(null);
+  private readonly photoInput = viewChild<ElementRef<HTMLInputElement>>('photoInput');
 
   readonly saving = signal(false);
   readonly saveError = signal<string | null>(null);
@@ -458,6 +482,15 @@ export class InvoicePageComponent implements OnInit {
     this.voiceText.set((event.target as HTMLTextAreaElement).value);
   }
 
+  /** Диктовка: распознанный текст дописывается к тому, что уже введено. */
+  toggleSpeech(): void {
+    this.speech.toggle((text) => {
+      this.voiceText.update((current) =>
+        current.trim().length > 0 ? `${current.trim()} ${text}` : text,
+      );
+    });
+  }
+
   clearVoice(): void {
     if (this.parsing()) {
       return;
@@ -465,6 +498,59 @@ export class InvoicePageComponent implements OnInit {
 
     this.voiceText.set('');
     this.parseError.set(null);
+  }
+
+  /** Фото накладной: камера телефона или файл. */
+  onImageSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (file) {
+      this.imageFile.set(file);
+      this.recognizeError.set(null);
+    }
+  }
+
+  /** «Распознать по фото»: отправляет только фото в SkladApi. */
+  recognizeByPhoto(): void {
+    const image = this.imageFile();
+
+    if (!image || this.recognizingPhoto()) {
+      return;
+    }
+
+    this.recognizingPhoto.set(true);
+    this.recognizeError.set(null);
+
+    this.recognition
+      .parse(image)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (document) => {
+          this.recognizingPhoto.set(false);
+          this.applyRecognized(document);
+        },
+        error: (error: { status?: number }) => {
+          this.recognizingPhoto.set(false);
+          this.recognizeError.set(this.describePhotoError(error));
+        },
+      });
+  }
+
+  /** Очищает выбранное фото и сбрасывает нативный input. */
+  clearPhoto(): void {
+    if (this.recognizingPhoto()) {
+      return;
+    }
+
+    this.imageFile.set(null);
+    this.recognizeError.set(null);
+
+    const input = this.photoInput()?.nativeElement;
+
+    if (input) {
+      input.value = '';
+    }
   }
 
   /** Ввод с клавиатуры — быстрый SQL-поиск (не вектор и не Ollama). */
@@ -536,6 +622,63 @@ export class InvoicePageComponent implements OnInit {
     }
 
     return 'Не удалось сохранить накладную. Проверьте SkladApi.';
+  }
+
+  /** Переносит распознанные по фото позиции в таблицу. */
+  private applyRecognized(document: IRecognizedDocument): void {
+    const items = (document.items ?? []).filter(
+      (item) => item.name.trim().length > 0,
+    );
+
+    if (items.length === 0) {
+      this.recognizeError.set(
+        'Позиции не распознаны. Попробуйте более чёткое фото накладной.',
+      );
+      return;
+    }
+
+    let nextId = this.lastRowId();
+
+    const parsedRows: IInvoiceRow[] = items.map((item) => ({
+      ...this.createRow(++nextId),
+      name: item.name,
+      unit: item.unit,
+      qty: item.qtyFact > 0 ? item.qtyFact : item.qtyDoc,
+      price: item.price ?? 0,
+    }));
+
+    this.lastRowId.set(nextId);
+
+    this.rows.update((rows) => [...this.pruneEmptyRows(rows), ...parsedRows]);
+
+    this.loadCandidatesForUnmatched(parsedRows);
+
+    if (!this.comment().trim()) {
+      const header = [
+        document.number ? `№ ${document.number}` : '',
+        document.date ? `от ${document.date}` : '',
+      ]
+        .filter((part) => part.length > 0)
+        .join(' ');
+
+      if (header) {
+        this.comment.set(header);
+      }
+    }
+  }
+
+  private describePhotoError(error: { status?: number }): string {
+    switch (error.status) {
+      case 415:
+        return 'Сервер не принял файл: фото должно быть JPEG/PNG/WebP.';
+      case 413:
+        return 'Файл слишком большой: фото до 15 МБ.';
+      case 502:
+      case 504:
+        return 'Модель не ответила. Проверьте Ollama на ks34.';
+      default:
+        return 'Не удалось распознать накладную. Проверьте, что SkladApi запущен на http://localhost:5240.';
+    }
   }
 
   /** Строка-заготовка: товар не выбран и наименование не введено. */

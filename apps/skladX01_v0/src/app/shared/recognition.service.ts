@@ -7,21 +7,25 @@ import { mapRecognizedDocument } from './recognition.models';
 import type { IRecognizedDocument, IRecognizedDocumentApi } from './recognition.models';
 
 /**
- * Приёмка накладной по фото и тексту приёмщика.
- * Текст необязателен; устаревший аудиоканал (WAV 16 кГц) API всё ещё принимает.
+ * Приёмка накладной: фото и текст приёмщика отправляются раздельно.
+ * Устаревший аудиоканал (WAV 16 кГц) API всё ещё принимает.
  */
 @Injectable({ providedIn: 'root' })
 export class RecognitionService {
   private readonly http = inject(HttpClient);
 
-  parse(image: Blob, text?: string | null): Observable<IRecognizedDocument> {
+  /** Отправляет либо фото накладной, либо текст приёмщика — но не оба сразу. */
+  parse(imageOrText: Blob | string): Observable<IRecognizedDocument> {
     const form = new FormData();
-    form.append('image', image, fileNameFor(image, 'invoice.jpg'));
 
-    const comment = text?.trim();
+    if (typeof imageOrText === 'string') {
+      const text = imageOrText.trim();
 
-    if (comment) {
-      form.append('text', comment);
+      if (text) {
+        form.append('text', text);
+      }
+    } else {
+      form.append('image', imageOrText, fileNameFor(imageOrText, 'invoice.jpg'));
     }
 
     return this.http

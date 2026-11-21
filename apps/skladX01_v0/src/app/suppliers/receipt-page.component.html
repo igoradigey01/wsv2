@@ -47,52 +47,115 @@
       </div>
     </header>
 
+    @if (isNarrow()) {
+      <app-tabs
+        [tabs]="[
+          { id: 'voice', label: 'Голосовой ввод', template: voiceBlock },
+          { id: 'photo', label: 'Фото накладной', template: photoBlock },
+          { id: 'products', label: 'Товары', template: productsBlock }
+        ]"
+      />
+    } @else {
+      <app-tabs
+        [tabs]="[
+          { id: 'voice', label: 'Голосовой ввод', template: voiceBlock },
+          { id: 'photo', label: 'Фото накладной', template: photoBlock }
+        ]"
+      />
+      <ng-container [ngTemplateOutlet]="productsBlock" />
+    }
+
+    <ng-template #voiceBlock>
     <section class="card">
-      <div class="toolbar">
-        <h2>Фото накладной + текст приёмщика</h2>
+      <h2>Голосовой ввод</h2>
+
+      <div class="voice-field">
+        <textarea
+          rows="3"
+          maxlength="4000"
+          placeholder="Например: шайба цинк 10 — сто штук, цемента два мешка, ещё привезли плёнку 5 рулонов"
+          [value]="voiceText()"
+          (input)="setVoiceText($event)"
+        ></textarea>
+        <button
+          type="button"
+          class="voice-btn"
+          [class.voice-btn--listening]="speech.isListening()"
+          [title]="speech.isListening() ? 'Остановить запись' : 'Начать голосовой ввод'"
+          (click)="toggleSpeech()"
+        >
+          {{ speech.isListening() ? '⏹' : '🎤' }}
+        </button>
       </div>
 
-      <p class="hint hint--top">
-        Сфотографируйте накладную и напишите, что фактически приняли
-        («две банки брак», «плёнку 5 рулонов»). Сервер сверит документ с текстом
-        и подставит позиции в таблицу. Поле можно оставить пустым — тогда
-        приход разберётся только по фото.
+      @if (speech.error()) {
+        <p class="state state--error">{{ speech.error() }}</p>
+      }
+
+      <div class="toolbar">
+        <div class="toolbar__group">
+          <button
+            type="button"
+            class="action"
+            [disabled]="recognizingText() || voiceText().trim().length === 0"
+            (click)="parseVoice()"
+          >
+            {{ recognizingText() ? 'Распознаём…' : 'Заполнить по тексту' }}
+          </button>
+          <button
+            type="button"
+            class="action action--ghost"
+            [disabled]="recognizingText() || voiceText().trim().length === 0"
+            (click)="clearVoice()"
+          >
+            Очистить
+          </button>
+        </div>
+      </div>
+
+      <p class="hint">
+        Модель gemma4:e4b на ks34 разбирает текст приёмщика. Распознанные
+        позиции дописываются в конец накладной.
       </p>
+    </section>
+    </ng-template>
+
+    <ng-template #photoBlock>
+    <section class="card">
+      <h2>Фото накладной</h2>
 
       <div class="fields">
         <label>
           <span>Фото накладной</span>
           <input
+            #photoInput
             type="file"
             accept="image/*"
             capture="environment"
             (change)="onImageSelected($event)"
           />
         </label>
-        <label class="field--wide">
-          <span>Что фактически приняли</span>
-          <textarea
-            rows="3"
-            maxlength="4000"
-            placeholder="Например: шайба цинк 10 — сто штук, цемента два мешка, ещё привезли плёнку 5 рулонов"
-            [value]="voiceText()"
-            (input)="setVoiceText($event)"
-          ></textarea>
-        </label>
       </div>
 
       <div class="toolbar">
-        <button
-          type="button"
-          class="action"
-          [disabled]="recognizing() || !imageFile()"
-          (click)="recognize()"
-        >
-          {{ recognizing() ? 'Распознаём…' : 'Распознать накладную' }}
-        </button>
-        <span class="muted">
-          {{ voiceText().trim() ? 'текст добавлен' : 'без текста' }}
-        </span>
+        <div class="toolbar__group">
+          <button
+            type="button"
+            class="action"
+            [disabled]="recognizingPhoto() || !imageFile()"
+            (click)="recognizeByPhoto()"
+          >
+            {{ recognizingPhoto() ? 'Распознаём…' : 'Распознать по фото' }}
+          </button>
+          <button
+            type="button"
+            class="action action--ghost"
+            [disabled]="recognizingPhoto() || !imageFile()"
+            (click)="clearPhoto()"
+          >
+            Очистить
+          </button>
+        </div>
       </div>
 
       @if (recognized(); as doc) {
@@ -114,8 +177,14 @@
       @if (recognizeError()) {
         <p class="state state--error">{{ recognizeError() }}</p>
       }
-    </section>
 
+      <p class="hint">
+        Распознанные позиции добавляются в конец таблицы «Товары».
+      </p>
+    </section>
+    </ng-template>
+
+    <ng-template #productsBlock>
     <section class="card">
       <div class="toolbar">
         <h2>Товары по накладной</h2>
@@ -305,6 +374,7 @@
         данные не уходят на сервер.
       </p>
     </section>
+    </ng-template>
 
     @if (quickCreateRowId() !== null) {
       <app-quick-create-item

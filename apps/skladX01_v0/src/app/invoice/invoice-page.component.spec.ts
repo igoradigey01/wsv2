@@ -316,6 +316,122 @@ describe('InvoicePageComponent', () => {
     expect(rows[0].name).toBe('Цемент М-500 (50кг)');
   });
 
+  it('показывает на десктопе вкладки голоса и фото, таблица остаётся ниже', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const labels = Array.from(
+      fixture.nativeElement.querySelectorAll(
+        '.tabs__tab',
+      ) as NodeListOf<HTMLButtonElement>,
+    ).map((button) => button.textContent?.trim());
+
+    expect(labels).toEqual(['Голосовой ввод', 'Фото накладной']);
+    expect(fixture.nativeElement.querySelector('table.grid')).toBeTruthy();
+  });
+
+  it('распознаёт накладную по фото и заполняет строки', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    component.imageFile.set(
+      new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
+        type: 'image/jpeg',
+      }),
+    );
+    component.recognizeByPhoto();
+
+    const request = httpMock.expectOne({
+      method: 'POST',
+      url: '/api/recognition/parse',
+    });
+    const body = request.request.body as FormData;
+    expect(body.get('image')).toBeTruthy();
+    expect(body.get('text')).toBeNull();
+
+    request.flush({
+      document_number: '1042',
+      document_date: '19.11.2026',
+      supplier_name: 'ООО "СтройБаза"',
+      general_comment: null,
+      items: [
+        {
+          line_number: 1,
+          article: null,
+          name: 'Шайба цинк 10',
+          unit: 'шт',
+          price: 12.5,
+          qty_doc: 10,
+          qty_fact: 100,
+          is_extra: false,
+          item_comment: null,
+        },
+      ],
+    });
+
+    const candidates = httpMock.match(
+      (candidate) => candidate.url === '/api/nomenclature/candidates',
+    );
+    expect(candidates.length).toBe(1);
+    expect(candidates[0].request.params.get('q')).toBe('Шайба цинк 10');
+    candidates[0].flush([
+      { id: 141, name: 'Шайба Цинк_10', price: 280, score: 99.2 },
+    ]);
+
+    fixture.detectChanges();
+
+    const rows = component.rows();
+    expect(rows.length).toBe(1);
+    expect(rows[0].name).toBe('Шайба цинк 10');
+    expect(rows[0].qty).toBe(100);
+    expect(rows[0].price).toBe(12.5);
+    expect(component.comment()).toBe('№ 1042 от 19.11.2026');
+    expect(component.recognizingPhoto()).toBe(false);
+  });
+
+  it('очищает выбранное фото и сбрасывает ошибку', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    component.imageFile.set(
+      new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
+        type: 'image/jpeg',
+      }),
+    );
+    component.recognizeError.set('ошибка');
+    fixture.detectChanges();
+
+    component.clearPhoto();
+    fixture.detectChanges();
+
+    expect(component.imageFile()).toBeNull();
+    expect(component.recognizeError()).toBeNull();
+  });
+
+  it('показывает ошибку, если сервер не принял формат фото', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const component = fixture.componentInstance;
+    component.imageFile.set(
+      new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
+        type: 'image/jpeg',
+      }),
+    );
+    component.recognizeByPhoto();
+
+    httpMock
+      .expectOne({ method: 'POST', url: '/api/recognition/parse' })
+      .flush({ error: 'формат' }, { status: 415, statusText: 'Unsupported' });
+
+    fixture.detectChanges();
+
+    expect(component.recognizingPhoto()).toBe(false);
+    expect(component.recognizeError()).toContain('JPEG/PNG/WebP');
+  });
+
   it('ищет номенклатуру с клавиатуры через quick-search', () => {
     setup('d1');
     flushClientAndDeals();

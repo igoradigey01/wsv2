@@ -60,13 +60,13 @@ describe('RecognitionService', () => {
 
   afterEach(() => httpMock.verify());
 
-  it('отправляет фото и текст в /api/recognition/parse', () => {
+  it('отправляет фото в /api/recognition/parse', () => {
     const image = new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
       type: 'image/jpeg',
     });
     let itemCount = -1;
 
-    service.parse(image, '  шайба сто штук  ').subscribe((document) => {
+    service.parse(image).subscribe((document) => {
       itemCount = document.items.length;
     });
 
@@ -75,7 +75,7 @@ describe('RecognitionService', () => {
 
     const body = request.request.body as FormData;
     expect(body.get('image')).toBeTruthy();
-    expect(body.get('text')).toBe('шайба сто штук');
+    expect(body.get('text')).toBeNull();
     expect(body.get('audio')).toBeNull();
 
     request.flush({
@@ -89,17 +89,31 @@ describe('RecognitionService', () => {
     expect(itemCount).toBe(0);
   });
 
-  it('не отправляет пустой текст — только фото', () => {
-    const image = new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
-      type: 'image/jpeg',
-    });
-
-    service.parse(image, '   ').subscribe();
+  it('отправляет только текст, если передан текст', () => {
+    service.parse('  шайба сто штук  ').subscribe();
 
     const request = httpMock.expectOne('/api/recognition/parse');
     const body = request.request.body as FormData;
 
-    expect(body.get('image')).toBeTruthy();
+    expect(body.get('image')).toBeNull();
+    expect(body.get('text')).toBe('шайба сто штук');
+
+    request.flush({
+      document_number: null,
+      document_date: null,
+      supplier_name: null,
+      general_comment: null,
+      items: [],
+    });
+  });
+
+  it('не отправляет пустой текст', () => {
+    service.parse('   ').subscribe();
+
+    const request = httpMock.expectOne('/api/recognition/parse');
+    const body = request.request.body as FormData;
+
+    expect(body.get('image')).toBeNull();
     expect(body.get('text')).toBeNull();
 
     request.flush({

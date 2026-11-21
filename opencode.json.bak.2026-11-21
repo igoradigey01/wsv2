@@ -1,0 +1,19 @@
+{
+  "mcp": {
+    "nx-mcp": {
+      "type": "local",
+      "command": ["npx", "nx", "mcp"],
+      "enabled": true
+    },
+    "servers": {
+      "angular-cli": {
+        "type": "local",
+        "command": [
+          "npx",
+          "ng",
+          "mcp"
+        ]
+      }
+    }
+  }
+}

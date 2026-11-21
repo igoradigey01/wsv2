@@ -58,6 +58,20 @@ describe('ReceiptPageComponent', () => {
     fixture.detectChanges();
   }
 
+  /** На десктопе голос и фото живут во вкладках: открываем нужную. */
+  function openTab(label: string): void {
+    const tabs = Array.from(
+      fixture.nativeElement.querySelectorAll(
+        '.tabs__tab',
+      ) as NodeListOf<HTMLButtonElement>,
+    );
+    const tab = tabs.find((button) => button.textContent?.trim() === label);
+
+    expect(tab).toBeTruthy();
+    tab?.click();
+    fixture.detectChanges();
+  }
+
   afterEach(() => {
     httpMock.verify();
   });
@@ -140,7 +154,7 @@ describe('ReceiptPageComponent', () => {
   });
 
 
-  it('распознаёт накладную по фото и тексту и заполняет строки', () => {
+  it('распознаёт накладную по фото и заполняет строки', () => {
     flushHeader();
 
     const component = fixture.componentInstance;
@@ -149,15 +163,15 @@ describe('ReceiptPageComponent', () => {
         type: 'image/jpeg',
       }),
     );
-    component.voiceText.set('  шайба цинк 10 — сто штук, плёнку 5 рулонов  ');
-    component.recognize();
+    component.recognizeByPhoto();
 
     const request = httpMock.expectOne({
       method: 'POST',
       url: '/api/recognition/parse',
     });
     const body = request.request.body as FormData;
-    expect(body.get('text')).toBe('шайба цинк 10 — сто штук, плёнку 5 рулонов');
+    expect(body.get('image')).toBeTruthy();
+    expect(body.get('text')).toBeNull();
     expect(body.get('audio')).toBeNull();
 
     request.flush({
@@ -223,8 +237,13 @@ describe('ReceiptPageComponent', () => {
 
     const text = fixture.nativeElement.textContent as string;
     expect(text).toContain('нет в накладной');
-    expect(text).toContain('Распознано: 1042');
     expect(text).toContain('Создать новую');
+
+    // Итог распознавания показан в блоке фото, а он открыт вкладкой.
+    openTab('Фото накладной');
+    expect(fixture.nativeElement.textContent as string).toContain(
+      'Распознано: 1042',
+    );
   });
 
   it('подставляет товар из векторного кандидата, не меняя цену документа', () => {
@@ -272,7 +291,7 @@ describe('ReceiptPageComponent', () => {
         type: 'image/jpeg',
       }),
     );
-    component.recognize();
+    component.recognizeByPhoto();
 
     httpMock.expectOne({ method: 'POST', url: '/api/recognition/parse' }).flush({
       document_number: null,
@@ -321,7 +340,7 @@ describe('ReceiptPageComponent', () => {
 
     const component = fixture.componentInstance;
     component.imageFile.set(new File([new Uint8Array([1])], 'i.png', { type: 'image/png' }));
-    component.recognize();
+    component.recognizeByPhoto();
 
     httpMock
       .expectOne({ method: 'POST', url: '/api/recognition/parse' })
@@ -340,7 +359,7 @@ describe('ReceiptPageComponent', () => {
       }),
     );
     component.voiceText.set('   ');
-    component.recognize();
+    component.recognizeByPhoto();
 
     const request = httpMock.expectOne({
       method: 'POST',
@@ -364,9 +383,117 @@ describe('ReceiptPageComponent', () => {
     flushHeader();
 
     const component = fixture.componentInstance;
-    component.recognize();
+    component.recognizeByPhoto();
 
     httpMock.expectNone('/api/recognition/parse');
+  });
+
+  it('отправляет только текст, если фото не выбрано', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.voiceText.set('  шайба цинк 10 — сто штук  ');
+    component.parseVoice();
+
+    const request = httpMock.expectOne({
+      method: 'POST',
+      url: '/api/recognition/parse',
+    });
+    const body = request.request.body as FormData;
+
+    expect(body.get('image')).toBeNull();
+    expect(body.get('text')).toBe('шайба цинк 10 — сто штук');
+
+    request.flush({
+      document_number: null,
+      document_date: null,
+      supplier_name: null,
+      general_comment: null,
+      items: [],
+    });
+  });
+
+  it('не отправляет запрос без текста', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.parseVoice();
+
+    httpMock.expectNone('/api/recognition/parse');
+  });
+
+  it('не смешивает состояния кнопок «Распознать по фото» и «Заполнить по тексту»', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.voiceText.set('шайба сто штук');
+    component.imageFile.set(
+      new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
+        type: 'image/jpeg',
+      }),
+    );
+    fixture.detectChanges();
+
+    component.recognizeByPhoto();
+    fixture.detectChanges();
+
+    const request = httpMock.expectOne({
+      method: 'POST',
+      url: '/api/recognition/parse',
+    });
+
+    // Блок фото открыт вкладкой: кнопка занята, а текстовая осталась свободной.
+    openTab('Фото накладной');
+    const photoButtons = Array.from(
+      fixture.nativeElement.querySelectorAll(
+        'button.action',
+      ) as NodeListOf<HTMLButtonElement>,
+    );
+    const photoButton = photoButtons.find((button) =>
+      button.textContent?.includes('Распознаём'),
+    );
+
+    openTab('Голосовой ввод');
+    const voiceButtons = Array.from(
+      fixture.nativeElement.querySelectorAll(
+        'button.action',
+      ) as NodeListOf<HTMLButtonElement>,
+    );
+    const textButton = voiceButtons.find((button) =>
+      button.textContent?.includes('Заполнить по тексту'),
+    );
+
+    expect(photoButton).toBeTruthy();
+    expect(textButton).toBeTruthy();
+    expect(textButton?.disabled).toBe(false);
+    expect(component.recognizingPhoto()).toBe(true);
+    expect(component.recognizingText()).toBe(false);
+
+    request.flush({
+      document_number: null,
+      document_date: null,
+      supplier_name: null,
+      general_comment: null,
+      items: [],
+    });
+  });
+
+  it('очищает выбранное фото', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.imageFile.set(
+      new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
+        type: 'image/jpeg',
+      }),
+    );
+    fixture.detectChanges();
+
+    component.clearPhoto();
+    fixture.detectChanges();
+
+    expect(component.imageFile()).toBeNull();
+    expect(component.recognizingPhoto()).toBe(false);
   });
 
   it('выбирает первую подсказку по Enter', () => {
