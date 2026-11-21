@@ -89,6 +89,14 @@
     <div class="actions">
       <button
         type="button"
+        class="action action--ghost"
+        [disabled]="saving()"
+        (click)="cancel()"
+      >
+        Отмена
+      </button>
+      <button
+        type="button"
         class="action"
         [disabled]="saving() || !deal()"
         (click)="save()"

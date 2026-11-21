@@ -13,7 +13,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { catchError, forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -61,6 +61,7 @@ const QUICK_SEARCH_DEBOUNCE_MS = 200;
 })
 export class ReceiptPageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly supplierService = inject(SupplierService);
   private readonly nomenclatureService = inject(NomenclatureService);
   private readonly recognition = inject(RecognitionService);
@@ -148,6 +149,15 @@ export class ReceiptPageComponent implements OnInit {
           this.warehouseId.set(result.warehouses[0]?.id ?? null);
         }
       });
+  }
+
+  /** Возврат в карточку поставщика без сохранения. */
+  cancel(): void {
+    const supplierId = this.supplierId();
+
+    if (supplierId !== null) {
+      void this.router.navigate(['/suppliers', supplierId]);
+    }
   }
 
   @HostListener('document:click', ['$event.target'])

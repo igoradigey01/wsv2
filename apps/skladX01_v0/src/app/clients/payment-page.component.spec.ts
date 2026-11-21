@@ -189,4 +189,16 @@ describe('PaymentPageComponent', () => {
 
     expect(component.saveError()).toBe('Номер документа длиннее 30 символов.');
   });
+
+  it('возвращает к клиенту по кнопке «Отмена» без сохранения', () => {
+    setup('d1');
+    flushClientAndDeals();
+
+    const navigate = jest.spyOn(router, 'navigate').mockResolvedValue(true);
+
+    buttonByText('Отмена').click();
+
+    expect(navigate).toHaveBeenCalledWith(['/clients', 7]);
+    httpMock.expectNone('/api/clients/marks/d1/payments');
+  });
 });
