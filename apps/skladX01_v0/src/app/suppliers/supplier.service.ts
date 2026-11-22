@@ -25,6 +25,30 @@ import type {
 const API = '/api/suppliers';
 const WAREHOUSES_API = '/api/warehouses';
 
+/** Строка новой приходной накладной для POST /api/suppliers/deals/{dealId}/receipts. */
+export interface ICreateReceiptRow {
+  номенклатураId: number;
+  количество: number;
+  цена: number;
+}
+
+export interface ICreateReceiptRequest {
+  дата: string | null;
+  комментарий: string | null;
+  строки: ICreateReceiptRow[];
+}
+
+/** Ответ POST: созданная приходная накладная (ПолученныйТоварDto). */
+export interface ICreatedReceiptApi {
+  id: string;
+  номер: string;
+  дата: string;
+  сумма: number;
+  сделкаId: string;
+  auditId: number;
+  изменялась: boolean;
+}
+
 export function mapSupplier(raw: ISupplierApi): ISupplier {
   return {
     id: raw.id,
@@ -197,6 +221,16 @@ export class SupplierService {
       .pipe(map(mapSupplierPayment));
   }
 
+  /** Создаёт приходную накладную поставщика (строки в dbo.Приход). */
+  createReceipt(
+    dealId: string,
+    body: ICreateReceiptRequest,
+  ): Observable<ICreatedReceiptApi> {
+    return this.http.post<ICreatedReceiptApi>(
+      `${API}/deals/${dealId}/receipts`,
+      body,
+    );
+  }
 
   getWarehouses(): Observable<IWarehouse[]> {
     return this.http

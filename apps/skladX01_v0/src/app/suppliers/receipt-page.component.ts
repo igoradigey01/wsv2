@@ -1,4 +1,5 @@
 import { DecimalPipe, NgTemplateOutlet } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import {
   ChangeDetectionStrategy,
@@ -14,7 +15,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { catchError, forkJoin, of } from 'rxjs';
+import { catchError, finalize, forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { QuickCreateItemComponent } from '../nomenclature/quick-create-item.component';
@@ -25,7 +26,9 @@ import { RecognitionService } from '../shared/recognition.service';
 import type { IRecognizedDocument } from '../shared/recognition.models';
 import { SpeechService } from '../shared/speech.service';
 import { TabsComponent } from '../shared/tabs.component';
+import { ToastService } from '../shared/toast.service';
 import { SupplierService } from './supplier.service';
+import type { ICreateReceiptRow } from './supplier.service';
 import type { ISupplier, IWarehouse } from './supplier.models';
 
 export interface IReceiptRow {
@@ -64,6 +67,7 @@ export class ReceiptPageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly supplierService = inject(SupplierService);
+  private readonly toast = inject(ToastService);
   private readonly nomenclatureService = inject(NomenclatureService);
   private readonly recognition = inject(RecognitionService);
   private readonly destroyRef = inject(DestroyRef);
@@ -88,6 +92,11 @@ export class ReceiptPageComponent implements OnInit {
 
   readonly date = signal(new Date().toISOString().slice(0, 10));
   readonly comment = signal('');
+
+  /** Сделка поставщика (Guid из query), в которую пишется приход. */
+  readonly dealId = signal<string | null>(null);
+  readonly saving = signal(false);
+  readonly saveError = signal<string | null>(null);
 
   readonly rows = signal<IReceiptRow[]>([this.createRow(1)]);
   private readonly lastRowId = signal(1);
@@ -125,6 +134,7 @@ export class ReceiptPageComponent implements OnInit {
     }
 
     this.supplierId.set(supplierId);
+    this.dealId.set(this.route.snapshot.queryParamMap.get('dealId'));
 
     forkJoin({
       supplier: this.supplierService.getSupplier(supplierId),
@@ -159,6 +169,97 @@ export class ReceiptPageComponent implements OnInit {
     if (supplierId !== null) {
       void this.router.navigate(['/suppliers', supplierId]);
     }
+  }
+
+  /** Сохраняет приход поставщика: строки пишутся в dbo.Приход. */
+  save(): void {
+    if (this.saving()) {
+      return;
+    }
+
+    const dealId = this.dealId();
+
+    this.saveError.set(null);
+
+    if (!dealId) {
+      this.saveError.set(
+        'Сделка не выбрана. Откройте приход из карточки поставщика.',
+      );
+      return;
+    }
+
+    const rows = this.pruneEmptyRows(this.rows());
+
+    if (rows.length === 0) {
+      this.saveError.set('Добавьте хотя бы одну позицию.');
+      return;
+    }
+
+    const строки: ICreateReceiptRow[] = [];
+
+    for (const [index, row] of rows.entries()) {
+      const productId = row.productId;
+
+      if (productId === null) {
+        this.saveError.set(
+          `Строка ${index + 1}: выберите товар из номенклатуры.`,
+        );
+        return;
+      }
+
+      if (row.qty <= 0) {
+        this.saveError.set(
+          `Строка ${index + 1}: количество должно быть больше нуля.`,
+        );
+        return;
+      }
+
+      if (row.price < 0) {
+        this.saveError.set(
+          `Строка ${index + 1}: цена не может быть отрицательной.`,
+        );
+        return;
+      }
+
+      строки.push({
+        номенклатураId: productId,
+        количество: row.qty,
+        цена: row.price,
+      });
+    }
+
+    this.saving.set(true);
+
+    this.supplierService
+      .createReceipt(dealId, {
+        дата: this.date() || null,
+        комментарий: this.comment().trim() || null,
+        строки,
+      })
+      .pipe(
+        finalize(() => this.saving.set(false)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: () => {
+          this.toast.show('Приход сохранён.');
+          void this.router.navigate(['/suppliers', this.supplierId()]);
+        },
+        error: (error: unknown) => {
+          this.saveError.set(this.describeSaveError(error));
+        },
+      });
+  }
+
+  private describeSaveError(error: unknown): string {
+    if (
+      error instanceof HttpErrorResponse &&
+      typeof error.error?.error === 'string'
+    ) {
+      return error.error.error;
+    }
+
+    return 'Не удалось сохранить приход. Проверьте SkladApi.';
   }
 
   @HostListener('document:click', ['$event.target'])
