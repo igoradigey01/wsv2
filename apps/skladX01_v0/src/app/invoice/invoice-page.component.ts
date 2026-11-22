@@ -23,6 +23,7 @@ import type { IClient, IMark } from '../clients/client.models';
 import { QuickCreateItemComponent } from '../nomenclature/quick-create-item.component';
 import { NomenclatureService } from '../nomenclature/nomenclature.service';
 import type { INomenclatureQuick } from '../nomenclature/nomenclature.service';
+import { compressImage } from '../shared/image-compress';
 import { RecognitionService } from '../shared/recognition.service';
 import type { IRecognizedDocument } from '../shared/recognition.models';
 import { TabsComponent } from '../shared/tabs.component';
@@ -508,6 +509,13 @@ export class InvoicePageComponent implements OnInit {
     if (file) {
       this.imageFile.set(file);
       this.recognizeError.set(null);
+
+      void compressImage(file).then((compressed) => {
+        // Не перетираем, если пользователь уже выбрал другое фото.
+        if (compressed !== file && this.imageFile() === file) {
+          this.imageFile.set(compressed);
+        }
+      });
     }
   }
 

@@ -20,6 +20,7 @@ import { map } from 'rxjs/operators';
 import { QuickCreateItemComponent } from '../nomenclature/quick-create-item.component';
 import { NomenclatureService } from '../nomenclature/nomenclature.service';
 import type { ICandidate, INomenclatureQuick } from '../nomenclature/nomenclature.service';
+import { compressImage } from '../shared/image-compress';
 import { RecognitionService } from '../shared/recognition.service';
 import type { IRecognizedDocument } from '../shared/recognition.models';
 import { SpeechService } from '../shared/speech.service';
@@ -197,6 +198,13 @@ export class ReceiptPageComponent implements OnInit {
     if (file) {
       this.imageFile.set(file);
       this.recognizeError.set(null);
+
+      void compressImage(file).then((compressed) => {
+        // Не перетираем, если пользователь уже выбрал другое фото.
+        if (compressed !== file && this.imageFile() === file) {
+          this.imageFile.set(compressed);
+        }
+      });
     }
   }
 
