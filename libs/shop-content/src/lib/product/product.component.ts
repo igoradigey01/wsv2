@@ -1,13 +1,11 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
-import { ActivatedRoute , Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { ShopApiService } from '../_shared/services/shop-api.service';
+import { StateView, Product } from '@wsv2/app-common';
+import { CartService } from '@wsv2/shop-cart';
 
-import { ProductService } from '../_shared/services/product.service';
-import { StateView, Product, } from '@wsv2/app-common';
-import {CartService } from '@wsv2/shop-cart'
- 
 import { KatalogImgComponent, CardProductComponent } from '@wsv2/ui';
-
 
 @Component({
     selector: 'wsv2-product',
@@ -18,27 +16,26 @@ import { KatalogImgComponent, CardProductComponent } from '@wsv2/ui';
 })
 export class ProductComponent {
 
-  products = this._repositoryProduct.Products;
+  products = this._shopApi.Products;
 
   itemProduct =
     signal<Product>({
       id: 0,
       guid: undefined,
-     img_guids: undefined,
+      img_guids: undefined,
       hidden: false,
       ownerId: '',
       product_typeId: 0,
       title: '',
       subCatalogId: 0,
-      subCatalogName:undefined,
+      subCatalogName: undefined,
 
       colorId: 0,
-      colorName:undefined,
+      colorName: undefined,
       brandId: 0,
-      brandName:undefined,
+      brandName: undefined,
       articleId: 0,
-      articleName:undefined,
-      
+      articleName: undefined,
 
       position: 0,
       inStock: false,
@@ -47,10 +44,10 @@ export class ProductComponent {
       markup: 0,
       cost_total: undefined,
       description: undefined,
-      
-      descriptionSeo:undefined,
-      imageWebp:undefined,
-      wwwroot:undefined,
+
+      descriptionSeo: undefined,
+      imageWebp: undefined,
+      wwwroot: undefined,
       //wwwrootOK:undefined
     });
 
@@ -58,99 +55,72 @@ export class ProductComponent {
   subkatalog_name = '';
   pageTitle = this.subkatalog_name;
   flagViewState: StateView = StateView.default;
-  serverUrl = this._repositoryProduct.serverUrl;
+  serverUrl = this._shopApi.ShopUri;
   private _subKatalogProductsUrl: string;
-  private _subKatalogProductItemUrl='';
-
-
+  private _subKatalogProductItemUrl = '';
 
   public get UrlProduct(): string {
-
-    return  this._subKatalogProductItemUrl;
+    return this._subKatalogProductItemUrl;
   }
 
   public get UrlKatalogProducts(): string {
-    // throw console.error("not implement UrlKatalog()")
     return this._subKatalogProductsUrl;
-
   }
 
   constructor(
-    private _repositoryProduct: ProductService,
-    private _repositoryCart:CartService,
+    private _shopApi: ShopApiService,
+    private _repositoryCart: CartService,
     private routeActvate: ActivatedRoute,
     private router: Router
 
   ) {
-    // debugger
     this._subKatalogProductsUrl = window.location.href;
 
-    const idProduct  = this.routeActvate.snapshot.queryParams['productId'];
+    const idProduct = this.routeActvate.snapshot.queryParams['productId'];
     this.ShowChangeProduct(idProduct);
-    routeActvate.params.subscribe((params) => (this.idSubKatatlog = params['id']));
 
-    if (this.idSubKatatlog) {
-     // _repositoryProduct.PoductsSet(this.idSubKatatlog)//17.03.25
-    }
-   
+    routeActvate.params.subscribe((params) => {
+      this.idSubKatatlog = params['id'];
 
-   
-
+      if (this.idSubKatatlog) {
+        this._shopApi.LoadProducts(+this.idSubKatatlog);
+      }
+    });
   }
 
-
   public changeProduct(item: Product): void {
-    // debugger
     this.itemProduct.set(item);
-    this._subKatalogProductItemUrl=this._subKatalogProductsUrl  + "?productId=" + this.itemProduct().id;
+    this._subKatalogProductItemUrl = this._subKatalogProductsUrl + "?productId=" + this.itemProduct().id;
 
     this.flagViewState = StateView.itemView;
-
-
   }
 
   public changeViewState(viewState: number) {
-    // debugger
     this.flagViewState = viewState;
-
-
   }
+
   public _onQRCode() {
     throw console.error("not implement _onQRCode click");
-
   }
 
   public addCart(item: Product) {
-    //throw console.error("not implement addCart click");
     this._repositoryCart.addToCart(item);
-
   }
-
-
 
   public onBackInNavBar() {
-    //debugger
-    //this.router.navigate(['/index/katalogs',this.products()[0].katalogId]);
-
-    const url=this._subKatalogProductsUrl;
-   const arr=url.split("/",6).slice(-3)
-   const new_url= arr.join('/')
-  // console.log(JSON.stringify(arr))
-   this.router.navigate([new_url]);
-
+    const url = this._subKatalogProductsUrl;
+    const arr = url.split("/", 6).slice(-3)
+    const new_url = arr.join('/')
+    this.router.navigate([new_url]);
   }
 
-  private ShowChangeProduct(idProduct:string){
-   // debugger
-    if(idProduct){
-      this._subKatalogProductItemUrl='';
-  //  this._repositoryProduct.PoductsItemSet(idProduct);//17.03.25
-   // this.itemProduct=this._repositoryProduct.ProductItem; //17.03.25
-   this._subKatalogProductItemUrl=this._subKatalogProductsUrl;
+  private ShowChangeProduct(idProduct: string) {
+    if (idProduct) {
+      this._subKatalogProductItemUrl = '';
+      this._subKatalogProductItemUrl = this._subKatalogProductsUrl;
 
-      this.flagViewState=StateView.itemView;
+      this.flagViewState = StateView.itemView;
     }
-    
   }
 
 }
