@@ -40,4 +40,8 @@ export interface Product {
 //  wwwrootOK:boolean| undefined;                    // onChangeWebp?:boolean; // change  img on server (wwwroot/image)
   wwwroot: string | undefined;  //url for  server-folder wwwroot/
 
+  // Витрина на SkladDB: абсолютные ссылки на фото (ShopApi /api/shop/...).
+  photoUrl?: string;
+  photoUrls?: string[];
+
 }

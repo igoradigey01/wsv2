@@ -1,6 +1,7 @@
 {
     "clientUri":"https://xl-01.ru/",
     "serverUri":"https://s.x-01.ru/",
+    "shopUri":"http://localhost:5250/",
     "serverAuthUri":"https://s.x-01.ru/",
     "clientId":"x-01",
      "postavchikIds":["x-01","xf-01","xl-01","sh.x-01"],
