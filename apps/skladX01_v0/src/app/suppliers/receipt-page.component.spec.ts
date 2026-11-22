@@ -12,6 +12,7 @@ import {
 } from '@angular/router';
 
 import { ReceiptPageComponent } from './receipt-page.component';
+import { ToastService } from '../shared/toast.service';
 
 const SUPPLIER = {
   id: 1,
@@ -581,6 +582,63 @@ describe('ReceiptPageComponent', () => {
     expect(cancel).toBeTruthy();
     cancel?.click();
 
+    expect(navigate).toHaveBeenCalledWith(['/suppliers', 1]);
+  });
+
+  it('не сохраняет приход без сделки', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.save();
+
+    expect(component.saveError()).toContain('Сделка не выбрана');
+    httpMock.expectNone('/api/suppliers/deals/d-1/receipts');
+  });
+
+  it('предупреждает, если нет позиций', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    component.dealId.set('d-1');
+    component.save();
+
+    expect(component.saveError()).toBe('Добавьте хотя бы одну позицию.');
+  });
+
+  it('отправляет приход и возвращает к поставщику', () => {
+    flushHeader();
+
+    const component = fixture.componentInstance;
+    const toast = TestBed.inject(ToastService);
+    const navigate = jest.spyOn(router, 'navigate').mockResolvedValue(true);
+    const show = jest.spyOn(toast, 'show');
+
+    component.dealId.set('d-1');
+    component.rows.update((rows) =>
+      rows.map((row) => ({ ...row, productId: 49, qty: 2, price: 500 })),
+    );
+
+    component.save();
+
+    const request = httpMock.expectOne('/api/suppliers/deals/d-1/receipts');
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual({
+      дата: component.date(),
+      комментарий: null,
+      строки: [{ номенклатураId: 49, количество: 2, цена: 500 }],
+    });
+
+    request.flush({
+      id: 'r1',
+      номер: 'П-ABC123',
+      дата: '2026-11-22T00:00:00',
+      сумма: 1000,
+      сделкаId: 'd-1',
+      auditId: 0,
+      изменялась: false,
+    });
+
+    expect(show).toHaveBeenCalledWith('Приход сохранён.');
     expect(navigate).toHaveBeenCalledWith(['/suppliers', 1]);
   });
 });

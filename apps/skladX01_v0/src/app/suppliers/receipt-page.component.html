@@ -359,6 +359,10 @@
         </span>
       </p>
 
+      @if (saveError()) {
+        <p class="state state--error">{{ saveError() }}</p>
+      }
+
       <div class="actions">
         <button
           type="button"
@@ -370,16 +374,12 @@
         <button
           type="button"
           class="action"
-          disabled
-          title="Сохранение появится после API записи прихода"
+          [disabled]="saving()"
+          (click)="save()"
         >
-          Сохранить
+          {{ saving() ? 'Сохранение…' : 'Сохранить' }}
         </button>
       </div>
-      <p class="hint">
-        Сохранение пока недоступно: в SkladApi нет POST прихода в dbo.Приход,
-        данные не уходят на сервер.
-      </p>
     </section>
     </ng-template>
 
