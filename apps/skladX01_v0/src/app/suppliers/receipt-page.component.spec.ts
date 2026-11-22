@@ -8,6 +8,7 @@ import {
   ActivatedRoute,
   convertToParamMap,
   provideRouter,
+  Router,
 } from '@angular/router';
 
 import { ReceiptPageComponent } from './receipt-page.component';
@@ -27,6 +28,7 @@ const WAREHOUSES = [
 describe('ReceiptPageComponent', () => {
   let fixture: ComponentFixture<ReceiptPageComponent>;
   let httpMock: HttpTestingController;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -49,6 +51,7 @@ describe('ReceiptPageComponent', () => {
 
     fixture = TestBed.createComponent(ReceiptPageComponent);
     httpMock = TestBed.inject(HttpTestingController);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -563,5 +566,21 @@ describe('ReceiptPageComponent', () => {
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('app-quick-create-item')).toBeTruthy();
+  });
+
+  it('возвращает к поставщику по кнопке «Отмена»', () => {
+    flushHeader();
+
+    const navigate = jest.spyOn(router, 'navigate').mockResolvedValue(true);
+    const cancel = Array.from(
+      fixture.nativeElement.querySelectorAll(
+        'button.action',
+      ) as NodeListOf<HTMLButtonElement>,
+    ).find((button) => button.textContent?.trim() === 'Отмена');
+
+    expect(cancel).toBeTruthy();
+    cancel?.click();
+
+    expect(navigate).toHaveBeenCalledWith(['/suppliers', 1]);
   });
 });

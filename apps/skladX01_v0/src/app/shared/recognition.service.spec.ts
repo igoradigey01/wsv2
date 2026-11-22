@@ -4,9 +4,12 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
+import { ParsingHubService } from './parsing-hub.service';
 import { mapRecognizedDocument } from './recognition.models';
 import { RecognitionService } from './recognition.service';
+import { RECOGNITION_MODE } from './recognition-mode';
 
 describe('mapRecognizedDocument', () => {
   it('переводит snake_case ответа в camelCase', () => {
@@ -125,3 +128,74 @@ describe('RecognitionService', () => {
     });
   });
 });
+
+describe('RecognitionService (async mode)', () => {
+  let service: RecognitionService;
+  let httpMock: HttpTestingController;
+
+  beforeEach(() => {
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: RECOGNITION_MODE, useValue: 'async' },
+        {
+          provide: ParsingHubService,
+          useValue: {
+            connectionId: () => Promise.resolve('conn-1'),
+            result: () =>
+              of({
+                jobId: 'job-1',
+                document: {
+                  document_number: '1042',
+                  document_date: null,
+                  supplier_name: null,
+                  general_comment: null,
+                  items: [],
+                },
+                error: null,
+              }),
+          },
+        },
+      ],
+    });
+
+    service = TestBed.inject(RecognitionService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => httpMock.verify());
+
+  it('в async-режиме ставит фото в очередь и ждёт результат по SignalR', async () => {
+    const image = new File([new Uint8Array([0xff, 0xd8, 0xff])], 'invoice.jpg', {
+      type: 'image/jpeg',
+    });
+    let number: string | null = null;
+
+    service.parse(image).subscribe((document) => {
+      number = document.number;
+    });
+
+    await settle();
+
+    const request = httpMock.expectOne('/api/recognition/parse-async');
+    expect(request.request.method).toBe('POST');
+
+    const body = request.request.body as FormData;
+    expect(body.get('image')).toBeTruthy();
+    expect(body.get('connectionId')).toBe('conn-1');
+
+    request.flush({ jobId: 'job-1' });
+
+    await settle();
+
+    expect(number).toBe('1042');
+  });
+});
+
+async function settle(): Promise<void> {
+  for (let i = 0; i < 5; i += 1) {
+    await Promise.resolve();
+  }
+}

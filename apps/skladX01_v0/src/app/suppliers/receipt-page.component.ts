@@ -13,13 +13,14 @@ import {
   viewChild,
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { catchError, forkJoin, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { QuickCreateItemComponent } from '../nomenclature/quick-create-item.component';
 import { NomenclatureService } from '../nomenclature/nomenclature.service';
 import type { ICandidate, INomenclatureQuick } from '../nomenclature/nomenclature.service';
+import { compressImage } from '../shared/image-compress';
 import { RecognitionService } from '../shared/recognition.service';
 import type { IRecognizedDocument } from '../shared/recognition.models';
 import { SpeechService } from '../shared/speech.service';
@@ -61,6 +62,7 @@ const QUICK_SEARCH_DEBOUNCE_MS = 200;
 })
 export class ReceiptPageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly supplierService = inject(SupplierService);
   private readonly nomenclatureService = inject(NomenclatureService);
   private readonly recognition = inject(RecognitionService);
@@ -150,6 +152,15 @@ export class ReceiptPageComponent implements OnInit {
       });
   }
 
+  /** Возврат в карточку поставщика без сохранения. */
+  cancel(): void {
+    const supplierId = this.supplierId();
+
+    if (supplierId !== null) {
+      void this.router.navigate(['/suppliers', supplierId]);
+    }
+  }
+
   @HostListener('document:click', ['$event.target'])
   closeListsOnOutsideClick(target: EventTarget | null): void {
     const element = target as HTMLElement | null;
@@ -187,6 +198,13 @@ export class ReceiptPageComponent implements OnInit {
     if (file) {
       this.imageFile.set(file);
       this.recognizeError.set(null);
+
+      void compressImage(file).then((compressed) => {
+        // Не перетираем, если пользователь уже выбрал другое фото.
+        if (compressed !== file && this.imageFile() === file) {
+          this.imageFile.set(compressed);
+        }
+      });
     }
   }
 

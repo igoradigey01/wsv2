@@ -362,6 +362,13 @@
       <div class="actions">
         <button
           type="button"
+          class="action action--ghost"
+          (click)="cancel()"
+        >
+          Отмена
+        </button>
+        <button
+          type="button"
           class="action"
           disabled
           title="Сохранение появится после API записи прихода"

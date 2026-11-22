@@ -135,6 +135,15 @@ export class PaymentPageComponent implements OnInit {
     this.comment.set((event.target as HTMLInputElement).value);
   }
 
+  /** Возврат в карточку клиента без сохранения. */
+  cancel(): void {
+    const clientId = this.clientId();
+
+    if (clientId !== null) {
+      void this.router.navigate(['/clients', clientId]);
+    }
+  }
+
   /** Подставляет весь долг сделки в сумму платежа. */
   fillDebt(): void {
     if (this.debt() > 0) {
