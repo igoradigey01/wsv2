@@ -17,6 +17,7 @@
     "@angular/platform-browser-dynamic": "~22.2.0",
     "@angular/router": "~22.2.0",
     "@datorama/akita": "^8.0.1",
+    "@microsoft/signalr": "^10.0.11",
     "@nx/angular": "24.0.2",
     "angular8-yandex-maps": "^22.0.0",
     "i": "^0.3.7",
