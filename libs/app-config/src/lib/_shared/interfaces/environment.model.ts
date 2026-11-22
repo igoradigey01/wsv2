@@ -9,6 +9,7 @@ export interface IEnvironment {
   clientUri: string; //  Host client
   serverUri: string; // Host api               //
   serverAuthUri: string; // Host identity server          //
+  shopUri?: string; // Host api витрины (новый ShopApi на SkladDB)
   clientId: string; //xf-01.ru='1'
   postavchikIds: string[]; //xf-01,xl-01,shagen01
   vkId:string;

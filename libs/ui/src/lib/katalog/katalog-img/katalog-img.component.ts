@@ -37,7 +37,9 @@ export class KatalogImgComponent {
 
   public ImgObj(item: Product): string {
 
-    return `${this.serverUrl}images/S${item.guid}.webp`
+    if (item.photoUrl) return item.photoUrl;
+    if (item.guid) return `${this.serverUrl}images/S${item.guid}.webp`;
+    return '';
   }
 
 

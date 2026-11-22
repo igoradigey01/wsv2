@@ -9,6 +9,7 @@ export class EnvironmentService implements IEnvironment {
   
     clientUri='http://localhost:4200/'; //  Host client
     serverUri = 'http://localhost:8080/'; // Host api               //
+    shopUri = 'http://localhost:5250/'; // Host api витрины (ShopApi на SkladDB)
     serverAuthUri='http://localhost:8080/'; // Host identity server          //
     clientId=''; // spaId ='xl-01';
     postavchikIds: string[]=['xl-01']; //xf-01,xl-01,shagen01

@@ -96,13 +96,18 @@ export class CardProductComponent  {
   public get ImgUrls(): ISliderImage[] {
 
     const img_urls: ISliderImage[] = [];
-  // debugger
+    const photos = this.productItem().photoUrls;
+    if (photos && photos.length > 0) {
+      photos.forEach((url) => img_urls.push({ url, title: '' }));
+      return img_urls;
+    }
+
     const guis = this.productItem().img_guids;
     if (guis) {
       guis.map(d => { img_urls.push({ url: `${this.serverUrl}images/L${d}.webp`, title: '' }) });
 
     }
-       
+
     return img_urls;
   }
 

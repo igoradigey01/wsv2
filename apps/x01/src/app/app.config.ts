@@ -126,6 +126,7 @@ export const appConfig: ApplicationConfig = {
                   environmentService.postavchikIds = data.postavchikIds;
                   environmentService.serverAuthUri = data.serverAuthUri;
                   environmentService.serverUri = data.serverUri;
+                  environmentService.shopUri = data.shopUri ?? environmentService.shopUri;
                   environmentService.version = data.version;
                   environmentService.vkId = data.vkId;
                   //console.log("--promise is ok--");
