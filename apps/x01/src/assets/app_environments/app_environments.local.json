@@ -1,8 +1,8 @@
 {
     "clientUri":"http://localhost:4200/",
-    "serverUri":"http://localhost:5010/",
+    "serverUri":"http://localhost:5250/",
     "shopUri":"http://localhost:5250/",
-    "serverAuthUri":"http://localhost:5010/",
+    "serverAuthUri":"http://localhost:5250/",
     "clientId":"x-01",
     "postavchikIds":["x-01","xf-01","xl-01","sh.x-01"],
     "vkId":"51431968",
