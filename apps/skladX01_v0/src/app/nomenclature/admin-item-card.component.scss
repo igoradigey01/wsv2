@@ -1,0 +1,114 @@
+.admin-card {
+  padding: 1rem 1.25rem;
+}
+
+.admin-card__head h1 {
+  margin: 0 0 1rem;
+  font-size: 1.4rem;
+}
+
+.admin-card__error {
+  padding: .5rem .75rem;
+  background: #fde8e8;
+  color: #9b1c1c;
+  border-radius: .35rem;
+}
+
+.admin-card__notice {
+  padding: .5rem .75rem;
+  background: #e6f4ea;
+  color: #1e6b34;
+  border-radius: .35rem;
+}
+
+.admin-card__state {
+  color: #667;
+}
+
+.admin-card__filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: .6rem;
+  margin-bottom: 1rem;
+}
+
+.admin-card__filters label {
+  display: flex;
+  flex-direction: column;
+  font-size: .85rem;
+  gap: .15rem;
+}
+
+.admin-card__filters > input {
+  min-width: 18rem;
+}
+
+.admin-card__grid {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-card__grid th,
+.admin-card__grid td {
+  padding: .4rem .55rem;
+  border-bottom: 1px solid #e4e7eb;
+  text-align: left;
+}
+
+.admin-card__grid th {
+  background: #f5f7fa;
+  font-weight: 600;
+}
+
+.admin-card__grid tr.is-selected {
+  background: #eef4fd;
+}
+
+.admin-card__empty {
+  color: #889;
+  font-style: italic;
+}
+
+.admin-card__grid .num,
+.num {
+  text-align: right;
+}
+
+.admin-card__edit {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px solid #d5dae1;
+  border-radius: .5rem;
+  background: #fafbfc;
+}
+
+.admin-card__edit h2 {
+  margin: 0 0 .75rem;
+  font-size: 1.1rem;
+}
+
+.admin-card__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: .75rem;
+}
+
+.admin-card__fields label {
+  display: flex;
+  flex-direction: column;
+  font-size: .85rem;
+  gap: .2rem;
+}
+
+.admin-card__fields input,
+.admin-card__fields select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.admin-card__actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: .5rem;
+}

@@ -71,5 +71,42 @@ export const appRoutes: Route[] = [
         (m) => m.ClientDetailComponent,
       ),
   },
+  {
+    path: 'admin',
+    pathMatch: 'full',
+    redirectTo: 'admin/card',
+  },
+  {
+    path: 'admin/card',
+    loadComponent: () =>
+      import('./nomenclature/admin-item-card.component').then(
+        (m) => m.AdminItemCardComponent,
+      ),
+    data: { title: 'Карточка товара' },
+  },
+  {
+    path: 'admin/types',
+    loadComponent: () =>
+      import('./nomenclature/reference-admin.component').then(
+        (m) => m.ReferenceAdminComponent,
+      ),
+    data: { title: 'Тип номенклатуры', kind: 'types' },
+  },
+  {
+    path: 'admin/groups',
+    loadComponent: () =>
+      import('./nomenclature/reference-admin.component').then(
+        (m) => m.ReferenceAdminComponent,
+      ),
+    data: { title: 'Группа номенклатуры', kind: 'groups' },
+  },
+  {
+    path: 'admin/kinds',
+    loadComponent: () =>
+      import('./nomenclature/reference-admin.component').then(
+        (m) => m.ReferenceAdminComponent,
+      ),
+    data: { title: 'Вид номенклатуры', kind: 'kinds' },
+  },
   { path: '**', redirectTo: 'clients' },
 ];

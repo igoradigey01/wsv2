@@ -2,7 +2,15 @@
   <a routerLink="/clients">Клиенты</a>
   <a routerLink="/suppliers">Поставщики</a>
   <a routerLink="/nomenclature/quick-add">Быстрый ввод</a>
-  <a routerLink="/nomenclature/card">Карточка товара</a>
+  <details class="nav__menu">
+    <summary>Админ</summary>
+    <div class="nav__submenu">
+      <a routerLink="/admin/card">Карточка товара</a>
+      <a routerLink="/admin/types">Тип</a>
+      <a routerLink="/admin/groups">Группа</a>
+      <a routerLink="/admin/kinds">Вид номенклатуры</a>
+    </div>
+  </details>
 </nav>
 <router-outlet />
 <app-toast />

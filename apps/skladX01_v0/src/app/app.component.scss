@@ -15,3 +15,51 @@
     }
   }
 }
+
+.nav__menu {
+  position: relative;
+
+  summary {
+    cursor: pointer;
+    color: var(--c-muted-strong);
+    list-style: none;
+
+    &:hover {
+      color: var(--c-primary);
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  &[open] summary {
+    color: var(--c-primary);
+  }
+}
+
+.nav__submenu {
+  position: absolute;
+  top: 1.6rem;
+  left: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 12rem;
+  padding: 0.5rem 0.75rem;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: 0.4rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+
+  a {
+    color: var(--c-muted-strong);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--c-primary);
+    }
+  }
+}
+
