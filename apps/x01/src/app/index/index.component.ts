@@ -6,7 +6,7 @@ import { AppLayoutModule } from '@wsv2/app-layout'
 import { MaterialModule } from '../material.module'
 import { RouterModule } from "@angular/router";
 import { CompanyInformationService, MenyItemsService, IMenyItem } from '@wsv2/app-config'
-import { KatalogComponent, AppHeaderLayoutComponent } from '@wsv2/ui'
+import { AppHeaderLayoutComponent } from '@wsv2/ui'
 import { UserManagerService } from '@wsv2/account-service';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { OptManagerService } from '@wsv2/shop-opt';
@@ -24,8 +24,7 @@ import { CartService } from '@wsv2/shop-cart';
         AppHeaderLayoutComponent,
         AppLayoutModule,
         MaterialModule,
-        RouterModule,
-        KatalogComponent
+        RouterModule
     ],
     templateUrl: './index.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
