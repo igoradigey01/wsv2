@@ -1,0 +1,94 @@
+<section class="ref-admin">
+  <header class="ref-admin__head">
+    <h1>
+      {{ title() }}
+      <app-help-icon
+        [title]="title()"
+        [rows]="helpRows()"
+        [text]="helpText()"
+      ></app-help-icon>
+    </h1>
+    <a class="ref-admin__link" routerLink="/admin/card">← Карточка товара</a>
+  </header>
+
+  @if (error()) {
+    <p class="ref-admin__error">{{ error() }}</p>
+  }
+
+  @if (loading()) {
+    <p class="ref-admin__state">Загрузка…</p>
+  }
+
+  <table class="ref-admin__grid">
+    <thead>
+      <tr>
+        <th>Название</th>
+        @if (hasDescription()) {
+          <th>Описание (справка)</th>
+        }
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of items(); track item.id) {
+        <tr>
+          @if (editingId() === item.id) {
+            <td>
+              <input
+                type="text"
+                [value]="editName()"
+                (input)="onEditName($event)"
+              />
+            </td>
+            @if (hasDescription()) {
+              <td>
+                <input
+                  type="text"
+                  [value]="editDescription()"
+                  (input)="onEditDescription($event)"
+                />
+              </td>
+            }
+            <td class="ref-admin__actions">
+              <button type="button" (click)="saveEdit()">Сохранить</button>
+              <button type="button" (click)="cancelEdit()">Отмена</button>
+            </td>
+          } @else {
+            <td>{{ item.name }}</td>
+            @if (hasDescription()) {
+              <td class="ref-admin__muted">{{ item.description }}</td>
+            }
+            <td class="ref-admin__actions">
+              <button type="button" (click)="startEdit(item)">✎</button>
+              <button type="button" (click)="remove(item)">✕</button>
+            </td>
+          }
+        </tr>
+      } @empty {
+        <tr>
+          <td [attr.colspan]="hasDescription() ? 3 : 2" class="ref-admin__empty">
+            Пусто.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="ref-admin__add">
+    <input
+      type="text"
+      placeholder="Название"
+      [value]="newName()"
+      (input)="onNewName($event)"
+    />
+    @if (hasDescription()) {
+      <input
+        type="text"
+        placeholder="Описание (справка)"
+        [value]="newDescription()"
+        (input)="onNewDescription($event)"
+      />
+    }
+    <button type="button" (click)="add()">+ Добавить</button>
+  </div>
+</section>

@@ -1,0 +1,188 @@
+<section class="admin-card">
+  <header class="admin-card__head">
+    <h1>Карточка товара</h1>
+  </header>
+
+  @if (error()) {
+    <p class="admin-card__error">{{ error() }}</p>
+  }
+  @if (notice()) {
+    <p class="admin-card__notice">{{ notice() }}</p>
+  }
+
+  <div class="admin-card__filters">
+    <input
+      type="text"
+      placeholder="Поиск: название / код / артикул"
+      [value]="q()"
+      (input)="onQ($event)"
+      (keyup.enter)="search()"
+    />
+
+    <label>
+      Тип
+      <app-help-icon title="Тип" [rows]="typeHelpRows()"></app-help-icon>
+      <select [value]="typeId() ?? ''" (change)="onFilter('type', $event)">
+        <option value="">— все —</option>
+        @for (type of refs()?.types ?? []; track type.id) {
+          <option [value]="type.id">{{ type.name }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Группа
+      <app-help-icon title="Группа" [text]="groupHelp()"></app-help-icon>
+      <select [value]="groupId() ?? ''" (change)="onFilter('group', $event)">
+        <option value="">— все —</option>
+        @for (group of refs()?.groups ?? []; track group.id) {
+          <option [value]="group.id">{{ group.name }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Вид
+      <app-help-icon title="Вид номенклатуры" [text]="kindHelp()"></app-help-icon>
+      <select [value]="kindId() ?? ''" (change)="onFilter('kind', $event)">
+        <option value="">— все —</option>
+        @for (kind of refs()?.kinds ?? []; track kind.id) {
+          <option [value]="kind.id">{{ kind.name }}</option>
+        }
+      </select>
+    </label>
+
+    <button type="button" (click)="search()">Найти</button>
+    <button type="button" (click)="resetFilters()">Сброс</button>
+  </div>
+
+  @if (loading()) {
+    <p class="admin-card__state">Загрузка…</p>
+  }
+
+  <table class="admin-card__grid">
+    <thead>
+      <tr>
+        <th>Код</th>
+        <th>Название</th>
+        <th>Тип</th>
+        <th>Группа</th>
+        <th>Вид</th>
+        <th class="num">Цена прод.</th>
+        <th>Дата</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of items(); track item.id) {
+        <tr [class.is-selected]="selected()?.id === item.id">
+          <td class="mono">{{ item.code }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.type }}</td>
+          <td>{{ item.group }}</td>
+          <td>{{ item.kind }}</td>
+          <td class="num">{{ item.salePrice ?? '—' }}</td>
+          <td>{{ item.createdAt | date: 'dd.MM.yyyy' }}</td>
+          <td class="num">
+            <button type="button" (click)="select(item)">Изменить</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="8" class="admin-card__empty">Ничего не найдено.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  @if (selected(); as item) {
+    <div class="admin-card__edit">
+      <h2>Редактирование: {{ item.code }} — {{ item.name }}</h2>
+
+      <div class="admin-card__fields">
+        <label>
+          Название
+          <input
+            type="text"
+            [value]="editName()"
+            (input)="onEditText('name', $event)"
+          />
+        </label>
+
+        <label>
+          Артикул
+          <input
+            type="text"
+            [value]="editArticle()"
+            (input)="onEditText('article', $event)"
+          />
+        </label>
+
+        <label>
+          Тип
+          <select
+            [value]="editTypeId() ?? ''"
+            (change)="onEditSelect('type', $event)"
+          >
+            @for (type of refs()?.types ?? []; track type.id) {
+              <option [value]="type.id">{{ type.name }}</option>
+            }
+          </select>
+        </label>
+
+        <label>
+          Группа
+          <select
+            [value]="editGroupId() ?? ''"
+            (change)="onEditSelect('group', $event)"
+          >
+            <option value="">— без группы —</option>
+            @for (group of refs()?.groups ?? []; track group.id) {
+              <option [value]="group.id">{{ group.name }}</option>
+            }
+          </select>
+        </label>
+
+        <label>
+          Вид
+          <select
+            [value]="editKindId() ?? ''"
+            (change)="onEditSelect('kind', $event)"
+          >
+            <option value="">— без вида —</option>
+            @for (kind of refs()?.kinds ?? []; track kind.id) {
+              <option [value]="kind.id">{{ kind.name }}</option>
+            }
+          </select>
+        </label>
+
+        <label>
+          Цена закупочная
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            [value]="editPurchase() ?? ''"
+            (input)="onEditNumber('purchase', $event)"
+          />
+        </label>
+
+        <label>
+          Цена продажная
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            [value]="editSale() ?? ''"
+            (input)="onEditNumber('sale', $event)"
+          />
+        </label>
+      </div>
+
+      <div class="admin-card__actions">
+        <button type="button" (click)="save()">Сохранить</button>
+        <button type="button" (click)="close()">Отмена</button>
+      </div>
+    </div>
+  }
+</section>
