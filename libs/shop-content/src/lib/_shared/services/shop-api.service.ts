@@ -27,9 +27,7 @@ export interface ТоварВитриныApi {
   артикул?: string;
   описание?: string;
   цена?: number;
-  категорияId?: number;
   группаId?: number;
-  категория?: string;
   группа?: string;
   едИзм?: string;
   seoОписание?: string;
