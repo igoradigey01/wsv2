@@ -21,7 +21,7 @@ import { resolveUnitId } from './unit-matcher';
 const EMPTY_REFERENCES: INomenclatureReferences = {
   groups: [],
   kinds: [],
-  categories: [],
+  types: [],
   units: [],
 };
 
@@ -54,7 +54,6 @@ export class QuickCreateItemComponent implements OnInit {
   readonly name = signal('');
   readonly shortName = signal('');
   readonly groupId = signal<number | null>(null);
-  readonly categoryId = signal<number | null>(null);
   readonly typeId = signal(1);
   readonly kindId = signal<number | null>(null);
   readonly unitId = signal(0);
@@ -117,7 +116,7 @@ export class QuickCreateItemComponent implements OnInit {
   }
 
   setSelect(
-    field: 'groupId' | 'categoryId' | 'typeId' | 'unitId',
+    field: 'groupId' | 'typeId' | 'unitId',
     event: Event,
   ): void {
     const raw = (event.target as HTMLSelectElement).value;
@@ -175,7 +174,6 @@ export class QuickCreateItemComponent implements OnInit {
         name: this.name().trim(),
         shortName: this.shortName().trim(),
         groupId: this.groupId(),
-        categoryId: this.categoryId(),
         typeId: this.typeId(),
         kindId: this.kindId(),
         unitId: this.unitId(),
@@ -250,7 +248,7 @@ export class QuickCreateItemComponent implements OnInit {
   private setSignal(
     field: 'code' | 'article' | 'name' | 'shortName'
       | 'purchasePrice' | 'salePrice'
-      | 'groupId' | 'categoryId' | 'typeId' | 'unitId',
+      | 'groupId' | 'typeId' | 'unitId',
     value: string | number | null,
   ): void {
     switch (field) {
@@ -274,9 +272,6 @@ export class QuickCreateItemComponent implements OnInit {
         break;
       case 'groupId':
         this.groupId.set(value as number | null);
-        break;
-      case 'categoryId':
-        this.categoryId.set(value as number | null);
         break;
       case 'typeId':
         this.typeId.set(Number(value ?? 1));

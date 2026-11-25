@@ -24,7 +24,7 @@ export interface IReferenceApi {
 export interface IReferencesApi {
   группы: IReferenceApi[];
   виды: IReferenceApi[];
-  категории: IReferenceApi[];
+  типы: IReferenceApi[];
   единицы: IReferenceApi[];
 }
 
@@ -57,7 +57,7 @@ export interface IReference {
 export interface INomenclatureReferences {
   groups: IReference[];
   kinds: IReference[];
-  categories: IReference[];
+  types: IReference[];
   units: IReference[];
 }
 
@@ -83,7 +83,6 @@ export interface ICreateNomenclatureRequest {
   name: string;
   shortName: string;
   groupId: number | null;
-  categoryId: number | null;
   typeId: number;
   kindId: number | null;
   unitId: number;
@@ -173,7 +172,7 @@ export class NomenclatureService {
         map((raw) => ({
           groups: raw.группы.map(mapReference),
           kinds: raw.виды.map(mapReference),
-          categories: raw.категории.map(mapReference),
+          types: raw.типы.map(mapReference),
           units: raw.единицы.map(mapReference),
         })),
       );
@@ -194,7 +193,6 @@ export class NomenclatureService {
       название: request.name,
       краткоеНазвание: request.shortName || null,
       группаId: request.groupId,
-      категорияId: request.categoryId,
       типId: request.typeId,
       видНоменклатурыId: request.kindId,
       базоваяЕдИзмId: request.unitId,

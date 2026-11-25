@@ -10,7 +10,7 @@ import { QuickCreateItemComponent } from './quick-create-item.component';
 const REFERENCES = {
   группы: [{ id: 4, название: 'Крепёж' }],
   виды: [{ id: 2, название: 'болт' }],
-  категории: [{ id: 1, название: 'Товар' }],
+  типы: [{ id: 1, название: 'Товар' }],
   единицы: [{ id: 3, название: 'шт' }],
 };
 

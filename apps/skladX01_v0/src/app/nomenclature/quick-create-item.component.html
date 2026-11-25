@@ -67,19 +67,6 @@
           </label>
 
           <label>
-            <span>Категория</span>
-            <select
-              [value]="categoryId() ?? ''"
-              (change)="setSelect('categoryId', $event)"
-            >
-              <option value="">— не выбрана —</option>
-              @for (category of references().categories; track category.id) {
-                <option [value]="category.id">{{ category.name }}</option>
-              }
-            </select>
-          </label>
-
-          <label>
             <span>Вид номенклатуры</span>
             <select [value]="kindId() ?? ''" (change)="setKind($event)">
               <option value="">— не выбран —</option>
@@ -92,9 +79,9 @@
           <label>
             <span>Тип</span>
             <select [value]="typeId()" (change)="setSelect('typeId', $event)">
-              <option [value]="1">Товар</option>
-              <option [value]="2">Услуга</option>
-              <option [value]="3">Материал</option>
+              @for (type of references().types; track type.id) {
+                <option [value]="type.id">{{ type.name }}</option>
+              }
             </select>
           </label>
 
