@@ -14,6 +14,10 @@ import { HelpIconComponent } from '../shared/help-icon.component';
 import type { IHelpRow } from '../shared/help-icon.component';
 import { NomenclatureAdminService } from './nomenclature-admin.service';
 import type { IAdminItem, IReferences } from './nomenclature-admin.service';
+import {
+  NOMENCLATURE_GROUP_HELP,
+  NOMENCLATURE_KIND_HELP,
+} from './nomenclature-reference-help';
 
 /** «Карточка товара» админки: список с фильтрами и мягким удалением. */
 @Component({
@@ -48,13 +52,9 @@ export class AdminItemCardComponent implements OnInit, OnDestroy {
     })),
   );
 
-  readonly groupHelp = computed(() =>
-    'Группа — иерархия каталога (папки). Позиции раскладываются по группам товара.',
-  );
+  readonly groupHelpRows = NOMENCLATURE_GROUP_HELP;
 
-  readonly kindHelp = computed(() =>
-    'Вид номенклатуры — из чего сделано изделие (ДСП, ткань, фурнитура) и набор характеристик.',
-  );
+  readonly kindHelpRows = NOMENCLATURE_KIND_HELP;
 
   ngOnInit(): void {
     this.service.references().subscribe({

@@ -12,6 +12,10 @@ import { HelpIconComponent } from '../shared/help-icon.component';
 import type { IHelpRow } from '../shared/help-icon.component';
 import { NomenclatureAdminService } from './nomenclature-admin.service';
 import type { IType, ReferenceKind } from './nomenclature-admin.service';
+import {
+  NOMENCLATURE_GROUP_HELP,
+  NOMENCLATURE_KIND_HELP,
+} from './nomenclature-reference-help';
 
 /**
  * Экран справочника номенклатуры (Тип / Группа / Вид).
@@ -53,26 +57,20 @@ export class ReferenceAdminComponent implements OnInit {
 
   readonly hasDescription = computed(() => this.kind() !== 'groups');
 
-  readonly helpText = computed(() => {
-    switch (this.kind()) {
-      case 'groups':
-        return 'Группа — иерархия каталога (папки). Позиции раскладываются по группам; у группы может быть родительская.';
-      case 'kinds':
-        return 'Вид номенклатуры — из чего сделано изделие (ДСП, ткань, фурнитура) и какой набор характеристик к нему применяется.';
-      default:
-        return '';
-    }
-  });
+  readonly helpText = computed(() => '');
 
   readonly helpRows = computed<IHelpRow[]>(() => {
-    if (this.kind() !== 'types') {
-      return [];
+    switch (this.kind()) {
+      case 'kinds':
+        return NOMENCLATURE_KIND_HELP;
+      case 'groups':
+        return NOMENCLATURE_GROUP_HELP;
+      default:
+        return this.items().map((item) => ({
+          label: item.name,
+          description: item.description,
+        }));
     }
-
-    return this.items().map((item) => ({
-      label: item.name,
-      description: item.description,
-    }));
   });
 
   ngOnInit(): void {
