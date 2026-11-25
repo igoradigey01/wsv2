@@ -32,7 +32,7 @@
 
     <label>
       Группа
-      <app-help-icon title="Группа" [text]="groupHelp()"></app-help-icon>
+      <app-help-icon title="Группа" [rows]="groupHelpRows"></app-help-icon>
       <select [value]="groupId() ?? ''" (change)="onFilter('group', $event)">
         <option value="">— все —</option>
         @for (group of refs()?.groups ?? []; track group.id) {
@@ -43,7 +43,7 @@
 
     <label>
       Вид
-      <app-help-icon title="Вид номенклатуры" [text]="kindHelp()"></app-help-icon>
+      <app-help-icon title="Вид номенклатуры" [rows]="kindHelpRows"></app-help-icon>
       <select [value]="kindId() ?? ''" (change)="onFilter('kind', $event)">
         <option value="">— все —</option>
         @for (kind of refs()?.kinds ?? []; track kind.id) {
