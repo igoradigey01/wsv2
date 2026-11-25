@@ -6,6 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NomenclatureAdminService } from './nomenclature-admin.service';
 import type { IAdminItem } from './nomenclature-admin.service';
@@ -100,6 +101,7 @@ type TTabKey = 'general' | 'pricing' | 'variants';
 })
 export class ItemCardComponent implements OnInit {
   private readonly admin = inject(NomenclatureAdminService);
+  private readonly router = inject(Router);
 
   readonly groups = MOCK_GROUPS;
   readonly types = MOCK_TYPES;
@@ -124,6 +126,11 @@ export class ItemCardComponent implements OnInit {
       this.item.set(this.fromAdminItem(selected));
       this.notice.set(`Позиция: ${selected.code} — ${selected.name}`);
     }
+  }
+
+  /** Возврат к списку выбора позиции. */
+  goBack(): void {
+    this.router.navigate(['/admin/card']);
   }
 
   selectTab(tab: TTabKey): void {

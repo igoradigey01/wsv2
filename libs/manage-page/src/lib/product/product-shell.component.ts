@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
  
-import { KatalogComponent } from '@wsv2/ui';
+
 import { ProductItemComponent } from './product-item.component';
 
 import { ProductSidenavComponent } from './product-sidenav.component';
@@ -43,7 +43,7 @@ export interface EmitData {
     ProductItemComponent,
     ProductListComponent,
     ProductSidenavComponent,
-    KatalogComponent,
+    
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
