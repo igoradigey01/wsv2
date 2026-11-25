@@ -560,7 +560,7 @@ describe('ReceiptPageComponent', () => {
     httpMock.expectOne('/api/nomenclature/references').flush({
       группы: [],
       виды: [],
-      категории: [],
+      типы: [],
       единицы: [{ id: 3, название: 'шт' }],
     });
     httpMock.expectOne('/api/nomenclature/next-code').flush({ код: 'НМ-00042' });
