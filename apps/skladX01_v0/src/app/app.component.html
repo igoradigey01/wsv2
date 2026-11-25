@@ -2,13 +2,13 @@
   <a routerLink="/clients">Клиенты</a>
   <a routerLink="/suppliers">Поставщики</a>
   <a routerLink="/nomenclature/quick-add">Быстрый ввод</a>
-  <details class="nav__menu">
+  <details class="nav__menu" #adminMenu>
     <summary>Админ</summary>
     <div class="nav__submenu">
-      <a routerLink="/admin/card">Карточка товара</a>
-      <a routerLink="/admin/types">Тип</a>
-      <a routerLink="/admin/groups">Группа</a>
-      <a routerLink="/admin/kinds">Вид номенклатуры</a>
+      <a routerLink="/admin/card" (click)="adminMenu.open = false">Карточка товара</a>
+      <a routerLink="/admin/types" (click)="adminMenu.open = false">Тип</a>
+      <a routerLink="/admin/groups" (click)="adminMenu.open = false">Группа</a>
+      <a routerLink="/admin/kinds" (click)="adminMenu.open = false">Вид номенклатуры</a>
     </div>
   </details>
 </nav>

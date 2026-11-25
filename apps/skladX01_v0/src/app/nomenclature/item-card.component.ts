@@ -1,9 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  OnInit,
   computed,
+  inject,
   signal,
 } from '@angular/core';
+
+import { NomenclatureAdminService } from './nomenclature-admin.service';
+import type { IAdminItem } from './nomenclature-admin.service';
 
 export interface INomenclatureCharacteristicRow {
   id: number;
@@ -93,7 +98,9 @@ type TTabKey = 'general' | 'pricing' | 'variants';
   styleUrl: './item-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ItemCardComponent {
+export class ItemCardComponent implements OnInit {
+  private readonly admin = inject(NomenclatureAdminService);
+
   readonly groups = MOCK_GROUPS;
   readonly types = MOCK_TYPES;
   readonly units = MOCK_UNITS;
@@ -109,6 +116,15 @@ export class ItemCardComponent {
   private nextVariantId = 2;
 
   readonly hasName = computed(() => this.item().name.trim().length > 0);
+
+  ngOnInit(): void {
+    const selected = this.admin.selectedItem();
+
+    if (selected) {
+      this.item.set(this.fromAdminItem(selected));
+      this.notice.set(`Позиция: ${selected.code} — ${selected.name}`);
+    }
+  }
 
   selectTab(tab: TTabKey): void {
     this.activeTab.set(tab);
@@ -166,8 +182,21 @@ export class ItemCardComponent {
     );
   }
 
-  uploadPhoto(): void {
-    this.notice.set('Демо-режим: загрузка фото не реализована.');
+  onPhotoSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () =>
+      this.item.update((card) => ({ ...card, photoUrl: String(reader.result) }));
+    reader.readAsDataURL(file);
+  }
+
+  clearPhoto(): void {
+    this.item.update((card) => ({ ...card, photoUrl: '' }));
   }
 
   addVariant(): void {
@@ -194,6 +223,29 @@ export class ItemCardComponent {
 
   removeVariant(rowId: number): void {
     this.variants.update((rows) => rows.filter((row) => row.id !== rowId));
+  }
+
+  private fromAdminItem(item: IAdminItem): INomenclatureCard {
+    return {
+      ...MOCK_CARD,
+      code: item.code,
+      article: item.article,
+      name: item.name,
+      shortName: '',
+      groupId: item.groupId,
+      typeId: item.typeId,
+      unitId: null,
+      country: '',
+      photoUrl: '',
+      purchasePrice: item.purchasePrice ?? 0,
+      salePrice: item.salePrice ?? 0,
+      wholesalePrice: 0,
+      minStock: 0,
+      maxStock: 0,
+      shelfLifeDays: 0,
+      description: '',
+      active: true,
+    };
   }
 
   private setItem(field: keyof INomenclatureCard, value: unknown): void {
