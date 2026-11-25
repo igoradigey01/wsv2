@@ -20,6 +20,12 @@
   }
 }
 
+.item-card__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .item-card__actions {
   display: flex;
   gap: 0.375rem;

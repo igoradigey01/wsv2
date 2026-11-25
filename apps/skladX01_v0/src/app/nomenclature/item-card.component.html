@@ -1,6 +1,15 @@
 <section class="item-card">
   <div class="item-card__toolbar">
-    <h1>Карточка товара</h1>
+    <div class="item-card__heading">
+      <button
+        type="button"
+        class="item-card__button item-card__button--back"
+        (click)="goBack()"
+      >
+        ← Назад
+      </button>
+      <h1>Карточка товара</h1>
+    </div>
     <div class="item-card__actions">
       <button
         type="button"
