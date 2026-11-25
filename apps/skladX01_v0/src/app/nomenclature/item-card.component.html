@@ -154,7 +154,17 @@
                   <span>нет фото</span>
                 }
               </div>
-              <button type="button" (click)="uploadPhoto()">Загрузить</button>
+              <input
+                type="file"
+                accept="image/*"
+                (change)="onPhotoSelected($event)"
+                #photoInput
+                hidden
+              />
+              <button type="button" (click)="photoInput.click()">Загрузить</button>
+              @if (item().photoUrl) {
+                <button type="button" (click)="clearPhoto()">Убрать</button>
+              }
             </div>
           </div>
         </fieldset>

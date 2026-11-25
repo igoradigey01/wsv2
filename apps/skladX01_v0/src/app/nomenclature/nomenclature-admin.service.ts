@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { map } from 'rxjs/operators';
 import type { Observable } from 'rxjs';
 
@@ -42,6 +42,8 @@ export interface IAdminFilters {
   typeId?: number | null;
   groupId?: number | null;
   kindId?: number | null;
+  датаС?: string;
+  датаПо?: string;
   limit?: number;
 }
 
@@ -54,6 +56,7 @@ export interface IUpdateNomenclature {
   kindId?: number;
   purchasePrice?: number;
   salePrice?: number;
+  активен?: boolean;
 }
 
 export type ReferenceKind = 'types' | 'groups' | 'kinds';
@@ -100,6 +103,13 @@ function mapRef(raw: IReferenceApi): IReference {
 export class NomenclatureAdminService {
   private readonly http = inject(HttpClient);
 
+  /** Позиция, выбранная в списке админки и открываемая в карточке товара. */
+  readonly selectedItem = signal<IAdminItem | null>(null);
+
+  selectItem(item: IAdminItem | null): void {
+    this.selectedItem.set(item);
+  }
+
   references(): Observable<IReferences> {
     return this.http.get<IReferencesApi>('/api/nomenclature/references').pipe(
       map((raw) => ({
@@ -128,6 +138,12 @@ export class NomenclatureAdminService {
     }
     if (filters.kindId) {
       params = params.set('видId', filters.kindId);
+    }
+    if (filters.датаС) {
+      params = params.set('датаС', filters.датаС);
+    }
+    if (filters.датаПо) {
+      params = params.set('датаПо', filters.датаПо);
     }
     params = params.set('limit', filters.limit ?? 200);
 
@@ -164,9 +180,15 @@ export class NomenclatureAdminService {
       видНоменклатурыId: dto.kindId ?? null,
       ценаЗакупочная: dto.purchasePrice ?? null,
       ценаПродажная: dto.salePrice ?? null,
+      активен: dto.активен ?? null,
     };
 
     return this.http.patch<void>(`/api/nomenclature/${id}`, body);
+  }
+
+  /** Мягкое удаление: позиция остаётся в БД, но скрывается из выбора. */
+  deactivate(id: number): Observable<void> {
+    return this.http.patch<void>(`/api/nomenclature/${id}`, { активен: false });
   }
 
   list(kind: ReferenceKind): Observable<IType[]> {
